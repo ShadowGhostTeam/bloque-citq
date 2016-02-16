@@ -1,0 +1,47 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class preparacionPlantula extends Model
+{
+    //
+
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = 'preparacionPlantula';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['fecha','charolas','sustrato','id_invernaderoPlantula'];
+
+
+    /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+    protected $hidden = ['remember_token'];
+
+    // Task model
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    //N a N
+
+
+
+
+    // 1 a N
+    public  function invernadero(){
+        return $this->belongsTo('App\invernaderoPlantula','id_invernaderoPlantula');
+    }
+
+}
