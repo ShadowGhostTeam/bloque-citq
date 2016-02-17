@@ -22,11 +22,44 @@ class preparacionSectorController extends Controller
      */
     public function index()
     {
-        //
+        $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $maquinarias= Maquinaria::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        return view('Sector/Preparacion/buscar')->with([
+            'sectores' => $sectores,
+            'maquinarias' => $maquinarias
+        ]);
     }
 
     /*Devuelve la vista de crear con los valores de los combobox*/
     public function pagCrear()
+    {
+        $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $maquinarias= Maquinaria::select('id','nombre')->orderBy('nombre', 'asc')->get();
+
+
+        return view('Sector/Preparacion/crear')->with([
+            'sectores' => $sectores,
+            'maquinarias' => $maquinarias
+        ]);
+    }
+    public function pagModificar($id)
+    {
+        $preparacionSector= preparacionSector::findOrFail($id);
+
+        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $preparacionSector->fecha);
+        $preparacionSector->fecha=$fecha->format('d/m/Y');
+        $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $maquinarias= Maquinaria::select('id','nombre')->orderBy('nombre', 'asc')->get();
+
+
+        return view('Sector/Preparacion/modificar')->with([
+            'preparacionSector'=>$preparacionSector,
+            'sectores' => $sectores,
+            'maquinarias' => $maquinarias
+        ]);
+    }
+
+    public function pagEliminar()
     {
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
         $maquinarias= Maquinaria::select('id','nombre')->orderBy('nombre', 'asc')->get();
@@ -44,21 +77,84 @@ class preparacionSectorController extends Controller
        // dd($request);
         $preparacion=$this->adaptarRequest($request);
         $preparacion->save();
+
         Session::flash('message', 'La preparacion ha sido agregada');
         return redirect('sector/preparacion/crear');
     }
 
-    public function modificar()
+    public function modificar(preparacionSectorRequest $request)
+    {
+        $preparacion=$this->adaptarRequest($request);
+        $preparacion->save();
+        $preparacion->push();
+        Session::flash('message', 'La preparacion ha sido modificada');
+        return redirect('sector/preparacion/modificar/'.$preparacion->id);
+    }
+
+    public function eliminar()
     {
         return view('Sector/Preparacion/crear')->with([
 
         ]);
     }
 
+    public function buscar(Request $request)
+    {
+        $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $maquinarias= Maquinaria::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        if ( $request->fechaFin != "" && $request->fechaInicio !="") {
+
+            $fecha = $request->fechaInicio . " 00:00:00";
+            $fechaInf = Carbon::createFromFormat("d/m/Y H:i:s", $fecha);
+            $fecha = $request->fechaFin . " 23:59:59";
+            $fechaSup = Carbon::createFromFormat("d/m/Y H:i:s", $fecha);
+            //dd($fechaInf,$fechaSup);
+
+            if($request->sector==""&&$request->maquinaria=="") {
+                $preparaciones= preparacionSector::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->paginate(15);;
+            }
+            if($request->sector!=""&&$request->maquinaria=="") {
+                $preparaciones= preparacionSector::where('id_sector',$request->sector)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->paginate(15);;
+            }
+            if($request->sector==""&&$request->maquinaria!=="") {
+                $preparaciones= preparacionSector::where('id_maquinaria',$request->maquinaria)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->paginate(15);;
+            }
+            if($request->sector!=""&&$request->maquinaria!=="") {
+                $preparaciones= preparacionSector::where('id_sector',$request->sector)->where('id_maquinaria',$request->maquinaria)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->paginate(15);;
+            }
+
+
+            $this->adaptaFechas($preparaciones);
+            $num = $preparaciones->total();
+
+            if($num<=0){
+                Session::flash('error', 'No se encontraron resultados');
+            }
+            else{
+                Session::flash('message', 'Se encontraron '.$num.' resultados');
+            }
+
+            return view('Sector/Preparacion/buscar')->with([
+                'preparaciones'=>$preparaciones,
+                'sectores' => $sectores,
+                'maquinarias' => $maquinarias
+            ]);
+        }
+        else
+        {
+
+        }
+
+
+    }
+
 
     /*Recibe la informacion del formulario de crear y la adapta a los campos del modelo*/
     public function adaptarRequest($request){
         $preparacion=new PreparacionSector($request->all());
+        if(isset($request->id))
+            $preparacion= preparacionSector::findOrFail($request->id);
+
 
         $preparacion->id_sector= $request->sector;
         $preparacion->id_maquinaria= $request->maquinaria;
@@ -67,6 +163,15 @@ class preparacionSectorController extends Controller
 
 
         return $preparacion;
+    }
+
+    public function adaptaFechas($resultados){
+
+        foreach($resultados as $resultado  ){
+            $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $resultado->fecha);
+            $resultado->fecha=$fecha->format('d/m/Y');
+        }
+
     }
 
     /**

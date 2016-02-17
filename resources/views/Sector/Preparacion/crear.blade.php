@@ -1,46 +1,50 @@
-@extends('layout')
- 
-@section('content')
-<div class="container">
-	<div class="row">
-		<div class="col-md-3">
-			
-		</div>
-	</div>
-	<div class="row">
-        <br>
-		<div class="col-md-4">
-            <br>
-			<!--<img src="/assets/Captura.PNG" style="width:375px; height:375px;">-->
-			{{--foreach(sector--}}
-			{{--@endforeach--}}
-			<div class="grid">
-				<div class="grid-item"></div>
-				<div class="grid-item"></div>
-				<div class="grid-item"></div>
-				<div class="grid-item"></div>
-				<div class="grid-item"></div>
-				<div class="grid-item"></div>
-				<div class="grid-item"></div>
-				<div class="grid-item"></div>
-				<div class="grid-item"></div>
-				<div class="grid-item"></div>
-				<div class="grid-item"></div>
-				<div class="grid-item"></div>
-			</div>
-		</div>
-		<div class="col-md-6" style="height:375px;">
-			<br>
+@include('Partials.ScriptsGenerales.scriptsPartials')
+<body>
 
-			<div class="panel panel-default">
-				<div class="panel-heading">Nueva preparación de suelo</div>
-                @include('Partials.Mensajes.mensajes')
+<section id="container" >
+    <!-- **********************************************************************************************************************************************************
+    TOP BAR CONTENT & NOTIFICATIONS
+    *********************************************************************************************************************************************************** -->
+    <!--header start-->
+    @include('Partials.ScriptsGenerales.headerPartials')
+    <!--header end-->
 
-                @include('Sector.Preparacion.Partials.partialForm')
-			</div>
-		</div>
-	</div>
-</div>
+    <!-- **********************************************************************************************************************************************************
+    MAIN SIDEBAR MENU
+    *********************************************************************************************************************************************************** -->
+    <!--sidebar start-->
+    @include('Sector.Preparacion.aside')
+    <!--sidebar end-->
 
-@include('Sector.Preparacion.Partials.scripts')
-@endsection
+    <section id="container">
+
+        <section id="main-content">
+            <section class="wrapper site-min-height">
+                <h3><a href="{{ route('sector/preparacion') }}"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Búsqueda</button></a></h3>
+                <div class="row mt">
+
+                    <!-- INICIO CONSULTAR FUNCIONES -->
+                    <div class="col-lg-12">
+                        <div class="form-panel">
+
+                            @include('Partials.Mensajes.mensajes')
+
+                            {!! Form::open(['action'=>['preparacionSectorController@crear'],'class'=>'form-horizontal','role'=>'form','id'=>'formulario'])!!}
+
+                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear preparación</h4><br>
+                            <div id="kv-avatar-errors" class="center-block" style="display:none"></div>
+                            @include('Sector.Preparacion.Partials.form')
+
+                            {!! Form::close() !!}
+                        </div>
+                    </div>
+                    <!-- FIN CONSULTAR FUNCIONES -->
+                </div>
+            </section>
+        </section>
+    </section>
+
+
+    @include('Sector.Preparacion.Partials.validator')
+
+    @include('Partials.ScriptsGenerales.scriptsPartialsAbajo')
