@@ -158,7 +158,7 @@ MAIN SIDEBAR MENU
                                             <tr>
                                                 <td>{{ $preparacion->sector->nombre }}</td>
                                                 <td>{{ $preparacion->maquinaria->nombre }}</td>
-                                                <td class="hidden-phone">{{ $preparacion->fecha }}</td>
+                                                <td>{{ $preparacion->fecha }}</td>
 
 
                                                 <td style="width: 5px">
