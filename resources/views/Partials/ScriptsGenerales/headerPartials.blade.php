@@ -23,9 +23,7 @@
 
     <!-- FILE INPUT  -->
 
-    <link href="{{ asset('assets/css/fileinput.css') }}" media="all" rel="stylesheet" type="text/css" />
-    <script src="{{ asset('assets/js/fileinput.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/js/fileinput_locale_es.js') }}" type="text/javascript"></script>
+
 
 
 

@@ -51,7 +51,7 @@ MAIN SIDEBAR MENU
     <section id="container">
         <section id="main-content">
             <section class="wrapper site-min-height">
-                <h3 style="color:#078006"><i class="fa fa-angle-right"></i>Preparacion</h3>
+                <h3 style="color:#078006"><i class="fa fa-angle-right"></i>Preparación</h3>
                 <div class="row mt">
 
 

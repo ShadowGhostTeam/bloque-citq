@@ -101,7 +101,7 @@
         <div class="form-group" align="center">
             @if( isset($preparacionSector))
 
-            {!! Form::submit('Modificar',['class'=>'btn btn-success', 'onclick'=>'¿Seguro que desea modificar la preparación?'])!!}
+            {!! Form::submit('Modificar',['class'=>'btn btn-success', 'onclick'=>"return confirm ('¿Seguro que desea modificar la preparación?')"])!!}
             @else
                 {!! Form::submit('Crear',['class'=>'btn btn-success'])!!}
             @endif

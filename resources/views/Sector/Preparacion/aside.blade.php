@@ -6,36 +6,36 @@
 
             <li class="sub-menu">
                 <a href="#"  class="active">
-                    <i class="fa fa-film"></i>
+                    <i class="fa fa-th"></i>
                     <span>Sector&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <i class="fa fa-caret-down"></i>
                 </a>
 
                 <ul class="sub">
-                    <li><a href="{{route('sector/preparacion/crear')}}"  class="active">
-                            <i class="fa fa-film"></i>
+                    <li><a href="{{route('sector/preparacion')}}"  class="active">
+                            <i class="glyphicon glyphicon-tree-deciduous"></i>
                             <span>Preparación </span>
                         </a></li>
 
                     <li><a href="#">
-                            <i class="fa fa-hand-o-up fa-lg"></i>
+                            <i class="fa fa-leaf"></i>
                             <span>Siembra </span>
                         </a></li>
 
                     <li><a href="#" >
-                            <i class="fa fa-envelope"></i>
-                            <span>Fertilizacion </span>
+                            <i class="fa fa-tasks"></i>
+                            <span>Fertilización </span>
                         </a></li>
                     <li><a href="#" >
-                            <i class="fa fa-envelope"></i>
+                            <i class="fa fa-tint"></i>
                             <span>Riego </span>
                         </a></li>
                     <li><a href="#" >
-                            <i class="fa fa-envelope"></i>
+                            <i class="fa fa-wrench"></i>
                             <span>Mantenimiento </span>
                         </a></li>
                     <li><a href="#" >
-                            <i class="fa fa-envelope"></i>
+                            <i class="fa fa-reply-all"></i>
                             <span>Cosecha </span>
                         </a></li>
 

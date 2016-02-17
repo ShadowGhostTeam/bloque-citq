@@ -32,7 +32,7 @@
                             {!! Form::open(['action'=>['preparacionSectorController@crear'],'class'=>'form-horizontal','role'=>'form','id'=>'formulario'])!!}
 
                             <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear preparación</h4><br>
-                            <div id="kv-avatar-errors" class="center-block" style="display:none"></div>
+
                             @include('Sector.Preparacion.Partials.form')
 
                             {!! Form::close() !!}

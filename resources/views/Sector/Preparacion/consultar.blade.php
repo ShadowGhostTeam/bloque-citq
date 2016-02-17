@@ -1,6 +1,6 @@
 @include('Partials.ScriptsGenerales.scriptsPartials')
 
-<body>
+
 
 <section id="container" >
     <!-- **********************************************************************************************************************************************************
@@ -26,24 +26,23 @@
                     <!-- INICIO CONSULTAR FUNCIONES -->
                     <div class="col-lg-12">
                         <div class="form-panel">
-                            @include('Partials.Mensajes.mensajes')
-                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Modificar preparación</h4><br>
-                            @if( isset($preparacionSector))
+
+                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Consultar preparación</h4><br>
+
+                            @if( isset($preparacion))
 
 
                                 <table align="right">
                                     <tr>
                                         <td>
-                                            <a href="{{ route('sector/preparacion/consultar/item',$preparacionSector->id) }}">
-                                                <button  class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar">
-                                                    <i class="fa fa-eye"></i></button>
-                                            </a> &nbsp
+                                            <a href="{{ route('sector/preparacion/modificar/item',$preparacion->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
+                                            &nbsp
                                         </td>
 
                                         <td>
                                             {!! Form::open(['action'=>['preparacionSectorController@eliminar'],'role'=>'form'] )  !!}
-                                            <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la preparación?")'><i class="fa fa-trash-o "></i></button>
-                                            <input type="hidden" name="id" value={{$preparacionSector->id}}>
+                                            <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la preparacion?")'><i class="fa fa-trash-o "></i></button>
+                                            <input type="hidden" name="id" value={{$preparacion->id}}>
                                             {!! Form::close() !!}
 
                                         </td>
@@ -52,14 +51,28 @@
                                 <br><br>
 
                             @endif
+                            <div class="row">
+                                <br>
+                                <div class="col-md-4">
 
-                            {!! Form::open(['action'=>['preparacionSectorController@modificar'],'class'=>'form-horizontal','role'=>'form', 'id' =>'formulario'] )  !!}
+                                </div>
 
 
+                                <div class="col-md-7">
 
-                            @include('Sector.Preparacion.Partials.form')
-                            <input type="hidden" name="id" value="{{$preparacionSector->id}}">
-                            {!! Form::close() !!}
+                                    <dl class="dl-horizontal">
+                                        <dt>Sector</dt><dd>{{ $preparacion->sector->nombre }}</dd>
+                                        <dt>Maquinaria</dt><dd>{{ $preparacion->maquinaria->nombre }}</dd>
+                                        <dt>Número de pasadas</dt><dd>{{ $preparacion->numPasadas }}</dd>
+                                        <dt>Fecha</dt><dd>{{ $preparacion->fecha }}</dd>
+                                    </dl>
+                                </div>
+
+                            </div>
+
+
+                            <br>
+
                         </div>
                     </div>
                     <!-- FIN CONSULTAR FUNCIONES -->
@@ -67,6 +80,8 @@
             </section>
         </section>
     </section>
-    @include('Sector.Preparacion.Partials.validator')
 
-    @include('Partials.ScriptsGenerales.scriptsPartialsAbajo')
+
+
+
+@include('Partials.ScriptsGenerales.scriptsPartialsAbajo')

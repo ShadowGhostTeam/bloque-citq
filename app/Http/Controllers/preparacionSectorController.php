@@ -22,11 +22,19 @@ class preparacionSectorController extends Controller
      */
     public function index()
     {
+        $now= Carbon::now()->format('Y/m/d');
+        $now2 =Carbon::now()->subMonth(6)->format('Y/m/d');
+        $preparaciones = preparacionSector::whereBetween('fecha', array($now2,$now))->orderBy('fecha', 'desc')->paginate(15);
+        $this->adaptaFechas($preparaciones);
+
+
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
         $maquinarias= Maquinaria::select('id','nombre')->orderBy('nombre', 'asc')->get();
         return view('Sector/Preparacion/buscar')->with([
             'sectores' => $sectores,
-            'maquinarias' => $maquinarias
+            'maquinarias' => $maquinarias,
+            'preparaciones'=>$preparaciones
+
         ]);
     }
 
@@ -59,6 +67,19 @@ class preparacionSectorController extends Controller
         ]);
     }
 
+    public function pagConsultar($id)
+    {
+        $preparacion= preparacionSector::findOrFail($id);
+        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $preparacion->fecha);
+        $preparacion->fecha=$fecha->format('d/m/Y');
+
+
+        return view('Sector/Preparacion/consultar')->with([
+            'preparacion'=>$preparacion
+        ]);
+    }
+
+    /*Eliminar registro*/
     public function pagEliminar()
     {
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
@@ -82,6 +103,8 @@ class preparacionSectorController extends Controller
         return redirect('sector/preparacion/crear');
     }
 
+
+    /*Modificar registro*/
     public function modificar(preparacionSectorRequest $request)
     {
         $preparacion=$this->adaptarRequest($request);
@@ -91,11 +114,14 @@ class preparacionSectorController extends Controller
         return redirect('sector/preparacion/modificar/'.$preparacion->id);
     }
 
-    public function eliminar()
+    /*Eliminar registro*/
+    public function eliminar(Request $request)
     {
-        return view('Sector/Preparacion/crear')->with([
+        $preparacion= preparacionSector::findOrFail($request->id);
+        $preparacion->delete();
 
-        ]);
+        Session::flash('message','La preparación ha sido eliminada');
+        return redirect('sector/preparacion');
     }
 
     public function buscar(Request $request)
@@ -114,16 +140,16 @@ class preparacionSectorController extends Controller
 
             /*Hay cuatro posibles casos de busqueda, cada if se basa en un caso */
             if($request->sector==""&&$request->maquinaria=="") {
-                $preparaciones= preparacionSector::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->paginate(15);;
+                $preparaciones= preparacionSector::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
             }
             if($request->sector!=""&&$request->maquinaria=="") {
-                $preparaciones= preparacionSector::where('id_sector',$request->sector)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->paginate(15);;
+                $preparaciones= preparacionSector::where('id_sector',$request->sector)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
             }
             if($request->sector==""&&$request->maquinaria!=="") {
-                $preparaciones= preparacionSector::where('id_maquinaria',$request->maquinaria)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->paginate(15);;
+                $preparaciones= preparacionSector::where('id_maquinaria',$request->maquinaria)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
             }
             if($request->sector!=""&&$request->maquinaria!=="") {
-                $preparaciones= preparacionSector::where('id_sector',$request->sector)->where('id_maquinaria',$request->maquinaria)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->paginate(15);;
+                $preparaciones= preparacionSector::where('id_sector',$request->sector)->where('id_maquinaria',$request->maquinaria)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
             }
 
             /*Adapta el formato de fecha para poder imprimirlo en la vista adecuadamente*/
