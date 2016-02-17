@@ -102,14 +102,17 @@ class preparacionSectorController extends Controller
     {
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
         $maquinarias= Maquinaria::select('id','nombre')->orderBy('nombre', 'asc')->get();
+
+        /*Pregunta si se mandaron fechas, en caso contrario manda error 404*/
         if ( $request->fechaFin != "" && $request->fechaInicio !="") {
 
+            /*Transforma fechas en formato adecuado*/
             $fecha = $request->fechaInicio . " 00:00:00";
             $fechaInf = Carbon::createFromFormat("d/m/Y H:i:s", $fecha);
             $fecha = $request->fechaFin . " 23:59:59";
             $fechaSup = Carbon::createFromFormat("d/m/Y H:i:s", $fecha);
-            //dd($fechaInf,$fechaSup);
 
+            /*Hay cuatro posibles casos de busqueda, cada if se basa en un caso */
             if($request->sector==""&&$request->maquinaria=="") {
                 $preparaciones= preparacionSector::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->paginate(15);;
             }
@@ -123,7 +126,7 @@ class preparacionSectorController extends Controller
                 $preparaciones= preparacionSector::where('id_sector',$request->sector)->where('id_maquinaria',$request->maquinaria)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->paginate(15);;
             }
 
-
+            /*Adapta el formato de fecha para poder imprimirlo en la vista adecuadamente*/
             $this->adaptaFechas($preparaciones);
             $num = $preparaciones->total();
 
@@ -142,7 +145,7 @@ class preparacionSectorController extends Controller
         }
         else
         {
-
+            return redirect('errors/404');
         }
 
 
@@ -164,7 +167,7 @@ class preparacionSectorController extends Controller
 
         return $preparacion;
     }
-
+    /*Adapta fechas a formato adecuado para imprimir en la vista*/
     public function adaptaFechas($resultados){
 
         foreach($resultados as $resultado  ){
