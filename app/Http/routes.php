@@ -10,6 +10,16 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::filter('force.ssl', function()
+{
+    if( ! Request::secure())
+    {
+        return Redirect::secure(Request::path());
+    }
+
+});
+
+/*'before' => 'force.ssl'  */
 
 Route::get('/', function () {
     return view('welcome');
