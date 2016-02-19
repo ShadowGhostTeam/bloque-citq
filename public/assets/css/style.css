@@ -29,7 +29,7 @@ a, a:hover, a:focus {
 }
 ::selection {
 
-    background: #35DDB3;
+    background: #424242;
     color: #fff;
 }
 ::-moz-selection {
@@ -224,11 +224,11 @@ hr {
 /*Exclusive Theme Colors Configuration*/
 
 .label-theme {
-	background-color: #68dff0;
+	background-color: #848484;
 }
 
 .bg-theme {
-	background-color: #68dff0;
+	background-color: #848484;
 }
 
 ul.top-menu > li > .logout {
@@ -250,7 +250,8 @@ ul.top-menu > li > .logout {
     width: 210px;
     height: 100%;
     position: fixed;
-    background: #35DDB3;
+    /*background: #BDBDBD; Gris*/
+    background:#4D8942;
 }
 
 #sidebar h5 {
@@ -313,7 +314,7 @@ ul.sidebar-menu {
 }
 
 ul.sidebar-menu li ul.sub li{
-    background: #5FE0BE;
+    background: #4D8942;
     margin-bottom: 0;
     margin-left: 0;
     margin-right: 0;
@@ -339,11 +340,12 @@ ul.sidebar-menu li ul.sub li a {
 
 ul.sidebar-menu li ul.sub li a:hover {
 	color: white;
-	background: #10D0A0;
+	background:  #3D6D35;
 }
 
 ul.sidebar-menu li ul.sub li.active a {
-    color: #68dff0;
+    color: #7D7E7D;
+    color: white;
     -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
@@ -382,8 +384,8 @@ ul.sidebar-menu li a{
 }
 
 ul.sidebar-menu li a.active, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus {
-    background: #10D0A0;
-    color: #fff;
+    background: #498240;
+    color: white;
     display: block;
 
     -webkit-transition: all 0.3s ease;
@@ -431,8 +433,8 @@ ul.sidebar-menu li a.active i {
 }
 
 .black-bg {
-    background: #221E1F;
-    border-bottom: 1px solid #221E1F;
+    background:#1C1C1C;
+    border-bottom: 1px solid #000000;
 }
 
 .wrapper {
@@ -541,7 +543,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 }
 
 .dropdown-menu.extended li p.green {
-    background-color: #68dff0;
+    background-color:#6E6E6E;
     color: #fff;
 }
 
@@ -843,7 +845,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 }
 
 .ds a {
-	color: #68dff0;
+	color: #848484;
 }
 
 /* LINE ICONS CONFIGURATION */
