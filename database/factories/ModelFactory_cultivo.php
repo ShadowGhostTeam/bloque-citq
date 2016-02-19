@@ -14,7 +14,6 @@
 $factory->define(App\cultivo::class, function (Faker\Generator $faker) {
     return [
         'nombre' => $faker->name,
-        'variedad' => $faker->name,
         'descripcion' => $faker->address,
     ];
 });

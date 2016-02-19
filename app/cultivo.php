@@ -20,7 +20,7 @@ class cultivo extends Model
      *
      * @var array
      */
-    protected $fillable = ['nombre','variedad','descripcion'];
+    protected $fillable = ['nombre','descripcion'];
 
 
     /**

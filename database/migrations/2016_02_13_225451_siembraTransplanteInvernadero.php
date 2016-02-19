@@ -18,6 +18,7 @@ class SiembraTransplanteInvernadero extends Migration
             $table->enum('tipo',['Siembra','Transplante']);
             $table->enum('status',['Activo','Terminado']);
             $table->dateTime('fechaTerminacion');
+            $table->string('variedad');
 
             $table->integer('id_cultivo')->unsigned();
             $table->foreign('id_cultivo')->references('id')->on('cultivo');
