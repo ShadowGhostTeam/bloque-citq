@@ -18,6 +18,7 @@ $factory->define(App\siembraTransplanteInvernadero::class, function (Faker\Gener
 
         'tipo'=> $faker->randomElement(['Siembra','Transplante']),
         'fecha'=>$faker->dateTimeBetween($startDate = '-6 months', $endDate = 'now'),
+        'variedad' => $faker->name,
         'fechaTerminacion'=>$faker->dateTimeBetween($startDate = '-6 months', $endDate = 'now'),
         'status' => $faker->randomElement(['Activo','Terminado']),
         'id_cultivo' => $faker->randomElement($cultivos),

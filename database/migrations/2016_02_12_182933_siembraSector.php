@@ -19,6 +19,7 @@ class SiembraSector extends Migration
             $table->enum('temporada',['Primavera-Verano','Otoño-Invierno']);
             $table->enum('status',['Activo','Terminado']);
             $table->dateTime('fechaTerminacion');
+            $table->string('variedad');
 
             $table->integer('id_cultivo')->unsigned();
             $table->foreign('id_cultivo')->references('id')->on('cultivo');

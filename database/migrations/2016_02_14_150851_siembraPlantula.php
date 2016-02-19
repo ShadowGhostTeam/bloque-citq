@@ -20,6 +20,7 @@ class SiembraPlantula extends Migration
             $table->enum('status',['Activo','Terminado']);
             $table->dateTime('fechaTerminacion');
             $table->enum('destino',['Campo','Invernadero']);
+            $table->string('variedad');
 
             $table->integer('id_cultivo')->unsigned();
             $table->foreign('id_cultivo')->references('id')->on('cultivo');

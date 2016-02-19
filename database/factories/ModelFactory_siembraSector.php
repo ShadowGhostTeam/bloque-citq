@@ -17,6 +17,7 @@ $factory->define(App\siembraSector::class, function (Faker\Generator $faker) {
     return [
     'fecha'=>$faker->dateTimeBetween($startDate = '-6 months', $endDate = 'now'),
         'tipo'=> $faker->randomElement(['Maquinaria','A mano']),
+        'variedad' => $faker->name,
         'temporada'=> $faker->randomElement(['Primavera-Verano','Otoño-Invierno']),
         'status'=> $faker->randomElement(['Activo','Terminado']),
         'fechaTerminacion'=>$faker->dateTimeBetween($startDate = '-6 months', $endDate = 'now'),

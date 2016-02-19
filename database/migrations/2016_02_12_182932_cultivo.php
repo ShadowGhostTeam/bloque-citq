@@ -15,7 +15,7 @@ class Cultivo extends Migration
         Schema::create('cultivo', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
-            $table->string('variedad');
+
             $table->text('descripcion');
             $table->timestamps();
         });
