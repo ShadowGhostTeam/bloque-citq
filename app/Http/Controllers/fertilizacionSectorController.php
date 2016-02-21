@@ -189,7 +189,7 @@ class fertilizacionSectorController extends Controller
         $fertilizacion=$this->adaptarRequest($request);
         $fertilizacion->save();
         $fertilizacion->push();
-        Session::flash('message', 'La preparacion ha sido modificada');
+        Session::flash('message', 'La fertilizacion ha sido modificada');
         return redirect('sector/fertilizacion/modificar/'.$fertilizacion->id);
     }
 

@@ -24,7 +24,13 @@ class fertilizacionSectorRequest extends Request
     public function rules()
     {
         return [
-            //
+            'sector'=>'required|exists:sector,id',
+            'siembra' => 'required|exists:siembraSector,id',
+            'fuente' => 'required|exists:fuente,id',
+            'fecha' =>  'date_format:d/m/Y',
+            'tipoFertilizacion'=>'in:Riego','Aplicacion dirigida',
+            'cantidad'=>'required|numeric',
+            'programaNPK'=>'required|max:200',
 
         ];
     }
