@@ -66,7 +66,7 @@
                                         <dt>Fuente</dt><dd>{{ $fertilizacion->fuente->nombre }}</dd>
                                         <dt>Fecha</dt><dd>{{ $fertilizacion->fecha }}</dd>
                                         <dt>Tipo de fertilización</dt><dd>{{ $fertilizacion->tipo}}</dd>
-                                        <dt>Cantidad</dt><dd>{{ $fertilizacion->cantidad }}</dd>
+                                        <dt>Cantidad(kg)</dt><dd>{{ $fertilizacion->cantidad }}</dd>
                                         <dt>Programa NPK</dt><dd>{{ $fertilizacion->programaNPK }}</dd>
                                     </dl>
                                 </div>

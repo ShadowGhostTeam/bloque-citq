@@ -67,7 +67,9 @@
             </section>
         </section>
     </section>
+</section>
     @include('Sector.Fertilizacion.Partials.validator')
+
     @include('Sector.Fertilizacion.Partials.ajaxScript')
 
 

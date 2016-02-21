@@ -43,7 +43,9 @@ class fertilizacionSectorController extends Controller
 
         ]);
     }
-
+    /*Metodo de Busqueda
+     *
+     * */
     public function buscar(Request $request)
     {
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
@@ -103,10 +105,10 @@ class fertilizacionSectorController extends Controller
     {
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
-        $siembras = DB::table('siembraSector')->join('cultivo','cultivo.id','=','siembraSector.id_cultivo')
+        /*$siembras = DB::table('siembraSector')->join('cultivo','cultivo.id','=','siembraSector.id_cultivo')
             ->select('siembraSector.id','siembraSector.id_cultivo','cultivo.nombre','siembraSector.variedad')
             ->get();
-
+        */
 
         $fuentes = fuente::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
@@ -115,7 +117,7 @@ class fertilizacionSectorController extends Controller
 
         return view('Sector/Fertilizacion/crear')->with([
             'sectores' => $sectores,
-            'siembras' => $siembras,
+       //     'siembras' => $siembras,
             'tipoFertilizaciones'=>$tipoFertilizaciones,
             'fuentes' => $fuentes
 
@@ -131,9 +133,23 @@ class fertilizacionSectorController extends Controller
         $fertilizacionSector= fertilizacion::findOrFail($id);
 
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $siembras = DB::table('siembraSector')->join('cultivo','cultivo.id','=','siembraSector.id_cultivo')
-            ->select('siembraSector.id','siembraSector.id_cultivo','cultivo.nombre','siembraSector.variedad')
-            ->get();
+
+        $siembraSeleccionada = array(
+            'id_siembra'=>$fertilizacionSector->id_siembra,
+            'variedad'=>$fertilizacionSector->siembra->variedad,
+            'nombre'=>$fertilizacionSector->siembra->cultivo->nombre);
+
+
+        $siembras = siembraSector::where('id_sector',$fertilizacionSector->id_sector)->get();
+
+        $siembrasTodas=array();
+        foreach ($siembras as $siembra) {
+
+            array_push($siembrasTodas,array(
+                'id_siembra' => $siembra->id,
+                'variedad' => $siembra->variedad,
+                'nombre' => $siembra->cultivo->nombre));
+        }
 
         $fuentes = fuente::select('id','nombre')->orderBy('nombre', 'asc')->get();
         $tipoFertilizaciones = ['Riego','Aplicacion dirigida'];
@@ -145,11 +161,11 @@ class fertilizacionSectorController extends Controller
 
         return view('Sector/Fertilizacion/modificar')->with([
             'sectores' => $sectores,
-            'siembras' => $siembras,
+            'siembras' => $siembrasTodas,
             'tipoFertilizaciones'=>$tipoFertilizaciones,
             'fuentes' => $fuentes,
-            'fertilizacionSector' => $fertilizacionSector
-
+            'fertilizacionSector' => $fertilizacionSector,
+            'siembraSeleccionada' => $siembraSeleccionada
         ]);
     }
 
@@ -200,7 +216,10 @@ class fertilizacionSectorController extends Controller
         return $fertilizacion;
     }
 
-
+    /*
+     * Pagina para consultar
+     *
+     * */
     public function pagConsultar($id)
     {
         $fertilizacion= fertilizacion::findOrFail($id);
@@ -245,9 +264,5 @@ class fertilizacionSectorController extends Controller
 
     }
 
-    public function carga($id)
-    {
-       return $id;
-    }
 
 }

@@ -1,7 +1,3 @@
-/**
- * Created by saulzini on 20/02/16.
- */
-
 <script type="text/javascript">
     $(document).ready(function ()
     {
@@ -14,23 +10,26 @@
                 document.getElementById("siembra").value = null;
 
             } else {
-                var idSector = e.target.value;
+                var id= e.target.value;
 
                 $.ajax({
-                    type: 'get',
-                    url: "/sector/fertilizacion/carga",
-                    data: {
-                        idSector: idSector
-                    },
-                    success: function( datas ) {
-                        window.alert(datas);
-                       // $( "#weather-temp" ).html( "<strong>" + data + "</strong> degrees" );
-                    },
-                    error:function (xhr, ajaxOptions, thrownError){
-                        if(xhr.status==404) {
-                            alert(thrownError);
-                        }
-                    }
+                    method: "GET",
+                    url: "{{ URL::to('sector/fertilizacion/carga?id=')  }}"+id,
+
+                })
+                        .done(function( data ) {
+                            $("#siembra").empty();
+                            $("#siembra").append(
+                                    "<option> Selecciona </option>");
+
+                            $.each(data,function(index,siembras){
+
+                             //  alert('<option value="'+siembras.id+' "> '+ siembras.nombre+' ' + siembras.variedad+ '</option>');
+                                $("#siembra").append(
+                                        '<option value="'+siembras.id_siembra+'">'+siembras.nombre+' '+siembras.variedad+"</option>");
+                            });
+
+
                 });
 
 

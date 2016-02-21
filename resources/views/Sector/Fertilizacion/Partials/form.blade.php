@@ -48,19 +48,21 @@
                 <select  class="form-control" id="siembra" name="siembra">
                     <option value="">Selecciona</option>
 
-                    @if( isset($fertilizacionSector))
+                    @if( isset($siembraSeleccionada))
 
                         @foreach($siembras as $siembra)
-                            @if($fertilizacionSector->id_siembra == $siembra->id)
-                                <option value="{{  $siembra->id  }}" selected > {{ $siembra->nombre ."   ". $siembra->variedad }}  </option>
+                            @if($siembraSeleccionada['id_siembra'] == $siembra['id_siembra'])
+                                <option value="{{  $siembra['id_siembra']  }}" selected > {{ $siembra['nombre']."   ". $siembra['variedad'] }}  </option>
                             @else
-                                <option value="{{  $siembra->id  }}" > {{ $siembra->nombre ."   ".$siembra->variedad }}  </option>
+                                <option value="{{  $siembra['id_siembra']  }}"  > {{ $siembra['nombre']."   ". $siembra['variedad'] }}  </option>
                             @endif
                         @endforeach
                     @else
-                        @foreach($siembras as $siembra)
-                            <option value="{{  $siembra->id  }}" > {{ $siembra->nombre ."   ".$siembra->variedad }}  </option>
-                        @endforeach
+                        @if( isset($siembras))
+                            @foreach($siembras as $siembra)
+                                <option value="{{  $siembra['id_siembra']  }}" selected > {{ $siembra['nombre']."   ". $siembra['variedad'] }}  </option>
+                            @endforeach
+                        @endif
                     @endif
                 </select>
             </div>

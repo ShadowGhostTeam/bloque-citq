@@ -12,6 +12,7 @@
 */
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
+use App\siembraSector;
 
 Route::filter('force.ssl', function()
 {
@@ -142,10 +143,16 @@ Route::get('sector/fertilizacion/consultar/{id}',[
  * */
 
 
-Route::get('sector/fertilizacion/carga/{id}',
-    [
-        'uses' => 'fertilizacionSectorController@carga',
-        'as' =>'sector/fertilizacion/carga'
+Route::get('sector/fertilizacion/carga',function()
+{
 
-    ]
-);
+    $idsectores = Input::get('id');
+
+    $siembras = DB::table('siembraSector')->join('cultivo','cultivo.id','=','siembraSector.id_cultivo')
+        ->select('siembraSector.id','siembraSector.id_cultivo','cultivo.nombre','siembraSector.variedad')
+        ->where('id_sector',$idsectores)
+        ->get();
+
+
+    return Response::json($siembras);
+});
