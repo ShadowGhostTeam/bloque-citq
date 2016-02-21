@@ -20,7 +20,7 @@ class preparacionSector extends Model
      *
      * @var array
      */
-    protected $fillable = ['fecha','numPasadas','id_maquinaria'];
+    protected $fillable = ['fecha','numPasadas','id_maquinaria','id_sector'];
 
 
     /**

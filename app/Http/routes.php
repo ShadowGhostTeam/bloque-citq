@@ -10,6 +10,9 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Response;
+
 Route::filter('force.ssl', function()
 {
     if( ! Request::secure())
@@ -25,6 +28,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+/*
+ * Rutas para SECTOR Preparacion
+ *
+ *
+ * */
 Route::get('sector/preparacion',[
     'uses' => 'preparacionSectorController@index',
     'as' =>'sector/preparacion'
@@ -66,7 +75,7 @@ Route::post('sector/preparacion/modificar','preparacionSectorController@modifica
 
 Route::post('sector/preparacion/eliminar','preparacionSectorController@eliminar',array('before' => 'csrf', function()
 {
-    //  dd("hghgh");
+
 }));
 
 Route::get('sector/preparacion/consultar/{id}',[
@@ -74,3 +83,69 @@ Route::get('sector/preparacion/consultar/{id}',[
     'as' =>'sector/preparacion/consultar/item'
 
 ]);
+
+/*
+ * Rutas para Sector Fertilizacion
+ *
+ * */
+
+Route::get('sector/fertilizacion',[
+    'uses' => 'fertilizacionSectorController@index',
+    'as' =>'sector/fertilizacion'
+
+]);
+
+
+Route::get('sector/fertilizacion/lista',[
+        'uses' =>'fertilizacionSectorController@buscar',
+        'as' =>'sector/fertilizacion/lista']
+
+);
+
+Route::get('sector/fertilizacion/crear',[
+    'uses' => 'fertilizacionSectorController@pagCrear',
+    'as' =>'sector/fertilizacion/crear'
+
+]);
+
+
+Route::post('sector/fertilizacion/crear/','fertilizacionSectorController@crear',array('before' => 'csrf', function()
+{
+    //
+}));
+
+Route::get('sector/fertilizacion/modificar/{id}',[
+    'uses' => 'fertilizacionSectorController@pagModificar',
+    'as' =>'sector/fertilizacion/modificar/item'
+
+]);
+
+
+Route::post('sector/fertilizacion/modificar','fertilizacionSectorController@modificar',array('before' => 'csrf', function()
+{
+    //
+}));
+
+Route::post('sector/fertilizacion/eliminar','fertilizacionSectorController@eliminar',array('before' => 'csrf', function()
+{
+
+}));
+
+Route::get('sector/fertilizacion/consultar/{id}',[
+    'uses' => 'fertilizacionSectorController@pagConsultar',
+    'as' =>'sector/fertilizacion/consultar/item'
+
+]);
+
+/*
+ * Ajax fertilizacion
+ * */
+
+
+Route::get('sector/fertilizacion/carga/{id}',
+    [
+        'uses' => 'fertilizacionSectorController@carga',
+        'as' =>'sector/fertilizacion/carga'
+
+    ]
+);

@@ -10,12 +10,12 @@
 
 @if(Session::has('message'))
 
-    <p class="alert alert-success">{{ Session::get('message')  }}</p>
+    <p class="alert alert-success">{{ Session::pull('message')  }}</p>
 
 @endif
 
 @if(Session::has('error'))
 
-    <ul class="alert alert-danger">{{ Session::get('error')  }}</ul>
+    <ul class="alert alert-danger">{{ Session::pull('error')  }}</ul>
 
 @endif

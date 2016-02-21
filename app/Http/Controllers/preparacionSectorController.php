@@ -120,7 +120,7 @@ class preparacionSectorController extends Controller
         $preparacion= preparacionSector::findOrFail($request->id);
         $preparacion->delete();
 
-        Session::flash('message','La preparación ha sido eliminada');
+        Session::flash('message','La preparacion ha sido eliminada');
         return redirect('sector/preparacion');
     }
 
@@ -181,9 +181,9 @@ class preparacionSectorController extends Controller
     /*Recibe la informacion del formulario de crear y la adapta a los campos del modelo*/
     public function adaptarRequest($request){
         $preparacion=new PreparacionSector($request->all());
-        if(isset($request->id))
-            $preparacion= preparacionSector::findOrFail($request->id);
-
+        if(isset($request->id)) {
+            $preparacion = preparacionSector::findOrFail($request->id);
+        }
 
         $preparacion->id_sector= $request->sector;
         $preparacion->id_maquinaria= $request->maquinaria;
@@ -203,69 +203,5 @@ class preparacionSectorController extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

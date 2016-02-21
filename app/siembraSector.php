@@ -34,9 +34,6 @@ class siembraSector extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    //N a N
-
-
 
 
     // 1 a N

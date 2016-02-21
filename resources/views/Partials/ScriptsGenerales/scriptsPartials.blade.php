@@ -8,11 +8,14 @@
 
     <title>AgroWare - CITQ</title>
 
+    <!-- JQUERY
+    <script type="text/javascript" src="asset('assets/docs/js/jquery-2.1.3.min.js') "></script>
 
-
+    -->
+    <script type="text/javascript" src="{{asset('assets/docs/js/jquery-2.2.0.min.js')}} "></script>
     <!-- BOOTSTRAP -->
     <link rel="stylesheet" href=" {{ asset('assets/css/bootstrap.css') }}">
-    <script type="text/javascript" src="{{ asset('assets/docs/js/jquery-2.1.3.min.js') }}"></script>
+
     <script type="text/javascript" src="{{ asset('assets/docs/js/bootstrap-3.3.2.min.js') }}"></script>
 
     <!-- FONT AWESOME -->

@@ -20,7 +20,7 @@ class fertilizacion extends Model
      *
      * @var array
      */
-    protected $fillable = ['fecha','programaNPK','cantidad','id_fuente','id_siembra','id_sector'];
+    protected $fillable = ['fecha','programaNPK','cantidad','tipo','id_fuente','id_siembra','id_sector'];
 
 
     /**
@@ -44,7 +44,7 @@ class fertilizacion extends Model
         return $this->belongsTo('App\fuente','id_fuente');
     }
     public  function siembra(){
-        return $this->belongsTo('App\siembra','id_siembra');
+        return $this->belongsTo('App\siembraSector','id_siembra');
     }
     public  function sector(){
         return $this->belongsTo('App\sector','id_sector');
