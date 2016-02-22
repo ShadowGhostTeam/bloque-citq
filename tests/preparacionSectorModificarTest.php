@@ -15,8 +15,7 @@ class preparacionSectorModificar extends TestCase
      * @group preparacionSectorModificar
      */
     //para llamar a solo un grupo phpunit --group preparacionSectorModificar
-    public function testNoSector()
-    {
+    public function testNoSector() {
         $this->visit('sector/preparacion/modificar/1')
             ->select('',"sector")
             ->press("Modificar")
@@ -28,8 +27,7 @@ class preparacionSectorModificar extends TestCase
      * @group preparacionSectorModificar
      */
     //para llamar a solo un grupo phpunit --group preparacionSectorModificar
-    public function testNoMaquinaria()
-    {
+    public function testNoMaquinaria(){
         $this->visit('sector/preparacion/modificar/1')
             ->select('',"maquinaria")
             ->press("Modificar")
@@ -40,8 +38,7 @@ class preparacionSectorModificar extends TestCase
      * @group preparacionSectorModificar
      */
     //para llamar a solo un grupo phpunit --group preparacionSectorModificar
-    public function testNoFecha()
-    {
+    public function testNoFecha(){
         $this->visit('sector/preparacion/modificar/1')
             ->type('',"fecha")
             ->press("Modificar")
@@ -52,8 +49,7 @@ class preparacionSectorModificar extends TestCase
      * @group preparacionSectorModificar
      */
     //para llamar a solo un grupo phpunit --group preparacionSectorModificar
-    public function testNoPasadas()
-    {
+    public function testNoPasadas(){
         $this->visit('sector/preparacion/modificar/1')
             ->type('',"numPasadas")
             ->press("Modificar")
@@ -65,8 +61,7 @@ class preparacionSectorModificar extends TestCase
      * @group preparacionSectorModificar
      */
     //para llamar a solo un grupo phpunit --group preparacionSectorModificar
-    public function testCorrecto()
-    {
+    public function testCorrecto(){
         $this->visit('sector/preparacion/modificar/1')
             ->select(1,"sector")
             ->select(1,"maquinaria")
@@ -82,8 +77,7 @@ class preparacionSectorModificar extends TestCase
     /**
      * @group preparacionSectorModificar
      */
-    public function testRutaModificar()
-    {
+    public function testRutaModificar(){
         $response = $this->call('GET', 'sector/preparacion/modificar/1');
         $this->assertEquals(200, $response->status());
     }

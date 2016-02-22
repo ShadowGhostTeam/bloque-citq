@@ -20,8 +20,10 @@ class preparacionSectorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    /*
+     * Devuelve la pagina de buscar y automaticamente llena la tabla con la busqueda de en un intervalo de fecha de hoy a hace 6 meses
+     */
+    public function index() {
         $now= Carbon::now()->format('Y/m/d');
         $now2 =Carbon::now()->subMonth(6)->format('Y/m/d');
         $preparaciones = preparacionSector::whereBetween('fecha', array($now2,$now))->orderBy('fecha', 'desc')->paginate(15);
@@ -38,9 +40,10 @@ class preparacionSectorController extends Controller
         ]);
     }
 
-    /*Devuelve la vista de crear con los valores de los combobox*/
-    public function pagCrear()
-    {
+    /*
+     * Devuelve la vista de crear con los valores de los combobox
+     * */
+    public function pagCrear() {
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
         $maquinarias= Maquinaria::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
@@ -50,8 +53,11 @@ class preparacionSectorController extends Controller
             'maquinarias' => $maquinarias
         ]);
     }
-    public function pagModificar($id)
-    {
+
+    /*
+     * Devuelve vista modificar con los valores del registro que se manda como parametro ($id)
+     */
+    public function pagModificar($id) {
         $preparacionSector= preparacionSector::findOrFail($id);
 
         $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $preparacionSector->fecha);
@@ -67,8 +73,11 @@ class preparacionSectorController extends Controller
         ]);
     }
 
-    public function pagConsultar($id)
-    {
+    /*
+     * Devuelve vista consultar con los valores del registro que se manda como parametro ($id)
+     */
+
+    public function pagConsultar($id) {
         $preparacion= preparacionSector::findOrFail($id);
         $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $preparacion->fecha);
         $preparacion->fecha=$fecha->format('d/m/Y');
@@ -79,23 +88,13 @@ class preparacionSectorController extends Controller
         ]);
     }
 
-    /*Eliminar registro*/
-    public function pagEliminar()
-    {
-        $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $maquinarias= Maquinaria::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
 
-        return view('Sector/Preparacion/crear')->with([
-            'sectores' => $sectores,
-            'maquinarias' => $maquinarias
-        ]);
-    }
+    /*
+     * Recibe la informacion del formulario de crear y la almacena en la base de datos
+     */
 
-    /*Recibe la informacion del formulario de crear y la almacena en la base de datos*/
-    public function crear(preparacionSectorRequest $request)
-    {
-       // dd($request);
+    public function crear(preparacionSectorRequest $request){
         $preparacion=$this->adaptarRequest($request);
         $preparacion->save();
 
@@ -104,9 +103,10 @@ class preparacionSectorController extends Controller
     }
 
 
-    /*Modificar registro*/
-    public function modificar(preparacionSectorRequest $request)
-    {
+    /*
+     * Recibe la informacion del formulario de modificary la actualiza en la base de datos
+     */
+    public function modificar(preparacionSectorRequest $request){
         $preparacion=$this->adaptarRequest($request);
         $preparacion->save();
         $preparacion->push();
@@ -114,9 +114,10 @@ class preparacionSectorController extends Controller
         return redirect('sector/preparacion/modificar/'.$preparacion->id);
     }
 
-    /*Eliminar registro*/
-    public function eliminar(Request $request)
-    {
+    /*
+     * Elimina un registro de la base de datos
+     */
+    public function eliminar(Request $request){
         $preparacion= preparacionSector::findOrFail($request->id);
         $preparacion->delete();
 
@@ -124,8 +125,11 @@ class preparacionSectorController extends Controller
         return redirect('sector/preparacion');
     }
 
-    public function buscar(Request $request)
-    {
+    /*
+     * Realiza una busqueda de informacion con los valores enviados desde la vista de busqueda
+     */
+
+    public function buscar(Request $request){
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
         $maquinarias= Maquinaria::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
@@ -178,7 +182,9 @@ class preparacionSectorController extends Controller
     }
 
 
-    /*Recibe la informacion del formulario de crear y la adapta a los campos del modelo*/
+    /*
+     * Recibe la informacion del formulario de crear y la adapta a los campos del modelo
+     */
     public function adaptarRequest($request){
         $preparacion=new PreparacionSector($request->all());
         if(isset($request->id)) {
@@ -193,7 +199,9 @@ class preparacionSectorController extends Controller
 
         return $preparacion;
     }
-    /*Adapta fechas a formato adecuado para imprimir en la vista*/
+    /*
+     * Adapta fechas de resultado de busqueda a formato adecuado para imprimir en la vista de busqueda
+     */
     public function adaptaFechas($resultados){
 
         foreach($resultados as $resultado  ){

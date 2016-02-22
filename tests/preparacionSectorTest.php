@@ -15,8 +15,7 @@ class preparacionSectorTest extends TestCase
      * @group preparacionSector
      */
     //para llamar a solo un grupo phpunit --group preparacionSector
-    public function testNoSector()
-    {
+    public function testNoSector(){
         $this->visit('sector/preparacion/crear')
             ->select(1,"maquinaria")
             ->type("18/02/2016","fecha")
@@ -30,8 +29,7 @@ class preparacionSectorTest extends TestCase
      * @group preparacionSector
      */
     //para llamar a solo un grupo phpunit --group preparacionSector
-    public function testNoMaquinaria()
-    {
+    public function testNoMaquinaria(){
         $this->visit('sector/preparacion/crear')
             ->type("2","numPasadas")
             ->press('Crear')
@@ -42,8 +40,7 @@ class preparacionSectorTest extends TestCase
      * @group preparacionSector
      */
     //para llamar a solo un grupo phpunit --group preparacionSector
-    public function testNoFecha()
-    {
+    public function testNoFecha(){
         $this->visit('sector/preparacion/crear')
             ->select(1,"maquinaria")
             ->type("2","numPasadas")
@@ -55,8 +52,7 @@ class preparacionSectorTest extends TestCase
      * @group preparacionSector
      */
     //para llamar a solo un grupo phpunit --group preparacionSector
-    public function testNoPasadas()
-    {
+    public function testNoPasadas(){
         $this->visit('sector/preparacion/crear')
             ->select(1,"maquinaria")
             ->type("18/02/2016","fecha")
@@ -69,8 +65,7 @@ class preparacionSectorTest extends TestCase
      * @group preparacionSector
      */
     //para llamar a solo un grupo phpunit --group preparacionSector
-    public function testCorrecto()
-    {
+    public function testCorrecto(){
         $this->visit('sector/preparacion/crear')
             ->select(1,"sector")
             ->select(1,"maquinaria")
@@ -86,8 +81,7 @@ class preparacionSectorTest extends TestCase
     /**
      * @group preparacionSector
      */
-    public function testRutaAgregar()
-    {
+    public function testRutaAgregar(){
         $response = $this->call('GET', 'sector/preparacion/crear');
         $this->assertEquals(200, $response->status());
     }

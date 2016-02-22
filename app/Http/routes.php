@@ -31,20 +31,18 @@ Route::get('/', function () {
 });
 
 
+/////////////////////////////////SECTOR///////////////////////////////////////////////////////////////////////
+
+
 /*
- * Rutas para SECTOR Preparacion
- *
- *
- * */
+ * Rutas para Sector-Preparacion
+ */
 Route::get('sector/preparacion',[
     'uses' => 'preparacionSectorController@index',
     'as' =>'sector/preparacion'
 
 ]);
-Route::post('sector/preparacion/lista','preparacionSectorController@buscar',array('before' => 'csrf', function()
-{
-    //
-}));
+
 
 Route::get('sector/preparacion/lista',[
         'uses' =>'preparacionSectorController@buscar',
@@ -88,8 +86,7 @@ Route::get('sector/preparacion/consultar/{id}',[
 
 /*
  * Rutas para Sector Fertilizacion
- *
- * */
+ */
 
 Route::get('sector/fertilizacion',[
     'uses' => 'fertilizacionSectorController@index',
@@ -167,3 +164,107 @@ Route::get('sector/fertilizacion/carga',function()
 
     return Response::json($siembrasTodas);
 });
+
+/*
+ * Rutas para Sector-Siembra
+ */
+
+Route::get('sector/siembra',[
+    'uses' => 'siembraSectorController@index',
+    'as' =>'sector/siembra'
+
+]);
+
+
+Route::get('sector/siembra/lista',[
+        'uses' =>'siembraSectorController@buscar',
+        'as' =>'sector/siembra/lista']
+
+);
+
+Route::get('sector/siembra/crear',[
+    'uses' => 'siembraSectorController@pagCrear',
+    'as' =>'sector/siembra/crear'
+
+]);
+
+
+Route::post('sector/siembra/crear/','siembraSectorController@crear',array('before' => 'csrf', function()
+{
+    //
+}));
+
+Route::get('sector/siembra/modificar/{id}',[
+    'uses' => 'siembraSectorController@pagModificar',
+    'as' =>'sector/siembra/modificar/item'
+
+]);
+
+
+Route::post('sector/siembra/modificar','siembraSectorController@modificar',array('before' => 'csrf', function()
+{
+    //
+}));
+
+Route::post('sector/siembra/eliminar','siembraSectorController@eliminar',array('before' => 'csrf', function()
+{
+
+}));
+
+Route::get('sector/siembra/consultar/{id}',[
+    'uses' => 'siembraSectorController@pagConsultar',
+    'as' =>'sector/siembra/consultar/item'
+
+]);
+
+/*
+ * Rutas para Sector-Riego
+ */
+
+Route::get('sector/riego',[
+    'uses' => 'riegoSectorController@index',
+    'as' =>'sector/riego'
+
+]);
+
+
+Route::get('sector/riego/lista',[
+        'uses' =>'riegoSectorController@buscar',
+        'as' =>'sector/riego/lista']
+
+);
+
+Route::get('sector/riego/crear',[
+    'uses' => 'riegoSectorController@pagCrear',
+    'as' =>'sector/riego/crear'
+
+]);
+
+
+Route::post('sector/riego/crear/','riegoSectorController@crear',array('before' => 'csrf', function()
+{
+    //
+}));
+
+Route::get('sector/riego/modificar/{id}',[
+    'uses' => 'riegoSectorController@pagModificar',
+    'as' =>'sector/riego/modificar/item'
+
+]);
+
+
+Route::post('sector/riego/modificar','riegoSectorController@modificar',array('before' => 'csrf', function()
+{
+    //
+}));
+
+Route::post('sector/riego/eliminar','riegoSectorController@eliminar',array('before' => 'csrf', function()
+{
+
+}));
+
+Route::get('sector/riego/consultar/{id}',[
+    'uses' => 'riegoSectorController@pagConsultar',
+    'as' =>'sector/riego/consultar/item'
+
+]);
