@@ -95,7 +95,7 @@
 
 
         <div class="form-group">
-            <label for="Fecha" class="col-lg-2 control-label">Fecha</label>
+            <label for="Fecha" class="col-lg-2 control-label"><strong>*</strong>Fecha</label>
             <div class="col-lg-10">
                 <div class="input-group date" id="fechaDP">
                                                  <span class="input-group-addon">

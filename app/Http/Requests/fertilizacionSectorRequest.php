@@ -27,10 +27,10 @@ class fertilizacionSectorRequest extends Request
             'sector'=>'required|exists:sector,id',
             'siembra' => 'required|exists:siembraSector,id',
             'fuente' => 'required|exists:fuente,id',
-            'fecha' =>  'date_format:d/m/Y',
-            'tipoFertilizacion'=>'in:Riego','Aplicacion dirigida',
-            'cantidad'=>'required|numeric',
-            'programaNPK'=>'required|max:200',
+            'fecha' =>  'required|date_format:d/m/Y',
+            'tipoFertilizacion'=>'in:Riego,Aplicacion dirigida',
+            'cantidad'=>'numeric',
+            'programaNPK'=>'max:200',
 
         ];
     }

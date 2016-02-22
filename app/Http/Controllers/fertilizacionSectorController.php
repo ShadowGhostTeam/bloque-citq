@@ -205,6 +205,7 @@ class fertilizacionSectorController extends Controller
 
         $fertilizacion->programaNPK = $request->programaNPK;
         $fertilizacion->cantidad= $request->cantidad;
+        $fertilizacion->tipo= $request->tipoFertilizacion;
 
         $fertilizacion->id_siembra = $request->siembra;
         $fertilizacion->id_fuente= $request->fuente;
@@ -226,14 +227,10 @@ class fertilizacionSectorController extends Controller
         $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $fertilizacion->fecha);
         $fertilizacion->fecha=$fecha->format('d/m/Y');
 
-
-        $siembras = DB::table('siembraSector')
-            ->join('cultivo','cultivo.id','=','siembraSector.id_cultivo')
-            ->join('fertilizacion','fertilizacion.id_siembra','=','siembraSector.id')
-            ->select('siembraSector.id','siembraSector.id_cultivo','cultivo.nombre','siembraSector.variedad')
-            ->where('fertilizacion.id','=',$id)->first();
-
-
+        $siembras = array(
+            'id_siembra'=>$fertilizacion->id_siembra,
+            'variedad'=>$fertilizacion->siembra->variedad,
+            'nombre'=>$fertilizacion->siembra->cultivo->nombre);
 
 
         return view('Sector/Fertilizacion/consultar')->with([
