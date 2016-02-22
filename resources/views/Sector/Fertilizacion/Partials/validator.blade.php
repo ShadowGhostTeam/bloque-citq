@@ -55,7 +55,7 @@
                         stringLength: {
                             max: 200,
                             message: 'Debe ser menor de 200 carácteres'
-                        },
+                        }
 
                     }
                 },
@@ -76,6 +76,8 @@
                 .on('dp.change dp.show', function(e) {
                     $('#formulario').data('bootstrapValidator').revalidateField('fecha');
                 });
+
+
 
 
     });

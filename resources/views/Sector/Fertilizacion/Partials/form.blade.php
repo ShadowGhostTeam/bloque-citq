@@ -60,7 +60,7 @@
                     @else
                         @if( isset($siembras))
                             @foreach($siembras as $siembra)
-                                <option value="{{  $siembra['id_siembra']  }}" selected > {{ $siembra['nombre']."   ". $siembra['variedad'] }}  </option>
+                                <option value="{{  $siembra['id_siembra']  }}"> {{ $siembra['nombre']."   ". $siembra['variedad'] }}  </option>
                             @endforeach
                         @endif
                     @endif
