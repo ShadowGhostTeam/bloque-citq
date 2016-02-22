@@ -154,9 +154,9 @@
             <label for="programaNPK" class="col-lg-2 control-label">Programa NPK</label>
             <div class="col-lg-10">
                 @if( isset($fertilizacionSector))
-                    {!!Form::text('programaNPK' ,$fertilizacionSector->programaNPK,['class'=>'form-control','id'=>'programaNPK','placeholder'=>'Número'])!!}
+                    {!!Form::text('programaNPK' ,$fertilizacionSector->programaNPK,['class'=>'form-control','id'=>'programaNPK','placeholder'=>'Programa NPK'])!!}
                 @else
-                    {!!Form::text('programaNPK' ,null,['class'=>'form-control','id'=>'programaNPK','placeholder'=>'Número'])!!}
+                    {!!Form::text('programaNPK' ,null,['class'=>'form-control','id'=>'programaNPK','placeholder'=>'Programa NPK'])!!}
                 @endif
             </div>
         </div>
