@@ -25,7 +25,7 @@ class fertilizacionSectorRequest extends Request
     {
         return [
             'sector'=>'required|exists:sector,id',
-            'siembra' => 'required|exists:siembraSector,id',
+            'siembra' => 'required|exists:siembrasector,id',
             'fuente' => 'required|exists:fuente,id',
             'fecha' =>  'required|date_format:d/m/Y',
             'tipoFertilizacion'=>'in:Riego,Aplicacion dirigida',

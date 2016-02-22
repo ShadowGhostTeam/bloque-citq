@@ -10,6 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
 use App\siembraSector;
@@ -148,11 +149,21 @@ Route::get('sector/fertilizacion/carga',function()
 
     $idsectores = Input::get('id');
 
-    $siembras = DB::table('siembraSector')->join('cultivo','cultivo.id','=','siembraSector.id_cultivo')
-        ->select('siembraSector.id','siembraSector.id_cultivo','cultivo.nombre','siembraSector.variedad')
-        ->where('id_sector',$idsectores)
-        ->get();
+    $siembras = siembraSector::where('id_sector',$idsectores)->get();
+    $siembrasTodas=array();
+    foreach ($siembras as $siembra) {
+
+        $fechaSiembraToda=Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fecha);
+
+        array_push($siembrasTodas,array(
+                'id_siembra' => $siembra->id,
+                'variedad' => $siembra->variedad,
+                'nombre' => $siembra->cultivo->nombre,
+                'fecha' => $fechaSiembraToda->format('d/m/Y'))
+
+        );
+    }
 
 
-    return Response::json($siembras);
+    return Response::json($siembrasTodas);
 });

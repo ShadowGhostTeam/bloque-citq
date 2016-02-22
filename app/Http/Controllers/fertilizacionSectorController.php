@@ -105,11 +105,6 @@ class fertilizacionSectorController extends Controller
     {
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
-        /*$siembras = DB::table('siembraSector')->join('cultivo','cultivo.id','=','siembraSector.id_cultivo')
-            ->select('siembraSector.id','siembraSector.id_cultivo','cultivo.nombre','siembraSector.variedad')
-            ->get();
-        */
-
         $fuentes = fuente::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
         $tipoFertilizaciones = ['Riego','Aplicacion dirigida'];
@@ -117,7 +112,6 @@ class fertilizacionSectorController extends Controller
 
         return view('Sector/Fertilizacion/crear')->with([
             'sectores' => $sectores,
-       //     'siembras' => $siembras,
             'tipoFertilizaciones'=>$tipoFertilizaciones,
             'fuentes' => $fuentes
 
@@ -134,10 +128,17 @@ class fertilizacionSectorController extends Controller
 
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
+
+        $fechaSiembraSeleccionada=Carbon::createFromFormat('Y-m-d H:i:s', $fertilizacionSector->siembra->fecha);
+
+
+
         $siembraSeleccionada = array(
             'id_siembra'=>$fertilizacionSector->id_siembra,
             'variedad'=>$fertilizacionSector->siembra->variedad,
-            'nombre'=>$fertilizacionSector->siembra->cultivo->nombre);
+            'nombre'=>$fertilizacionSector->siembra->cultivo->nombre,
+            'fecha'=>$fechaSiembraSeleccionada->format('d/m/Y')
+        );
 
 
         $siembras = siembraSector::where('id_sector',$fertilizacionSector->id_sector)->get();
@@ -145,10 +146,15 @@ class fertilizacionSectorController extends Controller
         $siembrasTodas=array();
         foreach ($siembras as $siembra) {
 
+            $fechaSiembraToda=Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fecha);
+
             array_push($siembrasTodas,array(
                 'id_siembra' => $siembra->id,
                 'variedad' => $siembra->variedad,
-                'nombre' => $siembra->cultivo->nombre));
+                'nombre' => $siembra->cultivo->nombre,
+                'fecha' => $fechaSiembraToda->format('d/m/Y'))
+
+            );
         }
 
         $fuentes = fuente::select('id','nombre')->orderBy('nombre', 'asc')->get();

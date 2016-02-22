@@ -24,9 +24,8 @@
 
                             $.each(data,function(index,siembras){
 
-                             //  alert('<option value="'+siembras.id+' "> '+ siembras.nombre+' ' + siembras.variedad+ '</option>');
                                 $("#siembra").append(
-                                        '<option value="'+siembras.id+'">'+siembras.nombre+' '+siembras.variedad+"</option>");
+                                        '<option value="'+siembras.id_siembra+'">'+siembras.nombre+'  '+siembras.variedad+" - "+ siembras.fecha +"</option>");
                             });
                             $('#formulario').data('bootstrapValidator').revalidateField('siembra');
 
