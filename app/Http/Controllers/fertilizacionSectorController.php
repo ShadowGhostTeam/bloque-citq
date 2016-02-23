@@ -24,8 +24,7 @@ class fertilizacionSectorController extends Controller
      *
      *
      */
-    public function index()
-    {
+    public function index(){
         //
         $now= Carbon::now()->format('Y/m/d');
         $now2 =Carbon::now()->subMonth(6)->format('Y/m/d');
@@ -46,8 +45,7 @@ class fertilizacionSectorController extends Controller
     /*Metodo de Busqueda
      *
      * */
-    public function buscar(Request $request)
-    {
+    public function buscar(Request $request){
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
         $fuentes= fuente::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
@@ -92,8 +90,7 @@ class fertilizacionSectorController extends Controller
                 'fuentes' => $fuentes
             ]);
         }
-        else
-        {
+        else {
             return redirect('errors/404');
         }
 
@@ -101,8 +98,7 @@ class fertilizacionSectorController extends Controller
     }
 
     /*Devuelve la vista de crear con los valores de los combobox*/
-    public function pagCrear()
-    {
+    public function pagCrear(){
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
         $fuentes = fuente::select('id','nombre')->orderBy('nombre', 'asc')->get();
@@ -122,8 +118,7 @@ class fertilizacionSectorController extends Controller
      * Crear pagina de modificar
      *
      * */
-    public function pagModificar($id)
-    {
+    public function pagModificar($id){
         $fertilizacionSector= fertilizacion::findOrFail($id);
 
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
@@ -177,8 +172,7 @@ class fertilizacionSectorController extends Controller
 
 
     /*Recibe la informacion del formulario de crear y la almacena en la base de datos*/
-    public function crear(fertilizacionSectorRequest $request)
-    {
+    public function crear(fertilizacionSectorRequest $request){
 
         $fertilizacion=$this->adaptarRequest($request);
         $fertilizacion->save();
@@ -190,8 +184,7 @@ class fertilizacionSectorController extends Controller
 
 
     /*Modificar registro*/
-    public function modificar(fertilizacionSectorRequest $request)
-    {
+    public function modificar(fertilizacionSectorRequest $request){
         $fertilizacion=$this->adaptarRequest($request);
         $fertilizacion->save();
         $fertilizacion->push();
@@ -227,8 +220,7 @@ class fertilizacionSectorController extends Controller
      * Pagina para consultar
      *
      * */
-    public function pagConsultar($id)
-    {
+    public function pagConsultar($id){
         $fertilizacion= fertilizacion::findOrFail($id);
         $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $fertilizacion->fecha);
         $fertilizacion->fecha=$fecha->format('d/m/Y');
@@ -247,8 +239,7 @@ class fertilizacionSectorController extends Controller
 
 
     /*Eliminar registro*/
-    public function eliminar(Request $request)
-    {
+    public function eliminar(Request $request){
         $fertilizacion= fertilizacion::findOrFail($request->id);
         $fertilizacion->delete();
 
