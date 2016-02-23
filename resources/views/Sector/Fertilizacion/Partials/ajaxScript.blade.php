@@ -14,7 +14,7 @@
 
                 $.ajax({
                     method: "GET",
-                    url: "{{ URL::to('sector/fertilizacion/carga?id=')  }}"+id,
+                    url: "{{ URL::to('sector/ajaxSiembra/carga?id=')  }}"+id,
 
                 })
                         .done(function( data ) {

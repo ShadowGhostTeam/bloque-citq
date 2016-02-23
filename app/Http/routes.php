@@ -137,11 +137,12 @@ Route::get('sector/fertilizacion/consultar/{id}',[
 ]);
 
 /*
- * Ajax fertilizacion
+ * Ajax siembra
+ * utilizando sectores
  * */
 
 
-Route::get('sector/fertilizacion/carga',function()
+Route::get('sector/ajaxSiembra/carga',function()
 {
 
     $idsectores = Input::get('id');
