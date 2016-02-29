@@ -364,4 +364,24 @@ class preparacionSectorTest extends TestCase
 
 
 
+
+////////////////////////////////////////////////CONSULTAR/////////////////////////////////////////////////////////
+
+//para llamar a solo un grupo "phpunit --group preparacionConsultarSector"
+
+    /*Unidad*/
+    /**
+     * @group preparacionConsultarSector
+     */
+    public function testRutaConsultar(){
+        $response = $this->call('GET', 'sector/preparacion/consultar/12');
+        $this->assertEquals(200, $response->status());
+    }
+    /**
+     * @group preparacionConsultarSector
+     */
+    public function testConsultarIdIncorrecto(){
+        $response = $this->call('GET', 'sector/preparacion/consultar/120');
+        $this->assertEquals(404, $response->status());
+    }
 }
