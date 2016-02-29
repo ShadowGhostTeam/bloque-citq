@@ -236,7 +236,7 @@ class preparacionSectorTest extends TestCase
             ->select(1,"maquinaria")
             ->type("-1","numPasadas")
             ->press('Crear')
-            ->see("número de pasadas no debe ser menor a 0");
+            ->see("El tamaño de número de pasadas debe ser de al menos 0");
     }
     /**
      * @group preparacionCrearSector
