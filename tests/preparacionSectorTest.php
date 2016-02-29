@@ -165,6 +165,7 @@ class preparacionSectorTest extends TestCase
         $this->assertEquals(200, $response->status());
     }
 
+
     /*Integración*/
 
     /**
@@ -253,7 +254,7 @@ class preparacionSectorTest extends TestCase
 
 ////////////////////////////////////////////////MODIFICAR/////////////////////////////////////////////////////////////////
 
-//para llamar a solo un grupo phpunit --group preparacionCrearSector
+//para llamar a solo un grupo "phpunit --group preparacionModificarSector"
 
     /*Unidad*/
     /**
@@ -263,7 +264,13 @@ class preparacionSectorTest extends TestCase
         $response = $this->call('GET', 'sector/preparacion/modificar/12');
         $this->assertEquals(200, $response->status());
     }
-
+    /**
+     * @group preparacionModificarSector
+     */
+    public function testModificarIdIncorrecto(){
+        $response = $this->call('GET', 'sector/preparacion/modificar/120');
+        $this->assertEquals(404, $response->status());
+    }
     /*Integración*/
 
     /**
@@ -285,16 +292,20 @@ class preparacionSectorTest extends TestCase
 
     public function testModificarNoSector(){
         $this->visit('sector/preparacion/modificar/12')
+            ->select("","sector")
             ->select(1,"maquinaria")
             ->type("18/02/2016","fecha")
             ->type("2","numPasadas")
             ->press('Modificar')
             ->see("El campo sector es obligatorio");
     }
-
+    /**
+     * @group preparacionModificarSector
+     */
     public function testModificarNoMaquinaria(){
         $this->visit('sector/preparacion/modificar/12')
             ->select(1,"sector")
+            ->select("","maquinaria")
             ->type("18/02/2016","fecha")
             ->type("2","numPasadas")
             ->press('Modificar')
@@ -310,6 +321,7 @@ class preparacionSectorTest extends TestCase
             ->select(1,"sector")
             ->select(1,"maquinaria")
             ->type("2","numPasadas")
+            ->type("","fecha")
             ->press('Modificar')
             ->see("El campo fecha es obligatorio");
     }
@@ -321,6 +333,7 @@ class preparacionSectorTest extends TestCase
         $this->visit('sector/preparacion/modificar/12')
             ->select(1,"sector")
             ->select(1,"maquinaria")
+            ->type("","numPasadas")
             ->type("18/02/2016","fecha")
             ->press('Modificar')
             ->see("El campo número de pasadas es obligatorio");
@@ -347,13 +360,7 @@ class preparacionSectorTest extends TestCase
             ->press('Modificar')
             ->see("fecha no corresponde al formato d/m/Y");
     }
-    /**
-     * @group preparacionModificarSector
-     */
-    public function testModificarIdIncorrecto(){
-        $this->visit('sector/preparacion/modificar/120')
-            ->see("404");
-    }
+
 
 
 
