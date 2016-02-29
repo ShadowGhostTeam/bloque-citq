@@ -251,10 +251,109 @@ class preparacionSectorTest extends TestCase
 
 
 
+////////////////////////////////////////////////MODIFICAR/////////////////////////////////////////////////////////////////
 
+//para llamar a solo un grupo phpunit --group preparacionCrearSector
 
+    /*Unidad*/
+    /**
+     * @group preparacionModificarSector
+     */
+    public function testRutaModificar(){
+        $response = $this->call('GET', 'sector/preparacion/modificar/12');
+        $this->assertEquals(200, $response->status());
+    }
 
+    /*Integración*/
 
+    /**
+     * @group preparacionModificarSector
+     */
+
+    public function testModificarCorrecto(){
+        $this->visit('sector/preparacion/modificar/12')
+            ->select(1,"sector")
+            ->select(1,"maquinaria")
+            ->type("18/02/2016","fecha")
+            ->type("2","numPasadas")
+            ->press('Modificar')
+            ->see("ha sido modificada");
+    }
+    /**
+     * @group preparacionModificarSector
+     */
+
+    public function testModificarNoSector(){
+        $this->visit('sector/preparacion/modificar/12')
+            ->select(1,"maquinaria")
+            ->type("18/02/2016","fecha")
+            ->type("2","numPasadas")
+            ->press('Modificar')
+            ->see("El campo sector es obligatorio");
+    }
+
+    public function testModificarNoMaquinaria(){
+        $this->visit('sector/preparacion/modificar/12')
+            ->select(1,"sector")
+            ->type("18/02/2016","fecha")
+            ->type("2","numPasadas")
+            ->press('Modificar')
+            ->see("El campo maquinaria es obligatorio");
+    }
+
+    /**
+     * @group preparacionModificarSector
+     */
+
+    public function testModificarNoFecha(){
+        $this->visit('sector/preparacion/modificar/12')
+            ->select(1,"sector")
+            ->select(1,"maquinaria")
+            ->type("2","numPasadas")
+            ->press('Modificar')
+            ->see("El campo fecha es obligatorio");
+    }
+    /**
+     * @group preparacionModificarSector
+     */
+
+    public function testModificarNoPasadas(){
+        $this->visit('sector/preparacion/modificar/12')
+            ->select(1,"sector")
+            ->select(1,"maquinaria")
+            ->type("18/02/2016","fecha")
+            ->press('Modificar')
+            ->see("El campo número de pasadas es obligatorio");
+
+    }
+
+    /**
+     * @group preparacionModificarSector
+     */
+    public function testModificarPasadasNegativo(){
+        $this->visit('sector/preparacion/modificar/12')
+            ->select(1,"maquinaria")
+            ->type("-1","numPasadas")
+            ->press('Modificar')
+            ->see("El tamaño de número de pasadas debe ser de al menos 0");
+    }
+    /**
+     * @group preparacionModificarSector
+     */
+    public function testModificarFechaIncorrecta(){
+        $this->visit('sector/preparacion/modificar/12')
+            ->select(1,"maquinaria")
+            ->type("asdas","fecha")
+            ->press('Modificar')
+            ->see("fecha no corresponde al formato d/m/Y");
+    }
+    /**
+     * @group preparacionModificarSector
+     */
+    public function testModificarIdIncorrecto(){
+        $this->visit('sector/preparacion/modificar/120')
+            ->see("404");
+    }
 
 
 
