@@ -75,9 +75,9 @@
             <label for="Pasadas" class="col-lg-2 control-label"><strong>*</strong>Pasadas</label>
             <div class="col-lg-10">
                 @if( isset($preparacionSector))
-                {!!Form::number('numPasadas' ,$preparacionSector->numPasadas,['class'=>'form-control','id'=>'numPasadas','placeholder'=>'Número de pasadas'])!!}
+                {!!Form::number('numPasadas' ,$preparacionSector->numPasadas,['class'=>'form-control','min'=>'0','id'=>'numPasadas','placeholder'=>'Número de pasadas'])!!}
                 @else
-                    {!!Form::number('numPasadas' ,null,['class'=>'form-control','id'=>'numPasadas','placeholder'=>'Número de pasadas'])!!}
+                    {!!Form::number('numPasadas' ,null,['class'=>'form-control','min'=>'0','id'=>'numPasadas','placeholder'=>'Número de pasadas'])!!}
                 @endif
             </div>
         </div>

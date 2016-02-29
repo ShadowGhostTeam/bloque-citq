@@ -152,18 +152,39 @@ class preparacionSectorTest extends TestCase
 
 
 
-    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////CREAR//////////////////////////////////////////////////////
+
+    //para llamar a solo un grupo phpunit --group preparacionCrearSector
+
+    /*Unidad*/
+    /**
+     * @group preparacionCrearSector
+     */
+    public function testRutaCrear(){
+        $response = $this->call('GET', 'sector/preparacion/crear');
+        $this->assertEquals(200, $response->status());
+    }
+
+    /*Integración*/
 
     /**
-     * A basic test example.
-     *
-     * @return void
+     * @group preparacionCrearSector
      */
+
+    public function testCrearCorrecto(){
+        $this->visit('sector/preparacion/crear')
+            ->select(1,"sector")
+            ->select(1,"maquinaria")
+            ->type("18/02/2016","fecha")
+            ->type("2","numPasadas")
+            ->press('Crear')
+            ->see("La preparacion ha sido agregada");
+    }
+
     /**
-     * @group preparacionSector
+     * @group preparacionCrearSector
      */
-    //para llamar a solo un grupo phpunit --group preparacionSector
-    public function testNoSector(){
+    public function testCrearNoSector(){
         $this->visit('sector/preparacion/crear')
             ->select(1,"maquinaria")
             ->type("18/02/2016","fecha")
@@ -174,10 +195,10 @@ class preparacionSectorTest extends TestCase
 
 
     /**
-     * @group preparacionSector
+     * @group preparacionCrearSector
      */
-    //para llamar a solo un grupo phpunit --group preparacionSector
-    public function testNoMaquinaria(){
+
+    public function testCrearNoMaquinaria(){
         $this->visit('sector/preparacion/crear')
             ->type("2","numPasadas")
             ->press('Crear')
@@ -185,10 +206,10 @@ class preparacionSectorTest extends TestCase
     }
 
     /**
-     * @group preparacionSector
+     * @group preparacionCrearSector
      */
-    //para llamar a solo un grupo phpunit --group preparacionSector
-    public function testNoFecha(){
+
+    public function testCrearNoFecha(){
         $this->visit('sector/preparacion/crear')
             ->select(1,"maquinaria")
             ->type("2","numPasadas")
@@ -197,10 +218,9 @@ class preparacionSectorTest extends TestCase
     }
 
     /**
-     * @group preparacionSector
+     * @group preparacionCrearSector
      */
-    //para llamar a solo un grupo phpunit --group preparacionSector
-    public function testNoPasadas(){
+    public function testCrearNoPasadas(){
         $this->visit('sector/preparacion/crear')
             ->select(1,"maquinaria")
             ->type("18/02/2016","fecha")
@@ -208,31 +228,32 @@ class preparacionSectorTest extends TestCase
             ->see("El campo número de pasadas es obligatorio");
     }
 
-
     /**
-     * @group preparacionSector
+     * @group preparacionCrearSector
      */
-    //para llamar a solo un grupo phpunit --group preparacionSector
-    public function testCorrecto(){
+    public function testCrearPasadasNegativo(){
         $this->visit('sector/preparacion/crear')
-            ->select(1,"sector")
             ->select(1,"maquinaria")
-            ->type("18/02/2016","fecha")
-            ->type("2","numPasadas")
+            ->type("-1","numPasadas")
             ->press('Crear')
-            ->see("La preparacion ha sido agregada");
+            ->see("número de pasadas no debe ser menor a 0");
     }
-
-
-    //////////////////////////////UNIDAD/////////////////////////////
-
     /**
-     * @group preparacionSector
+     * @group preparacionCrearSector
      */
-    public function testRutaAgregar(){
-        $response = $this->call('GET', 'sector/preparacion/crear');
-        $this->assertEquals(200, $response->status());
+    public function testCrearFechaIncorrecta(){
+        $this->visit('sector/preparacion/crear')
+            ->select(1,"maquinaria")
+            ->type("asdas","fecha")
+            ->press('Crear')
+            ->see("fecha no corresponde al formato d/m/Y");
     }
+
+
+
+
+
+
 
 
 
