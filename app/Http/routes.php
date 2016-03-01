@@ -15,10 +15,8 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
 use App\siembraSector;
 
-Route::filter('force.ssl', function()
-{
-    if( ! Request::secure())
-    {
+Route::filter('force.ssl', function() {
+    if( ! Request::secure()) {
         return Redirect::secure(Request::path());
     }
 
@@ -56,8 +54,7 @@ Route::get('sector/preparacion/crear',[
 
 ]);
 
-Route::post('sector/preparacion/crear/','preparacionSectorController@crear',array('before' => 'csrf', function()
-{
+Route::post('sector/preparacion/crear/','preparacionSectorController@crear',array('before' => 'csrf', function() {
     //
 }));
 
@@ -68,13 +65,11 @@ Route::get('sector/preparacion/modificar/{id}',[
 ]);
 
 
-Route::post('sector/preparacion/modificar','preparacionSectorController@modificar',array('before' => 'csrf', function()
-{
+Route::post('sector/preparacion/modificar','preparacionSectorController@modificar',array('before' => 'csrf', function() {
     //
 }));
 
-Route::post('sector/preparacion/eliminar','preparacionSectorController@eliminar',array('before' => 'csrf', function()
-{
+Route::post('sector/preparacion/eliminar','preparacionSectorController@eliminar',array('before' => 'csrf', function() {
 
 }));
 
@@ -108,8 +103,7 @@ Route::get('sector/fertilizacion/crear',[
 ]);
 
 
-Route::post('sector/fertilizacion/crear/','fertilizacionSectorController@crear',array('before' => 'csrf', function()
-{
+Route::post('sector/fertilizacion/crear/','fertilizacionSectorController@crear',array('before' => 'csrf', function() {
     //
 }));
 
@@ -120,13 +114,11 @@ Route::get('sector/fertilizacion/modificar/{id}',[
 ]);
 
 
-Route::post('sector/fertilizacion/modificar','fertilizacionSectorController@modificar',array('before' => 'csrf', function()
-{
+Route::post('sector/fertilizacion/modificar','fertilizacionSectorController@modificar',array('before' => 'csrf', function() {
     //
 }));
 
-Route::post('sector/fertilizacion/eliminar','fertilizacionSectorController@eliminar',array('before' => 'csrf', function()
-{
+Route::post('sector/fertilizacion/eliminar','fertilizacionSectorController@eliminar',array('before' => 'csrf', function() {
 
 }));
 
@@ -142,8 +134,7 @@ Route::get('sector/fertilizacion/consultar/{id}',[
  * */
 
 
-Route::get('sector/ajaxSiembra/carga',function()
-{
+Route::get('sector/ajaxSiembra/carga',function() {
 
     $idsectores = Input::get('id');
 
@@ -190,8 +181,7 @@ Route::get('sector/siembra/crear',[
 ]);
 
 
-Route::post('sector/siembra/crear/','siembraSectorController@crear',array('before' => 'csrf', function()
-{
+Route::post('sector/siembra/crear/','siembraSectorController@crear',array('before' => 'csrf', function() {
     //
 }));
 
@@ -202,13 +192,11 @@ Route::get('sector/siembra/modificar/{id}',[
 ]);
 
 
-Route::post('sector/siembra/modificar','siembraSectorController@modificar',array('before' => 'csrf', function()
-{
+Route::post('sector/siembra/modificar','siembraSectorController@modificar',array('before' => 'csrf', function() {
     //
 }));
 
-Route::post('sector/siembra/eliminar','siembraSectorController@eliminar',array('before' => 'csrf', function()
-{
+Route::post('sector/siembra/eliminar','siembraSectorController@eliminar',array('before' => 'csrf', function() {
 
 }));
 
@@ -242,8 +230,7 @@ Route::get('sector/riego/crear',[
 ]);
 
 
-Route::post('sector/riego/crear/','riegoSectorController@crear',array('before' => 'csrf', function()
-{
+Route::post('sector/riego/crear/','riegoSectorController@crear',array('before' => 'csrf', function() {
     //
 }));
 
@@ -254,13 +241,11 @@ Route::get('sector/riego/modificar/{id}',[
 ]);
 
 
-Route::post('sector/riego/modificar','riegoSectorController@modificar',array('before' => 'csrf', function()
-{
+Route::post('sector/riego/modificar','riegoSectorController@modificar',array('before' => 'csrf', function() {
     //
 }));
 
-Route::post('sector/riego/eliminar','riegoSectorController@eliminar',array('before' => 'csrf', function()
-{
+Route::post('sector/riego/eliminar','riegoSectorController@eliminar',array('before' => 'csrf', function() {
 
 }));
 
