@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class mantenimientoSectorTest extends TestCase
 {
    ////////////////////////////////////////CREAR////////////////////////////////////////////////////
-    //para llamar a solo un grupo phpunit --group mantenimientoCrearSector
+    //para llamar a solo un grupo "phpunit --group mantenimientoCrearSector
 
     /*Unidad*/
     /**
@@ -24,43 +24,10 @@ class mantenimientoSectorTest extends TestCase
     /**
      * @group mantenimientoCrearSector
      */
-
-    public function testCrearCorrecto(){
-        $this->visit('sector/mantenimiento/crear')
-            ->select(1,"sector")
-            ->select(1,"siembra")
-            ->select(1,"actividad")
-            ->type("18/02/2016","fecha")
-            ->press('Crear')
-            ->see("El mantenimiento ha sido agregado");
-    }
-
-    /**
-     * @group mantenimientoCrearSector
-     */
-
-    public function testCrearCorrecto2(){
-        $this->visit('sector/mantenimiento/crear')
-            ->select(1,"sector")
-            ->select(1,"siembra")
-            ->select(3,"actividad")
-            ->select(1,"tipoAplicacion")
-            ->type("correcto 2","producto")
-            ->type("1","cantidad")
-            ->type("este es mi comentario","comentario")
-            ->type("18/02/2016","fecha")
-            ->press('Crear')
-            ->see("El mantenimiento ha sido agregado");
-    }
-
-    /**
-     * @group mantenimientoCrearSector
-     */
-
     public function testCrearNoSector(){
         $this->visit('sector/mantenimiento/crear')
-            ->select(3,"actividad")
-            ->select(1,"tipoAplicacion")
+            ->select("Deshierbe manual","actividad")
+            ->select("","tipoAplicacion")
             ->type("correcto 2","producto")
             ->type("1","cantidad")
             ->type("este es mi comentario","comentario")
@@ -75,10 +42,6 @@ class mantenimientoSectorTest extends TestCase
 
     public function testCrearNoSiembra(){
         $this->visit('sector/mantenimiento/crear')
-            ->select(3,"actividad")
-            ->select(1,"tipoAplicacion")
-            ->type("correcto 2","producto")
-            ->type("1","cantidad")
             ->type("este es mi comentario","comentario")
             ->type("18/02/2016","fecha")
             ->press('Crear')
@@ -92,7 +55,6 @@ class mantenimientoSectorTest extends TestCase
     public function testCrearNoActividad(){
         $this->visit('sector/mantenimiento/crear')
             ->select(1,"sector")
-            ->select(1,"siembra")
             ->type("18/02/2016","fecha")
             ->press('Crear')
             ->see("El campo actividad es obligatorio");
@@ -103,8 +65,6 @@ class mantenimientoSectorTest extends TestCase
     public function testCrearNoFecha(){
         $this->visit('sector/mantenimiento/crear')
             ->select(1,"sector")
-            ->select(1,"siembra")
-            ->select(1,"actividad")
             ->press('Crear')
             ->see("El campo fecha es obligatorio");
     }
@@ -116,9 +76,6 @@ class mantenimientoSectorTest extends TestCase
     public function testCrearCantidadNoNumero(){
         $this->visit('sector/mantenimiento/crear')
             ->select(1,"sector")
-            ->select(1,"siembra")
-            ->select(3,"actividad")
-            ->select(1,"tipoAplicacion")
             ->type("correcto 2","producto")
             ->type("asdasd","cantidad")
             ->type("este es mi comentario","comentario")
@@ -134,9 +91,6 @@ class mantenimientoSectorTest extends TestCase
     public function testCrearCantidadNegativa(){
         $this->visit('sector/mantenimiento/crear')
             ->select(1,"sector")
-            ->select(1,"siembra")
-            ->select(3,"actividad")
-            ->select(1,"tipoAplicacion")
             ->type("correcto 2","producto")
             ->type("-1","cantidad")
             ->type("este es mi comentario","comentario")
@@ -148,20 +102,13 @@ class mantenimientoSectorTest extends TestCase
     /**
      * @group mantenimientoCrearSector
      */
-
-    public function testCrearTruncarInformacion(){
+    public function testCrearFechaIncorrecta(){
         $this->visit('sector/mantenimiento/crear')
-            ->select(1,"sector")
-            ->select(1,"siembra")
-            ->select(1,"actividad")
-            ->select(1,"tipoAplicacion")
-            ->type("correcto 2","producto")
-            ->type("-1","cantidad")
-            ->type("este es mi comentario","comentario")
-            ->type("18/02/2016","fecha")
+            ->type("asdas","fecha")
             ->press('Crear')
-            ->see("El mantenimiento ha sido agregado");
+            ->see("fecha no corresponde al formato d/m/Y");
     }
+
 
 
 

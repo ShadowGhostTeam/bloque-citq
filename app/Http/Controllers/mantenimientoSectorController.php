@@ -174,7 +174,7 @@ class mantenimientoSectorController extends Controller
 
         $mantenimiento=$this->adaptarRequest($request);
         $mantenimiento->save();
-        Session::flash('message', 'El mantenimineto ha sido agregado');
+        Session::flash('message', 'El mantenimiento ha sido agregado');
         return redirect('sector/mantenimiento/crear');
     }
 
@@ -202,7 +202,7 @@ class mantenimientoSectorController extends Controller
         $mantenimiento->actividad= $request->actividad;
         $mantenimiento->comentario = $request->comentario;
         $mantenimiento->fecha = Carbon::createFromFormat('d/m/Y', $request->fecha)->toDateTimeString();
-
+        $mantenimiento->tipoAplicacion="";
         if($request->actividad!="Deshierbe manual"&&$request->actividad!="Deshierbe máquina"){
             $mantenimiento->producto = $request->producto;
             $mantenimiento->cantidad= $request->cantidad;
