@@ -42,7 +42,6 @@
                         numeric: {
                             message: 'No es un número válido',
                             // The default separators
-                            thousandsSeparator: ',',
                             decimalSeparator: '.'
                         },
                         greaterThan:{

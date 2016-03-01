@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\cultivo;
-use App\fertilizacion;
-use App\fuente;
-use App\Http\Requests\fertilizacionSectorRequest;
+use App\Http\Requests\mantenimientoSectorRequest;
+use App\mantenimientoSector;
 use App\sector;
 use App\siembraSector;
 use Carbon\Carbon;
@@ -171,13 +170,12 @@ class mantenimientoSectorController extends Controller
 
 
     /*Recibe la informacion del formulario de crear y la almacena en la base de datos*/
-    public function crear(fertilizacionSectorRequest $request){
+    public function crear(mantenimientoSectorRequest $request){
 
-        $fertilizacion=$this->adaptarRequest($request);
-        $fertilizacion->save();
-
-        Session::flash('message', 'La fertilizacion ha sido agregada');
-        return redirect('sector/fertilizacion/crear');
+        $mantenimiento=$this->adaptarRequest($request);
+        $mantenimiento->save();
+        Session::flash('message', 'El mantenimineto ha sido agregado');
+        return redirect('sector/mantenimiento/crear');
     }
 
 
@@ -195,24 +193,23 @@ class mantenimientoSectorController extends Controller
 
     /*Recibe la informacion del formulario de crear y la adapta a los campos del modelo*/
     public function adaptarRequest($request){
-        $fertilizacion = new fertilizacion();
+        $mantenimiento = new mantenimientoSector();
         if(isset($request->id)) {
-            $fertilizacion = fertilizacion::findOrFail($request->id);
+            $mantenimiento = mantenimientoSector::findOrFail($request->id);
+        }
+        $mantenimiento->id_siembra = $request->siembra;
+        $mantenimiento->id_sector= $request->sector;
+        $mantenimiento->actividad= $request->actividad;
+        $mantenimiento->comentario = $request->comentario;
+        $mantenimiento->fecha = Carbon::createFromFormat('d/m/Y', $request->fecha)->toDateTimeString();
+
+        if($request->actividad!="Deshierbe manual"&&$request->actividad!="Deshierbe máquina"){
+            $mantenimiento->producto = $request->producto;
+            $mantenimiento->cantidad= $request->cantidad;
+            $mantenimiento->tipoAplicacion= $request->tipoAplicacion;
         }
 
-
-        $fertilizacion->programaNPK = $request->programaNPK;
-        $fertilizacion->cantidad= $request->cantidad;
-        $fertilizacion->tipo= $request->tipoFertilizacion;
-
-        $fertilizacion->id_siembra = $request->siembra;
-        $fertilizacion->id_fuente= $request->fuente;
-        $fertilizacion->id_sector= $request->sector;
-        $fertilizacion->fecha = Carbon::createFromFormat('d/m/Y', $request->fecha)->toDateTimeString();
-
-
-
-        return $fertilizacion;
+        return $mantenimiento;
     }
 
     /*

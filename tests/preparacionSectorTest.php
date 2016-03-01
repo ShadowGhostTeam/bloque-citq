@@ -78,7 +78,7 @@ class preparacionSectorTest extends TestCase
         $this->visit('sector/preparacion')
             ->type("29/02/2015","fechaInicio")
             ->type("29/02/2016","fechaFin")
-            ->select(1,"sector")
+            ->select(1,"maquinaria")
             ->press('Buscar')
             ->see("Se encontraron");
     }

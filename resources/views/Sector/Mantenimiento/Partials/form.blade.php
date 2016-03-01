@@ -94,7 +94,7 @@
         </div>
 
         <div class="form-group" id="divTipoAplicacion">
-            <label for="Fuente" class="col-lg-2 control-label">Tipo aplicacion</label>
+            <label for="Fuente" class="col-lg-2 control-label">Tipo aplicación</label>
             <div class="col-lg-10">
 
                 <select  class="form-control" id="tipoAplicacion" name="tipoAplicacion">
