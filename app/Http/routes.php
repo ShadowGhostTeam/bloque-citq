@@ -254,3 +254,52 @@ Route::get('sector/riego/consultar/{id}',[
     'as' =>'sector/riego/consultar/item'
 
 ]);
+
+/*
+     * Rutas para Sector-Mantenimiento
+ */
+
+Route::get('sector/mantenimiento',[
+    'uses' => 'mantenimientoSectorController@index',
+    'as' =>'sector/mantenimiento'
+
+]);
+
+
+Route::get('sector/mantenimiento/lista',[
+        'uses' =>'mantenimientoSectorController@buscar',
+        'as' =>'sector/mantenimiento/lista']
+
+);
+
+Route::get('sector/mantenimiento/crear',[
+    'uses' => 'mantenimientoSectorController@pagCrear',
+    'as' =>'sector/mantenimiento/crear'
+
+]);
+
+
+Route::post('sector/mantenimiento/crear/','mantenimientoSectorController@crear',array('before' => 'csrf', function() {
+    //
+}));
+
+Route::get('sector/mantenimiento/modificar/{id}',[
+    'uses' => 'mantenimientoSectorController@pagModificar',
+    'as' =>'sector/mantenimiento/modificar/item'
+
+]);
+
+
+Route::post('sector/mantenimiento/modificar','mantenimientoSectorController@modificar',array('before' => 'csrf', function() {
+    //
+}));
+
+Route::post('sector/mantenimiento/eliminar','mantenimientoSectorController@eliminar',array('before' => 'csrf', function() {
+
+}));
+
+Route::get('sector/mantenimiento/consultar/{id}',[
+    'uses' => 'mantenimientoSectorController@pagConsultar',
+    'as' =>'sector/mantenimiento/consultar/item'
+
+]);

@@ -20,7 +20,7 @@ class mantenimientoSector extends Model
      *
      * @var array
      */
-    protected $fillable = ['fecha','actividad','tipoAplicacion','producto','cantidad','id_siembra','id_sector'];
+    protected $fillable = ['fecha','actividad','tipoAplicacion','producto','cantidad','comentario','id_siembra','id_sector'];
 
 
     /**
