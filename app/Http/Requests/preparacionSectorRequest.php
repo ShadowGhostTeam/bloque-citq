@@ -26,7 +26,7 @@ class preparacionSectorRequest extends Request
         return [
             'sector'=>'required|exists:sector,id',
             'maquinaria' => 'required|exists:maquinaria,id',
-            'numPasadas'=>'required|numeric|max:999',
+            'numPasadas'=>'required|numeric|max:999|min:0',
             'fecha' =>  'required |date_format:d/m/Y'
         ];
     }

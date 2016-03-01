@@ -6,16 +6,186 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class preparacionSectorTest extends TestCase
 {
+
+
+    //////////////////////////////BUSCAR//////////////////////////////////
+    //para llamar a solo un grupo phpunit --group preparacionBuscarSector
+
+    /*Unidad*/
     /**
-     * A basic test example.
-     *
-     * @return void
+     * @group preparacionBuscarSector
      */
+    public function testRutaBuscar(){
+        $response = $this->call('GET', 'sector/preparacion');
+        $this->assertEquals(200, $response->status());
+    }
+
+    /*Integración*/
+
     /**
-     * @group preparacionSector
+     * @group preparacionBuscarSector
      */
-    //para llamar a solo un grupo phpunit --group preparacionSector
-    public function testNoSector(){
+    public function testBuscarNoParametros(){
+        $this->visit('sector/preparacion')
+            ->press('Buscar')
+            ->see("Se encontraron");
+    }
+    /**
+     * @group preparacionBuscarSector
+     */
+    public function testBuscarSectorCorrecto(){
+        $this->visit('sector/preparacion')
+            ->select(1,"sector")
+            ->press('Buscar')
+            ->see("Se encontraron");
+    }
+    /**
+     * @group preparacionBuscarSector
+     */
+    public function testBuscarMaquinariaCorrecto(){
+        $this->visit('sector/preparacion')
+            ->select(1,"maquinaria")
+            ->press('Buscar')
+            ->see("Se encontraron");
+    }
+
+    /**
+     * @group preparacionBuscarSector
+     */
+    public function testBuscarFechaCorrecto(){
+        $this->visit('sector/preparacion')
+            ->type("29/02/2015","fechaInicio")
+            ->type("29/02/2016","fechaFin")
+            ->press('Buscar')
+            ->see("Se encontraron");
+    }
+
+    /**
+     * @group preparacionBuscarSector
+     */
+    public function testBuscarSectorFechaCorrecto(){
+        $this->visit('sector/preparacion')
+            ->type("29/02/2015","fechaInicio")
+            ->type("29/02/2016","fechaFin")
+            ->select(1,"sector")
+            ->press('Buscar')
+            ->see("Se encontraron");
+    }
+    /**
+     * @group preparacionBuscarSector
+     */
+    public function testBuscarMaquinariaFechaCorrecto(){
+        $this->visit('sector/preparacion')
+            ->type("29/02/2015","fechaInicio")
+            ->type("29/02/2016","fechaFin")
+            ->select(1,"sector")
+            ->press('Buscar')
+            ->see("Se encontraron");
+    }
+    /**
+     * @group preparacionBuscarSector
+     */
+    public function testBuscarSectorMaquinariaFechaCorrecto(){
+        $this->visit('sector/preparacion')
+            ->type("29/02/2015","fechaInicio")
+            ->type("29/02/2016","fechaFin")
+            ->select(1,"sector")
+            ->select(1,"maquinaria")
+            ->press('Buscar')
+            ->see("Se encontraron");
+    }
+
+    /**
+     * @group preparacionBuscarSector
+     */
+    public function testBuscarUnaFecha(){
+        $this->visit('sector/preparacion/lista?sector=&maquinaria=&fechaInicio=&fechaFin=29%2F02%2F2016')
+              ->see("No se encontraron resultados");
+    }
+
+    /**
+     * @group preparacionBuscarSector
+     */
+    public function testBuscarUnaFechaTexto(){
+        $this->visit('sector/preparacion/lista?sector=&maquinaria=&fechaInicio=sdfsdfsd&fechaFin=')
+            ->see("No se encontraron resultados");
+    }
+    /**
+     * @group preparacionBuscarSector
+     */
+    public function testBuscarFechasTexto(){
+        $this->visit('sector/preparacion/lista?sector=&maquinaria=&fechaInicio=sdfsdfsd&fechaFin=sdsdfd')
+            ->see("No se encontraron resultados");
+    }
+    /**
+     * @group preparacionBuscarSector
+     */
+    public function testBuscarSectorTexto(){
+        $this->visit('sector/preparacion/lista?sector=asdasd&maquinaria=&fechaInicio=&fechaFin=')
+            ->see("No se encontraron resultados");
+    }
+    /**
+     * @group preparacionBuscarSector
+     */
+    public function testBuscarMaquinariaTexto(){
+        $this->visit('sector/preparacion/lista?sector=&maquinaria=zfzfdf&fechaInicio=&fechaFin=')
+            ->see("No se encontraron resultados");
+    }
+    /**
+     * @group preparacionBuscarSector
+     */
+    public function testBuscarSectorInexistente(){
+        $this->visit('sector/preparacion/lista?sector=1000&maquinaria=&fechaInicio=&fechaFin=')
+            ->see("No se encontraron resultados");
+    }
+    /**
+     * @group preparacionBuscarSector
+     */
+    public function testBuscarMaquinariaInexistente(){
+        $this->visit('sector/preparacion/lista?sector=&maquinaria=1000&fechaInicio=&fechaFin=')
+            ->see("No se encontraron resultados");
+    }
+
+
+
+
+
+
+
+    ///////////////////////////////////////CREAR//////////////////////////////////////////////////////
+
+    //para llamar a solo un grupo phpunit --group preparacionCrearSector
+
+    /*Unidad*/
+    /**
+     * @group preparacionCrearSector
+     */
+    public function testRutaCrear(){
+        $response = $this->call('GET', 'sector/preparacion/crear');
+        $this->assertEquals(200, $response->status());
+    }
+
+
+    /*Integración*/
+
+    /**
+     * @group preparacionCrearSector
+     */
+
+    public function testCrearCorrecto(){
+        $this->visit('sector/preparacion/crear')
+            ->select(1,"sector")
+            ->select(1,"maquinaria")
+            ->type("18/02/2016","fecha")
+            ->type("2","numPasadas")
+            ->press('Crear')
+            ->see("La preparacion ha sido agregada");
+    }
+
+    /**
+     * @group preparacionCrearSector
+     */
+    public function testCrearNoSector(){
         $this->visit('sector/preparacion/crear')
             ->select(1,"maquinaria")
             ->type("18/02/2016","fecha")
@@ -26,10 +196,10 @@ class preparacionSectorTest extends TestCase
 
 
     /**
-     * @group preparacionSector
+     * @group preparacionCrearSector
      */
-    //para llamar a solo un grupo phpunit --group preparacionSector
-    public function testNoMaquinaria(){
+
+    public function testCrearNoMaquinaria(){
         $this->visit('sector/preparacion/crear')
             ->type("2","numPasadas")
             ->press('Crear')
@@ -37,10 +207,10 @@ class preparacionSectorTest extends TestCase
     }
 
     /**
-     * @group preparacionSector
+     * @group preparacionCrearSector
      */
-    //para llamar a solo un grupo phpunit --group preparacionSector
-    public function testNoFecha(){
+
+    public function testCrearNoFecha(){
         $this->visit('sector/preparacion/crear')
             ->select(1,"maquinaria")
             ->type("2","numPasadas")
@@ -49,10 +219,9 @@ class preparacionSectorTest extends TestCase
     }
 
     /**
-     * @group preparacionSector
+     * @group preparacionCrearSector
      */
-    //para llamar a solo un grupo phpunit --group preparacionSector
-    public function testNoPasadas(){
+    public function testCrearNoPasadas(){
         $this->visit('sector/preparacion/crear')
             ->select(1,"maquinaria")
             ->type("18/02/2016","fecha")
@@ -60,33 +229,159 @@ class preparacionSectorTest extends TestCase
             ->see("El campo número de pasadas es obligatorio");
     }
 
+    /**
+     * @group preparacionCrearSector
+     */
+    public function testCrearPasadasNegativo(){
+        $this->visit('sector/preparacion/crear')
+            ->select(1,"maquinaria")
+            ->type("-1","numPasadas")
+            ->press('Crear')
+            ->see("El tamaño de número de pasadas debe ser de al menos 0");
+    }
+    /**
+     * @group preparacionCrearSector
+     */
+    public function testCrearFechaIncorrecta(){
+        $this->visit('sector/preparacion/crear')
+            ->select(1,"maquinaria")
+            ->type("asdas","fecha")
+            ->press('Crear')
+            ->see("fecha no corresponde al formato d/m/Y");
+    }
+
+
+
+////////////////////////////////////////////////MODIFICAR/////////////////////////////////////////////////////////////////
+
+//para llamar a solo un grupo "phpunit --group preparacionModificarSector"
+
+    /*Unidad*/
+    /**
+     * @group preparacionModificarSector
+     */
+    public function testRutaModificar(){
+        $response = $this->call('GET', 'sector/preparacion/modificar/12');
+        $this->assertEquals(200, $response->status());
+    }
+    /**
+     * @group preparacionModificarSector
+     */
+    public function testModificarIdIncorrecto(){
+        $response = $this->call('GET', 'sector/preparacion/modificar/120');
+        $this->assertEquals(404, $response->status());
+    }
+    /*Integración*/
 
     /**
-     * @group preparacionSector
+     * @group preparacionModificarSector
      */
-    //para llamar a solo un grupo phpunit --group preparacionSector
-    public function testCorrecto(){
-        $this->visit('sector/preparacion/crear')
+
+    public function testModificarCorrecto(){
+        $this->visit('sector/preparacion/modificar/12')
             ->select(1,"sector")
             ->select(1,"maquinaria")
             ->type("18/02/2016","fecha")
             ->type("2","numPasadas")
-            ->press('Crear')
-            ->see("La preparacion ha sido agregada");
+            ->press('Modificar')
+            ->see("ha sido modificada");
     }
+    /**
+     * @group preparacionModificarSector
+     */
 
-
-    //////////////////////////////UNIDAD/////////////////////////////
+    public function testModificarNoSector(){
+        $this->visit('sector/preparacion/modificar/12')
+            ->select("","sector")
+            ->select(1,"maquinaria")
+            ->type("18/02/2016","fecha")
+            ->type("2","numPasadas")
+            ->press('Modificar')
+            ->see("El campo sector es obligatorio");
+    }
+    /**
+     * @group preparacionModificarSector
+     */
+    public function testModificarNoMaquinaria(){
+        $this->visit('sector/preparacion/modificar/12')
+            ->select(1,"sector")
+            ->select("","maquinaria")
+            ->type("18/02/2016","fecha")
+            ->type("2","numPasadas")
+            ->press('Modificar')
+            ->see("El campo maquinaria es obligatorio");
+    }
 
     /**
-     * @group preparacionSector
+     * @group preparacionModificarSector
      */
-    public function testRutaAgregar(){
-        $response = $this->call('GET', 'sector/preparacion/crear');
-        $this->assertEquals(200, $response->status());
+
+    public function testModificarNoFecha(){
+        $this->visit('sector/preparacion/modificar/12')
+            ->select(1,"sector")
+            ->select(1,"maquinaria")
+            ->type("2","numPasadas")
+            ->type("","fecha")
+            ->press('Modificar')
+            ->see("El campo fecha es obligatorio");
+    }
+    /**
+     * @group preparacionModificarSector
+     */
+
+    public function testModificarNoPasadas(){
+        $this->visit('sector/preparacion/modificar/12')
+            ->select(1,"sector")
+            ->select(1,"maquinaria")
+            ->type("","numPasadas")
+            ->type("18/02/2016","fecha")
+            ->press('Modificar')
+            ->see("El campo número de pasadas es obligatorio");
+
+    }
+
+    /**
+     * @group preparacionModificarSector
+     */
+    public function testModificarPasadasNegativo(){
+        $this->visit('sector/preparacion/modificar/12')
+            ->select(1,"maquinaria")
+            ->type("-1","numPasadas")
+            ->press('Modificar')
+            ->see("El tamaño de número de pasadas debe ser de al menos 0");
+    }
+    /**
+     * @group preparacionModificarSector
+     */
+    public function testModificarFechaIncorrecta(){
+        $this->visit('sector/preparacion/modificar/12')
+            ->select(1,"maquinaria")
+            ->type("asdas","fecha")
+            ->press('Modificar')
+            ->see("fecha no corresponde al formato d/m/Y");
     }
 
 
 
 
+
+////////////////////////////////////////////////CONSULTAR/////////////////////////////////////////////////////////
+
+//para llamar a solo un grupo "phpunit --group preparacionConsultarSector"
+
+    /*Unidad*/
+    /**
+     * @group preparacionConsultarSector
+     */
+    public function testRutaConsultar(){
+        $response = $this->call('GET', 'sector/preparacion/consultar/12');
+        $this->assertEquals(200, $response->status());
+    }
+    /**
+     * @group preparacionConsultarSector
+     */
+    public function testConsultarIdIncorrecto(){
+        $response = $this->call('GET', 'sector/preparacion/consultar/120');
+        $this->assertEquals(404, $response->status());
+    }
 }
