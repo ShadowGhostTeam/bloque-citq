@@ -184,12 +184,12 @@ class mantenimientoSectorController extends Controller
 
 
     /*Modificar registro*/
-    public function modificar(fertilizacionSectorRequest $request){
-        $fertilizacion=$this->adaptarRequest($request);
-        $fertilizacion->save();
-        $fertilizacion->push();
-        Session::flash('message', 'La fertilizacion ha sido modificada');
-        return redirect('sector/fertilizacion/modificar/'.$fertilizacion->id);
+    public function modificar(mantenimientoSectorRequest $request){
+        $mantenimiento=$this->adaptarRequest($request);
+        $mantenimiento->save();
+        $mantenimiento->push();
+        Session::flash('message', 'El mantenimiento ha sido modificado');
+        return redirect('sector/mantenimiento/modificar/'.$mantenimiento->id);
     }
 
 
@@ -205,6 +205,8 @@ class mantenimientoSectorController extends Controller
         $mantenimiento->actividad= $request->actividad;
         $mantenimiento->comentario = $request->comentario;
         $mantenimiento->fecha = Carbon::createFromFormat('d/m/Y', $request->fecha)->toDateTimeString();
+        $mantenimiento->tipoAplicacion="";
+        $mantenimiento->producto="";
         $mantenimiento->tipoAplicacion="";
         if($request->actividad!="Deshierbe manual"&&$request->actividad!="Deshierbe máquina"){
             $mantenimiento->producto = $request->producto;

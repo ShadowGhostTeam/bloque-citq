@@ -127,7 +127,7 @@ class mantenimientoSectorTest extends TestCase
 
     public function testRutaModificarIncorrecto(){
         $response = $this->call('GET', 'sector/mantenimiento/modificar/1000');
-        $this->assertEquals(400, $response->status());
+        $this->assertEquals(404, $response->status());
     }
 
     /*Integracion*/
@@ -159,9 +159,9 @@ class mantenimientoSectorTest extends TestCase
 
     public function testModificarNoActividad(){
         $this->visit('sector/mantenimiento/modificar/1')
-            ->select(1,"sector")
+            ->select("","actividad")
             ->type("18/02/2016","fecha")
-            ->press('Crear')
+            ->press('Modificar')
             ->see("El campo actividad es obligatorio");
     }
     /**
@@ -208,9 +208,9 @@ class mantenimientoSectorTest extends TestCase
      * @group mantenimientoModificarSector
      */
     public function testModificarFechaIncorrecta(){
-        $this->visit('sector/mantenimiento/crear')
+        $this->visit('sector/mantenimiento/modificar/1')
             ->type("asdas","fecha")
-            ->press('Modificar')
+            ->press("Modificar")
             ->see("fecha no corresponde al formato d/m/Y");
     }
 
