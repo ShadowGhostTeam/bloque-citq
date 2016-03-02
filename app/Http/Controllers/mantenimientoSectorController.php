@@ -27,17 +27,17 @@ class mantenimientoSectorController extends Controller
         //
         $now= Carbon::now()->format('Y/m/d');
         $now2 =Carbon::now()->subMonth(6)->format('Y/m/d');
-        $fertilizaciones = fertilizacion::whereBetween('fecha', array($now2,$now))->orderBy('fecha', 'desc')->paginate(15);
-        $this->adaptaFechas($fertilizaciones);
-
+        $mantenimientos = mantenimientoSector::whereBetween('fecha', array($now2,$now))->orderBy('fecha', 'desc')->paginate(15);
+        $this->adaptaFechas($mantenimientos);
+        $actividades = ['Deshierbe manual', 'Deshierbe máquina','Fungicida','Herbicida','Insecticida'];
 
 
         $sectores= sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $fuentes= fuente::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        return view('Sector/Fertilizacion/buscar')->with([
+
+        return view('Sector/Mantenimiento/buscar')->with([
             'sectores' => $sectores,
-            'fuentes' => $fuentes,
-            'fertilizaciones'=>$fertilizaciones
+            'actividades' => $actividades,
+            'mantenimientos'=>$mantenimientos
 
         ]);
     }
@@ -207,7 +207,7 @@ class mantenimientoSectorController extends Controller
         $mantenimiento->fecha = Carbon::createFromFormat('d/m/Y', $request->fecha)->toDateTimeString();
         $mantenimiento->tipoAplicacion="";
         $mantenimiento->producto="";
-        $mantenimiento->tipoAplicacion="";
+        $mantenimiento->cantidad="";
         if($request->actividad!="Deshierbe manual"&&$request->actividad!="Deshierbe máquina"){
             $mantenimiento->producto = $request->producto;
             $mantenimiento->cantidad= $request->cantidad;

@@ -214,6 +214,139 @@ class mantenimientoSectorTest extends TestCase
             ->see("fecha no corresponde al formato d/m/Y");
     }
 
+///////////////////////////////////////////BUSCAR//////////////////////////////////////////////////
+
+    //para llamar a solo un grupo phpunit --group mantenimientoBuscarSector
+
+    /*Unidad*/
+    /**
+     * @group mantenimientoBuscarSector
+     */
+    public function testRutaBuscar(){
+        $response = $this->call('GET', 'sector/mantenimiento');
+        $this->assertEquals(200, $response->status());
+    }
+
+    /*Integración*/
+
+    /**
+     * @group mantenimientoBuscarSector
+     */
+    public function testBuscarNoParametros(){
+        $this->visit('sector/mantenimiento')
+            ->press('Buscar')
+            ->see("Se encontraron");
+    }
+    /**
+     * @group mantenimientoBuscarSector
+     */
+    public function testBuscarSectorCorrecto(){
+        $this->visit('sector/mantenimiento')
+            ->select(1,"sector")
+            ->press('Buscar')
+            ->see("Se encontraron");
+    }
+    /**
+     * @group mantenimientoBuscarSector
+     */
+    public function testBuscarActividadCorrecto(){
+        $this->visit('sector/mantenimiento')
+            ->select("Deshierbe manual","actividad")
+            ->press('Buscar')
+            ->see("Se encontraron");
+    }
+
+    /**
+     * @group mantenimientoBuscarSector
+     */
+    public function testBuscarFechaCorrecto(){
+        $this->visit('sector/mantenimiento')
+            ->type("29/02/2015","fechaInicio")
+            ->type("29/02/2016","fechaFin")
+            ->press('Buscar')
+            ->see("Se encontraron");
+    }
+
+    /**
+     * @group mantenimientoBuscarSector
+     */
+    public function testBuscarSectorFechaCorrecto(){
+        $this->visit('sector/mantenimiento')
+            ->type("29/02/2015","fechaInicio")
+            ->type("29/02/2016","fechaFin")
+            ->select(1,"sector")
+            ->press('Buscar')
+            ->see("Se encontraron");
+    }
+    /**
+     * @group mantenimientoBuscarSector
+     */
+    public function testBuscarActividadFechaCorrecto(){
+        $this->visit('sector/mantenimiento')
+            ->type("29/02/2015","fechaInicio")
+            ->type("29/02/2016","fechaFin")
+            ->select("Deshierbe manual","actividad")
+            ->press('Buscar')
+            ->see("Se encontraron");
+    }
+    /**
+     * @group mantenimientoBuscarSector
+     */
+    public function testBuscarSectorActividadFechaCorrecto(){
+        $this->visit('sector/mantenimiento')
+            ->type("29/02/2015","fechaInicio")
+            ->type("29/02/2016","fechaFin")
+            ->select(1,"sector")
+            ->select("Deshierbe manual","actividad")
+            ->press('Buscar')
+            ->see("Se encontraron");
+    }
+
+    /**
+     * @group mantenimientoBuscarSector
+     */
+    public function testBuscarUnaFecha(){
+        $this->visit('sector/preparacion/lista?sector=&actividad=&fechaInicio=&fechaFin=29%2F02%2F2016')
+            ->see("No se encontraron resultados");
+    }
+
+    /**
+     * @group mantenimientoBuscarSector
+     */
+    public function testBuscarUnaFechaTexto(){
+        $this->visit('sector/preparacion/lista?sector=&actividad=&fechaInicio=sdfsdfsd&fechaFin=')
+            ->see("No se encontraron resultados");
+    }
+    /**
+     * @group mantenimientoBuscarSector
+     */
+    public function testBuscarFechasTexto(){
+        $this->visit('sector/preparacion/lista?sector=&actividad=&fechaInicio=sdfsdfsd&fechaFin=sdsdfd')
+            ->see("No se encontraron resultados");
+    }
+    /**
+     * @group mantenimientoBuscarSector
+     */
+    public function testBuscarSectorTexto(){
+        $this->visit('sector/preparacion/lista?sector=asdasd&actividad=&fechaInicio=&fechaFin=')
+            ->see("No se encontraron resultados");
+    }
+    /**
+     * @group mantenimientoBuscarSector
+     */
+    public function testBuscarSectorInexistente(){
+        $this->visit('sector/preparacion/lista?sector=1000&actividad=&fechaInicio=&fechaFin=')
+            ->see("No se encontraron resultados");
+    }
+    /**
+     * @group preparacionBuscarSector
+     */
+    public function testBuscarMaquinariaInexistente(){
+        $this->visit('sector/preparacion/lista?sector=&actividad=1000&fechaInicio=&fechaFin=')
+            ->see("No se encontraron resultados");
+    }
+
+
 
 
 

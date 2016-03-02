@@ -45,13 +45,13 @@
 MAIN SIDEBAR MENU
 *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Sector.Fertilizacion.aside')
+    @include('Sector.Mantenimiento.aside')
     <!--sidebar end-->
 
     <section id="container">
         <section id="main-content">
             <section class="wrapper site-min-height">
-                <h3 style="color:#078006"><i class="fa fa-angle-right"></i>Fertilización</h3>
+                <h3 style="color:#078006"><i class="fa fa-angle-right"></i>Mantenimiento</h3>
                 <div class="row mt">
 
 
@@ -62,7 +62,7 @@ MAIN SIDEBAR MENU
                             @include('Partials.Mensajes.mensajes')
 
                             <div class="form-group" align="right">
-                                <a href="{{route('sector/fertilizacion/crear')}}"> <button class="btn agregar tooltips" data-placement="left" data-original-title="Agregar"><i class="fa fa-plus"></i></button></a>
+                                <a href="{{route('sector/mantenimiento/crear')}}"> <button class="btn agregar tooltips" data-placement="left" data-original-title="Agregar"><i class="fa fa-plus"></i></i></button></a>
                             </div>
 
                             <div class="row">
@@ -70,7 +70,7 @@ MAIN SIDEBAR MENU
 
 
 
-                                    {!! Form::open(['route' => 'sector/fertilizacion/lista','method'=>'GET' ,'id'=>'formulario']) !!}
+                                    {!! Form::open(['route' => 'sector/mantenimiento/lista' ,'method'=>'GET']) !!}
 
                                         <div class="form-group">
 
@@ -89,19 +89,19 @@ MAIN SIDEBAR MENU
                                         <div class="form-group">
 
                                             <div class="col-lg-3">
-                                                <select  class="form-control" id="fuente" name="fuente">
-                                                    <option value="">Todas las fuentes</option>
+                                                <select  class="form-control" id="actividad" name="actividad">
+                                                    <option value="">Todas las actividades</option>
 
-                                                    @if( isset($fuentes))
-                                                        @foreach($fuentes as $fuente)
-                                                            <option value="{{  $fuente->id  }}" > {{ $fuente->nombre}}  </option>
+                                                    @if( isset($actividades))
+                                                        @foreach($actividades as $actividad)
+                                                            <option value="{{  $actividad  }}" > {{ $actividad}}  </option>
                                                         @endforeach
                                                     @endif
                                                 </select>
                                             </div>
                                         </div>
 
-
+                                    <div id="formulario">
                                         <div class="form-group">
                                             <div class="col-lg-2">
                                                 <div class="input-group date" id="fechaDP">
@@ -124,6 +124,7 @@ MAIN SIDEBAR MENU
                                             </div>
                                         </div>
 
+
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-default" >
                                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -135,6 +136,7 @@ MAIN SIDEBAR MENU
 
                                         </div>
                                         {!! Form::close() !!}
+                                    </div>
 
 
 
@@ -144,35 +146,35 @@ MAIN SIDEBAR MENU
                                     <thead>
                                     <tr>
                                         <th><i class="fa fa-thumb-tack"></i> Sector </th>
-                                        <th> <i class="fa fa-calendar-o"></i> Fuente </th>
+                                        <th> <i class="fa fa-calendar-o"></i> Actividad </th>
                                         <th><i class=" fa fa-edit"></i>Fecha</th>
                                         <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
 
-                                    @if ( isset( $fertilizaciones) )
+                                    @if ( isset( $mantenimientos) )
 
-                                        @foreach( $fertilizaciones as $fertilizacion)
+                                        @foreach( $mantenimientos as $mantenimiento )
 
                                             <tr>
-                                                <td>{{ $fertilizacion->sector->nombre }}</td>
-                                                <td>{{ $fertilizacion->fuente->nombre }}</td>
-                                                <td>{{ $fertilizacion->fecha }}</td>
+                                                <td>{{ $mantenimiento->sector->nombre }}</td>
+                                                <td>{{ $mantenimiento->actividad }}</td>
+                                                <td>{{ $mantenimiento->fecha }}</td>
 
 
                                                 <td style="width: 5px">
-                                                    <a href="{{ route('sector/fertilizacion/consultar/item',$fertilizacion->id) }}"><button class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar"><i class="fa fa-eye"></i></button></a>
+                                                    <a href="{{ route('sector/mantenimiento/consultar/item',$mantenimiento->id) }}"><button class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar"><i class="fa fa-eye"></i></button></a>
                                                 </td>
 
                                                 <td style="width: 5px">
-                                                    <a href="{{ route('sector/fertilizacion/modificar/item',$fertilizacion->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
+                                                    <a href="{{ route('sector/mantenimiento/modificar/item',$mantenimiento->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
                                                 </td>
 
                                                 <td style="width: 5px">
-                                                    {!! Form::open(['action'=>['fertilizacionSectorController@eliminar'],'role'=>'form'] )  !!}
-                                                    <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la fertilización?")'><i class="fa fa-trash-o "></i></button>
-                                                    <input type="hidden" name="id" value={{$fertilizacion->id}}>
+                                                    {!! Form::open(['action'=>['mantenimientoSectorController@eliminar'],'role'=>'form'] )  !!}
+                                                    <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar el mantenimiento?")'><i class="fa fa-trash-o "></i></button>
+                                                    <input type="hidden" name="id" value={{$mantenimiento->id}}>
                                                     {!! Form::close() !!}
                                                 </td>
 
@@ -186,8 +188,8 @@ MAIN SIDEBAR MENU
                                     </tbody>
                                 </table>
                             </div>
-                            @if (isset($fertilizaciones))
-                                {!! $fertilizaciones->setPath('')->appends(Input::query())->render()!!}
+                            @if (isset($mantenimientos))
+                                {!! $mantenimientos->setPath('')->appends(Input::query())->render()!!}
                             @endif
                         </div>
                     </div>
@@ -240,11 +242,39 @@ MAIN SIDEBAR MENU
                 if ( $('#formulario').data('bootstrapValidator').revalidateField('fechaInicio') && ! $('#formulario').data('bootstrapValidator').revalidateField('fechaFin')) {
                     $('#formulario').data('bootstrapValidator').revalidateField('fechaFin');
                 }
+                if($('#fechaInicioDP').val()=="")
+                {
+                    $('#formulario').data('bootstrapValidator').revalidateField('fechaInicio');
+                }
+
+                if($('#fechaInicioDP').val()==""&&$('#fechaFinDP').val()==""){
+                    $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaInicio',false);
+                    $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaFin',false);
+                }
+                else{
+                    $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaInicio',true);
+                    $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaFin',true);
+                }
+
+
+
             });
 
             $('#fechaFinDP').on('dp.change dp.show', function(e) {
                 if ( $('#formulario').data('bootstrapValidator').revalidateField('fechaFin') && ! $('#formulario').data('bootstrapValidator').revalidateField('fechaInicio')) {
                     $('#formulario').data('bootstrapValidator').revalidateField('fechaInicio');
+                }
+                if($('#fechaFinDP').val()=="")
+                {
+                    $('#formulario').data('bootstrapValidator').revalidateField('fechaFin');
+                }
+                if($('#fechaInicioDP').val()==""&&$('#fechaFinDP').val()==""){
+                    $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaInicio',false);
+                    $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaFin',false);
+                }
+                else{
+                    $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaInicio',true);
+                    $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaFin',true);
                 }
             });
         });
