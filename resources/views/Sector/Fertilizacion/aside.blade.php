@@ -34,7 +34,7 @@
                             <i class="fa fa-wrench"></i>
                             <span>Mantenimiento </span>
                         </a></li>
-                    <li><a href="#" >
+                    <li><a href="{{route('sector/cosecha')}}" >
                             <i class="fa fa-reply-all"></i>
                             <span>Cosecha </span>
                         </a></li>
