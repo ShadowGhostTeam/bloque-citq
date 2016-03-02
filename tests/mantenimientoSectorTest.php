@@ -109,6 +109,111 @@ class mantenimientoSectorTest extends TestCase
             ->see("fecha no corresponde al formato d/m/Y");
     }
 
+    ////////////////////////////////////////MODIFICAR////////////////////////////////////////////////////
+    //para llamar a solo un grupo "phpunit --group mantenimientoModificarSector
+
+    /*Unidad*/
+    /**
+     * @group mantenimientoModificarSector
+     */
+
+    public function testRutaModificar(){
+        $response = $this->call('GET', 'sector/mantenimiento/modificar/1');
+        $this->assertEquals(200, $response->status());
+    }
+    /**
+     * @group mantenimientoModificarSector
+     */
+
+    public function testRutaModificarIncorrecto(){
+        $response = $this->call('GET', 'sector/mantenimiento/modificar/1000');
+        $this->assertEquals(400, $response->status());
+    }
+
+    /*Integracion*/
+
+    /**
+     * @group mantenimientoModificarSector
+     */
+    public function testModificarNoSector(){
+        $this->visit('sector/mantenimiento/modificar/1')
+            ->select("","sector")
+            ->press('Modificar')
+            ->see("El campo sector es obligatorio");
+    }
+
+    /**
+     * @group mantenimientoModificarSector
+     */
+
+    public function testModificarNoSiembra(){
+        $this->visit('sector/mantenimiento/modificar/1')
+            ->select("","siembra")
+            ->press('Modificar')
+            ->see("El campo siembra es obligatorio");
+    }
+
+    /**
+     * @group mantenimientoModificarSector
+     */
+
+    public function testModificarNoActividad(){
+        $this->visit('sector/mantenimiento/modificar/1')
+            ->select(1,"sector")
+            ->type("18/02/2016","fecha")
+            ->press('Crear')
+            ->see("El campo actividad es obligatorio");
+    }
+    /**
+     * @group mantenimientoModificarSector
+     */
+    public function testModificarNoFecha(){
+        $this->visit('sector/mantenimiento/modificar/1')
+            ->type("","fecha")
+            ->press('Modificar')
+            ->see("El campo fecha es obligatorio");
+    }
+
+    /**
+     * @group mantenimientoModificarSector
+     */
+
+    public function testModificarCantidadNoNumero(){
+        $this->visit('sector/mantenimiento/modificar/1')
+            ->select(1,"sector")
+            ->type("correcto 2","producto")
+            ->type("asdasd","cantidad")
+            ->type("este es mi comentario","comentario")
+            ->type("18/02/2016","fecha")
+            ->press('Modificar')
+            ->see("cantidad debe ser numérico");
+    }
+
+    /**
+     * @group mantenimientoModificarSector
+     */
+
+    public function testModificarCantidadNegativa(){
+        $this->visit('sector/mantenimiento/modificar/1')
+            ->select(1,"sector")
+            ->type("correcto 2","producto")
+            ->type("-1","cantidad")
+            ->type("este es mi comentario","comentario")
+            ->type("18/02/2016","fecha")
+            ->press('Modificar')
+            ->see("El tamaño de cantidad debe ser de al menos 0");
+    }
+
+    /**
+     * @group mantenimientoModificarSector
+     */
+    public function testModificarFechaIncorrecta(){
+        $this->visit('sector/mantenimiento/crear')
+            ->type("asdas","fecha")
+            ->press('Modificar')
+            ->see("fecha no corresponde al formato d/m/Y");
+    }
+
 
 
 
