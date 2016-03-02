@@ -1,9 +1,19 @@
 <script type="text/javascript">
 
     $(document).ready(function() {
+        @if(isset($mantenimientoSector))
+        {
+            @if($mantenimientoSector->actividad=="Deshierbe manual"||$mantenimientoSector->actividad=="Deshierbe máquina")
+            $('#divProducto').hide();
+            $('#divTipoAplicacion').hide();
+            $('#divCantidad').hide();
+            @endif
+        }
+        @else
         $('#divProducto').hide();
         $('#divTipoAplicacion').hide();
         $('#divCantidad').hide();
+      @endif
 
         $('#formulario').bootstrapValidator({
             message: 'Los valores no son válidos',

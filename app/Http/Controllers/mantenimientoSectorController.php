@@ -117,24 +117,30 @@ class mantenimientoSectorController extends Controller
      *
      * */
     public function pagModificar($id){
-        $fertilizacionSector= fertilizacion::findOrFail($id);
+        $mantenimientoSector= mantenimientoSector::findOrFail($id);
 
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $actividades = ['Deshierbe manual', 'Deshierbe máquina','Fungicida','Herbicida','Insecticida'];
+        $tipoAplicaciones=['Sistema','Al suelo', 'Al follaje'];
 
 
-        $fechaSiembraSeleccionada=Carbon::createFromFormat('Y-m-d H:i:s', $fertilizacionSector->siembra->fecha);
+        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $mantenimientoSector->fecha);
+        $mantenimientoSector->fecha=$fecha->format('d/m/Y');
+
+
+        $fechaSiembraSeleccionada=Carbon::createFromFormat('Y-m-d H:i:s', $mantenimientoSector->siembra->fecha);
 
 
 
         $siembraSeleccionada = array(
-            'id_siembra'=>$fertilizacionSector->id_siembra,
-            'variedad'=>$fertilizacionSector->siembra->variedad,
-            'nombre'=>$fertilizacionSector->siembra->cultivo->nombre,
+            'id_siembra'=>$mantenimientoSector->id_siembra,
+            'variedad'=>$mantenimientoSector->siembra->variedad,
+            'nombre'=>$mantenimientoSector->siembra->cultivo->nombre,
             'fecha'=>$fechaSiembraSeleccionada->format('d/m/Y')
         );
 
 
-        $siembras = siembraSector::where('id_sector',$fertilizacionSector->id_sector)->get();
+        $siembras = siembraSector::where('id_sector',$mantenimientoSector->id_sector)->get();
 
         $siembrasTodas=array();
         foreach ($siembras as $siembra) {
@@ -150,20 +156,17 @@ class mantenimientoSectorController extends Controller
             );
         }
 
-        $fuentes = fuente::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $tipoFertilizaciones = ['Riego','Aplicacion dirigida'];
-
-        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $fertilizacionSector->fecha);
-        $fertilizacionSector->fecha=$fecha->format('d/m/Y');
 
 
 
-        return view('Sector/Fertilizacion/modificar')->with([
+
+
+        return view('Sector/Mantenimiento/modificar')->with([
+            'mantenimientoSector' => $mantenimientoSector,
             'sectores' => $sectores,
             'siembras' => $siembrasTodas,
-            'tipoFertilizaciones'=>$tipoFertilizaciones,
-            'fuentes' => $fuentes,
-            'fertilizacionSector' => $fertilizacionSector,
+            'actividades'=>$actividades,
+            'tipoAplicaciones' => $tipoAplicaciones,
             'siembraSeleccionada' => $siembraSeleccionada
         ]);
     }

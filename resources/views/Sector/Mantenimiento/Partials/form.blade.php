@@ -176,7 +176,7 @@
         <div class="form-group" align="center">
             @if( isset($mantenimientoSector))
 
-            {!! Form::submit('Modificar',['class'=>'btn btn-success', 'onclick'=>"return confirm ('¿Seguro que desea modificar la fertilización?')"])!!}
+            {!! Form::submit('Modificar',['class'=>'btn btn-success', 'onclick'=>"return confirm ('¿Seguro que desea modificar el mantenimiento?')"])!!}
             @else
                 {!! Form::submit('Crear',['class'=>'btn btn-success'])!!}
             @endif
