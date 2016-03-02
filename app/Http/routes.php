@@ -313,3 +313,48 @@ Route::get('sector/mantenimiento/consultar/{id}',[
 ]);
 
 /*
+ * Rutas para Sector-Preparacion
+ */
+Route::get('sector/cosecha',[
+    'uses' => 'cosechaSectorController@index',
+    'as' =>'sector/cosecha'
+
+]);
+
+
+Route::get('sector/cosecha/lista',[
+        'uses' =>'cosechaSectorController@buscar',
+        'as' =>'sector/preparacion/lista']
+
+);
+
+Route::get('sector/cosecha/crear',[
+    'uses' => 'cosechaSectorController@pagCrear',
+    'as' =>'sector/cosecha/crear'
+
+]);
+
+Route::post('sector/cosecha/crear/','cosechaSectorController@crear',array('before' => 'csrf', function() {
+    //
+}));
+
+Route::get('sector/cosecha/modificar/{id}',[
+    'uses' => 'cosechaSectorController@pagModificar',
+    'as' =>'sector/cosecha/modificar/item'
+
+]);
+
+
+Route::post('sector/cosecha/modificar','preparacionSectorController@modificar',array('before' => 'csrf', function() {
+    //
+}));
+
+Route::post('sector/cosecha/eliminar','preparacionSectorController@eliminar',array('before' => 'csrf', function() {
+
+}));
+
+Route::get('sector/cosecha/consultar/{id}',[
+    'uses' => 'cosechaSectorController@pagConsultar',
+    'as' =>'sector/cosecha/consultar/item'
+
+]);
