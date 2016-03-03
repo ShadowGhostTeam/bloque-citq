@@ -53,7 +53,7 @@ class cosechaSectorTest extends TestCase
      * @group cosechaCrearSector
      */
 
-    public function testCrearNoMaquinaria(){
+    public function testCrearNoSiembra(){
         $this->visit('sector/cosecha/crear')
             ->type("Esta es la descripción","descripcion")
             ->press('Crear')

@@ -1,4 +1,5 @@
 @include('Partials.ScriptsGenerales.scriptsPartials')
+
 <body>
 
 <section id="container" >

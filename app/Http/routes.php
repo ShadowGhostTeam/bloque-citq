@@ -313,7 +313,7 @@ Route::get('sector/mantenimiento/consultar/{id}',[
 ]);
 
 /*
- * Rutas para Sector-Preparacion
+ * Rutas para Sector-Cosecha
  */
 Route::get('sector/cosecha',[
     'uses' => 'cosechaSectorController@index',

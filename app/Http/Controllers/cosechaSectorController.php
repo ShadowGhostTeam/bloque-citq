@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\preparacionSectorRequest;
+use App\Http\Requests\cosechaSectorRequest;
 
 use App\maquinaria;
 use App\preparacionSector;
 use App\sector;
+use App\siembraSector;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -46,13 +47,12 @@ class cosechaSectorController extends Controller
      * Devuelve la vista de crear con los valores de los combobox
      * */
     public function pagCrear() {
-        $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $maquinarias= Maquinaria::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $sectores = Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $siembras = SiembraSector::select('id','variedad','fecha')->orderBy('fecha', 'asc')->get();
 
-
-        return view('Sector/Preparacion/crear')->with([
+        return view('Sector/cosecha/crear')->with([
             'sectores' => $sectores,
-            'maquinarias' => $maquinarias
+            'siembras' => $siembras
         ]);
     }
 
