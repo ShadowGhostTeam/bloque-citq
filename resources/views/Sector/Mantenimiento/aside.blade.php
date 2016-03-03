@@ -12,12 +12,12 @@
                 </a>
 
                 <ul class="sub">
-                    <li><a href="{{route('sector/preparacion')}}"  class="active">
+                    <li><a href="{{route('sector/preparacion')}}"  >
                             <i class="glyphicon glyphicon-tree-deciduous"></i>
                             <span>Preparación </span>
                         </a></li>
 
-                    <li><a href="{{route('sector/siembra')}}">
+                    <li><a href="#">
                             <i class="fa fa-leaf"></i>
                             <span>Siembra </span>
                         </a></li>
@@ -26,11 +26,11 @@
                             <i class="fa fa-tasks"></i>
                             <span>Fertilización </span>
                         </a></li>
-                    <li><a href="#" >
+                    <li><a href="{{route('sector/riego')}}" >
                             <i class="fa fa-tint"></i>
                             <span>Riego </span>
                         </a></li>
-                    <li><a href="#" >
+                    <li><a href="{{route('sector/mantenimiento')}}"  class="active">
                             <i class="fa fa-wrench"></i>
                             <span>Mantenimiento </span>
                         </a></li>

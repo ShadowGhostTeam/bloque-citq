@@ -254,3 +254,107 @@ Route::get('sector/riego/consultar/{id}',[
     'as' =>'sector/riego/consultar/item'
 
 ]);
+
+/*
+ * Rutas para Sector-Mantenimiento
+ */
+
+
+Route::get('sector/mantenimiento',[
+    'uses' => 'mantenimientoSectorController@index',
+    'as' =>'sector/mantenimiento'
+
+]);
+
+
+Route::get('sector/cosecha/crear',[
+    'uses' => 'cosechaSectorController@pagCrear',
+    'as' =>'sector/cosecha/crear'
+
+]);
+
+
+Route::get('sector/mantenimiento/lista',[
+        'uses' =>'mantenimientoSectorController@buscar',
+        'as' =>'sector/mantenimiento/lista']
+
+);
+
+Route::get('sector/mantenimiento/crear',[
+    'uses' => 'mantenimientoSectorController@pagCrear',
+    'as' =>'sector/mantenimiento/crear'
+
+]);
+
+
+Route::post('sector/mantenimiento/crear/','mantenimientoSectorController@crear',array('before' => 'csrf', function() {
+    //
+}));
+
+Route::get('sector/mantenimiento/modificar/{id}',[
+    'uses' => 'mantenimientoSectorController@pagModificar',
+    'as' =>'sector/mantenimiento/modificar/item'
+
+]);
+
+
+Route::post('sector/mantenimiento/modificar','mantenimientoSectorController@modificar',array('before' => 'csrf', function() {
+    //
+}));
+
+Route::post('sector/mantenimiento/eliminar','mantenimientoSectorController@eliminar',array('before' => 'csrf', function() {
+
+}));
+
+Route::get('sector/mantenimiento/consultar/{id}',[
+    'uses' => 'mantenimientoSectorController@pagConsultar',
+    'as' =>'sector/mantenimiento/consultar/item'
+
+]);
+
+/*
+ * Rutas para Sector-Preparacion
+ */
+Route::get('sector/cosecha',[
+    'uses' => 'cosechaSectorController@index',
+    'as' =>'sector/cosecha'
+
+]);
+
+
+Route::get('sector/cosecha/lista',[
+        'uses' =>'cosechaSectorController@buscar',
+        'as' =>'sector/preparacion/lista']
+
+);
+
+Route::get('sector/cosecha/crear',[
+    'uses' => 'cosechaSectorController@pagCrear',
+    'as' =>'sector/cosecha/crear'
+
+]);
+
+Route::post('sector/cosecha/crear/','cosechaSectorController@crear',array('before' => 'csrf', function() {
+    //
+}));
+
+Route::get('sector/cosecha/modificar/{id}',[
+    'uses' => 'cosechaSectorController@pagModificar',
+    'as' =>'sector/cosecha/modificar/item'
+
+]);
+
+
+Route::post('sector/cosecha/modificar','cosechaSectorController@modificar',array('before' => 'csrf', function() {
+    //
+}));
+
+Route::post('sector/cosecha/eliminar','cosechaSectorController@eliminar',array('before' => 'csrf', function() {
+
+}));
+
+Route::get('sector/cosecha/consultar/{id}',[
+    'uses' => 'cosechaSectorController@pagConsultar',
+    'as' =>'sector/cosecha/consultar/item'
+
+]);

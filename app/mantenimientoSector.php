@@ -20,7 +20,7 @@ class mantenimientoSector extends Model
      *
      * @var array
      */
-    protected $fillable = ['fecha','actividad','tipoAplicacion','producto','cantidad','id_siembra','id_sector'];
+    protected $fillable = ['fecha','actividad','tipoAplicacion','producto','cantidad','comentario','id_siembra','id_sector'];
 
 
     /**
@@ -45,7 +45,7 @@ class mantenimientoSector extends Model
     }
 
     public  function siembra(){
-        return $this->belongsTo('App\siembra','id_siembra');
+        return $this->belongsTo('App\siembraSector','id_siembra');
     }
 
 }

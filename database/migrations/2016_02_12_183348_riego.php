@@ -15,7 +15,11 @@ class Riego extends Migration
         Schema::create('riego', function (Blueprint $table) {
             $table->increments('id');
             $table->dateTime('fecha');
+
             $table->integer('tiempo')->unsigned();
+            $table->double('distanciaLineas')->unsigned();
+            $table->double('litrosHectarea')->unsigned();
+            $table->double('lamina')->unsigned();
 
             $table->integer('id_siembra')->unsigned();
             $table->foreign('id_siembra')->references('id')->on('siembraSector');
