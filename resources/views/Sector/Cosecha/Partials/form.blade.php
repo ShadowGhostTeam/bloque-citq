@@ -23,10 +23,10 @@
                 <select  class="form-control" id="sector" name="sector">
                     <option value="">Selecciona</option>
 
-                    @if( isset($preparacionSector))
+                    @if( isset($cosechaSector))
 
                         @foreach($sectores as $sector)
-                            @if($preparacionSector->id_sector == $sector->id)
+                            @if($cosechaSector->id_sector == $sector->id)
                                 <option value="{{  $sector->id  }}" selected > {{ $sector->nombre}}  </option>
                             @else
                                 <option value="{{  $sector->id  }}" > {{ $sector->nombre}}  </option>
@@ -42,42 +42,41 @@
         </div>
 
         <div class="form-group">
-            <label for="Maquinaria" class="col-lg-2 control-label"><strong>*</strong>Maquinaria</label>
+            <label for="Siembra" class="col-lg-2 control-label"><strong>*</strong>Siembra</label>
             <div class="col-lg-10">
 
-                <select  class="form-control" id="maquinaria" name="maquinaria">
+                <select  class="form-control" id="siembra" name="siembra">
                     <option value="">Selecciona</option>
 
-                    @if( isset($preparacionSector))
+                    @if( isset($siembraSeleccionada))
 
-                        @foreach($maquinarias as $maquinaria)
-                            @if($preparacionSector->id_maquinaria == $maquinaria->id)
-                                <option value="{{  $maquinaria->id  }}" selected > {{ $maquinaria->nombre}}  </option>
+                        @foreach($siembras as $siembra)
+                            @if($siembraSeleccionada['id_siembra'] == $siembra['id_siembra'])
+                                <option value="{{  $siembra['id_siembra']  }}" selected > {{ $siembra['nombre']."   ". $siembra['variedad'] . " - ". $siembra['fecha'] }}  </option>
                             @else
-                                <option value="{{  $maquinaria->id  }}" > {{ $maquinaria->nombre}}  </option>
+                                <option value="{{  $siembra['id_siembra']  }}"  > {{ $siembra['nombre']."   ". $siembra['variedad'] ." - " . $siembra['fecha']  }}  </option>
                             @endif
                         @endforeach
                     @else
-                        @foreach($maquinarias as $maquinaria)
-                            <option value="{{  $maquinaria->id  }}" > {{ $maquinaria->nombre}}  </option>
-                        @endforeach
+                        @if( isset($siembras))
+                            @foreach($siembras as $siembra)
+                                <option value="{{  $siembra['id_siembra']  }}"> {{ $siembra['nombre']."   ". $siembra['variedad'] ." - " . $siembra['fecha']  }}  </option>
+                            @endforeach
+                        @endif
                     @endif
                 </select>
             </div>
         </div>
 
-
-
-
-
-
         <div class="form-group">
-            <label for="Pasadas" class="col-lg-2 control-label"><strong>*</strong>Pasadas</label>
+            <label for="Descripción" class="col-lg-2 control-label">Descripción</label>
             <div class="col-lg-10">
-                @if( isset($preparacionSector))
-                {!!Form::number('numPasadas' ,$preparacionSector->numPasadas,['class'=>'form-control','min'=>'0','id'=>'numPasadas','placeholder'=>'Número de pasadas'])!!}
+
+                @if( isset($cosechaSector))
+
+                    {!!Form::textArea('descripcion' ,$cosechaSector->comentario,['class'=>'form-control','id'=>'descripcion','placeholder'=>'Descripción de la cosecha (180 max).'])!!}
                 @else
-                    {!!Form::number('numPasadas' ,null,['class'=>'form-control','min'=>'0','id'=>'numPasadas','placeholder'=>'Número de pasadas'])!!}
+                    {!!Form::textArea('descripcion' ,null,['class'=>'form-control','id'=>'descripcion','placeholder'=>'Descripción de la cosecha (180 max).'])!!}
                 @endif
             </div>
         </div>
