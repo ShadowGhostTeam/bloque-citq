@@ -283,7 +283,8 @@ class mantenimientoSectorController extends Controller
         $siembras = array(
             'id_siembra'=>$mantenimiento->id_siembra,
             'variedad'=>$mantenimiento->siembra->variedad,
-            'nombre'=>$mantenimiento->siembra->cultivo->nombre);
+            'nombre'=>$mantenimiento->siembra->cultivo->nombre
+        );
 
 
         return view('Sector/Mantenimiento/consultar')->with([

@@ -348,6 +348,25 @@ class mantenimientoSectorTest extends TestCase
 
 
 
+////////////////////////////////////////////////CONSULTAR/////////////////////////////////////////////////////////
+
+//para llamar a solo un grupo "phpunit --group mantenimientoConsultarSector"
+
+    /*Unidad*/
+    /**
+     * @group mantenimientoConsultarSector
+     */
+    public function testRutaConsultar(){
+        $response = $this->call('GET', 'sector/mantenimiento/consultar/1');
+        $this->assertEquals(200, $response->status());
+    }
+    /**
+     * @group mantenimientoConsultarSector
+     */
+    public function testConsultarIdIncorrecto(){
+        $response = $this->call('GET', 'sector/mantenimiento/consultar/1000');
+        $this->assertEquals(404, $response->status());
+    }
 
 
 
