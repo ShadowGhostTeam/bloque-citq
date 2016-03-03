@@ -30,12 +30,9 @@
 
                 descripcion:{
                     validators: {
-                        notEmpty: {
-                            message: 'Ingrese un número'
-                        },
                         stringLength: {
-                            max: 3,
-                            message: 'El texto debe ser menor a 999 caracteres'
+                            max: 180,
+                            message: 'La descripción deben contener menos de 180 caracteres.'
                         },
                     }
                 },
