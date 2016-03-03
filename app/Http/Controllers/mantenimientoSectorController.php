@@ -276,18 +276,18 @@ class mantenimientoSectorController extends Controller
      *
      * */
     public function pagConsultar($id){
-        $fertilizacion= fertilizacion::findOrFail($id);
-        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $fertilizacion->fecha);
-        $fertilizacion->fecha=$fecha->format('d/m/Y');
+        $mantenimiento= mantenimientoSector::findOrFail($id);
+        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $mantenimiento->fecha);
+        $mantenimiento->fecha=$fecha->format('d/m/Y');
 
         $siembras = array(
-            'id_siembra'=>$fertilizacion->id_siembra,
-            'variedad'=>$fertilizacion->siembra->variedad,
-            'nombre'=>$fertilizacion->siembra->cultivo->nombre);
+            'id_siembra'=>$mantenimiento->id_siembra,
+            'variedad'=>$mantenimiento->siembra->variedad,
+            'nombre'=>$mantenimiento->siembra->cultivo->nombre);
 
 
-        return view('Sector/Fertilizacion/consultar')->with([
-            'fertilizacion'=>$fertilizacion,
+        return view('Sector/Mantenimiento/consultar')->with([
+            'mantenimiento'=>$mantenimiento,
             'siembras' => $siembras
         ]);
     }

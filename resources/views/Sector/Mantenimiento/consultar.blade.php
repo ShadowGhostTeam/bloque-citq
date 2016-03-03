@@ -61,11 +61,11 @@
                                 <div class="col-md-7">
 
                                     <dl class="dl-horizontal">
-                                        <dt>Sector</dt><dd>{{ $fertilizacion->sector->nombre }}</dd>
+                                        <dt>Sector</dt><dd>{{ $mantenimiento->sector->nombre }}</dd>
                                         <dt>Siembra</dt><dd>{{ $siembras['nombre'] . ' '. $siembras['variedad']  }}</dd>
-                                        <dt>Actividad</dt><dd>{{ $fertilizacion->fuente->nombre }}</dd>
+                                        <dt>Actividad</dt><dd>{{ $mantenimiento->actividad }}</dd>
                                         @if($mantenimiento->actividad!="Deshierbe manual"&&$mantenimiento->actividad!="Deshierbe máquina")
-                                            <dt>Tipo aplicación</dt><dd>{{ $mantenimiento->tipoAplicación }}</dd>
+                                            <dt>Tipo aplicación</dt><dd>{{ $mantenimiento->tipoAplicacion }}</dd>
                                             <dt>Producto</dt><dd>{{ $mantenimiento->producto }}</dd>
                                             <dt>Cantidad kg ó l/ha</dt><dd>{{ $mantenimiento->cantidad }}</dd>
                                         @endif
