@@ -324,7 +324,7 @@ Route::get('sector/cosecha',[
 
 Route::get('sector/cosecha/lista',[
         'uses' =>'cosechaSectorController@buscar',
-        'as' =>'sector/preparacion/lista']
+        'as' =>'sector/cosecha/lista']
 
 );
 
@@ -345,11 +345,11 @@ Route::get('sector/cosecha/modificar/{id}',[
 ]);
 
 
-Route::post('sector/cosecha/modificar','preparacionSectorController@modificar',array('before' => 'csrf', function() {
+Route::post('sector/cosecha/modificar','cosechaSectorController@modificar',array('before' => 'csrf', function() {
     //
 }));
 
-Route::post('sector/cosecha/eliminar','preparacionSectorController@eliminar',array('before' => 'csrf', function() {
+Route::post('sector/cosecha/eliminar','cosechaSectorController@eliminar',array('before' => 'csrf', function() {
 
 }));
 
