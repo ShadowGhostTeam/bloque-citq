@@ -70,7 +70,7 @@ MAIN SIDEBAR MENU
 
 
 
-                                    {!! Form::open(['route' => 'sector/fertilizacion/lista','method'=>'GET' ,'id'=>'formulario']) !!}
+                                    {!! Form::open(['route' => 'sector/fertilizacion/lista','method'=>'GET']) !!}
 
                                         <div class="form-group">
 
@@ -101,7 +101,7 @@ MAIN SIDEBAR MENU
                                             </div>
                                         </div>
 
-
+                                    <div id="formulario">
                                         <div class="form-group">
                                             <div class="col-lg-2">
                                                 <div class="input-group date" id="fechaDP">
@@ -135,7 +135,7 @@ MAIN SIDEBAR MENU
 
                                         </div>
                                         {!! Form::close() !!}
-
+                                    </div>
 
 
                             <hr>
@@ -240,11 +240,41 @@ MAIN SIDEBAR MENU
                 if ( $('#formulario').data('bootstrapValidator').revalidateField('fechaInicio') && ! $('#formulario').data('bootstrapValidator').revalidateField('fechaFin')) {
                     $('#formulario').data('bootstrapValidator').revalidateField('fechaFin');
                 }
+                if($('#fechaInicioDP').val()=="")
+                {
+                    $('#formulario').data('bootstrapValidator').revalidateField('fechaInicio');
+                }
+
+                if($('#fechaInicioDP').val()==""&&$('#fechaFinDP').val()==""){
+                    $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaInicio',false);
+                    $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaFin',false);
+                }
+                else{
+                    $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaInicio',true);
+                    $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaFin',true);
+                }
+
+
+
             });
+
+
 
             $('#fechaFinDP').on('dp.change dp.show', function(e) {
                 if ( $('#formulario').data('bootstrapValidator').revalidateField('fechaFin') && ! $('#formulario').data('bootstrapValidator').revalidateField('fechaInicio')) {
                     $('#formulario').data('bootstrapValidator').revalidateField('fechaInicio');
+                }
+                if($('#fechaFinDP').val()=="")
+                {
+                    $('#formulario').data('bootstrapValidator').revalidateField('fechaFin');
+                }
+                if($('#fechaInicioDP').val()==""&&$('#fechaFinDP').val()==""){
+                    $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaInicio',false);
+                    $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaFin',false);
+                }
+                else{
+                    $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaInicio',true);
+                    $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaFin',true);
                 }
             });
         });

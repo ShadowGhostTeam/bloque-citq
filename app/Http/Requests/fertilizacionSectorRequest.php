@@ -29,7 +29,7 @@ class fertilizacionSectorRequest extends Request
             'fuente' => 'required|exists:fuente,id',
             'fecha' =>  'required|date_format:d/m/Y',
             'tipoFertilizacion'=>'in:Riego,Aplicacion dirigida',
-            'cantidad'=>'numeric',
+            'cantidad'=>'numeric|min:0',
             'programaNPK'=>'max:200',
 
         ];
