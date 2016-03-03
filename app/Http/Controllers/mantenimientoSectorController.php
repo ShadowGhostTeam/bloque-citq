@@ -296,11 +296,11 @@ class mantenimientoSectorController extends Controller
 
     /*Eliminar registro*/
     public function eliminar(Request $request){
-        $fertilizacion= fertilizacion::findOrFail($request->id);
-        $fertilizacion->delete();
+        $mantenimiento= mantenimientoSector::findOrFail($request->id);
+        $mantenimiento->delete();
 
-        Session::flash('message','La fertilizacion ha sido eliminada');
-        return redirect('sector/fertilizacion');
+        Session::flash('message','El mantenimiento ha sido eliminado');
+        return redirect('sector/mantenimiento');
     }
 
 
