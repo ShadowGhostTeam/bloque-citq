@@ -165,131 +165,6 @@ class fertilizacionSectorTest extends TestCase
         $this->assertEquals(200, $response->status());
     }
 
-    /*Integración*/
-
-    /**
-     * @group fertilizacionCrearSector
-     */
-/*
-    public function testCrearCorrecto(){
-        $this->visit('sector/fertilizacion/crear')
-            ->select(1,"sector")
-            ->select(1,"siembra")
-            ->select(1,"fuente")
-            ->type("18/02/2016","fecha")
-            ->select("Riego","tipoFertilizacion")
-            ->type("2.5","cantidad")
-            ->type("CREAR TEST","programaNPK")
-            ->press('Crear')
-            ->see("La preparacion ha sido agregada");
-    }
-*/
-    /**
-     * @group fertilizacionCrearSector
-     */
-  /*  public function testCrearNoSector(){
-        $this->visit('sector/fertilzacion/crear')
-            ->select(1,"siembra")
-            ->select(1,"fuente")
-            ->type("18/02/2016","fecha")
-            ->select("Riego","tipoFertilizacion")
-            ->type("2.5","cantidad")
-            ->type("CREAR TEST","programaNPK")
-            ->press('Crear')
-            ->see("El campo sector es obligatorio");
-    }
-*/
-
-    /**
-     * @group fertilizacionCrearSector
-     */
-
-/*    public function testCrearNoSiembra(){
-        $this->visit('sector/fertilizacion/crear')
-            ->select(1,"sector")
-            ->select(1,"fuente")
-            ->type("18/02/2016","fecha")
-            ->select("Riego","tipoFertilizacion")
-            ->type("2.5","cantidad")
-            ->type("CREAR TEST","programaNPK")
-            ->press('Crear')
-            ->see("El campo siembra es obligatorio");
-    }
-*/
-    /**
-     * @group fertilizacionCrearSector
-     */
-/*
-    public function testCrearNoFuente(){
-        $this->visit('sector/fertilizacion/crear')
-            ->select(1,"sector")
-            ->select(1,"siembra")
-            ->type("18/02/2016","fecha")
-            ->select("Riego","tipoFertilizacion")
-            ->type("2.5","cantidad")
-            ->type("CREAR TEST","programaNPK")
-            ->press('Crear')
-            ->see("El campo fuente es obligatorio");
-    }
-*/
-    /**
-     * @group fertilizacionCrearSector
-     */
-/*
-    public function testCrearNoFecha(){
-        $this->visit('sector/fertilizacion/crear')
-            ->select(1,"sector")
-            ->select(1,"siembra")
-            ->select(1,"fuente")
-            ->press('Crear')
-            ->see("El campo fecha es obligatorio");
-    }
-*/
-    /**
-     * @group fertilizacionCrearSector
-     */
-  /*  public function testCrearNoCantidad(){
-        $this->visit('sector/fertilizacion/crear')
-            ->select(1,"sector")
-            ->select(1,"siembra")
-            ->select(1,"fuente")
-            ->type("18/02/2016","fecha")
-            ->select("Riego","tipoFertilizacion")
-            ->type("CREAR TEST","programaNPK")
-            ->press('Crear')
-            ->see("La preparacion ha sido agregada");
-    }
-
-*/
-    /**
-     * @group fertilizacionCrearSector
-     */
-  /*  public function testCrearCantidadNegativo(){
-        $this->visit('sector/fertilizacion/crear')
-            ->select(1,"sector")
-            ->select(1,"siembra")
-            ->select(1,"fuente")
-            ->type("18/02/2016","fecha")
-            ->select("Riego","tipoFertilizacion")
-            ->type("-1","cantidad")
-            ->press('Crear')
-            ->see("El tamaño de cantidad debe ser de al menos 0");
-    }
-    */
-    /**
-     * @group fertilizacionCrearSector
-     */
-    /*public function testCrearFechaIncorrecta(){
-        $this->visit('sector/fertilizacion/crear')
-            ->select(1,"sector")
-            ->select(1,"siembra")
-            ->select(1,"fuente")
-            ->type("asdas","fecha")
-            ->press('Crear')
-            ->see("fecha no corresponde al formato d/m/Y");
-    }*/
-
-
 
 ////////////////////////////////////////////////MODIFICAR/////////////////////////////////////////////////////////////////
 
@@ -299,112 +174,17 @@ class fertilizacionSectorTest extends TestCase
     /**
      * @group fertilizacionModificarSector
      */
-    /*public function testRutaModificar(){
+    public function testRutaModificar(){
         $response = $this->call('GET', 'sector/fertilizacion/modificar/12');
         $this->assertEquals(200, $response->status());
-    }*/
+    }
     /**
      * @group fertilizacionModificarSector
      */
-    /*public function testModificarIdIncorrecto(){
+    public function testModificarIdIncorrecto(){
         $response = $this->call('GET', 'sector/fertilizacion/modificar/120');
         $this->assertEquals(404, $response->status());
-    }*/
-    /*Integración*/
-
-    /**
-     * @group fertilizacionModificarSector
-     */
-
-  /*  public function testModificarCorrecto(){
-        $this->visit('sector/fertilizacion/modificar/12')
-            ->select(1,"sector")
-            ->select(1,"fuente")
-            ->type("18/02/2016","fecha")
-            ->type("2","numPasadas")
-            ->press('Modificar')
-            ->see("ha sido modificada");
     }
-*/
-    /**
-     * @group fertilizacionModificarSector
-     */
-
-   /* public function testModificarNoSector(){
-        $this->visit('sector/fertilizacion/modificar/12')
-            ->select("","sector")
-            ->select(1,"fuente")
-            ->type("18/02/2016","fecha")
-            ->type("2","numPasadas")
-            ->press('Modificar')
-            ->see("El campo sector es obligatorio");
-    }*/
-    /**
-     * @group fertilizacionModificarSector
-     */
-  /*  public function testModificarNofuente(){
-        $this->visit('sector/fertilizacion/modificar/12')
-            ->select(1,"sector")
-            ->select("","fuente")
-            ->type("18/02/2016","fecha")
-            ->type("2","numPasadas")
-            ->press('Modificar')
-            ->see("El campo fuente es obligatorio");
-    }
-*/
-    /**
-     * @group fertilizacionModificarSector
-     */
-/*
-    public function testModificarNoFecha(){
-        $this->visit('sector/fertilizacion/modificar/12')
-            ->select(1,"sector")
-            ->select(1,"fuente")
-            ->type("2","numPasadas")
-            ->type("","fecha")
-            ->press('Modificar')
-            ->see("El campo fecha es obligatorio");
-    }
-    */
-    /**
-     * @group fertilizacionModificarSector
-     */
-
-  /*  public function testModificarNoPasadas(){
-        $this->visit('sector/fertilizacion/modificar/12')
-            ->select(1,"sector")
-            ->select(1,"fuente")
-            ->type("","numPasadas")
-            ->type("18/02/2016","fecha")
-            ->press('Modificar')
-            ->see("El campo número de pasadas es obligatorio");
-
-    }
-*/
-    /**
-     * @group fertilizacionModificarSector
-     */
-    /*public function testModificarPasadasNegativo(){
-        $this->visit('sector/fertilizacion/modificar/12')
-            ->select(1,"fuente")
-            ->type("-1","numPasadas")
-            ->press('Modificar')
-            ->see("El tamaño de número de pasadas debe ser de al menos 0");
-    }*/
-    /**
-     * @group fertilizacionModificarSector
-     */
-  /*  public function testModificarFechaIncorrecta(){
-        $this->visit('sector/fertilizacion/modificar/12')
-            ->select(1,"fuente")
-            ->type("asdas","fecha")
-            ->press('Modificar')
-            ->see("fecha no corresponde al formato d/m/Y");
-    }
-*/
-
-
-
 
 ////////////////////////////////////////////////CONSULTAR/////////////////////////////////////////////////////////
 
@@ -414,17 +194,16 @@ class fertilizacionSectorTest extends TestCase
     /**
      * @group fertilizacionConsultarSector
      */
-/*    public function testRutaConsultar(){
+    public function testRutaConsultar(){
         $response = $this->call('GET', 'sector/fertilizacion/consultar/12');
         $this->assertEquals(200, $response->status());
     }
-  */
+
     /**
      * @group fertilizacionConsultarSector
      */
-    /*public function testConsultarIdIncorrecto(){
+    public function testConsultarIdIncorrecto(){
         $response = $this->call('GET', 'sector/fertilizacion/consultar/120');
         $this->assertEquals(404, $response->status());
     }
-*/
 }

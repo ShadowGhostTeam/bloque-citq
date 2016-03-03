@@ -177,10 +177,7 @@ class fertilizacionSectorController extends Controller
 
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
-
         $fechaSiembraSeleccionada=Carbon::createFromFormat('Y-m-d H:i:s', $fertilizacionSector->siembra->fecha);
-
-
 
         $siembraSeleccionada = array(
             'id_siembra'=>$fertilizacionSector->id_siembra,
