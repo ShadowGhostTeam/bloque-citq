@@ -117,7 +117,7 @@ class mantenimientoSectorController extends Controller
 
                 /*Fechas, actividad y sector, los tres parametros de filtro*/
                 if ($request->sector != "" && $request->actividad !== "") {
-                    $mantenimientos = mantenimientoSector::where('id_sector', $request->sector)->where('id_maquinaria', $request->actividad)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                    $mantenimientos = mantenimientoSector::where('id_sector', $request->sector)->where('actividad', $request->actividad)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
                 }
             }
         }
