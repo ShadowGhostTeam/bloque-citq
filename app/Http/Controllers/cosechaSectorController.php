@@ -61,19 +61,20 @@ class cosechaSectorController extends Controller
      */
     public function pagModificar($id) {
         $cosechaSector= cosecha::findOrFail($id);
-        $cosechaSector= cosecha::findOrFail($id);
-        $cosechaSector= cosecha::findOrFail($id);
 
-        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $cosechaSector->fecha);
-        $cosechaSector->fecha=$fecha->format('d/m/Y');
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $siembras= SiembraSector::select('id','variedad','fecha')->orderBy('fecha', 'asc')->get();
+        $siembras = siembraSector::where('id_sector',$cosechaSector->id_sector)->get();
+        $descripcion= cosecha::select('descripcion')->where('id', $cosechaSector->id)->get();
+        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $cosechaSector->fecha);
+
 
 
         return view('Sector/cosecha/modificar')->with([
             'cosechaSector'=>$cosechaSector,
             'sectores' => $sectores,
-            'siembras' => $siembras
+            'siembras' => $siembras,
+            'descripcion' => $descripcion,
+            'fecha' => $fecha
         ]);
     }
 
@@ -108,7 +109,7 @@ class cosechaSectorController extends Controller
 
 
     /*
-     * Recibe la informacion del formulario de modificary la actualiza en la base de datos
+     * Recibe la informacion del formulario de modificar y la actualiza en la base de datos
      */
     public function modificar(cosechaSectorRequest $request){
         $cosecha=$this->adaptarRequest($request);
@@ -246,18 +247,17 @@ class cosechaSectorController extends Controller
      * Recibe la informacion del formulario de crear y la adapta a los campos del modelo
      */
     public function adaptarRequest($request){
-        $cosechaSector=new cosecha($request->all());
+        $cosecha=new cosecha($request->all());
         if(isset($request->id)) {
-            $cosecha = cosecha::findOrFail($request->id);
+            $cosechaSector = cosecha::findOrFail($request->id);
         }
 
-        $cosechaSector->id_sector= $request->sector;
-        $cosechaSector->id_siembra= $request->siembra;
-        $cosechaSector->descripcion= $request->descripcion;
-        $cosechaSector->fecha=Carbon::createFromFormat('d/m/Y', $request->fecha)->toDateTimeString();
+        $cosecha->id_sector= $request->sector;
+        $cosecha->id_siembra= $request->siembra;
+        $cosecha->descripcion= $request->descripcion;
+        $cosecha->fecha=Carbon::createFromFormat('d/m/Y', $request->fecha)->toDateTimeString();
 
-
-        return $cosechaSector;
+        return $cosecha;
     }
     /*
      * Adapta fechas de resultado de busqueda a formato adecuado para imprimir en la vista de busqueda

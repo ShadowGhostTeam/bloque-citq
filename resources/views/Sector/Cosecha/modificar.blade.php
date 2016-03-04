@@ -68,5 +68,5 @@
         </section>
     </section>
     @include('Sector.Cosecha.Partials.validator')
-
+    @include('Sector.Cosecha.Partials.ajaxScript')
     @include('Partials.ScriptsGenerales.scriptsPartialsAbajo')

@@ -48,10 +48,10 @@
                 <select  class="form-control" id="siembra" name="siembra">
                     <option value="">Selecciona</option>
 
-                    @if( isset($siembraSeleccionada))
+                    @if( isset($siembraSector))
 
                         @foreach($siembras as $siembra)
-                            @if($siembraSeleccionada['id_siembra'] == $siembra['id_siembra'])
+                            @if($siembraSector['id_siembra'] == $siembra['id_siembra'])
                                 <option value="{{  $siembra['id_siembra']  }}" selected > {{ $siembra['nombre']."   ". $siembra['variedad'] . " - ". $siembra['fecha'] }}  </option>
                             @else
                                 <option value="{{  $siembra['id_siembra']  }}"  > {{ $siembra['nombre']."   ". $siembra['variedad'] ." - " . $siembra['fecha']  }}  </option>
@@ -74,7 +74,7 @@
 
                 @if( isset($cosechaSector))
 
-                    {!!Form::textArea('descripcion' ,$cosechaSector->comentario,['class'=>'form-control','id'=>'descripcion','placeholder'=>'Aquí puedes incluir una descripción.'])!!}
+                    {!!Form::textArea('descripcion' ,$cosechaSector->descripcion,['class'=>'form-control','id'=>'descripcion','placeholder'=>'Aquí puedes incluir una descripción.'])!!}
                 @else
                     {!!Form::textArea('descripcion' ,null,['class'=>'form-control','id'=>'descripcion','placeholder'=>'Aquí puedes incluir una descripción.'])!!}
                 @endif

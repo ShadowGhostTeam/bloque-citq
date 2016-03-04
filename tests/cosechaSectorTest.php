@@ -28,7 +28,7 @@ class cosechaSectorTest extends TestCase
 
     public function testCrearCorrecto(){
         $this->visit('sector/cosecha/crear')
-            ->select(1,"sector")
+            ->select(2,"sector")
             ->select(1,"siembra")
             ->type("18/02/2016","fecha")
             ->type("Esta es la descripción","descripcion")
