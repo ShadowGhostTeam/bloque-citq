@@ -25,8 +25,8 @@ class cosechaSectorRequest extends Request
     {
         return [
             'sector'=>'required|exists:sector,id',
-            'siembra' => 'required|exists:siembra,id',
-            'descripcion'=>'required|text|max:180|min:0',
+            'siembraSector' => 'required|exists:siembra,id',
+            'descripcion'=>'max:65535',
             'fecha' =>  'required |date_format:d/m/Y'
         ];
     }
