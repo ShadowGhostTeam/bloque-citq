@@ -6,8 +6,10 @@
         $("#sector").on('change', function (e) {
 
 
-            if (document.getElementById("sector").value == 0) {
-                document.getElementById("siembra").value = null;
+            if (document.getElementById("sector").value == "") {
+                $("#siembra").empty();
+                $("#siembra").append(
+                        "<option value='' selected > Selecciona </option>");
 
             } else {
                 var id= e.target.value;
