@@ -231,13 +231,15 @@ class siembraSectorController extends Controller
             $siembra = siembraSector::findOrFail($request->id);
         }
 
-        $siembra->fecha = Carbon::createFromFormat('d/m/Y', $request->fecha)->toDateTimeString();
-        $siembra->tipo = $request->tipoSiembra;
-        $siembra->temporada = $request->temporada;
-        $siembra->status = $request->status;
-        $siembra->fechaTerminacion = Carbon::createFromFormat('d/m/Y', $request->fechaTerminacion)->toDateTimeString();;
         $siembra->id_sector = $request->sector;
         $siembra->id_cultivo = $request->cultivo;
+        $siembra->fecha = Carbon::createFromFormat('d/m/Y', $request->fecha)->toDateTimeString();
+        $siembra->fechaTerminacion = Carbon::createFromFormat('d/m/Y', $request->fechaTerminacion)->toDateTimeString();
+
+        $siembra->status = $request->status;
+        $siembra->tipo = $request->tipoSiembra;
+        $siembra->variedad = $request->variedad;
+        $siembra->temporada = $request->temporada;
 
         return $siembra;
     }
@@ -268,7 +270,7 @@ class siembraSectorController extends Controller
             Session::flash('message','La siembra ha sido eliminada');
         }
         catch(\Exception $ex) {
-            Session::flash('message','No puedes eliminar la siembra porque otros registros dependen de ella');
+            Session::flash('message','No puedes eliminar esta siembra porque otros registros dependen de ella');
         }
         return redirect('sector/siembra');
     }

@@ -163,9 +163,9 @@
             <label for="Variedad" class="col-lg-2 control-label">Variedad</label>
             <div class="col-lg-10">
                 @if( isset($siembraSector))
-                    {!!Form::text('Variedad', $siembraSector->variedad, ['class'=>'form-control','id'=>'variedad','placeholder'=>'Variedad'])!!}
+                    {!!Form::text('variedad', $siembraSector->variedad, ['class'=>'form-control','id'=>'variedad','placeholder'=>'Variedad'])!!}
                 @else
-                    {!!Form::text('Variedad' ,null,['class'=>'form-control','id'=>'variedad','placeholder'=>'Variedad'])!!}
+                    {!!Form::text('variedad' ,null,['class'=>'form-control','id'=>'variedad','placeholder'=>'Variedad'])!!}
                 @endif
             </div>
         </div>
