@@ -145,4 +145,28 @@ class siembraSectorTest extends TestCase
             ->see("No se encontraron resultados");
     }
 
+    ////////////////////////////////////////////////CONSULTAR/////////////////////////////////////////////////////////
+
+    //para llamar a solo un grupo "phpunit --group fertilizacionConsultarSector"
+
+    /*Unidad*/
+    /**
+     * @group siembraConsultarSector
+     */
+    public function testRutaConsultar(){
+        $response = $this->call('GET', 'sector/siembra/consultar/12');
+        $this->assertEquals(200, $response->status());
+    }
+
+    /**
+     * @group siembraConsultarSector
+     */
+    public function testConsultarIdIncorrecto(){
+        $response = $this->call('GET', 'sector/siembra/consultar/120');
+        $this->assertEquals(404, $response->status());
+    }
+
 }
+
+
+

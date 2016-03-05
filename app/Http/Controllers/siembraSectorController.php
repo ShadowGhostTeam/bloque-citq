@@ -14,7 +14,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
-use Mockery\CountValidator\Exception;
+use Illuminate\Support\Facades\Validator;
 
 class siembraSectorController extends Controller
 {
@@ -42,59 +42,111 @@ class siembraSectorController extends Controller
 
         ]);
     }
+
     /*Metodo de Busqueda
-     *
-     * */
-    public function buscar(Request $request)
-    {
-        $sectores= sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
+    *
+    * */
+    public function buscar(Request $request){
+        $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
         $cultivos= cultivo::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
-        /*Pregunta si se mandaron fechas, en caso contrario manda error 404*/
-        if ( $request->fechaFin != "" && $request->fechaInicio !="") {
 
-            /*Transforma fechas en formato adecuado*/
-            $fecha = $request->fechaInicio . " 00:00:00";
-            $fechaInf = Carbon::createFromFormat("d/m/Y H:i:s", $fecha);
-            $fecha = $request->fechaFin . " 23:59:59";
-            $fechaSup = Carbon::createFromFormat("d/m/Y H:i:s", $fecha);
+        /*Ahi se guardaran los resultados de la busqueda*/
+        $siembras =null;
 
-            /*Hay cuatro posibles casos de busqueda, cada if se basa en un caso */
-            if($request->sector==""&&$request->cultivo=="") {
-                $siembras= siembraSector::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
-            }
-            if($request->sector!=""&&$request->cultivo=="") {
-                $siembras= siembraSector::where('id_sector',$request->sector)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
-            }
-            if($request->sector==""&&$request->cultivo!=="") {
-                $siembras= siembraSector::where('id_cultivo',$request->fuente)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
-            }
-            if($request->sector!=""&&$request->cultivo!=="") {
-                $siembras= siembraSector::where('id_sector',$request->sector)->where('id_fuente',$request->fuente)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+
+
+        $validator = Validator::make($request->all(), [
+            'fechaInicio' => 'date_format:d/m/Y',
+            'fechaFin' => 'date_format:d/m/Y',
+            'sector' => 'exists:sector,id',
+            'cultivo' => 'required|exists:cultivo,id',
+        ]);
+
+
+        /*Si validador no falla se pueden realizar busquedas*/
+        if ($validator->fails()) {
+        }
+        else {
+
+            /*Busqueda sin parametros*/
+            if ($request->fechaFin == "" && $request->fechaInicio == "" && $request->sector == "" && $request->cultivo == "") {
+                $siembras  = siembraSector::orderBy('fecha', 'desc')->paginate(15);;
+
             }
 
+            /*Busqueda solo con sector*/
+            if ($request->fechaFin == "" && $request->fechaInicio == "" && $request->sector != "" && $request->cultivo == "") {
+                $siembras  = siembraSector::where('id_sector', $request->sector)->orderBy('fecha', 'desc')->paginate(15);;
+
+            }
+
+            /*Busqueda solo con cultivo*/
+            if ($request->fechaFin == "" && $request->fechaInicio == "" && $request->sector == "" && $request->cultivo != "") {
+                $siembras  = siembraSector::where('id_cultivo', $request->cultivo)->orderBy('fecha', 'desc')->paginate(15);;
+            }
+
+            /*Busqueda solo con cultivo y sector*/
+            if ($request->fechaFin == "" && $request->fechaInicio == "" && $request->sector != "" && $request->cultivo != "") {
+                $siembras  = siembraSector::where('id_sector', $request->sector)->where('id_cultivo', $request->cultivo)->orderBy('fecha', 'desc')->paginate(15);
+            }
+
+
+            /*Pregunta si se mandaron fechas, en caso contrario manda error 404*/
+            if ($request->fechaFin != "" && $request->fechaInicio != "") {
+
+                /*Transforma fechas en formato adecuado*/
+                $fecha = $request->fechaInicio . " 00:00:00";
+                $fechaInf = Carbon::createFromFormat("d/m/Y H:i:s", $fecha);
+                $fecha = $request->fechaFin . " 23:59:59";
+                $fechaSup = Carbon::createFromFormat("d/m/Y H:i:s", $fecha);
+
+                /*Hay cuatro posibles casos de busqueda, cada if se basa en un caso */
+                if ($request->sector == "" && $request->cultivo == "") {
+                    $siembras = siembraSector::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                }
+                if ($request->sector != "" && $request->cultivo == "") {
+                    $siembras = siembraSector::where('id_sector', $request->sector)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                }
+                if ($request->sector == "" && $request->cultivo !== "") {
+                    $siembras = siembraSector::where('id_cultivo', $request->cultivo)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                }
+                if ($request->sector != "" && $request->cultivo !== "") {
+                    $siembras = siembraSector::where('id_sector', $request->sector)->where('id_cultivo', $request->cultivo)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                }
+            }
+        }
+
+
+        if($siembras!=null){
             /*Adapta el formato de fecha para poder imprimirlo en la vista adecuadamente*/
             $this->adaptaFechas($siembras);
+
+            /*Si no es nulo puede contar los resultados*/
             $num = $siembras->total();
-
-            if($num<=0){
-                Session::flash('error', 'No se encontraron resultados');
-
-            }
-            else{
-                Session::flash('message', 'Se encontraron '.$num.' resultados');
-            }
-
-            return view('Sector/Siembra/buscar')->with([
-                'siembras'=>$siembras,
-                'sectores' => $sectores,
-                'cultivos' => $cultivos
-            ]);
         }
-        else
-        {
-            return redirect('errors/404');
+        else{
+            $num=0;
         }
+
+        if ($num <= 0) {
+            Session::flash('error', 'No se encontraron resultados');
+
+        } else {
+            Session::flash('message', 'Se encontraron ' . $num . ' resultados');
+        }
+
+
+
+
+        /*Regresa la vista*/
+        return view('Sector/Siembra/buscar')->with([
+            'siembras' => $siembras,
+            'sectores' => $sectores,
+            'cultivos' => $cultivos
+        ]);
+
+
 
 
     }
@@ -131,8 +183,8 @@ class siembraSectorController extends Controller
         $tipoSiembras = ['Maquinaria','A mano'];
         $temporadas = ['Primavera-Verano', 'Otoño-Invierno'];
         $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $siembraSector->fecha);
-        $fechaTerminacion=Carbon::createFromFormat('Y-m-d H:i:s', $siembraSector->fechaTerminacion);
         $siembraSector->fecha=$fecha->format('d/m/Y');
+        $fechaTerminacion=Carbon::createFromFormat('Y-m-d H:i:s', $siembraSector->fechaTerminacion);
         $siembraSector->fechaTerminacion=$fechaTerminacion->format('d/m/Y');
         $tipoStatus = ['Activo', 'Terminado'];
 

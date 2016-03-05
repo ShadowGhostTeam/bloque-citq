@@ -68,7 +68,7 @@ MAIN SIDEBAR MENU
                             <div class="row">
                                 <div class="col-xs-12">
 
-                                    {!! Form::open(['route' => 'sector/siembra/lista','method'=>'GET' ,'id'=>'formulario']) !!}
+                                    {!! Form::open(['route' => 'sector/siembra/lista','method'=>'GET']) !!}
 
                                     <div class="form-group">
                                         <div class="col-lg-3">
@@ -175,6 +175,9 @@ MAIN SIDEBAR MENU
                                         </tbody>
                                     </table>
                                     </div>
+                                    @if (isset($siembras))
+                                        {!! $siembras->setPath('')->appends(Input::query())->render() !!}
+                                    @endif
                                 </div>
                             </div>
                         </div>
