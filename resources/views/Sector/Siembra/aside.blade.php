@@ -12,11 +12,12 @@
                 </a>
 
                 <ul class="sub">
-                    <li><a href="{{route('sector/preparacion')}}"  class="active">
+                    <li><a href="{{route('sector/preparacion')}}">
                             <i class="glyphicon glyphicon-tree-deciduous"></i>
                             <span>Preparación </span>
                         </a></li>
-                    <li><a href="{{route('sector/siembra')}}" >
+
+                    <li><a href="{{route('sector/siembra')}}"  class="active">
                             <i class="fa fa-leaf"></i>
                             <span>Siembra </span>
                         </a></li>
