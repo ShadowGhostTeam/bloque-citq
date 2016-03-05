@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class mantenimientoInvernaderoSeeder extends Seeder
+class aplicacionesPlantulaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +12,6 @@ class mantenimientoInvernaderoSeeder extends Seeder
     public function run()
     {
         //
-        factory(App\mantenimientoInvernadero::class,20)->create();
+        factory(App\aplicacionesPlantula::class,20)->create();
     }
 }

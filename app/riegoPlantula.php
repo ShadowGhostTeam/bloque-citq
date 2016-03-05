@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class cosechaInvernadero extends Model
+class riegoPlantula extends Model
 {
     //
 
@@ -13,14 +13,14 @@ class cosechaInvernadero extends Model
      *
      * @var string
      */
-    protected $table = 'cosechaInvernadero';
+    protected $table = 'riegoPlantula';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['nombre','comentario','id_invernadero','id_stInvernadero'];
+    protected $fillable = ['fecha','tiempoRiego','frecuencia','formulacion','comentario','id_siembraPlantula','id_invernaderoPlantula'];
 
 
     /**
@@ -38,10 +38,10 @@ class cosechaInvernadero extends Model
 
 
     // 1 a N
-    public  function siembraTransplante(){
-        return $this->belongsTo('App\siembraTransplanteInvernadero','id_stInvernadero');
+    public  function siembra(){
+        return $this->belongsTo('App\siembraPlantula','id_siembraPlantula');
     }
     public  function invernadero(){
-        return $this->belongsTo('App\invernadero','id_invernadero');
+        return $this->belongsTo('App\invernaderoPlantula','id_invernaderoPlantula');
     }
 }

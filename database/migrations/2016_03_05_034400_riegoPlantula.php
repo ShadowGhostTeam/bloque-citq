@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AplicacionRiego extends Migration
+class RiegoPlantula extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,13 @@ class AplicacionRiego extends Migration
      */
     public function up()
     {
-        Schema::create('aplicacionRiego', function (Blueprint $table) {
+        Schema::create('riegoPlantula', function (Blueprint $table) {
             $table->increments('id');
 
             $table->dateTime('fecha');
-            $table->text('producto');
-            $table->integer('cantidad');
-            $table->integer('frecuenciaDeRiegos');
-            $table->text('descripcion');
+            $table->integer('tiempoRiego')->unsigned();
+            $table->integer('frecuencia')->unsigned();
+            $table->string('formulacion');
 
             $table->integer('id_siembraPlantula')->unsigned();
             $table->foreign('id_siembraPlantula')->references('id')->on('siembraPlantula');
@@ -38,6 +37,6 @@ class AplicacionRiego extends Migration
      */
     public function down()
     {
-        Schema::drop('aplicacionRiego');
+        Schema::drop('riegoPlantula');
     }
 }

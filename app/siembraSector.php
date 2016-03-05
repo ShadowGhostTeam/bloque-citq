@@ -20,7 +20,7 @@ class siembraSector extends Model
      *
      * @var array
      */
-    protected $fillable = ['fecha','variedad','tipo','temporada','status','fechaTerminacion','id_sector','id_cultivo'];
+    protected $fillable = ['fecha','variedad','tipo','temporada','status','fechaTerminacion','comentario','id_sector','id_cultivo'];
 
 
     /**

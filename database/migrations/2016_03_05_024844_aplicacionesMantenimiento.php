@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CosechaInvernadero extends Migration
+class AplicacionesMantenimiento extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,14 @@ class CosechaInvernadero extends Migration
      */
     public function up()
     {
-        Schema::create('cosechaInvernadero', function (Blueprint $table) {
+        Schema::create('aplicacionesMantenimiento', function (Blueprint $table) {
             $table->increments('id');
             $table->dateTime('fecha');
+            $table->enum('aplicacion',['Fungicida','Herbicida','Insecticida']);
+            $table->enum('tipoAplicacion',['Sistema de riego','Al suelo', 'Al follaje']);
+
+            $table->string('producto');
+            $table->double('cantidad')->unsigned();
             $table->text('comentario');
 
             //Se abrevio siembraTransplante a st porque el nombre era muy largo y sql no lo aceptaba
@@ -23,7 +28,6 @@ class CosechaInvernadero extends Migration
 
             $table->integer('id_invernadero')->unsigned();
             $table->foreign('id_invernadero')->references('id')->on('invernadero');
-
 
             $table->timestamps();
         });
@@ -36,6 +40,6 @@ class CosechaInvernadero extends Migration
      */
     public function down()
     {
-        Schema::drop('cosechaInvernadero');
+        Schema::drop('aplicacionesMantenimiento');
     }
 }

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class mantenimientoInvernadero extends Model
+class laboresCulturales extends Model
 {
     //
 
@@ -13,14 +13,14 @@ class mantenimientoInvernadero extends Model
      *
      * @var string
      */
-    protected $table = 'mantenimientoInvernadero';
+    protected $table = 'laboresCulturales';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['fecha','actividad','tipoAplicacion','producto','cantidad','id_invernadero','id_stInvernadero'];
+    protected $fillable = ['fecha','actividad','id_invernadero','id_stInvernadero'];
 
 
     /**

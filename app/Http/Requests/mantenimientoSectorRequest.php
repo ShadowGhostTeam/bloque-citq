@@ -28,7 +28,7 @@ class mantenimientoSectorRequest extends Request
             'siembra' => 'required|exists:siembrasector,id',
             'actividad' => 'required|in:Deshierbe manual,Deshierbe máquina,Fungicida,Herbicida,Insecticida',
             'fecha' =>  'required|date_format:d/m/Y',
-            'tipoAplicacion'=>'in:Sistema,Al suelo,Al follaje',
+            'tipoAplicacion'=>'in:Sistema de riego,Al suelo,Al follaje',
             'cantidad'=>'numeric|min:0',
             'producto'=>'max:255',
             'comentario'=>'max:65535'

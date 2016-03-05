@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class aplicacionRiegoSeeder extends Seeder
+class aplicacionesMantenimientoSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +11,7 @@ class aplicacionRiegoSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\aplicacionRiego::class,10)->create();
-
+        //
+        factory(App\aplicacionesMantenimiento::class,20)->create();
     }
 }

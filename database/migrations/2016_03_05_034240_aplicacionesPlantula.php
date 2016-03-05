@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class SalidaPlanta extends Migration
+class AplicacionesPlantula extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,15 @@ class SalidaPlanta extends Migration
      */
     public function up()
     {
-        Schema::create('salidaPlanta', function (Blueprint $table) {
+        Schema::create('aplicacionesPlantula', function (Blueprint $table) {
             $table->increments('id');
+
             $table->dateTime('fecha');
+            $table->enum('aplicacion',['Fungicida','Herbicida','Insecticida','Podas']);
+            $table->enum('tipoAplicacion',['Sistema de riego','Al suelo', 'Al follaje']);
+
+            $table->string('producto');
+            $table->double('cantidad')->unsigned();
             $table->text('comentario');
 
             $table->integer('id_siembraPlantula')->unsigned();
@@ -34,6 +40,6 @@ class SalidaPlanta extends Migration
      */
     public function down()
     {
-        Schema::drop('salidaPlanta');
+        Schema::drop('aplicacionesPlantula');
     }
 }
