@@ -48,6 +48,12 @@ class DatabaseSeeder extends Seeder
         $this->call('preparacionPlantulaSeeder');
         $this->call('salidaPlantaSeeder');
 
+        //RBAC
+        $this->call('usuariosSeeder');
+        $this->call('rolesSeeder');
+        $this->call('permisoSeeder');
+
+
         Model::reguard();
     }
 }
