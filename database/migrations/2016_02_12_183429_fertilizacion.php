@@ -18,10 +18,9 @@ class Fertilizacion extends Migration
             $table->string('programaNPK');
             $table->double('cantidad')->unsigned();
             $table->enum('tipo',['Riego','Aplicacion dirigida']);
+            $table->string('fuente');
 
 
-            $table->integer('id_fuente')->unsigned();
-            $table->foreign('id_fuente')->references('id')->on('fuente');
 
             $table->integer('id_siembra')->unsigned();
             $table->foreign('id_siembra')->references('id')->on('siembraSector');

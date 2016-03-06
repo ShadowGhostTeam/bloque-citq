@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\cultivo;
 use App\fertilizacion;
-use App\fuente;
+
 use App\Http\Requests\fertilizacionSectorRequest;
 use App\sector;
 use App\siembraSector;
@@ -35,10 +35,10 @@ class fertilizacionSectorController extends Controller
 
 
         $sectores= sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $fuentes= fuente::select('id','nombre')->orderBy('nombre', 'asc')->get();
+
         return view('Sector/Fertilizacion/buscar')->with([
             'sectores' => $sectores,
-            'fuentes' => $fuentes,
+
             'fertilizaciones'=>$fertilizaciones
 
         ]);
@@ -48,7 +48,6 @@ class fertilizacionSectorController extends Controller
      * */
     public function buscar(Request $request){
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $fuentes= fuente::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
 
         /*Ahi se guardaran los resultados de la busqueda*/
@@ -60,7 +59,7 @@ class fertilizacionSectorController extends Controller
             'fechaInicio' => 'date_format:d/m/Y',
             'fechaFin' => 'date_format:d/m/Y',
             'sector' => 'exists:sector,id',
-            'fuente' => 'required|exists:fuente,id',
+
         ]);
 
 
@@ -143,7 +142,7 @@ class fertilizacionSectorController extends Controller
         return view('Sector/Fertilizacion/buscar')->with([
             'fertilizaciones' => $fertilizaciones,
             'sectores' => $sectores,
-            'fuentes' => $fuentes
+
         ]);
 
 
@@ -155,7 +154,7 @@ class fertilizacionSectorController extends Controller
     public function pagCrear(){
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
-        $fuentes = fuente::select('id','nombre')->orderBy('nombre', 'asc')->get();
+
 
         $tipoFertilizaciones = ['Riego','Aplicacion dirigida'];
 
@@ -163,7 +162,7 @@ class fertilizacionSectorController extends Controller
         return view('Sector/Fertilizacion/crear')->with([
             'sectores' => $sectores,
             'tipoFertilizaciones'=>$tipoFertilizaciones,
-            'fuentes' => $fuentes
+
 
         ]);
     }
@@ -203,7 +202,7 @@ class fertilizacionSectorController extends Controller
             );
         }
 
-        $fuentes = fuente::select('id','nombre')->orderBy('nombre', 'asc')->get();
+
         $tipoFertilizaciones = ['Riego','Aplicacion dirigida'];
 
         $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $fertilizacionSector->fecha);
@@ -215,7 +214,7 @@ class fertilizacionSectorController extends Controller
             'sectores' => $sectores,
             'siembras' => $siembrasTodas,
             'tipoFertilizaciones'=>$tipoFertilizaciones,
-            'fuentes' => $fuentes,
+
             'fertilizacionSector' => $fertilizacionSector,
             'siembraSeleccionada' => $siembraSeleccionada
         ]);
@@ -258,7 +257,7 @@ class fertilizacionSectorController extends Controller
         $fertilizacion->tipo= $request->tipoFertilizacion;
 
         $fertilizacion->id_siembra = $request->siembra;
-        $fertilizacion->id_fuente= $request->fuente;
+        $fertilizacion->fuente= $request->fuente;
         $fertilizacion->id_sector= $request->sector;
         $fertilizacion->fecha = Carbon::createFromFormat('d/m/Y', $request->fecha)->toDateTimeString();
 
