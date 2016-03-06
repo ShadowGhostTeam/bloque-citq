@@ -63,7 +63,7 @@
                                     <dl class="dl-horizontal">
                                         <dt>Sector</dt><dd>{{ $fertilizacion->sector->nombre }}</dd>
                                         <dt>Siembra</dt><dd>{{ $siembras['nombre'] . ' '. $siembras['variedad']  }}</dd>
-                                        <dt>Fuente</dt><dd>{{ $fertilizacion->fuente->nombre }}</dd>
+                                        <dt>Fuente</dt><dd>{{ $fertilizacion->fuente }}</dd>
                                         <dt>Fecha</dt><dd>{{ $fertilizacion->fecha }}</dd>
                                         <dt>Tipo de fertilización</dt><dd>{{ $fertilizacion->tipo}}</dd>
                                         <dt>Cantidad(kg)</dt><dd>{{ $fertilizacion->cantidad }}</dd>

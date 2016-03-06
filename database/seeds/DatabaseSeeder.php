@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
 
         //sector
-        $this->call('fuenteSeeder');
+
         $this->call('cultivoSeeder');
         $this->call('maquinariaSeeder');
 
