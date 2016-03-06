@@ -48,11 +48,9 @@ class cosechaSectorController extends Controller
      * */
     public function pagCrear() {
         $sectores = Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $siembras = SiembraSector::select('id','variedad','fecha')->orderBy('fecha', 'asc')->get();
 
         return view('Sector/cosecha/crear')->with([
             'sectores' => $sectores,
-            'siembras' => $siembras
         ]);
     }
 
@@ -61,20 +59,44 @@ class cosechaSectorController extends Controller
      */
     public function pagModificar($id) {
         $cosechaSector= cosecha::findOrFail($id);
-
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
+
+        $fechaSiembraSeleccionada=Carbon::createFromFormat('Y-m-d H:i:s', $cosechaSector->siembra->fecha);
+
+        $siembraSeleccionada = array(
+            'id_siembra'=>$cosechaSector->id_siembra,
+            'variedad'=>$cosechaSector->siembra->variedad,
+            'nombre'=>$cosechaSector->siembra->cultivo->nombre,
+            'fecha'=>$fechaSiembraSeleccionada->format('d/m/Y')
+        );
+
         $siembras = siembraSector::where('id_sector',$cosechaSector->id_sector)->get();
+
+        $siembrasTodas=array();
+        foreach ($siembras as $siembra) {
+
+            $fechaSiembraTodas=Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fecha);
+
+            array_push($siembrasTodas,array(
+                    'id_siembra' => $siembra->id,
+                    'variedad' => $siembra->variedad,
+                    'nombre' => $siembra->cultivo->nombre,
+                    'fecha' => $fechaSiembraTodas->format('d/m/Y'))
+
+            );
+        }
+
         $descripcion= cosecha::select('descripcion')->where('id', $cosechaSector->id)->get();
         $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $cosechaSector->fecha);
-
-
+        $cosechaSector->fecha= $fecha->format('d/m/Y');
 
         return view('Sector/cosecha/modificar')->with([
-            'cosechaSector'=>$cosechaSector,
+            'cosechaSector'=> $cosechaSector,
             'sectores' => $sectores,
             'siembras' => $siembras,
             'descripcion' => $descripcion,
-            'fecha' => $fecha
+            'fecha' => $fecha,
+            'siembraSeleccionada' => $siembraSeleccionada
         ]);
     }
 
@@ -112,6 +134,7 @@ class cosechaSectorController extends Controller
      * Recibe la informacion del formulario de modificar y la actualiza en la base de datos
      */
     public function modificar(cosechaSectorRequest $request){
+        //dd($request);
         $cosecha=$this->adaptarRequest($request);
         $cosecha->save();
         $cosecha->push();
@@ -247,9 +270,9 @@ class cosechaSectorController extends Controller
      * Recibe la informacion del formulario de crear y la adapta a los campos del modelo
      */
     public function adaptarRequest($request){
-        $cosecha=new cosecha($request->all());
+        $cosecha=new cosecha();
         if(isset($request->id)) {
-            $cosechaSector = cosecha::findOrFail($request->id);
+            $cosecha = cosecha::findOrFail($request->id);
         }
 
         $cosecha->id_sector= $request->sector;

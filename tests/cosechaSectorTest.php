@@ -53,13 +53,6 @@ class cosechaSectorTest extends TestCase
      * @group cosechaCrearSector
      */
 
-    public function testCrearNoSiembra(){
-        $this->visit('sector/cosecha/crear')
-            ->type("Esta es la descripción","descripcion")
-            ->press('Crear')
-            ->see("El campo siembra es obligatorio");
-    }
-
     /**
      * @group cosechaCrearSector
      */
@@ -129,18 +122,6 @@ class cosechaSectorTest extends TestCase
             ->type("Esta es la descripción.","descripcion")
             ->press('Modificar')
             ->see("El campo sector es obligatorio");
-    }
-    /**
-     * @group cosechaModificarSector
-     */
-    public function testModificarNoSiembra(){
-        $this->visit('sector/cosecha/modificar/12')
-            ->select(1,"sector")
-            ->select("","siembra")
-            ->type("18/02/2016","fecha")
-            ->type("Esta es la descripción.","descripcion")
-            ->press('Modificar')
-            ->see("El campo siembra es obligatorio");
     }
 
     /**

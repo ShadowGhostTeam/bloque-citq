@@ -48,10 +48,10 @@
                 <select  class="form-control" id="siembra" name="siembra">
                     <option value="">Selecciona</option>
 
-                    @if( isset($siembraSector))
+                    @if( isset($siembraSeleccionada))
 
                         @foreach($siembras as $siembra)
-                            @if($siembraSector['id_siembra'] == $siembra['id_siembra'])
+                            @if($siembraSeleccionada['id_siembra'] == $siembra['id_siembra'])
                                 <option value="{{  $siembra['id_siembra']  }}" selected > {{ $siembra['nombre']."   ". $siembra['variedad'] . " - ". $siembra['fecha'] }}  </option>
                             @else
                                 <option value="{{  $siembra['id_siembra']  }}"  > {{ $siembra['nombre']."   ". $siembra['variedad'] ." - " . $siembra['fecha']  }}  </option>
