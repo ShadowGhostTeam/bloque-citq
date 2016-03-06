@@ -40,7 +40,7 @@
                 },
 
 
-                rol:{
+                tipoUsuario:{
                     validators: {
                         notEmpty: {
                             message: 'Seleccione una opción'

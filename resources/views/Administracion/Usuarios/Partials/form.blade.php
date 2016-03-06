@@ -46,7 +46,7 @@
             <label for="Sector" class="col-lg-2 control-label"><strong>*</strong>Tipo de usuario</label>
             <div class="col-lg-10">
 
-                <select  class="form-control" id="rol" name="rol">
+                <select  class="form-control" id="tipoUsuario" name="tipoUsuario">
                     <option value="">Selecciona</option>
 
                     @if( isset($usuario))
