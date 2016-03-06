@@ -134,11 +134,15 @@ class usuariosController extends Controller
      * Elimina un registro de la base de datos
      */
     public function eliminar(Request $request){
-        $preparacion= preparacionSector::findOrFail($request->id);
-        $preparacion->delete();
+        if(Auth::user()->id==$request->id){
+            return redirect ('404');
+        }
+        $usuario = User::findOrFail($request->id);
+        $usuario->detachAllRoles();
+        $usuario->delete();
 
-        Session::flash('message','La preparacion ha sido eliminada');
-        return redirect('sector/preparacion');
+        Session::flash('message','El usuario ha sido eliminado');
+        return redirect('administracion/usuarios');
     }
 
     /*
