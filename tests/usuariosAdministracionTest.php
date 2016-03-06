@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use App\User;
 
 class usuariosAdministracionTest extends TestCase
 {
@@ -104,22 +105,17 @@ class usuariosAdministracionTest extends TestCase
     //////////////////////////////MODIFICAR//////////////////////////////////
     //para llamar a solo un grupo phpunit --group modificarUsuariosAdministracion
 
-    /*Unidad*/
-    /**
-     * @group modificarUsuariosAdministracion
-     */
-    public function testRutaModificar(){
-        $response = $this->call('GET', 'administracion/usuarios/modificar/2');
-        $this->assertEquals(200, $response->status());
-    }
+
 
     /*Integración*/
 
     /**
-     * @group crearUsuariosAdministracion
+     * @group modificarUsuariosAdministracion
      */
     public function testModificarCorrecto(){
-        $this->visit('administracion/usuarios/modificar/2')
+        $user=User::find(1);
+        $this->actingAs($user)
+            ->visit('administracion/usuarios/modificar/2')
             ->select(1,'tipoUsuario')
             ->press('Modificar')
             ->see("El usuario ha sido modificado");
@@ -128,10 +124,12 @@ class usuariosAdministracionTest extends TestCase
 
 
     /**
-     * @group crearUsuariosAdministracion
+     * @group modificarUsuariosAdministracion
      */
     public function testModificarNoTipoUusario(){
-        $this->visit('administracion/usuarios/modificar/2')
+        $user=User::find(1);
+        $this->actingAs($user)
+            ->visit('administracion/usuarios/modificar/2')
             ->select("",'tipoUsuario')
             ->press('Modificar')
             ->see("El campo tipo usuario es obligatorio");
