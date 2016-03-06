@@ -15,6 +15,21 @@
 
     <div class="col-md-6" align="center">
     <p align="left" class="help-block"> (*) Obligatorio </p><br>
+
+        <div class="form-group">
+            <label for="Titulo" class="col-lg-2 control-label"><strong>*</strong>Nombre</label>
+            <div class="col-lg-10">
+
+                @if( isset($usuario))
+
+                    {!!Form::text('nombre' ,$usuario->name,['class'=>'form-control','id'=>'nombre','placeholder'=>'Nombre'])!!}
+                @else
+                    {!!Form::text('nombre' ,null,['class'=>'form-control','id'=>'nombre','placeholder'=>'Nombre'])!!}
+                @endif
+            </div>
+        </div>
+
+
         @if( isset($usuario))
             <div class="form-group">
                 <label for="Titulo" class="col-lg-2 control-label">Correo</label>

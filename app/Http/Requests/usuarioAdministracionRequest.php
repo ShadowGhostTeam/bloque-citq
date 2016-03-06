@@ -24,6 +24,7 @@ class usuarioAdministracionRequest extends Request
     public function rules()
     {
         return [
+            'nombre' => 'required|max:255',
             'correo'=>'required|email|unique:users,email',
             'password' => 'required|min:6|max:60',
             'tipoUsuario' => 'required|exists:roles,id'

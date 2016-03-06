@@ -26,6 +26,7 @@ class usuariosAdministracionTest extends TestCase
      */
     public function testCrearCorrecto(){
         $this->visit('administracion/usuarios/crear')
+            ->type("prueba","nombre")
             ->type('b@yahoo.com','correo')
             ->type('administrador','password')
             ->select(1,'tipoUsuario')
@@ -102,12 +103,30 @@ class usuariosAdministracionTest extends TestCase
             ->see("El campo tipo usuario es obligatorio");
     }
 
+    /**
+     * @group crearUsuariosAdministracion
+     */
+    public function testCrearNoNombre(){
+        $this->visit('administracion/usuarios/crear')
+            ->press('Crear')
+            ->see("El campo nombre es obligatorio");
+    }
+
+    /**
+     * @group crearUsuariosAdministracion
+     */
+    public function testCrearNombreLargo(){
+        $this->visit('administracion/usuarios/crear')
+            ->type("123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890","nombre")
+            ->press('Crear')
+            ->see("nombre no debe ser mayor que 255 caracteres");
+    }
+
+
     //////////////////////////////MODIFICAR//////////////////////////////////
     //para llamar a solo un grupo phpunit --group modificarUsuariosAdministracion
 
 
-
-    /*Integración*/
 
     /**
      * @group modificarUsuariosAdministracion
@@ -116,6 +135,7 @@ class usuariosAdministracionTest extends TestCase
         $user=User::find(1);
         $this->actingAs($user)
             ->visit('administracion/usuarios/modificar/2')
+            ->type("prueba","nombre")
             ->select(1,'tipoUsuario')
             ->press('Modificar')
             ->see("El usuario ha sido modificado");
@@ -133,5 +153,30 @@ class usuariosAdministracionTest extends TestCase
             ->select("",'tipoUsuario')
             ->press('Modificar')
             ->see("El campo tipo usuario es obligatorio");
+    }
+
+    /**
+     * @group modificarUsuariosAdministracion
+     */
+    public function testModificarNoNombre(){
+        $user=User::find(1);
+        $this->actingAs($user)
+            ->visit('administracion/usuarios/modificar/2')
+            ->type("","nombre")
+            ->select(1,'tipoUsuario')
+            ->press('Modificar')
+            ->see("El campo nombre es obligatorio");
+    }
+
+    /**
+     * @group modificarUsuariosAdministracion
+     */
+    public function testMoficiarNombreLargo(){
+        $user=User::find(1);
+        $this->actingAs($user)
+            ->visit('administracion/usuarios/modificar/2')
+            ->type("123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890","nombre")
+            ->press('Modificar')
+            ->see("nombre no debe ser mayor que 255 caracteres");
     }
 }

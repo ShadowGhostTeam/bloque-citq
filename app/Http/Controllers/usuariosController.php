@@ -256,10 +256,12 @@ class usuariosController extends Controller
         $usuario=new User();
         if(isset($request->id)) {
             $usuario = User::findOrFail($request->id);
+            $usuario->name=$request->nombre;
             $usuario->detachAllRoles();
             $usuario->attachRole($request->tipoUsuario);
         }
         else{
+            $usuario->name=$request->nombre;
             $usuario->remember_token = str_random(10);
             $usuario->email= $request->correo;
             $usuario->password=  Hash::make($request->password);

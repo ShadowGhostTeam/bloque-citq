@@ -24,6 +24,7 @@ class usuarioModificarAdministracionRequest extends Request
     public function rules()
     {
         return [
+            'nombre' => 'required|max:255',
             'tipoUsuario' => 'required|exists:roles,id'
 
         ];
