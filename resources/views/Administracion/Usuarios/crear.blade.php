@@ -29,9 +29,9 @@
 
                             @include('Partials.Mensajes.mensajes')
 
-                            {!! Form::open(['action'=>['preparacionSectorController@crear'],'class'=>'form-horizontal','role'=>'form','id'=>'formulario'])!!}
+                            {!! Form::open(['action'=>['usuariosController@crear'],'class'=>'form-horizontal','role'=>'form','id'=>'formulario'])!!}
 
-                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear preparación</h4><br>
+                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear usuario</h4><br>
 
                             @include('Administracion.Usuarios.Partials.form')
 

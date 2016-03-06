@@ -9,75 +9,52 @@
                 validating: 'glyphicon glyphicon-refresh'
             },
             fields: {
-                sector:{
+                correo: {
                     validators: {
-                        notEmpty: {
-                            message: 'Seleccione una opción'
-                        }
-                    }
-                },
-
-
-                maquinaria:{
-                    validators: {
-                        notEmpty: {
-                            message: 'Seleccione una opción'
-                        }
-                    }
-                },
-
-
-
-                numPasadas:{
-                    validators: {
-                        notEmpty: {
-                            message: 'Ingrese un número'
-                        },
-                        greaterThan:{
-                            value: -1,
-                            message: 'Ingrese número mayor o igual a 0'
-                        },
                         stringLength: {
-                            max: 3,
-                            message: 'Ingrese número entre 0-999'
+                            max: 255,
+                            message: 'El correo debe tener como máximo 255 caracteres'
                         },
-                        integer:{
-                            message: 'Ingrese número válido'
+
+                        emailAddress: {
+                            message: 'Ingrese un correo válido'
+                        },
+
+                        notEmpty: {
+                            message: 'Ingrese correo'
                         }
                     }
                 },
-                fecha:{
+                password: {
+                    validators: {
+                        stringLength: {
+                            min:6 ,
+                            message: 'La contraseña debe tener mínimo 6 caracteres'
+                        },
+
+
+                        notEmpty: {
+                           message: 'Ingrese contraseña'
+                        }
+                    }
+                },
+
+
+                tipoUsuario:{
                     validators: {
                         notEmpty: {
-                            message: 'Ingrese fecha'
-                        },
-                        date: {
-                            format: 'DD/MM/YYYY',
-                            message: 'Ingrese fecha en formato dd/mm/aaaa'
+                            message: 'Seleccione una opción'
                         }
                     }
                 }
+
+
+
+
+
             }
         });
 
-        $('#fecha')
-                .on('dp.change dp.show', function(e) {
-                    $('#formulario').data('bootstrapValidator').revalidateField('fecha');
-                });
     });
 </script>
 
-<script type="text/javascript">
-    $(function () {
-        $('#fecha').datetimepicker({
-            format:'DD/MM/YYYY'
-
-        });
-
-    });
-
-    $('#fecha').keypress(function(event) {event.preventDefault();});
-
-
-
-</script>

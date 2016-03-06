@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\preparacionSectorRequest;
-
+use App\Http\Requests\usuarioAdministracionRequest;
+use Bican\Roles\Models\Role;
+use Illuminate\Support\Facades\Hash;
 use App\maquinaria;
 use App\preparacionSector;
 use App\sector;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -46,13 +50,9 @@ class usuariosController extends Controller
      * Devuelve la vista de crear con los valores de los combobox
      * */
     public function pagCrear() {
-        $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $maquinarias= Maquinaria::select('id','nombre')->orderBy('nombre', 'asc')->get();
-
-
+        $roles= Role::select('id','name')->get();
         return view('Administracion/Usuarios/crear')->with([
-            'sectores' => $sectores,
-            'maquinarias' => $maquinarias
+            'roles' => $roles
         ]);
     }
 
@@ -96,12 +96,13 @@ class usuariosController extends Controller
      * Recibe la informacion del formulario de crear y la almacena en la base de datos
      */
 
-    public function crear(preparacionSectorRequest $request){
-        $preparacion=$this->adaptarRequest($request);
-        $preparacion->save();
+    public function crear(usuarioAdministracionRequest $request){
+        $usuario=$this->adaptarRequest($request);
+        $usuario->save();
+        $usuario->attachRole($request->tipoUsuario);
 
-        Session::flash('message', 'La preparacion ha sido agregada');
-        return redirect('sector/preparacion/crear');
+        Session::flash('message', 'El usuario ha sido registrado');
+        return redirect('administracion/usuarios/crear');
     }
 
 
@@ -244,18 +245,16 @@ class usuariosController extends Controller
      * Recibe la informacion del formulario de crear y la adapta a los campos del modelo
      */
     public function adaptarRequest($request){
-        $preparacion=new PreparacionSector($request->all());
+        $usuario=new User();
+        $usuario->remember_token = str_random(10);
         if(isset($request->id)) {
-            $preparacion = preparacionSector::findOrFail($request->id);
+            $usuario = User::findOrFail($request->id);
         }
 
-        $preparacion->id_sector= $request->sector;
-        $preparacion->id_maquinaria= $request->maquinaria;
-        $preparacion->numPasadas= $request->numPasadas;
-        $preparacion->fecha=Carbon::createFromFormat('d/m/Y', $request->fecha)->toDateTimeString();
+        $usuario->email= $request->correo;
+        $usuario->password=  Hash::make($request->password);
 
-
-        return $preparacion;
+        return $usuario;
     }
     /*
      * Adapta fechas de resultado de busqueda a formato adecuado para imprimir en la vista de busqueda

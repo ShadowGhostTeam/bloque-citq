@@ -115,7 +115,7 @@
             <li class="sub-menu">
                 <a href="#"  class="active">
                     <i class="fa fa-cogs"></i>
-                    <span>Administracion&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span>Administración&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <i class="fa fa-caret-down"></i>
                 </a>
 

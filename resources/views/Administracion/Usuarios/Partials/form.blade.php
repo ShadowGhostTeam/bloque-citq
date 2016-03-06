@@ -17,91 +17,60 @@
     <p align="left" class="help-block"> (*) Obligatorio </p><br>
 
         <div class="form-group">
-            <label for="Sector" class="col-lg-2 control-label"><strong>*</strong>Sector</label>
+            <label for="Titulo" class="col-lg-2 control-label"><strong>*</strong>Correo</label>
             <div class="col-lg-10">
 
-                <select  class="form-control" id="sector" name="sector">
-                    <option value="">Selecciona</option>
+                @if( isset($usuario))
 
-                    @if( isset($preparacionSector))
-
-                        @foreach($sectores as $sector)
-                            @if($preparacionSector->id_sector == $sector->id)
-                                <option value="{{  $sector->id  }}" selected > {{ $sector->nombre}}  </option>
-                            @else
-                                <option value="{{  $sector->id  }}" > {{ $sector->nombre}}  </option>
-                            @endif
-                        @endforeach
-                    @else
-                        @foreach($sectores as $sector)
-                            <option value="{{  $sector->id  }}" > {{ $sector->nombre}}  </option>
-                        @endforeach
-                    @endif
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="Maquinaria" class="col-lg-2 control-label"><strong>*</strong>Maquinaria</label>
-            <div class="col-lg-10">
-
-                <select  class="form-control" id="maquinaria" name="maquinaria">
-                    <option value="">Selecciona</option>
-
-                    @if( isset($preparacionSector))
-
-                        @foreach($maquinarias as $maquinaria)
-                            @if($preparacionSector->id_maquinaria == $maquinaria->id)
-                                <option value="{{  $maquinaria->id  }}" selected > {{ $maquinaria->nombre}}  </option>
-                            @else
-                                <option value="{{  $maquinaria->id  }}" > {{ $maquinaria->nombre}}  </option>
-                            @endif
-                        @endforeach
-                    @else
-                        @foreach($maquinarias as $maquinaria)
-                            <option value="{{  $maquinaria->id  }}" > {{ $maquinaria->nombre}}  </option>
-                        @endforeach
-                    @endif
-                </select>
-            </div>
-        </div>
-
-
-
-
-
-
-        <div class="form-group">
-            <label for="Pasadas" class="col-lg-2 control-label"><strong>*</strong>Pasadas</label>
-            <div class="col-lg-10">
-                @if( isset($preparacionSector))
-                {!!Form::number('numPasadas' ,$preparacionSector->numPasadas,['class'=>'form-control','min'=>'0','id'=>'numPasadas','placeholder'=>'Número de pasadas'])!!}
+                    {!!Form::text('correo' ,$usuario->email,['class'=>'form-control','id'=>'email','placeholder'=>'Correo electrónico'])!!}
                 @else
-                    {!!Form::number('numPasadas' ,null,['class'=>'form-control','min'=>'0','id'=>'numPasadas','placeholder'=>'Número de pasadas'])!!}
+                    {!!Form::text('correo' ,null,['class'=>'form-control','id'=>'email','placeholder'=>'Correo electrónico'])!!}
                 @endif
             </div>
         </div>
 
         <div class="form-group">
-            <label for="Fecha" class="col-lg-2 control-label"><strong>*</strong>Fecha</label>
+            <label for="Titulo" class="col-lg-2 control-label"><strong>*</strong>Contraseña</label>
             <div class="col-lg-10">
-                <div class="input-group date" id="fechaDP">
-                                                 <span class="input-group-addon">
-                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                  </span>
-                    @if( isset($preparacionSector))
-                        {!!Form::text('fecha' ,$preparacionSector->fecha,['class'=>'form-control','id'=>'fecha','placeholder'=>'dd/mm/aaaa'])!!}
+
+                @if( isset($usuario))
+
+                    {!!Form::text('password' ,$usuario->password,['class'=>'form-control','id'=>'password','placeholder'=>'Contraseña'])!!}
+                @else
+                    {!!Form::text('password' ,null,['class'=>'form-control','id'=>'password','placeholder'=>'Contraseña'])!!}
+                @endif
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Sector" class="col-lg-2 control-label"><strong>*</strong>Tipo de usuario</label>
+            <div class="col-lg-10">
+
+                <select  class="form-control" id="tipoUsuario" name="tipoUsuario">
+                    <option value="">Selecciona</option>
+
+                    @if( isset($usuario))
+
+                        @foreach($roles as $rol)
+                            @if($usuario->rol == $rol->id)
+                                <option value="{{  $rol->id  }}" selected > {{ $rol->name}}  </option>
+                            @else
+                                <option value="{{  $rol->id  }}" > {{ $rol->name}}  </option>
+                            @endif
+                        @endforeach
                     @else
-                        {!!Form::text('fecha' ,null,['class'=>'form-control','id'=>'fecha','placeholder'=>'dd/mm/aaaa'])!!}
+                        @foreach($roles as $rol)
+                            <option value="{{  $rol->id  }}" > {{ $rol->name}}  </option>
+                        @endforeach
                     @endif
-                </div>
+                </select>
             </div>
         </div>
 
         <div class="form-group" align="center">
-            @if( isset($preparacionSector))
+            @if( isset($usuario))
 
-            {!! Form::submit('Modificar',['class'=>'btn btn-success', 'onclick'=>"return confirm ('¿Seguro que desea modificar la preparación?')"])!!}
+            {!! Form::submit('Modificar',['class'=>'btn btn-success', 'onclick'=>"return confirm ('¿Seguro que desea modificar los datos del usuario?')"])!!}
             @else
                 {!! Form::submit('Crear',['class'=>'btn btn-success'])!!}
             @endif
