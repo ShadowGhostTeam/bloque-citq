@@ -187,14 +187,6 @@ class usuariosAdministracionTest extends TestCase
     /*Unidad*/
 
 
-    /**
-     * @group buscarUsuariosAdministracion
-     */
-    public function testRutaBuscar(){
-        $response = $this->call('GET', 'administracion/usuarios');
-        $this->assertEquals(200, $response->status());
-    }
-
 
 
 
@@ -207,7 +199,7 @@ class usuariosAdministracionTest extends TestCase
         $this->actingAs($user)
             ->visit('administracion/usuarios')
             ->press('Buscar')
-            ->see("Se encontraron resultados");
+            ->see("Se encontraron");
     }
     /**
      * @group buscarUsuariosAdministracion
@@ -218,7 +210,7 @@ class usuariosAdministracionTest extends TestCase
             ->visit('administracion/usuarios')
             ->type("@","nombre")
             ->press('Buscar')
-            ->see("Se encontraron resultados");
+            ->see("Se encontraron");
     }
 
     /**
@@ -230,7 +222,7 @@ class usuariosAdministracionTest extends TestCase
             ->visit('administracion/usuarios')
             ->type(1,"tipoUsuario")
             ->press('Buscar')
-            ->see("Se encontraron resultados");
+            ->see("Se encontraron");
     }
 
     /**
