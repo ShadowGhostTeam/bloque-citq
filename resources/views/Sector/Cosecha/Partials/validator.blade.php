@@ -31,7 +31,7 @@
                 descripcion:{
                     validators: {
                         stringLength: {
-                            max: 180,
+                            max: 300,
                             message: 'La descripción deben contener menos de 180 caracteres.'
                         },
                     }

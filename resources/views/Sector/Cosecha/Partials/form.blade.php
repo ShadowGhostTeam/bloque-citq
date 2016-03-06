@@ -73,9 +73,14 @@
             <label for="Descripción" class="col-lg-2 control-label">Descripción</label>
             <div class="col-lg-10">
                 @if( isset($cosechaSector))
+
                     {!!Form::textArea('descripcion' ,$cosechaSector->comentario,['class'=>'form-control','id'=>'descripcion','placeholder'=>'Descripción de la cosecha (180 max).'])!!}
+
+
+                    {!!Form::textArea('descripcion' ,$cosechaSector->descripcion,['class'=>'form-control','id'=>'descripcion','placeholder'=>'Aquí puedes incluir una descripción.'])!!}
+
                 @else
-                    {!!Form::textArea('descripcion' ,null,['class'=>'form-control','id'=>'descripcion','placeholder'=>'Descripción de la cosecha (180 max).'])!!}
+                    {!!Form::textArea('descripcion' ,null,['class'=>'form-control','id'=>'descripcion','placeholder'=>'Aquí puedes incluir una descripción.'])!!}
                 @endif
             </div>
         </div>
