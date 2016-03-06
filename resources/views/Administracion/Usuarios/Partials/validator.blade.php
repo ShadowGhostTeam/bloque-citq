@@ -17,7 +17,7 @@
                         },
 
                         emailAddress: {
-                            message: 'Ingresa un correo válido'
+                            message: 'Ingrese un correo válido'
                         },
 
                         notEmpty: {
