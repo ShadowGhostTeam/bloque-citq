@@ -358,3 +358,8 @@ Route::get('sector/cosecha/consultar/{id}',[
     'as' =>'sector/cosecha/consultar/item'
 
 ]);
+
+/////////////////////ARCHIVOS/////////////////////
+
+/*CRUD USUARIOS*/
+require __DIR__ . '/Routes/crudUsuarios.php';
