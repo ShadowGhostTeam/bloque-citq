@@ -24,8 +24,8 @@ class usuariosAdministracionTest extends TestCase
      * @group crearUsuariosAdministracion
      */
     public function testCrearCorrecto(){
-        $this->visit('administracion/usuarios')
-            ->type('a@yahoo.com','correo')
+        $this->visit('administracion/usuarios/crear')
+            ->type('b@yahoo.com','correo')
             ->type('administrador','password')
             ->select(1,'tipoUsuario')
             ->press('Crear')
@@ -35,8 +35,20 @@ class usuariosAdministracionTest extends TestCase
     /**
      * @group crearUsuariosAdministracion
      */
+    public function testCrearCorreoRepetido(){
+        $this->visit('administracion/usuarios/crear')
+            ->type('b@yahoo.com','correo')
+            ->type('administrador','password')
+            ->select(1,'tipoUsuario')
+            ->press('Crear')
+            ->see("correo ya ha sido registrado");
+    }
+
+    /**
+     * @group crearUsuariosAdministracion
+     */
     public function testCrearNoMail(){
-        $this->visit('administracion/usuarios')
+        $this->visit('administracion/usuarios/crear')
             ->press('Crear')
             ->see("El campo correo es obligatorio");
     }
@@ -45,7 +57,7 @@ class usuariosAdministracionTest extends TestCase
      * @group crearUsuariosAdministracion
      */
     public function testCrearMailInvalido(){
-        $this->visit('administracion/usuarios')
+        $this->visit('administracion/usuarios/crear')
             ->type('a','correo')
             ->press('Crear')
             ->see("correo no es un correo válido");
@@ -55,7 +67,7 @@ class usuariosAdministracionTest extends TestCase
      * @group crearUsuariosAdministracion
      */
     public function testCrearNoPassword(){
-        $this->visit('administracion/usuarios')
+        $this->visit('administracion/usuarios/crear')
             ->press('Crear')
             ->see("El campo password es obligatorio");
     }
@@ -64,7 +76,7 @@ class usuariosAdministracionTest extends TestCase
      * @group crearUsuariosAdministracion
      */
     public function testCrearPasswordCorto(){
-        $this->visit('administracion/usuarios')
+        $this->visit('administracion/usuarios/crear')
             ->type("a","password")
             ->press('Crear')
             ->see("password debe contener al menos 6 caracteres");
@@ -74,7 +86,7 @@ class usuariosAdministracionTest extends TestCase
      * @group crearUsuariosAdministracion
      */
     public function testCrearPasswordLargo(){
-        $this->visit('administracion/usuarios')
+        $this->visit('administracion/usuarios/crear')
             ->type("1234567890123456789012345678901234567890123456789012345678901234567890","password")
             ->press('Crear')
             ->see("password no debe ser mayor que 60 caracteres");
@@ -84,8 +96,8 @@ class usuariosAdministracionTest extends TestCase
      * @group crearUsuariosAdministracion
      */
     public function testCrearNoTipoUusario(){
-        $this->visit('administracion/usuarios')
+        $this->visit('administracion/usuarios/crear')
             ->press('Crear')
-            ->see("El campo tipoUsuario es obligatorio");
+            ->see("El campo tipo usuario es obligatorio");
     }
 }
