@@ -13,8 +13,8 @@ class usuariosAdministracionTest extends TestCase
     /**
      * @group crearUsuariosAdministracion
      */
-    public function testRutaBuscar(){
-        $response = $this->call('GET', 'administracion/usuarios');
+    public function testRutaCrear(){
+        $response = $this->call('GET', 'administracion/usuarios/crear');
         $this->assertEquals(200, $response->status());
     }
 
@@ -98,6 +98,42 @@ class usuariosAdministracionTest extends TestCase
     public function testCrearNoTipoUusario(){
         $this->visit('administracion/usuarios/crear')
             ->press('Crear')
+            ->see("El campo tipo usuario es obligatorio");
+    }
+
+    //////////////////////////////MODIFICAR//////////////////////////////////
+    //para llamar a solo un grupo phpunit --group modificarUsuariosAdministracion
+
+    /*Unidad*/
+    /**
+     * @group modificarUsuariosAdministracion
+     */
+    public function testRutaModificar(){
+        $response = $this->call('GET', 'administracion/usuarios/modificar/2');
+        $this->assertEquals(200, $response->status());
+    }
+
+    /*Integración*/
+
+    /**
+     * @group crearUsuariosAdministracion
+     */
+    public function testModificarCorrecto(){
+        $this->visit('administracion/usuarios/modificar/2')
+            ->select(1,'tipoUsuario')
+            ->press('Modificar')
+            ->see("El usuario ha sido modificado");
+    }
+
+
+
+    /**
+     * @group crearUsuariosAdministracion
+     */
+    public function testModificarNoTipoUusario(){
+        $this->visit('administracion/usuarios/modificar/2')
+            ->select("",'tipoUsuario')
+            ->press('Modificar')
             ->see("El campo tipo usuario es obligatorio");
     }
 }

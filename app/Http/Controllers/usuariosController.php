@@ -111,7 +111,8 @@ class usuariosController extends Controller
     /*
      * Recibe la informacion del formulario de modificary la actualiza en la base de datos
      */
-    public function modificar(preparacionSectorRequest $request){
+    public function modificar(usuarioAdministracionRequest $request){
+        dd("hola");
         $preparacion=$this->adaptarRequest($request);
         $preparacion->save();
         $preparacion->push();

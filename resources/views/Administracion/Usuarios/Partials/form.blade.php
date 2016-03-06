@@ -15,19 +15,24 @@
 
     <div class="col-md-6" align="center">
     <p align="left" class="help-block"> (*) Obligatorio </p><br>
+        @if( isset($usuario))
+            <div class="form-group">
+                <label for="Titulo" class="col-lg-2 control-label">Correo</label>
+                <div class="col-lg-10">
+                    {!!Form::text('correo' ,$usuario->email,['class'=>'form-control','id'=>'email','readonly','placeholder'=>'Correo electrónico'])!!}
 
+                </div>
+            </div>
+        @else
         <div class="form-group">
             <label for="Titulo" class="col-lg-2 control-label"><strong>*</strong>Correo</label>
             <div class="col-lg-10">
-
-                @if( isset($usuario))
-
-                    {!!Form::text('correo' ,$usuario->email,['class'=>'form-control','id'=>'email','placeholder'=>'Correo electrónico'])!!}
-                @else
                     {!!Form::text('correo' ,null,['class'=>'form-control','id'=>'email','placeholder'=>'Correo electrónico'])!!}
-                @endif
+
             </div>
         </div>
+        @endif
+
         @if( isset($usuario))
         @else
         <div class="form-group">
