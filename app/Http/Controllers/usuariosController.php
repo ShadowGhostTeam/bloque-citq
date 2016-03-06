@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\preparacionSectorRequest;
 use App\Http\Requests\usuarioAdministracionRequest;
 use Bican\Roles\Models\Role;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\maquinaria;
 use App\preparacionSector;
@@ -60,18 +61,19 @@ class usuariosController extends Controller
      * Devuelve vista modificar con los valores del registro que se manda como parametro ($id)
      */
     public function pagModificar($id) {
-        $preparacionSector= preparacionSector::findOrFail($id);
+        /*Validar que no sea el mismo usuario*/
+        if(Auth::user()->id==$id){
+            return redirect ('404');
+        }
 
-        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $preparacionSector->fecha);
-        $preparacionSector->fecha=$fecha->format('d/m/Y');
-        $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $maquinarias= Maquinaria::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $usuario= User::findOrFail($id);
+        $roles= Role::select('id','name')->get();
+        $usuarioRol=$usuario->getRoles();
 
-
-        return view('Sector/Preparacion/modificar')->with([
-            'preparacionSector'=>$preparacionSector,
-            'sectores' => $sectores,
-            'maquinarias' => $maquinarias
+        return view('Administracion/Usuarios/modificar')->with([
+            'usuario'=>$usuario,
+            'roles' => $roles,
+            'usuarioRol'=>$usuarioRol[0]
         ]);
     }
 

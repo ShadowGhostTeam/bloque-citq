@@ -28,19 +28,17 @@
                 @endif
             </div>
         </div>
-
+        @if( isset($usuario))
+        @else
         <div class="form-group">
             <label for="Titulo" class="col-lg-2 control-label"><strong>*</strong>Contraseña</label>
             <div class="col-lg-10">
 
-                @if( isset($usuario))
-
-                    {!!Form::text('password' ,$usuario->password,['class'=>'form-control','id'=>'password','placeholder'=>'Contraseña'])!!}
-                @else
                     {!!Form::text('password' ,null,['class'=>'form-control','id'=>'password','placeholder'=>'Contraseña'])!!}
-                @endif
+
             </div>
         </div>
+        @endif
 
         <div class="form-group">
             <label for="Sector" class="col-lg-2 control-label"><strong>*</strong>Tipo de usuario</label>
@@ -52,7 +50,7 @@
                     @if( isset($usuario))
 
                         @foreach($roles as $rol)
-                            @if($usuario->rol == $rol->id)
+                            @if($usuarioRol->id == $rol->id)
                                 <option value="{{  $rol->id  }}" selected > {{ $rol->name}}  </option>
                             @else
                                 <option value="{{  $rol->id  }}" > {{ $rol->name}}  </option>
