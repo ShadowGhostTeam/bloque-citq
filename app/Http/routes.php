@@ -25,7 +25,7 @@ Route::filter('force.ssl', function() {
 /*'before' => 'force.ssl'  */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('login');;
 });
 
 
@@ -358,6 +358,43 @@ Route::get('sector/cosecha/consultar/{id}',[
     'as' =>'sector/cosecha/consultar/item'
 
 ]);
+
+
+/*
+ *
+ * Rutas de inicio de sesion
+ *
+ *
+ * */
+// Authentication routes...
+Route::get('login',[
+    'uses' => 'Auth\AuthController@getLogin',
+    'as' => 'login'
+]);
+Route::post('login','Auth\AuthController@postLogin',array('before' => 'csrf', function()
+{
+}));
+Route::get('logout', [
+    'uses'=>'Auth\AuthController@getLogout',
+    'as'=>'logout'
+]);
+// Registration routes...
+Route::get('register',[
+    'uses'=>'Auth\AuthController@getRegister',
+    'as' => 'register'
+]);
+Route::post('register', 'Auth\AuthController@postRegister');
+// Password reset link request routes...
+Route::get('password/email',[
+    'uses' => 'Auth\PasswordController@getEmail',
+    'as' => 'password/email'
+]);
+Route::post('password/email', 'Auth\PasswordController@postEmail');
+// Password reset routes...
+Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
+Route::post('password/reset', 'Auth\PasswordController@postReset');
+
+
 
 /////////////////////INVERNADERO/////////////////////
 require __DIR__ . '/Routes/crudPreparacionInvernadero.php';

@@ -62,4 +62,18 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+
+
+    public function loginPath(){
+        return route('login');
+    }
+    ///SI ES EXITOSO EL LOGIN ENTONCES
+    public  function redirectPath(){
+        return route('sector/preparacion');
+    }
+    protected function getFailedLoginMessage()
+    {
+        return 'Usuario o Contrasena equivocados.';
+    }
+
 }
