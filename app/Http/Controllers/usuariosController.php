@@ -10,6 +10,7 @@ use App\sector;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
+use Bican\Roles\Models\Role;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -46,13 +47,9 @@ class usuariosController extends Controller
      * Devuelve la vista de crear con los valores de los combobox
      * */
     public function pagCrear() {
-        $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $maquinarias= Maquinaria::select('id','nombre')->orderBy('nombre', 'asc')->get();
-
-
+        $roles= Role::select('id','name')->get();
         return view('Administracion/Usuarios/crear')->with([
-            'sectores' => $sectores,
-            'maquinarias' => $maquinarias
+            'roles' => $roles
         ]);
     }
 

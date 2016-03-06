@@ -14,18 +14,18 @@ class rolesSeeder extends Seeder
     public function run()
     {
         $rol= Role::create([
-            'name' => 'administrador',
-            'slug' => 'administrador',
+            'name' => 'Administrador',
+            'slug' => 'Administrador',
             'description' => 'Rol que tiene todos los permisos']);
 
         $rol2= Role::create([
-            'name' => 'tecnico',
-            'slug' => 'tecnico',
+            'name' => 'Técnico',
+            'slug' => 'Tecnico',
             'description' => 'Todos los permisos excepto crear usuarios']);
 
         $rol3= Role::create([
-            'name' => 'becario',
-            'slug' => 'becario',
+            'name' => 'Becario',
+            'slug' => 'Becario',
             'description' => 'Todos los permisos excepto reportes y crear usuarios']);
 
         $user1 = User::find(1);
