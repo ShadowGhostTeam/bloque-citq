@@ -7,6 +7,7 @@ use App\Http\Requests\usuarioAdministracionRequest;
 use App\Http\Requests\usuarioModificarAdministracionRequest;
 use Bican\Roles\Models\Role;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\maquinaria;
 use App\preparacionSector;
@@ -32,19 +33,17 @@ class usuariosController extends Controller
      * Devuelve la pagina de buscar y automaticamente llena la tabla con la busqueda de en un intervalo de fecha de hoy a hace 6 meses
      */
     public function index() {
-        $now= Carbon::now()->format('Y/m/d');
-        $now2 =Carbon::now()->subMonth(6)->format('Y/m/d');
-        $preparaciones = preparacionSector::whereBetween('fecha', array($now2,$now))->orderBy('fecha', 'desc')->paginate(15);
-        $this->adaptaFechas($preparaciones);
 
-
-        $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $maquinarias= Maquinaria::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        return view('Sector/Preparacion/buscar')->with([
-            'sectores' => $sectores,
-            'maquinarias' => $maquinarias,
-            'preparaciones'=>$preparaciones
-
+        $usuarios= DB::table('users')
+            ->join('role_user', 'users.id', '=', 'role_user.user_id')
+            ->join('roles', 'role_user.role_id', '=', 'roles.id')
+            ->select('users.id','users.name', 'users.email', 'roles.name as rolName')
+            ->paginate(15);
+        $roles= Role::select('id','name')->get();
+        
+        return view('Administracion/Usuarios/buscar')->with([
+            'usuarios'=>$usuarios,
+            'roles' => $roles
         ]);
     }
 

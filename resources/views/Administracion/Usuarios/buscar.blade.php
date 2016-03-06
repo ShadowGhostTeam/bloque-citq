@@ -45,13 +45,13 @@
 MAIN SIDEBAR MENU
 *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Sector.Preparacion.aside')
+    @include('Administracion.Usuarios.aside')
     <!--sidebar end-->
 
     <section id="container">
         <section id="main-content">
             <section class="wrapper site-min-height">
-                <h3 style="color:#078006"><i class="fa fa-angle-right"></i>Preparación</h3>
+                <h3 style="color:#078006"><i class="fa fa-angle-right"></i>Usuarios</h3>
                 <div class="row mt">
 
 
@@ -62,7 +62,7 @@ MAIN SIDEBAR MENU
                             @include('Partials.Mensajes.mensajes')
 
                             <div class="form-group" align="right">
-                                <a href="{{route('sector/preparacion/crear')}}"> <button class="btn agregar tooltips" data-placement="left" data-original-title="Agregar"><i class="fa fa-plus"></i></i></button></a>
+                                <a href="{{route('administracion/usuarios/crear')}}"> <button class="btn agregar tooltips" data-placement="left" data-original-title="Agregar"><i class="fa fa-plus"></i></i></button></a>
                             </div>
 
                             <div class="row">
@@ -70,59 +70,34 @@ MAIN SIDEBAR MENU
 
 
 
-                                    {!! Form::open(['route' => 'sector/preparacion/lista' ,'method'=>'GET']) !!}
+                                    {!! Form::open(['route' => 'administracion/usuarios/lista' ,'method'=>'GET']) !!}
 
-                                        <div class="form-group">
+                                    <div class="form-group">
 
-                                            <div class="col-lg-3">
-                                                <select  class="form-control" id="sector" name="sector">
-                                                    <option value="">Todos los sectores</option>
+                                        <div class="col-lg-3">
+                                            {!!Form::text('texto' ,null,['class'=>'form-control','id'=>'email','placeholder'=>'Nombre o correo'])!!}
 
-                                                    @if( isset($sectores))
-                                                        @foreach($sectores as $sector)
-                                                            <option value="{{  $sector->id  }}" > {{ $sector->nombre}}  </option>
-                                                        @endforeach
-                                                    @endif
-                                                </select>
-                                            </div>
                                         </div>
-                                        <div class="form-group">
+                                    </div>
 
-                                            <div class="col-lg-3">
-                                                <select  class="form-control" id="maquinaria" name="maquinaria">
-                                                    <option value="">Toda la maquinaria</option>
 
-                                                    @if( isset($maquinarias))
-                                                        @foreach($maquinarias as $maquinaria)
-                                                            <option value="{{  $maquinaria->id  }}" > {{ $maquinaria->nombre}}  </option>
-                                                        @endforeach
-                                                    @endif
-                                                </select>
-                                            </div>
+                                    <div class="form-group">
+
+                                        <div class="col-lg-3">
+                                            <select  class="form-control" id="tipoUsuario" name="tipoUsuario">
+                                                <option value="">Cualquier tipo</option>
+
+                                                @if( isset($roles))
+                                                    @foreach($roles as $rol)
+                                                        <option value="{{  $rol->id  }}" > {{ $rol->name}}  </option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
                                         </div>
+                                    </div>
 
-                                    <div id="formulario">
-                                        <div class="form-group">
-                                            <div class="col-lg-2">
-                                                <div class="input-group date" id="fechaDP">
-                                                 <span class="input-group-addon">
-                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                  </span>
-                                                        {!!Form::text('fechaInicio' ,null,['class'=>'form-control','id'=>'fechaInicioDP','placeholder'=>'Fecha inicial'])!!}
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="form-group">
-                                            <div class="col-lg-2">
-                                                <div class="input-group date" id="fechaDP">
-                                                 <span class="input-group-addon">
-                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                  </span>
-                                                    {!!Form::text('fechaFin' ,null,['class'=>'form-control','id'=>'fechaFinDP','placeholder'=>'Fecha final'])!!}
-                                                </div>
-                                            </div>
-                                        </div>
+
 
 
                                         <div class="form-group">
@@ -136,7 +111,7 @@ MAIN SIDEBAR MENU
 
                                         </div>
                                         {!! Form::close() !!}
-                                    </div>
+
 
 
 
@@ -153,28 +128,28 @@ MAIN SIDEBAR MENU
                                     </thead>
                                     <tbody>
 
-                                    @if ( isset( $preparaciones) )
+                                    @if ( isset( $usuarios) )
 
-                                        @foreach( $preparaciones as $preparacion )
+                                        @foreach( $usuarios as $usuario )
 
                                             <tr>
-                                                <td>{{ $preparacion->sector->nombre }}</td>
-                                                <td>{{ $preparacion->maquinaria->nombre }}</td>
-                                                <td>{{ $preparacion->fecha }}</td>
+                                                <td>{{ $usuario->name }}</td>
+                                                <td>{{ $usuario->email }}</td>
+                                                <td>{{ $usuario->rolName }}</td>
 
 
                                                 <td style="width: 5px">
-                                                    <a href="{{ route('sector/preparacion/consultar/item',$preparacion->id) }}"><button class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar"><i class="fa fa-eye"></i></button></a>
+                                                    <a href="{{ route('administracion/usuarios/consultar/item',$usuario->id) }}"><button class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar"><i class="fa fa-eye"></i></button></a>
                                                 </td>
 
                                                 <td style="width: 5px">
-                                                    <a href="{{ route('sector/preparacion/modificar/item',$preparacion->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
+                                                    <a href="{{ route('administracion/usuarios/modificar/item',$usuario->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
                                                 </td>
 
                                                 <td style="width: 5px">
-                                                    {!! Form::open(['action'=>['preparacionSectorController@eliminar'],'role'=>'form'] )  !!}
-                                                    <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la preparacion?")'><i class="fa fa-trash-o "></i></button>
-                                                    <input type="hidden" name="id" value={{$preparacion->id}}>
+                                                    {!! Form::open(['action'=>['usuariosController@eliminar'],'role'=>'form'] )  !!}
+                                                    <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar el usuario?")'><i class="fa fa-trash-o "></i></button>
+                                                    <input type="hidden" name="id" value={{$usuario->id}}>
                                                     {!! Form::close() !!}
                                                 </td>
 
@@ -188,8 +163,8 @@ MAIN SIDEBAR MENU
                                     </tbody>
                                 </table>
                             </div>
-                            @if (isset($preparaciones))
-                                {!! $preparaciones->setPath('')->appends(Input::query())->render()!!}
+                            @if (isset($usuarios))
+                                {!! $usuarios->setPath('')->appends(Input::query())->render()!!}
                             @endif
                         </div>
                     </div>
