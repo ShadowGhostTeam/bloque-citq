@@ -75,7 +75,7 @@ MAIN SIDEBAR MENU
                                     <div class="form-group">
 
                                         <div class="col-lg-3">
-                                            {!!Form::text('texto' ,null,['class'=>'form-control','id'=>'email','placeholder'=>'Nombre o correo'])!!}
+                                            {!!Form::text('nombre' ,null,['class'=>'form-control','id'=>'email','placeholder'=>'Nombre'])!!}
 
                                         </div>
                                     </div>

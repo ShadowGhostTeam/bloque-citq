@@ -145,108 +145,97 @@ class usuariosController extends Controller
      * Realiza una busqueda de informacion con los valores enviados desde la vista de busqueda
      */
 
-    public function buscar(Request $request){
+    public function buscar(Request $request)
+    {
 
         /*Listados de combobox*/
-        $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $maquinarias= Maquinaria::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $roles = Role::select('id', 'name')->get();
 
         /*Ahi se guardaran los resultados de la busqueda*/
-        $preparaciones=null;
+        $usuarios = null;
 
 
         $validator = Validator::make($request->all(), [
-            'fechaInicio' => 'date_format:d/m/Y',
-            'fechaFin' => 'date_format:d/m/Y',
-            'sector' => 'exists:sector,id',
-            'maquinaria' => 'exists:maquinaria,id'
+            'tipoUsuario' => 'exists:roles,id'
         ]);
 
         /*Si validador no falla se pueden realizar busquedas*/
         if ($validator->fails()) {
-        }
-        else{
-
+        } else {
+            $id = Auth::user()->id;
             /*Busqueda sin parametros*/
-            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->sector == "" && $request->maquinaria =="") {
-                $preparaciones = preparacionSector::orderBy('fecha', 'desc')->paginate(15);;
-
+            if ($request->nombre == "" && $request->tipoUsuario == "") {
+                $usuarios = DB::table('users')
+                    ->join('role_user', 'users.id', '=', 'role_user.user_id')
+                    ->join('roles', 'role_user.role_id', '=', 'roles.id')
+                    ->where('users.id', '!=', $id)
+                    ->select('users.id', 'users.name', 'users.email', 'roles.name as rolName')
+                    ->orderby('users.name', 'asc')
+                    ->paginate(15);
             }
 
-            /*Busqueda solo con sector*/
-            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->sector != "" && $request->maquinaria =="") {
-                $preparaciones = preparacionSector::where('id_sector', $request->sector)->orderBy('fecha', 'desc')->paginate(15);;
-
+            /*Busqueda solo con tipo usuario*/
+            if ($request->nombre == "" && $request->tipoUsuario != "") {
+                $usuarios = DB::table('users')
+                    ->join('role_user', 'users.id', '=', 'role_user.user_id')
+                    ->join('roles', 'role_user.role_id', '=', 'roles.id')
+                    ->where('users.id', '!=', $id)
+                    ->where('roles.id', '=', $request->tipoUsuario)
+                    ->select('users.id', 'users.name', 'users.email', 'roles.name as rolName')
+                    ->orderby('users.name', 'asc')
+                    ->paginate(15);
             }
 
-            /*Busqueda solo con maquinaria*/
-            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->sector == "" && $request->maquinaria !="") {
-                $preparaciones = preparacionSector::where('id_maquinaria', $request->maquinaria)->orderBy('fecha', 'desc')->paginate(15);;
+            /*Busqueda solo con nombre*/
+            if ($request->nombre != "" && $request->tipoUsuario == "") {
+                $request->nombre = trim($request->nombre);
+
+                $usuarios = DB::table('users')
+                    ->join('role_user', 'users.id', '=', 'role_user.user_id')
+                    ->join('roles', 'role_user.role_id', '=', 'roles.id')
+                    ->where('users.id', '!=', $id)
+                    ->where('users.name', 'LIKE', "%$request->nombre%")
+                    ->select('users.id', 'users.name', 'users.email', 'roles.name as rolName')
+                    ->orderby('users.name', 'asc')
+                    ->paginate(15);
             }
 
-            /*Busqueda solo con maquinaria y sector*/
-            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->sector != "" && $request->maquinaria !="") {
-                $preparaciones = preparacionSector::where('id_sector', $request->sector)->where('id_maquinaria', $request->maquinaria)->orderBy('fecha', 'desc')->paginate(15);
-            }
+            /*Busqueda solo con nombre y tipo de usuario*/
+            if ($request->nombre != "" && $request->tipoUsuario != "") {
+                $request->nombre = trim($request->nombre);
 
-            /*Pregunta si se mandaron fechas, para calcular busquedas con fechas*/
-            if ( $request->fechaFin != "" && $request->fechaInicio !="") {
-
-                /*Transforma fechas en formato adecuado*/
-
-                $fecha = $request->fechaInicio . " 00:00:00";
-                $fechaInf = Carbon::createFromFormat("d/m/Y H:i:s", $fecha);
-                $fecha = $request->fechaFin . " 23:59:59";
-                $fechaSup = Carbon::createFromFormat("d/m/Y H:i:s", $fecha);
-
-                /*Hay cuatro posibles casos de busqueda con fechas, cada if se basa en un caso */
-
-                /*Solo con fechas*/
-                if ($request->sector == "" && $request->maquinaria == "") {
-                    $preparaciones = preparacionSector::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
-                }
-                /*Solo con fechas y sector*/
-                if ($request->sector != "" && $request->maquinaria == "") {
-                    $preparaciones = preparacionSector::where('id_sector', $request->sector)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
-                }
-
-                /*Solo con fechas y maquinaria*/
-                if ($request->sector == "" && $request->maquinaria !== "") {
-                    $preparaciones = preparacionSector::where('id_maquinaria', $request->maquinaria)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
-                }
-
-                /*Fechas, maquinaria y sector, los tres parametros de filtro*/
-                if ($request->sector != "" && $request->maquinaria !== "") {
-                    $preparaciones = preparacionSector::where('id_sector', $request->sector)->where('id_maquinaria', $request->maquinaria)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
-                }
+                $usuarios = DB::table('users')
+                    ->join('role_user', 'users.id', '=', 'role_user.user_id')
+                    ->join('roles', 'role_user.role_id', '=', 'roles.id')
+                    ->where('users.id', '!=', $id)
+                    ->where('users.name', 'LIKE', "%$request->nombre%")
+                    ->where('roles.id', '=', $request->tipoUsuario)
+                    ->select('users.id', 'users.name', 'users.email', 'roles.name as rolName')
+                    ->orderby('users.name', 'asc')
+                    ->paginate(15);
             }
         }
 
 
-            if($preparaciones!=null){
-                /*Adapta el formato de fecha para poder imprimirlo en la vista adecuadamente*/
-                $this->adaptaFechas($preparaciones);
-
+            if ($usuarios != null) {
                 /*Si no es nulo puede contar los resultados*/
-                $num = $preparaciones->total();
-            }
-            else{
-                $num=0;
+                $num = $usuarios->total();
+            } else {
+                $num = 0;
             }
 
 
-            if($num<=0){
+            if ($num <= 0) {
                 Session::flash('error', 'No se encontraron resultados');
+            } else {
+                Session::flash('message', 'Se encontraron ' . $num . ' resultados');
             }
-            else{
-                Session::flash('message', 'Se encontraron '.$num.' resultados');
-            }
-        /*Regresa la vista*/
-            return view('Sector/Preparacion/buscar')->with([
-                'preparaciones'=>$preparaciones,
-                'sectores' => $sectores,
-                'maquinarias' => $maquinarias
+            /*Regresa la vista*/
+            return view('Administracion/Usuarios/buscar')->with([
+                'usuarios' => $usuarios,
+                'roles' => $roles
             ]);
+
     }
 
 
