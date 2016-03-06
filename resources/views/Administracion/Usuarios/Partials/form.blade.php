@@ -22,9 +22,9 @@
 
                 @if( isset($usuario))
 
-                    {!!Form::text('email' ,$usuario->email,['class'=>'form-control','id'=>'email','placeholder'=>'Correo electrónico'])!!}
+                    {!!Form::text('correo' ,$usuario->email,['class'=>'form-control','id'=>'email','placeholder'=>'Correo electrónico'])!!}
                 @else
-                    {!!Form::text('email' ,null,['class'=>'form-control','id'=>'email','placeholder'=>'Correo electrónico'])!!}
+                    {!!Form::text('correo' ,null,['class'=>'form-control','id'=>'email','placeholder'=>'Correo electrónico'])!!}
                 @endif
             </div>
         </div>
@@ -35,7 +35,7 @@
 
                 @if( isset($usuario))
 
-                    {!!Form::text('password' ,$usuario->email,['class'=>'form-control','id'=>'password','placeholder'=>'Contraseña'])!!}
+                    {!!Form::text('password' ,$usuario->password,['class'=>'form-control','id'=>'password','placeholder'=>'Contraseña'])!!}
                 @else
                     {!!Form::text('password' ,null,['class'=>'form-control','id'=>'password','placeholder'=>'Contraseña'])!!}
                 @endif

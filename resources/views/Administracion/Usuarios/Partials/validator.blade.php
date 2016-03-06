@@ -9,7 +9,7 @@
                 validating: 'glyphicon glyphicon-refresh'
             },
             fields: {
-                email: {
+                correo: {
                     validators: {
                         stringLength: {
                             max: 255,
@@ -31,6 +31,7 @@
                             min:6 ,
                             message: 'La contraseña debe tener mínimo 6 caracteres'
                         },
+
 
                         notEmpty: {
                            message: 'Ingrese contraseña'
