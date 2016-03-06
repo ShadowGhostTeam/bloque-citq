@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\preparacionSectorRequest;
 use App\Http\Requests\usuarioAdministracionRequest;
+use App\Http\Requests\usuarioModificarAdministracionRequest;
 use Bican\Roles\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -111,13 +112,17 @@ class usuariosController extends Controller
     /*
      * Recibe la informacion del formulario de modificary la actualiza en la base de datos
      */
-    public function modificar(usuarioAdministracionRequest $request){
-        dd("hola");
-        $preparacion=$this->adaptarRequest($request);
-        $preparacion->save();
-        $preparacion->push();
-        Session::flash('message', 'La preparacion ha sido modificada');
-        return redirect('sector/preparacion/modificar/'.$preparacion->id);
+    public function modificar(usuarioModificarAdministracionRequest $request){
+        if(Auth::user()->id==$request->id){
+            return redirect ('404');
+        }
+
+        $usuario=$this->adaptarRequest($request);
+        $usuario->save();
+        $usuario->push();
+
+        Session::flash('message', 'El usuario ha sido modificado');
+        return redirect('administracion/usuarios/modificar/'.$usuario->id);
     }
 
     /*
@@ -249,13 +254,18 @@ class usuariosController extends Controller
      */
     public function adaptarRequest($request){
         $usuario=new User();
-        $usuario->remember_token = str_random(10);
         if(isset($request->id)) {
             $usuario = User::findOrFail($request->id);
+            $usuario->detachAllRoles();
+            $usuario->attachRole($request->tipoUsuario);
+        }
+        else{
+            $usuario->remember_token = str_random(10);
+            $usuario->email= $request->correo;
+            $usuario->password=  Hash::make($request->password);
         }
 
-        $usuario->email= $request->correo;
-        $usuario->password=  Hash::make($request->password);
+
 
         return $usuario;
     }
