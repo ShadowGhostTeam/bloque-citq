@@ -3,7 +3,7 @@
 
 
 Route::get('administracion/usuarios',[
-    'usesusuariosController@index',
+    'uses'=>'usuariosController@index',
     'as' =>'administracion/usuarios'
 
 ]);

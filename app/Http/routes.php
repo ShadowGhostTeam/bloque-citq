@@ -359,7 +359,30 @@ Route::get('sector/cosecha/consultar/{id}',[
 
 ]);
 
-/////////////////////ARCHIVOS/////////////////////
+/////////////////////INVERNADERO/////////////////////
+require __DIR__ . '/Routes/crudPreparacionInvernadero.php';
+require __DIR__ . '/Routes/crudSiembraInvernadero.php';
+require __DIR__ . '/Routes/crudFertilizacionRiegoInvernadero.php';
+require __DIR__ . '/Routes/crudAplicacionesMantenimientoInvernadero.php';
+require __DIR__ . '/Routes/crudLaboresCulturalesInvernadero.php';
+require __DIR__ . '/Routes/crudCosechaInvernadero.php';
 
-/*CRUD USUARIOS*/
+/////////////////////INVERNADERO PLANTULA/////////////////////
+require __DIR__ . '/Routes/crudPreparacionPlantula.php';
+require __DIR__ . '/Routes/crudSiembraPlantula.php';
+require __DIR__ . '/Routes/crudRiegoPlantula.php';
+require __DIR__ . '/Routes/crudAplicacionesPlantula.php';
+require __DIR__ . '/Routes/crudSalidaPlantaPlantula.php';
+
+
+/////////////////////ADMINISTRACION/////////////////////
+
+require __DIR__ . '/Routes/crudMaquinariaAdministracion.php';
+require __DIR__ . '/Routes/crudCultivoAdministracion.php';
 require __DIR__ . '/Routes/crudUsuarios.php';
+
+//////////////////REPORTES///////////////////////////
+require __DIR__ . '/Routes/reportes.php';
+
+//////////////////CONFIGURACION///////////////////////////
+require __DIR__ . '/Routes/configuracion.php';

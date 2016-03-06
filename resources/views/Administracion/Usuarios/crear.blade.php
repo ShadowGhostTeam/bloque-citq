@@ -13,14 +13,14 @@
     MAIN SIDEBAR MENU
     *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Sector.Preparacion.aside')
+    @include('Administracion.Usuarios.aside')
     <!--sidebar end-->
 
     <section id="container">
 
         <section id="main-content">
             <section class="wrapper site-min-height">
-                <h3><a href="{{ route('sector/preparacion') }}"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Búsqueda</button></a></h3>
+                <h3><a href="{{ route('administracion/usuarios') }}"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Búsqueda</button></a></h3>
                 <div class="row mt">
 
                     <!-- INICIO CONSULTAR FUNCIONES -->
@@ -33,7 +33,7 @@
 
                             <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear preparación</h4><br>
 
-                            @include('Sector.Preparacion.Partials.form')
+                            @include('Administracion.Usuarios.Partials.form')
 
                             {!! Form::close() !!}
                         </div>
@@ -45,6 +45,6 @@
     </section>
 
 
-    @include('Sector.Preparacion.Partials.validator')
+    @include('Administracion.Usuarios.Partials.validator')
 
     @include('Partials.ScriptsGenerales.scriptsPartialsAbajo')
