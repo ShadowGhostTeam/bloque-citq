@@ -83,13 +83,16 @@ class usuariosController extends Controller
      */
 
     public function pagConsultar($id) {
-        $preparacion= preparacionSector::findOrFail($id);
-        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $preparacion->fecha);
-        $preparacion->fecha=$fecha->format('d/m/Y');
+        if(Auth::user()->id==$id){
+            return redirect ('404');
+        }
 
+        $usuario= User::findOrFail($id);
+        $usuarioRol=$usuario->getRoles();
 
-        return view('Sector/Preparacion/consultar')->with([
-            'preparacion'=>$preparacion
+        return view('Administracion/Usuarios/consultar')->with([
+            'usuario'=>$usuario,
+            'usuarioRol'=>$usuarioRol[0]
         ]);
     }
 
