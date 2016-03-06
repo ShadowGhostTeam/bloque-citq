@@ -179,4 +179,72 @@ class usuariosAdministracionTest extends TestCase
             ->press('Modificar')
             ->see("nombre no debe ser mayor que 255 caracteres");
     }
+
+
+    ///////////////////////////////BUSCAR//////////////////////////
+    //para llamar a solo un grupo phpunit --group buscarUsuariosAdministracion
+
+    /*Unidad*/
+
+
+    /**
+     * @group buscarUsuariosAdministracion
+     */
+    public function testRutaBuscar(){
+        $response = $this->call('GET', 'administracion/usuarios');
+        $this->assertEquals(200, $response->status());
+    }
+
+
+
+
+    /*Integracion*/
+    /**
+     * @group buscarUsuariosAdministracion
+     */
+    public function testBuscarTodo(){
+        $user=User::find(1);
+        $this->actingAs($user)
+            ->visit('administracion/usuarios')
+            ->press('Buscar')
+            ->see("Se encontraron resultados");
+    }
+    /**
+     * @group buscarUsuariosAdministracion
+     */
+    public function testBuscarNombre(){
+        $user=User::find(1);
+        $this->actingAs($user)
+            ->visit('administracion/usuarios')
+            ->type("@","nombre")
+            ->press('Buscar')
+            ->see("Se encontraron resultados");
+    }
+
+    /**
+ * @group buscarUsuariosAdministracion
+ */
+    public function testBuscarTipo(){
+        $user=User::find(1);
+        $this->actingAs($user)
+            ->visit('administracion/usuarios')
+            ->type(1,"tipoUsuario")
+            ->press('Buscar')
+            ->see("Se encontraron resultados");
+    }
+
+    /**
+     * @group buscarUsuariosAdministracion
+     */
+    public function testBuscarTipoIncorrecto(){
+        $user=User::find(1);
+        $this->actingAs($user)
+            ->visit('administracion/usuarios/lista?texto=&tipoUsuario=asd')
+            ->see("No se encontraron resultados");
+    }
+
+
+
+
+
 }

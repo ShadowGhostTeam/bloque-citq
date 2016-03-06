@@ -120,9 +120,9 @@ MAIN SIDEBAR MENU
                                 <table class="table table-striped table-advance table-hover">
                                     <thead>
                                     <tr>
-                                        <th><i class="fa fa-thumb-tack"></i> Sector </th>
-                                        <th> <i class="fa fa-calendar-o"></i> Maquinaria </th>
-                                        <th><i class=" fa fa-edit"></i>Fecha</th>
+                                        <th><i class="fa fa-thumb-tack"></i>  Nombre </th>
+                                        <th> <i class="fa fa-calendar-o"></i> Correo </th>
+                                        <th><i class=" fa fa-edit"></i>Tipo de usuario</th>
                                         <th></th>
                                     </tr>
                                     </thead>

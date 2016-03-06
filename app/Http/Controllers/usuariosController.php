@@ -33,14 +33,17 @@ class usuariosController extends Controller
      * Devuelve la pagina de buscar y automaticamente llena la tabla con la busqueda de en un intervalo de fecha de hoy a hace 6 meses
      */
     public function index() {
+        $id=Auth::user()->id;
 
         $usuarios= DB::table('users')
             ->join('role_user', 'users.id', '=', 'role_user.user_id')
             ->join('roles', 'role_user.role_id', '=', 'roles.id')
+            ->where('users.id','!=',$id)
             ->select('users.id','users.name', 'users.email', 'roles.name as rolName')
+            ->orderby('users.name','asc')
             ->paginate(15);
         $roles= Role::select('id','name')->get();
-        
+
         return view('Administracion/Usuarios/buscar')->with([
             'usuarios'=>$usuarios,
             'roles' => $roles
