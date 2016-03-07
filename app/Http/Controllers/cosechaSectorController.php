@@ -34,10 +34,8 @@ class cosechaSectorController extends Controller
 
 
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $maquinarias= Maquinaria::select('id','nombre')->orderBy('nombre', 'asc')->get();
         return view('Sector/cosecha/buscar')->with([
             'sectores' => $sectores,
-            'maquinarias' => $maquinarias,
             'cosechas'=>$cosechas
 
         ]);
@@ -161,7 +159,6 @@ class cosechaSectorController extends Controller
 
         /*Listados de combobox*/
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $maquinarias= Maquinaria::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
         /*Ahi se guardaran los resultados de la busqueda*/
         $cosechas=null;
@@ -170,8 +167,7 @@ class cosechaSectorController extends Controller
         $validator = Validator::make($request->all(), [
             'fechaInicio' => 'date_format:d/m/Y',
             'fechaFin' => 'date_format:d/m/Y',
-            'sector' => 'exists:sector,id',
-            'maquinaria' => 'exists:maquinaria,id'
+            'sector' => 'exists:sector,id'
         ]);
 
         /*Si validador no falla se pueden realizar busquedas*/
@@ -180,26 +176,17 @@ class cosechaSectorController extends Controller
         else{
 
             /*Busqueda sin parametros*/
-            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->sector == "" && $request->maquinaria =="") {
+            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->sector == "") {
                 $cosechas = cosecha::orderBy('fecha', 'desc')->paginate(15);;
 
             }
 
             /*Busqueda solo con sector*/
-            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->sector != "" && $request->maquinaria =="") {
+            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->sector != "") {
                 $cosechas = cosecha::where('id_sector', $request->sector)->orderBy('fecha', 'desc')->paginate(15);;
 
             }
 
-            /*Busqueda solo con maquinaria*/
-            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->sector == "" && $request->maquinaria !="") {
-                $cosechas = cosecha::where('id_maquinaria', $request->maquinaria)->orderBy('fecha', 'desc')->paginate(15);;
-            }
-
-            /*Busqueda solo con maquinaria y sector*/
-            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->sector != "" && $request->maquinaria !="") {
-                $cosechas = cosecha::where('id_sector', $request->sector)->where('id_maquinaria', $request->maquinaria)->orderBy('fecha', 'desc')->paginate(15);
-            }
 
             /*Pregunta si se mandaron fechas, para calcular busquedas con fechas*/
             if ( $request->fechaFin != "" && $request->fechaInicio !="") {
@@ -214,22 +201,12 @@ class cosechaSectorController extends Controller
                 /*Hay cuatro posibles casos de busqueda con fechas, cada if se basa en un caso */
 
                 /*Solo con fechas*/
-                if ($request->sector == "" && $request->maquinaria == "") {
+                if ($request->sector == "") {
                     $cosechas = cosecha::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
                 }
                 /*Solo con fechas y sector*/
-                if ($request->sector != "" && $request->maquinaria == "") {
+                if ($request->sector != "") {
                     $cosechas = cosecha::where('id_sector', $request->sector)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
-                }
-
-                /*Solo con fechas y maquinaria*/
-                if ($request->sector == "" && $request->maquinaria !== "") {
-                    $cosechas = cosecha::where('id_maquinaria', $request->maquinaria)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
-                }
-
-                /*Fechas, maquinaria y sector, los tres parametros de filtro*/
-                if ($request->sector != "" && $request->maquinaria !== "") {
-                    $cosechas = cosecha::where('id_sector', $request->sector)->where('id_maquinaria', $request->maquinaria)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
                 }
             }
         }
@@ -256,8 +233,7 @@ class cosechaSectorController extends Controller
         /*Regresa la vista*/
             return view('Sector/cosecha/buscar')->with([
                 'cosechas'=>$cosechas,
-                'sectores' => $sectores,
-                'maquinarias' => $maquinarias
+                'sectores' => $sectores
             ]);
     }
 
