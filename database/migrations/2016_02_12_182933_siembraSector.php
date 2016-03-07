@@ -20,6 +20,7 @@ class SiembraSector extends Migration
             $table->enum('status',['Activo','Terminado']);
             $table->dateTime('fechaTerminacion');
             $table->string('variedad');
+            $table->text('comentario');
 
             $table->integer('id_cultivo')->unsigned();
             $table->foreign('id_cultivo')->references('id')->on('cultivo');

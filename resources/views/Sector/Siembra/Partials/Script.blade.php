@@ -9,6 +9,7 @@
             }
             else {
                 $('#Terminacion').hide(500);
+                $('#fechaTerminacion').val("");
             }
         });
 

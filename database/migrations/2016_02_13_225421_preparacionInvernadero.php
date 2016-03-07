@@ -14,10 +14,7 @@ class PreparacionInvernadero extends Migration
     {
         Schema::create('preparacionInvernadero', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('charolas')->unsigned();
-            $table->integer('bolisNuevos')->unsigned();
-            $table->integer('bolisReciclados')->unsigned();
-            $table->integer('macetas')->unsigned();
+            $table->enum('tipoSiembra',['Charolas','Bolis nuevos','Bolis reciclados','Macetas']);
             $table->dateTime('fecha');
 
 

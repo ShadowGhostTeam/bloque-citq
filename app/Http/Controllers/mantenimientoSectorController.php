@@ -154,7 +154,7 @@ class mantenimientoSectorController extends Controller
     public function pagCrear(){
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
         $actividades = ['Deshierbe manual', 'Deshierbe máquina','Fungicida','Herbicida','Insecticida'];
-        $tipoAplicaciones=['Sistema','Al suelo', 'Al follaje'];
+        $tipoAplicaciones=['Sistema de riego','Al suelo', 'Al follaje'];
 
 
 
@@ -175,7 +175,7 @@ class mantenimientoSectorController extends Controller
 
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
         $actividades = ['Deshierbe manual', 'Deshierbe máquina','Fungicida','Herbicida','Insecticida'];
-        $tipoAplicaciones=['Sistema','Al suelo', 'Al follaje'];
+        $tipoAplicaciones=['Sistema de riego','Al suelo', 'Al follaje'];
 
 
         $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $mantenimientoSector->fecha);

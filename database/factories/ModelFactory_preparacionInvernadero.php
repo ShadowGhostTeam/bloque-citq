@@ -16,11 +16,8 @@ $factory->define(App\preparacionInvernadero::class, function (Faker\Generator $f
     $invernadero=  DB::table('invernadero')->lists('id');
 
     return [
-        'charolas'=>$faker->randomDigit,
-        'bolisNuevos' => $faker->randomDigit,
-        'bolisReciclados' => $faker->randomDigit,
-        'macetas' => $faker->randomDigit,
         'fecha' => $faker->dateTimeBetween($startDate = '-6 months', $endDate = 'now'),
+        'tipoSiembra'=> $faker->randomElement(['Charolas','Bolis nuevos','Bolis reciclados','Macetas']),
         'id_invernadero' => $faker->randomElement($invernadero)
     ];
 });

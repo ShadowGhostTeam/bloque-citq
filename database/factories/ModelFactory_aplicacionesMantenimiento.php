@@ -10,9 +10,9 @@
 | database. Just tell the factory how a default model should look.
 |
 */
+use App\siembraSector;
 
-$factory->define(App\cosechaInvernadero::class, function (Faker\Generator $faker) {
-
+$factory->define(App\aplicacionesMantenimiento::class, function (Faker\Generator $faker) {
     $siembraTransplanteInvernadero =  DB::table('siembraTransplanteInvernadero')->lists('id');
     $siembra=$faker->randomElement($siembraTransplanteInvernadero);
     $id_invernadero=DB::table('siembraTransplanteInvernadero')->where('id', $siembra)->value('id_invernadero');
@@ -20,11 +20,14 @@ $factory->define(App\cosechaInvernadero::class, function (Faker\Generator $faker
 
     return [
         'fecha'=>$faker->dateTimeBetween($startDate = '-6 months', $endDate = 'now'),
+        'aplicacion'=> $faker->randomElement(['Fungicida','Herbicida','Insecticida']),
+        'tipoAplicacion'=> $faker->randomElement(['Sistema de riego','Al suelo', 'Al follaje']),
+        'producto' => $faker->name,
+        'cantidad' => $faker->randomDigit,
         'comentario' => $faker->address,
-        //Se abrevio siembraTransplante a st porque el nombre era muy largo y sql no lo aceptaba
+
         'id_stInvernadero' => $siembra,
         'id_invernadero'=>$id_invernadero
-
 
     ];
 });

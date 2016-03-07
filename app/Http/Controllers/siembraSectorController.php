@@ -60,7 +60,7 @@ class siembraSectorController extends Controller
             'fechaInicio' => 'date_format:d/m/Y',
             'fechaFin' => 'date_format:d/m/Y',
             'sector' => 'exists:sector,id',
-            'cultivo' => 'required|exists:cultivo,id',
+            'cultivo' => 'exists:cultivo,id',
         ]);
 
 
@@ -234,7 +234,10 @@ class siembraSectorController extends Controller
         $siembra->id_sector = $request->sector;
         $siembra->id_cultivo = $request->cultivo;
         $siembra->fecha = Carbon::createFromFormat('d/m/Y', $request->fecha)->toDateTimeString();
-        $siembra->fechaTerminacion = Carbon::createFromFormat('d/m/Y', $request->fechaTerminacion)->toDateTimeString();
+
+        if($request->fechaTerminacion != "") {
+            $siembra->fechaTerminacion = Carbon::createFromFormat('d/m/Y', $request->fechaTerminacion)->toDateTimeString();
+        }
 
         $siembra->status = $request->status;
         $siembra->tipo = $request->tipoSiembra;

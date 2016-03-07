@@ -220,7 +220,7 @@ class siembraSectorTest extends TestCase
     /**
      * @group siembraModificarSector
      */
-    public function testModificarNoMaquinaria(){
+    public function testModificarNoCultivo(){
         $this->visit('sector/siembra/modificar/12')
             ->select(1,"sector")
             ->select("","cultivo")
@@ -258,44 +258,11 @@ class siembraSectorTest extends TestCase
             ->select(1,"sector")
             ->select(1,"cultivo")
             ->type("18/02/2016","fecha")
-            ->type("","status")
             ->type("Maquinaria", "tipoSiembra")
             ->type("lalala", "variedad")
             ->type("Primavera-Verano", "temporada")
             ->press('Modificar')
-            ->see("status es inválido.");
-    }
-
-    /**
-     * @group siembraModificarSector
-     */
-    public function testModificarTipoInvalido(){
-        $this->visit('sector/siembra/modificar/12')
-            ->select(1,"sector")
-            ->select(1,"cultivo")
-            ->type("18/02/2016","fecha")
-            ->type("Activo","status")
-            ->type("xxxx", "tipoSiembra")
-            ->type("lalala", "variedad")
-            ->type("Primavera-Verano", "temporada")
-            ->press('Modificar')
-            ->see("tipo siembra es inválido.");
-    }
-
-    /**
-     * @group siembraModificarSector
-     */
-    public function testModificarTemporadaInvalido(){
-        $this->visit('sector/siembra/modificar/12')
-            ->select(1,"sector")
-            ->select(1,"cultivo")
-            ->type("18/02/2016","fecha")
-            ->type("Activo","status")
-            ->type("Maquinaria", "tipoSiembra")
-            ->type("lalala", "variedad")
-            ->type("xxxx", "temporada")
-            ->press('Modificar')
-            ->see("temporada es inválido.");
+            ->see("El campo status es obligatorio");
     }
 
     /**
@@ -404,38 +371,6 @@ class siembraSectorTest extends TestCase
             ->type("Primavera-Verano", "temporada")
             ->press('Crear')
             ->see("El campo status es obligatorio");
-    }
-
-    /**
-     * @group siembraModificarSector
-     */
-    public function testCrearTipoInvalido(){
-        $this->visit('sector/siembra/crear')
-            ->select(1,"sector")
-            ->select(1,"cultivo")
-            ->type("18/02/2016","fecha")
-            ->type("Activo","status")
-            ->type("xxxx", "tipoSiembra")
-            ->type("lalala", "variedad")
-            ->type("Primavera-Verano", "temporada")
-            ->press('Crear')
-            ->see("tipo siembra es inválido.");
-    }
-
-    /**
-     * @group siembraModificarSector
-     */
-    public function testCrearTemporadaInvalido(){
-        $this->visit('sector/siembra/crear')
-            ->select(1,"sector")
-            ->select(1,"cultivo")
-            ->type("18/02/2016","fecha")
-            ->type("Activo","status")
-            ->type("Maquinaria", "tipoSiembra")
-            ->type("lalala", "variedad")
-            ->type("xxxx", "temporada")
-            ->press('Crear')
-            ->see("temporada es inválido.");
     }
 
     /**

@@ -324,7 +324,7 @@ Route::get('sector/cosecha',[
 
 Route::get('sector/cosecha/lista',[
         'uses' =>'cosechaSectorController@buscar',
-        'as' =>'sector/preparacion/lista']
+        'as' =>'sector/cosecha/lista']
 
 );
 
