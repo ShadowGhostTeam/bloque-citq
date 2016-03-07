@@ -27,7 +27,6 @@
                 },
 
 
-
                 descripcion:{
                     validators: {
                         stringLength: {

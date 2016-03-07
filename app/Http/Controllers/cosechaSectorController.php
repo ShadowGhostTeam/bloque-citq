@@ -87,11 +87,11 @@ class cosechaSectorController extends Controller
         $descripcion= cosecha::select('descripcion')->where('id', $cosechaSector->id)->get();
         $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $cosechaSector->fecha);
         $cosechaSector->fecha= $fecha->format('d/m/Y');
-
+        //dd($siembras, $siembraSeleccionada);
         return view('Sector/cosecha/modificar')->with([
             'cosechaSector'=> $cosechaSector,
             'sectores' => $sectores,
-            'siembras' => $siembras,
+            'siembras' => $siembrasTodas,
             'descripcion' => $descripcion,
             'fecha' => $fecha,
             'siembraSeleccionada' => $siembraSeleccionada
