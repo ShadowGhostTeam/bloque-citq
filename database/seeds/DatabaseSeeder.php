@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
 
         //sector
-        $this->call('fuenteSeeder');
+
         $this->call('cultivoSeeder');
         $this->call('maquinariaSeeder');
 
@@ -47,6 +47,12 @@ class DatabaseSeeder extends Seeder
         $this->call('riegoPlantulaSeeder');
         $this->call('preparacionPlantulaSeeder');
         $this->call('salidaPlantaSeeder');
+
+        //RBAC
+        $this->call('usuariosSeeder');
+        $this->call('rolesSeeder');
+        $this->call('permisoSeeder');
+
 
         Model::reguard();
     }

@@ -5,7 +5,7 @@
 <html lang="en-us">
     <meta charset="utf-8" />
         <head>
-            <title>Iniciar Sesión | DocumentaQro</title>
+            <title>Iniciar Sesión | CITQ</title>
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <!-- BOOTSTRAP -->
             <link rel="stylesheet" href=" {{ asset('assets/css/login.css') }}">
@@ -15,7 +15,7 @@
         <body>
                 @if (count($errors) > 0)
                     <div class="alert alert-danger" style="text-align: center">
-                        <strong>Error!</strong> {{trans('validation.attributes.errores')  }} <br><br>
+                        <strong>Error!</strong><br><br>
                         <ul>
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
@@ -26,13 +26,13 @@
 
                  <div>
                     <div  style="text-align: center;">
-                        <img class="logo" src="{{ asset('assets/img/DQ.png') }}" alt="DocumentaQro"><br>
+                        <img class="logo" src="{{ asset('assets/img/CITQ.png') }}" alt="CITQ"><br>
                     </div>
 
 
 
                     <div style="width:400px; margin:auto; background:#221E1F; margin-top:25px;">
-                       <div  class="headerIS" ><h4>Login</h4></div>
+                       <div  class="headerIS" ><h4>Iniciar Sesión</h4></div>
                          <div class="login">
 
 					  <form class="form" role="form" method="POST" action="{{ route('login') }}">
@@ -43,15 +43,15 @@
                             </li>
 
                             <li>
-                                <span class="un"><i class="fa fa-lock  fa-lg"></i></span><input type="password" class="text" name="password" placeholder="{{trans('validation.attributes.contrasena')  }}">
+                                <span class="un"><i class="fa fa-lock  fa-lg"></i></span><input type="password" class="text" name="password" placeholder="Contraseña">
                             </li>
 
                             <li>
-                                <input type="submit" style="width:100%;" class="btn" value="{{trans('validation.attributes.ingresar')  }}">
+                                <input type="submit" style="width:100%;" class="btn" value="Ingresar">
                             </li>
 
-                            <li><div class="span"><span class="ch"><input type="checkbox" name="remember" id="r">{{trans('validation.attributes.recuerdame')  }} <label for="r"></label></span>
-                                    <span class="ch"> <a class="letras" href="{{ url('/password/email') }}">{{trans('validation.attributes.olvidastecontrasena')  }} </a></span></div></li>
+                            <li><div class="span"><span class="ch"><input type="checkbox" name="remember" id="r">Recuérdame <label for="r"></label></span>
+                                    <span class="ch"> <a class="letras" href="{{ url('/password/email') }}">Olvidaste la contraseña </a></span></div></li>
                         </ul>
 					</form>
 

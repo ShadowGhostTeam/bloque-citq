@@ -157,7 +157,7 @@ MAIN SIDEBAR MENU
 
                                             <tr>
                                                 <td>{{ $fertilizacion->sector->nombre }}</td>
-                                                <td>{{ $fertilizacion->fuente->nombre }}</td>
+                                                <td>{{ $fertilizacion->fuente }}</td>
                                                 <td>{{ $fertilizacion->fecha }}</td>
 
 
