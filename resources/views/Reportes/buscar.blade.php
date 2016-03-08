@@ -110,6 +110,8 @@ MAIN SIDEBAR MENU
                                         </div>
 
                                         <div class="form-group">
+
+
                                             <div class="col-lg-2">
                                                 <div class="input-group date" id="fechaDP">
                                                  <span class="input-group-addon">

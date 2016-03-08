@@ -114,7 +114,7 @@
 
             <li class="sub-menu">
                 <a href="#"  class="active">
-                    <i class="fa fa-area-chart"></i>
+                    <i class="fa fa-bar-chart-o"></i>
                     <span>Reportes&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <i class="fa fa-caret-down"></i>
                 </a>
