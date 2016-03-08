@@ -45,7 +45,7 @@ class reportesSectorController extends Controller
     /*
      * Devuelve la vista de crear con los valores de los combobox
      * */
-    public function pagCrear() {
+    public function generarReporte() {
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
         $maquinarias= Maquinaria::select('id','nombre')->orderBy('nombre', 'asc')->get();
 

@@ -45,32 +45,29 @@
 MAIN SIDEBAR MENU
 *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Sector.Preparacion.aside')
+    @include('Reportes.aside')
     <!--sidebar end-->
 
     <section id="container">
         <section id="main-content">
             <section class="wrapper site-min-height">
-                <h3 style="color:#078006"><i class="fa fa-angle-right"></i>Preparación</h3>
+                <h3 style="color:#078006"><i class="fa fa-angle-right"></i>Reportes</h3>
                 <div class="row mt">
 
 
                     <!-- INICIO CONTENIDO -->
                     <div class="col-lg-12">
                         <div class="form-panel">
-                            <h4><i class="fa fa-angle-right"></i>Búsqueda</h4>
+                            <h4><i class="fa fa-angle-right"></i>Sector</h4>
                             @include('Partials.Mensajes.mensajes')
 
-                            <div class="form-group" align="right">
-                                <a href="{{route('sector/preparacion/crear')}}"> <button class="btn agregar tooltips" data-placement="left" data-original-title="Agregar"><i class="fa fa-plus"></i></i></button></a>
-                            </div>
 
                             <div class="row">
                                 <div class="col-xs-12">
 
 
 
-                                    {!! Form::open(['route' => 'sector/preparacion/lista' ,'method'=>'GET']) !!}
+                                    {!! Form::open(['route' => 'reportes/sector/generar' ,'method'=>'GET','id'=>'formulario']) !!}
 
                                         <div class="form-group">
 
@@ -101,7 +98,6 @@ MAIN SIDEBAR MENU
                                             </div>
                                         </div>
 
-                                    <div id="formulario">
                                         <div class="form-group">
                                             <div class="col-lg-2">
                                                 <div class="input-group date" id="fechaDP">
@@ -124,73 +120,55 @@ MAIN SIDEBAR MENU
                                             </div>
                                         </div>
 
+                                    <div class="form-group">
 
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-default" >
-                                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                                                Buscar
-                                            </button>
-
-
-
-
+                                        <div class="col-lg-12" align="center" >
+                                            <label>
+                                            {!!Form::checkbox('opciones[]' ,'preparaciones',['class'=>'form-control','value'=>'Preparaciones','id'=>'chkPreparaciones'])!!}
+                                             Preparaciones
+                                            </label>
+                                            &nbsp;&nbsp;&nbsp;
+                                            <label>
+                                                {!!Form::checkbox('opciones[]' ,'siembras',['class'=>'form-control','value'=>'Preparaciones','id'=>'chkPreparaciones'])!!}
+                                                Siembras
+                                            </label>
+                                            &nbsp;&nbsp;&nbsp;
+                                            <label>
+                                                {!!Form::checkbox('opciones[]' ,'fertilizaciones',['class'=>'form-control','value'=>'Preparaciones','id'=>'chkPreparaciones'])!!}
+                                                Fertilizaciones
+                                            </label>
+                                            &nbsp;&nbsp;&nbsp;
+                                            <label>
+                                                {!!Form::checkbox('opciones[]' ,'riegos',['class'=>'form-control','value'=>'Preparaciones','id'=>'chkPreparaciones'])!!}
+                                                Riegos
+                                            </label>
+                                            &nbsp;&nbsp;&nbsp;
+                                            <label>
+                                                {!!Form::checkbox('opciones[]' ,'mantenimientos',['class'=>'form-control','value'=>'Preparaciones','id'=>'chkPreparaciones'])!!}
+                                                Mantenimientos
+                                            </label>
+                                            &nbsp;&nbsp;&nbsp;
+                                            <label>
+                                                {!!Form::checkbox('opciones[]' ,'cosechas',['class'=>'form-control','value'=>'Preparaciones','id'=>'chkPreparaciones'])!!}
+                                                Cosechas
+                                            </label>
                                         </div>
-                                        {!! Form::close() !!}
                                     </div>
 
 
 
-                            <hr>
-                                <div class="table-responsive">
-                                <table class="table table-striped table-advance table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th><i class="fa fa-thumb-tack"></i> Sector </th>
-                                        <th> <i class="fa fa-calendar-o"></i> Maquinaria </th>
-                                        <th><i class=" fa fa-edit"></i>Fecha</th>
-                                        <th></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
+                                        <div class="form-group" align="center">
+                                            &nbsp;&nbsp;&nbsp;
+                                            <button type="submit" class="btn btn-default"  >
+                                                <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+                                                Generar reporte
+                                            </button>
+                                        </div>
 
-                                    @if ( isset( $preparaciones) )
-
-                                        @foreach( $preparaciones as $preparacion )
-
-                                            <tr>
-                                                <td>{{ $preparacion->sector->nombre }}</td>
-                                                <td>{{ $preparacion->maquinaria->nombre }}</td>
-                                                <td>{{ $preparacion->fecha }}</td>
+                                        {!! Form::close() !!}
 
 
-                                                <td style="width: 5px">
-                                                    <a href="{{ route('sector/preparacion/consultar/item',$preparacion->id) }}"><button class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar"><i class="fa fa-eye"></i></button></a>
-                                                </td>
 
-                                                <td style="width: 5px">
-                                                    <a href="{{ route('sector/preparacion/modificar/item',$preparacion->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
-                                                </td>
-
-                                                <td style="width: 5px">
-                                                    {!! Form::open(['action'=>['preparacionSectorController@eliminar'],'role'=>'form'] )  !!}
-                                                    <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la preparacion?")'><i class="fa fa-trash-o "></i></button>
-                                                    <input type="hidden" name="id" value={{$preparacion->id}}>
-                                                    {!! Form::close() !!}
-                                                </td>
-
-                                            </tr>
-
-                                        @endforeach
-
-                                    @endif
-
-
-                                    </tbody>
-                                </table>
-                            </div>
-                            @if (isset($preparaciones))
-                                {!! $preparaciones->setPath('')->appends(Input::query())->render()!!}
-                            @endif
                         </div>
                     </div>
                     <!-- FIN CONTENIDO -->
@@ -212,7 +190,14 @@ MAIN SIDEBAR MENU
                     validating: 'glyphicon glyphicon-refresh'
                 },
                 fields: {
-
+                    'opciones[]': {
+                        validators: {
+                            choice: {
+                                min: 1,
+                                message: 'Seleccione al menos un filtro'
+                            }
+                        }
+                    },
                     fechaInicio: {
                         validators: {
                             notEmpty: {
@@ -242,20 +227,6 @@ MAIN SIDEBAR MENU
                 if ( $('#formulario').data('bootstrapValidator').revalidateField('fechaInicio') && ! $('#formulario').data('bootstrapValidator').revalidateField('fechaFin')) {
                     $('#formulario').data('bootstrapValidator').revalidateField('fechaFin');
                 }
-                if($('#fechaInicioDP').val()=="")
-                {
-                    $('#formulario').data('bootstrapValidator').revalidateField('fechaInicio');
-                }
-
-                if($('#fechaInicioDP').val()==""&&$('#fechaFinDP').val()==""){
-                    $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaInicio',false);
-                    $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaFin',false);
-                }
-                else{
-                    $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaInicio',true);
-                    $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaFin',true);
-                }
-
 
 
             });
@@ -264,18 +235,7 @@ MAIN SIDEBAR MENU
                 if ( $('#formulario').data('bootstrapValidator').revalidateField('fechaFin') && ! $('#formulario').data('bootstrapValidator').revalidateField('fechaInicio')) {
                     $('#formulario').data('bootstrapValidator').revalidateField('fechaInicio');
                 }
-                if($('#fechaFinDP').val()=="")
-                {
-                    $('#formulario').data('bootstrapValidator').revalidateField('fechaFin');
-                }
-                if($('#fechaInicioDP').val()==""&&$('#fechaFinDP').val()==""){
-                    $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaInicio',false);
-                    $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaFin',false);
-                }
-                else{
-                    $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaInicio',true);
-                    $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaFin',true);
-                }
+
             });
         });
     </script>

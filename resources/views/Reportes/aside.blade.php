@@ -114,13 +114,41 @@
 
             <li class="sub-menu">
                 <a href="#"  class="active">
+                    <i class="fa fa-area-chart"></i>
+                    <span>Reportes&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <i class="fa fa-caret-down"></i>
+                </a>
+
+                <ul class="sub">
+                    <li><a href="{{route('reportes/sector')}}"  class="active">
+                            <i class="fa fa-th"></i>
+                            <span>Sector</span>
+                        </a></li>
+
+                    <li><a href="#">
+                            <i class="fa fa-th-large"></i>
+                            <span>Invernadero</span>
+                        </a></li>
+
+                    <li><a href="#">
+                            <i class="fa fa-stop"></i>
+                            <span>Inv. Plántula</span>
+                        </a></li>
+
+
+
+                </ul>
+            </li>
+
+            <li class="sub-menu">
+                <a href="#"  >
                     <i class="fa fa-cogs"></i>
                     <span>Administración&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <i class="fa fa-caret-down"></i>
                 </a>
 
                 <ul class="sub">
-                    <li><a href="{{route('administracion/usuarios')}}"  class="active">
+                    <li><a href="{{route('administracion/usuarios')}}" >
                             <i class="fa fa-users"></i>
                             <span>Usuarios</span>
                         </a></li>
