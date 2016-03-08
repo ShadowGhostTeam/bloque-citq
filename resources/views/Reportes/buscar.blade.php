@@ -126,32 +126,32 @@ MAIN SIDEBAR MENU
 
                                         <div class="col-lg-12" align="center" >
                                             <label>
-                                            {!!Form::checkbox('opciones[]' ,'preparaciones',['class'=>'form-control','value'=>'Preparaciones','id'=>'chkPreparaciones'])!!}
+                                            {!!Form::checkbox('filtros[]' ,'preparaciones',['class'=>'form-control','value'=>'Preparaciones','id'=>'chkPreparaciones'])!!}
                                              Preparaciones
                                             </label>
                                             &nbsp;&nbsp;&nbsp;
                                             <label>
-                                                {!!Form::checkbox('opciones[]' ,'siembras',['class'=>'form-control','value'=>'Preparaciones','id'=>'chkPreparaciones'])!!}
+                                                {!!Form::checkbox('filtros[]' ,'siembras',['class'=>'form-control','value'=>'Preparaciones','id'=>'chkPreparaciones'])!!}
                                                 Siembras
                                             </label>
                                             &nbsp;&nbsp;&nbsp;
                                             <label>
-                                                {!!Form::checkbox('opciones[]' ,'fertilizaciones',['class'=>'form-control','value'=>'Preparaciones','id'=>'chkPreparaciones'])!!}
+                                                {!!Form::checkbox('filtros[]' ,'fertilizaciones',['class'=>'form-control','value'=>'Preparaciones','id'=>'chkPreparaciones'])!!}
                                                 Fertilizaciones
                                             </label>
                                             &nbsp;&nbsp;&nbsp;
                                             <label>
-                                                {!!Form::checkbox('opciones[]' ,'riegos',['class'=>'form-control','value'=>'Preparaciones','id'=>'chkPreparaciones'])!!}
+                                                {!!Form::checkbox('filtros[]' ,'riegos',['class'=>'form-control','value'=>'Preparaciones','id'=>'chkPreparaciones'])!!}
                                                 Riegos
                                             </label>
                                             &nbsp;&nbsp;&nbsp;
                                             <label>
-                                                {!!Form::checkbox('opciones[]' ,'mantenimientos',['class'=>'form-control','value'=>'Preparaciones','id'=>'chkPreparaciones'])!!}
+                                                {!!Form::checkbox('filtros[]' ,'mantenimientos',['class'=>'form-control','value'=>'Preparaciones','id'=>'chkPreparaciones'])!!}
                                                 Mantenimientos
                                             </label>
                                             &nbsp;&nbsp;&nbsp;
                                             <label>
-                                                {!!Form::checkbox('opciones[]' ,'cosechas',['class'=>'form-control','value'=>'Preparaciones','id'=>'chkPreparaciones'])!!}
+                                                {!!Form::checkbox('filtros[]' ,'cosechas',['class'=>'form-control','value'=>'Preparaciones','id'=>'chkPreparaciones'])!!}
                                                 Cosechas
                                             </label>
                                         </div>
@@ -192,7 +192,7 @@ MAIN SIDEBAR MENU
                     validating: 'glyphicon glyphicon-refresh'
                 },
                 fields: {
-                    'opciones[]': {
+                    'filtros[]': {
                         validators: {
                             choice: {
                                 min: 1,

@@ -45,7 +45,7 @@ class sector extends Model
     }
 
     public function preparaciones(){
-        return $this->hasMany('App\preparacionSector', 'id_sector', 'id')->orderBy('fecha','asc');
+        return $this->hasMany('App\preparacionSector', 'id_sector', 'id');
     }
 
     public function riegos(){

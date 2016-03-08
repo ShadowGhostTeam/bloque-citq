@@ -16,8 +16,7 @@ class reportesSectorTest extends TestCase
     /**
      * @group reportesSector
      */
-    public function testRuta()
-    {
+    public function testRuta(){
         $user=User::find(1);
         $this->actingAs($user)
             ->visit('reportes/sector')
@@ -28,13 +27,12 @@ class reportesSectorTest extends TestCase
     /**
      * @group reportesSector
      */
-    public function testNoSectorNoCultivo()
-    {
+    public function testNoSectorNoCultivo(){
         $user=User::find(1);
         $this->actingAs($user)
             ->visit('reportes/sector')
             ->press('Generar reporte')
-            ->see('Elija un sector y/o cultivo');
+            ->see('Seleecione un sector y/o cultivo');
     }
 
 
