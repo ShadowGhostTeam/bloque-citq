@@ -49,19 +49,19 @@ class sector extends Model
     }
 
     public function riegos(){
-        return $this->hasMany('App\riego', 'id_sector', 'id')->orderBy('fecha','asc');
+        return $this->hasMany('App\riego', 'id_sector', 'id');
     }
 
     public function fertilizaciones(){
-        return $this->hasMany('App\fertilizacion', 'id_sector', 'id')->orderBy('fecha','asc');
+        return $this->hasMany('App\fertilizacion', 'id_sector', 'id');
     }
 
     public function mantenimientos(){
-        return $this->hasMany('App\mantenimientoSector', 'id_sector', 'id')->orderBy('fecha','asc');
+        return $this->hasMany('App\mantenimientoSector', 'id_sector', 'id');
     }
 
     public function cosechas(){
-        return $this->hasMany('App\cosecha', 'id_sector', 'id')->orderBy('fecha','asc');
+        return $this->hasMany('App\cosecha', 'id_sector', 'id');
     }
 
 

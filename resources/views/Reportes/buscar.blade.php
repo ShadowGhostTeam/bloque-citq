@@ -192,6 +192,14 @@ MAIN SIDEBAR MENU
                     validating: 'glyphicon glyphicon-refresh'
                 },
                 fields: {
+                    sector: {
+                        validators: {
+                        }
+                    },
+                    cultivo: {
+                        validators: {
+                        }
+                    },
                     'filtros[]': {
                         validators: {
                             choice: {
