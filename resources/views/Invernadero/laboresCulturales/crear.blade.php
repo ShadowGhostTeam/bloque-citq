@@ -13,7 +13,7 @@
     MAIN SIDEBAR MENU
     *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Sector.Mantenimiento.aside')
+    @include('Invernadero.LaboresCulturales.aside')
     <!--sidebar end-->
 
     <section id="container">
@@ -31,9 +31,9 @@
 
                             {!! Form::open(['action'=>['mantenimientoSectorController@crear'],'class'=>'form-horizontal','role'=>'form','id'=>'formulario'])!!}
 
-                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear mantenimiento</h4><br>
+                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear Labor de Invernadero</h4><br>
 
-                            @include('Sector.Mantenimiento.Partials.form')
+                            @include('Invernadero.LaboresCulturales.Partials.form')
 
                             {!! Form::close() !!}
                         </div>

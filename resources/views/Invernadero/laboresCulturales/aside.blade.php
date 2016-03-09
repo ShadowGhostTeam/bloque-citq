@@ -5,7 +5,7 @@
         <ul class="sidebar-menu" id="nav-accordion">
 
             <li class="sub-menu">
-                <a href="#"  class="active">
+                <a href="#" >
                     <i class="fa fa-th"></i>
                     <span>Sector&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <i class="fa fa-caret-down"></i>
@@ -30,9 +30,48 @@
                             <i class="fa fa-tint"></i>
                             <span>Riego </span>
                         </a></li>
-                    <li><a href="{{route('sector/mantenimiento')}}"  class="active">
+                    <li><a href="{{route('sector/mantenimiento')}}">
                             <i class="fa fa-wrench"></i>
                             <span>Mantenimiento </span>
+                        </a></li>
+                    <li><a href="#" >
+                            <i class="fa fa-reply-all"></i>
+                            <span>Cosecha </span>
+                        </a></li>
+
+                </ul>
+            </li>
+
+
+            <li class="sub-menu">
+                <a href="#"  class="active">
+                    <i class="fa fa-th"></i>
+                    <span>Invernadero&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <i class="fa fa-caret-down"></i>
+                </a>
+
+                <ul class="sub">
+                    <li><a href="{{route('sector/preparacion')}}"  >
+                            <i class="glyphicon glyphicon-tree-deciduous"></i>
+                            <span>Preparación </span>
+                        </a></li>
+
+                    <li><a href="#">
+                            <i class="fa fa-leaf"></i>
+                            <span>Siembra-Transplante </span>
+                        </a></li>
+
+                    <li><a href="{{route('sector/fertilizacion')}}" >
+                            <i class="fa fa-tasks"></i>
+                            <span>Fertilización/Riego </span>
+                        </a></li>
+                    <li><a href="{{route('invernadero/laboresCulturales')}}" class="active">
+                            <i class="fa fa-tint"></i>
+                            <span>Labores Culturales</span>
+                        </a></li>
+                    <li><a href="{{route('sector/mantenimiento')}}"  >
+                            <i class="fa fa-wrench"></i>
+                            <span>Mantenimiento</span>
                         </a></li>
                     <li><a href="#" >
                             <i class="fa fa-reply-all"></i>
