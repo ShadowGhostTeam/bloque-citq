@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
 use App\siembraSector;
+use App\siembraTransplanteInvernadero;
 
 Route::filter('force.ssl', function() {
     if( ! Request::secure()) {
@@ -393,6 +394,35 @@ Route::post('password/email', 'Auth\PasswordController@postEmail');
 // Password reset routes...
 Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
 Route::post('password/reset', 'Auth\PasswordController@postReset');
+
+
+/*
+ * Ajax siembra
+ * utilizando invernadero
+ * */
+
+
+Route::get('invernadero/ajaxSiembraInvernadero/carga',function() {
+
+    $id = Input::get('id');
+    $siembras = siembraTransplanteInvernadero::where('id_invernadero',$id)->get();
+    $siembrasTodas=array();
+    foreach ($siembras as $siembra) {
+
+        $fechaSiembraToda=Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fecha);
+
+        array_push($siembrasTodas,array(
+                'id_siembra' => $siembra->id,
+                'variedad' => $siembra->variedad,
+                'nombre' => $siembra->cultivo->nombre,
+                'fecha' => $fechaSiembraToda->format('d/m/Y'))
+
+        );
+    }
+
+
+    return Response::json($siembrasTodas);
+});
 
 
 

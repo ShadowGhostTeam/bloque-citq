@@ -35,10 +35,10 @@ class fertilizacionSectorController extends Controller
 
 
         $sectores= sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
-
+        $tipos = ['Riego','Aplicacion dirigida'];
         return view('Sector/Fertilizacion/buscar')->with([
             'sectores' => $sectores,
-
+               'tipos' => $tipos,
             'fertilizaciones'=>$fertilizaciones
 
         ]);
@@ -59,6 +59,7 @@ class fertilizacionSectorController extends Controller
             'fechaInicio' => 'date_format:d/m/Y',
             'fechaFin' => 'date_format:d/m/Y',
             'sector' => 'exists:sector,id',
+            'tipo' => 'in:Riego,Aplicacion dirigida'
 
         ]);
 
@@ -69,25 +70,25 @@ class fertilizacionSectorController extends Controller
         else {
 
             /*Busqueda sin parametros*/
-            if ($request->fechaFin == "" && $request->fechaInicio == "" && $request->sector == "" && $request->fuente == "") {
+            if ($request->fechaFin == "" && $request->fechaInicio == "" && $request->sector == "" && $request->tipoFertilizacion == "") {
                 $fertilizaciones  = fertilizacion::orderBy('fecha', 'desc')->paginate(15);;
 
             }
 
             /*Busqueda solo con sector*/
-            if ($request->fechaFin == "" && $request->fechaInicio == "" && $request->sector != "" && $request->fuente == "") {
+            if ($request->fechaFin == "" && $request->fechaInicio == "" && $request->sector != "" && $request->tipoFertilizacion == "") {
                 $fertilizaciones  = fertilizacion::where('id_sector', $request->sector)->orderBy('fecha', 'desc')->paginate(15);;
 
             }
 
-            /*Busqueda solo con fuente*/
-            if ($request->fechaFin == "" && $request->fechaInicio == "" && $request->sector == "" && $request->fuente != "") {
-                $fertilizaciones  = fertilizacion::where('id_fuente', $request->fuente)->orderBy('fecha', 'desc')->paginate(15);;
+            /*Busqueda solo con tipo*/
+            if ($request->fechaFin == "" && $request->fechaInicio == "" && $request->sector == "" && $request->tipoFertilizacion != "") {
+                $fertilizaciones  = fertilizacion::where('tipo', $request->tipoFertilizacion)->orderBy('fecha', 'desc')->paginate(15);;
             }
 
-            /*Busqueda solo con fuente y sector*/
-            if ($request->fechaFin == "" && $request->fechaInicio == "" && $request->sector != "" && $request->fuente != "") {
-                $fertilizaciones  = fertilizacion::where('id_sector', $request->sector)->where('id_fuente', $request->fuente)->orderBy('fecha', 'desc')->paginate(15);
+            /*Busqueda solo con tipo y sector*/
+            if ($request->fechaFin == "" && $request->fechaInicio == "" && $request->sector != "" && $request->tipoFertilizacion != "") {
+                $fertilizaciones  = fertilizacion::where('id_sector', $request->sector)->where('tipo', $request->tipoFertilizacion )->orderBy('fecha', 'desc')->paginate(15);
             }
 
 
@@ -101,17 +102,17 @@ class fertilizacionSectorController extends Controller
                 $fechaSup = Carbon::createFromFormat("d/m/Y H:i:s", $fecha);
 
                 /*Hay cuatro posibles casos de busqueda, cada if se basa en un caso */
-                if ($request->sector == "" && $request->fuente == "") {
+                if ($request->sector == "" && $request->tipoFertilizacion == "") {
                     $fertilizaciones = fertilizacion::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
                 }
-                if ($request->sector != "" && $request->fuente == "") {
+                if ($request->sector != "" && $request->tipoFertilizacion == "") {
                     $fertilizaciones = fertilizacion::where('id_sector', $request->sector)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
                 }
-                if ($request->sector == "" && $request->fuente !== "") {
-                    $fertilizaciones = fertilizacion::where('id_fuente', $request->fuente)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                if ($request->sector == "" && $request->tipoFertilizacion !== "") {
+                    $fertilizaciones = fertilizacion::where('tipo', $request->tipoFertilizacion)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
                 }
-                if ($request->sector != "" && $request->fuente !== "") {
-                    $fertilizaciones = fertilizacion::where('id_sector', $request->sector)->where('id_fuente', $request->fuente)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                if ($request->sector != "" && $request->tipoFertilizacion !== "") {
+                    $fertilizaciones = fertilizacion::where('id_sector', $request->sector)->where('tipo', $request->tipoFertilizacion)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
                 }
             }
         }
@@ -137,11 +138,12 @@ class fertilizacionSectorController extends Controller
 
 
 
-
+        $tipos = ['Riego','Aplicacion dirigida'];
         /*Regresa la vista*/
         return view('Sector/Fertilizacion/buscar')->with([
             'fertilizaciones' => $fertilizaciones,
             'sectores' => $sectores,
+            'tipos' => $tipos,
 
         ]);
 

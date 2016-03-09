@@ -9,7 +9,7 @@
                 validating: 'glyphicon glyphicon-refresh'
             },
             fields: {
-                sector:{
+                invernadero:{
                     validators: {
                         notEmpty: {
                             message: 'Seleccione una opción'
@@ -26,44 +26,11 @@
                     }
                 },
 
-                fuente:{
+                actividad:{
                     validators: {
-                        stringLength: {
-                            max: 200,
-                            message: 'Debe ser menor de 200 carácteres'
+                        notEmpty: {
+                            message: 'Seleccione una opción'
                         }
-                    }
-                },
-
-
-
-                cantidad:{
-                    validators: {
-
-                        numeric: {
-                            message: 'No es un número válido',
-                            // The default separators
-
-                            decimalSeparator: '.'
-
-
-                        },
-                        greaterThan: {
-                            value: 0,
-                            message: 'El número tiene que ser positivo'
-                        }
-
-                    }
-                },
-
-                programaNPK:{
-                    validators: {
-
-                        stringLength: {
-                            max: 200,
-                            message: 'Debe ser menor de 200 carácteres'
-                        }
-
                     }
                 },
 
