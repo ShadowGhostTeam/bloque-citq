@@ -77,6 +77,7 @@
                                         <dt>Tipo de siembra</dt><dd>{{ $siembra->tipo}}</dd>
                                         <dt>Variedad</dt><dd>{{ $siembra->variedad }}</dd>
                                         <dt>Temporada</dt><dd>{{ $siembra->temporada}}</dd>
+                                        <dt>Comentario</dt><dd>{{ $siembra->comentario}}</dd>
                                     </dl>
                                 </div>
 

@@ -242,6 +242,7 @@ class siembraSectorController extends Controller
         $siembra->status = $request->status;
         $siembra->tipo = $request->tipoSiembra;
         $siembra->variedad = $request->variedad;
+        $siembra->comentario = $request->comentario;
         $siembra->temporada = $request->temporada;
 
         return $siembra;

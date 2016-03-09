@@ -197,6 +197,17 @@
             </div>
         </div>
 
+        <div class="form-group">
+            <label for="comentario" class="col-lg-2 control-label">Comentarios</label>
+            <div class="col-lg-10">
+                @if( isset($siembraSector))
+                    {!!Form::textarea('comentario', $siembraSector->comentario, ['class'=>'form-control','id'=>'comentario','placeholder'=>'Comentarios'])!!}
+                @else
+                    {!!Form::textarea('comentario' ,null,['class'=>'form-control','id'=>'comentario','placeholder'=>'Comentarios'])!!}
+                @endif
+            </div>
+        </div>
+
         <div class="form-group" align="center">
             @if( isset($siembraSector))
                 {!! Form::submit('Modificar',['class'=>'btn btn-success', 'onclick'=>"return confirm ('¿Seguro que desea modificar la siembra?')"])!!}

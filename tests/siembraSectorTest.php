@@ -147,7 +147,7 @@ class siembraSectorTest extends TestCase
 
     ////////////////////////////////////////////////CONSULTAR/////////////////////////////////////////////////////////
 
-    //para llamar a solo un grupo "phpunit --group fertilizacionConsultarSector"
+    //para llamar a solo un grupo "phpunit --group siembraConsultarSector"
 
     /*Unidad*/
     /**
@@ -197,6 +197,7 @@ class siembraSectorTest extends TestCase
             ->type("Activo","status")
             ->type("Maquinaria", "tipoSiembra")
             ->type("lalala", "variedad")
+            ->type("hola", "comentario")
             ->type("Primavera-Verano", "temporada")
             ->press('Modificar')
             ->see("ha sido modificada");
@@ -213,6 +214,7 @@ class siembraSectorTest extends TestCase
             ->type("Activo","status")
             ->type("Maquinaria", "tipoSiembra")
             ->type("lalala", "variedad")
+            ->type("hola", "comentario")
             ->type("Primavera-Verano", "temporada")
             ->press('Modificar')
             ->see("El campo sector es obligatorio");
@@ -228,6 +230,7 @@ class siembraSectorTest extends TestCase
             ->type("Activo","status")
             ->type("Maquinaria", "tipoSiembra")
             ->type("lalala", "variedad")
+            ->type("hola", "comentario")
             ->type("Primavera-Verano", "temporada")
             ->press('Modificar')
             ->see("El campo cultivo es obligatorio");
@@ -245,24 +248,10 @@ class siembraSectorTest extends TestCase
             ->type("Activo","status")
             ->type("Maquinaria", "tipoSiembra")
             ->type("lalala", "variedad")
+            ->type("hola", "comentario")
             ->type("Primavera-Verano", "temporada")
             ->press('Modificar')
             ->see("El campo fecha es obligatorio");
-    }
-
-    /**
-     * @group siembraModificarSector
-     */
-    public function testModificarNoStatus(){
-        $this->visit('sector/siembra/modificar/12')
-            ->select(1,"sector")
-            ->select(1,"cultivo")
-            ->type("18/02/2016","fecha")
-            ->type("Maquinaria", "tipoSiembra")
-            ->type("lalala", "variedad")
-            ->type("Primavera-Verano", "temporada")
-            ->press('Modificar')
-            ->see("El campo status es obligatorio");
     }
 
     /**
@@ -276,6 +265,7 @@ class siembraSectorTest extends TestCase
             ->type("Activo","status")
             ->type("Maquinaria", "tipoSiembra")
             ->type("lalala", "variedad")
+            ->type("hola", "comentario")
             ->type("Primavera-Verano", "temporada")
             ->press('Modificar')
             ->see("fecha no corresponde al formato d/m/Y");
@@ -308,6 +298,7 @@ class siembraSectorTest extends TestCase
             ->type("Activo","status")
             ->type("Maquinaria", "tipoSiembra")
             ->type("lalala", "variedad")
+            ->type("hola", "comentario")
             ->type("Primavera-Verano", "temporada")
             ->press('Crear')
             ->see("La siembra ha sido agregada");
@@ -323,6 +314,7 @@ class siembraSectorTest extends TestCase
             ->type("Activo","status")
             ->type("Maquinaria", "tipoSiembra")
             ->type("lalala", "variedad")
+            ->type("hola", "comentario")
             ->type("Primavera-Verano", "temporada")
             ->press('Crear')
             ->see("El campo sector es obligatorio");
@@ -339,6 +331,7 @@ class siembraSectorTest extends TestCase
             ->type("Activo","status")
             ->type("Maquinaria", "tipoSiembra")
             ->type("lalala", "variedad")
+            ->type("hola", "comentario")
             ->type("Primavera-Verano", "temporada")
             ->press('Crear')
             ->see("El campo cultivo es obligatorio");
@@ -354,23 +347,10 @@ class siembraSectorTest extends TestCase
             ->type("Activo","status")
             ->type("Maquinaria", "tipoSiembra")
             ->type("lalala", "variedad")
+            ->type("hola", "comentario")
             ->type("Primavera-Verano", "temporada")
             ->press('Crear')
             ->see("El campo fecha es obligatorio");
-    }
-
-    /**
-     * @group siembraCrearSector
-     */
-    public function testCrearNoStatus(){
-        $this->visit('sector/siembra/crear')
-            ->select(1,"sector")
-            ->select(1,"cultivo")
-            ->type("Maquinaria", "tipoSiembra")
-            ->type("lalala", "variedad")
-            ->type("Primavera-Verano", "temporada")
-            ->press('Crear')
-            ->see("El campo status es obligatorio");
     }
 
     /**
@@ -384,6 +364,7 @@ class siembraSectorTest extends TestCase
             ->type("Activo","status")
             ->type("Maquinaria", "tipoSiembra")
             ->type("lalala", "variedad")
+            ->type("hola", "comentario")
             ->type("Primavera-Verano", "temporada")
             ->press('Crear')
             ->see("fecha no corresponde al formato d/m/Y");
