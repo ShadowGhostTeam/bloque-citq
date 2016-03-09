@@ -89,12 +89,12 @@ MAIN SIDEBAR MENU
                                         <div class="form-group">
 
                                             <div class="col-lg-3">
-                                                <select  class="form-control" id="fuente" name="fuente">
-                                                    <option value="">Todas las fuentes</option>
+                                                <select  class="form-control" id="tipoFertilizacion" name="tipoFertilizacion">
+                                                    <option value="">Todas los tipos</option>
 
-                                                    @if( isset($fuentes))
-                                                        @foreach($fuentes as $fuente)
-                                                            <option value="{{  $fuente->id  }}" > {{ $fuente->nombre}}  </option>
+                                                    @if( isset($tipos))
+                                                        @foreach($tipos as $tipo)
+                                                            <option value="{{  $tipo  }}" > {{ $tipo}}  </option>
                                                         @endforeach
                                                     @endif
                                                 </select>
@@ -144,7 +144,7 @@ MAIN SIDEBAR MENU
                                     <thead>
                                     <tr>
                                         <th><i class="fa fa-thumb-tack"></i> Sector </th>
-                                        <th> <i class="fa fa-calendar-o"></i> Fuente </th>
+                                        <th> <i class="fa fa-calendar-o"></i> Tipo </th>
                                         <th><i class=" fa fa-edit"></i>Fecha</th>
                                         <th></th>
                                     </tr>
@@ -157,7 +157,7 @@ MAIN SIDEBAR MENU
 
                                             <tr>
                                                 <td>{{ $fertilizacion->sector->nombre }}</td>
-                                                <td>{{ $fertilizacion->fuente }}</td>
+                                                <td>{{ $fertilizacion->tipo }}</td>
                                                 <td>{{ $fertilizacion->fecha }}</td>
 
 

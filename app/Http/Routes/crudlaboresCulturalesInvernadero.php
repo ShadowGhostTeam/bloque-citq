@@ -1,37 +1,6 @@
 <?php
 
 
-
-/*
- * Ajax siembra
- * utilizando sectores
- * */
-
-/*
-Route::get('invernadero/ajaxSiembraInvernadero/carga',function() {
-
-    $idsectores = Input::get('id');
-
-    $siembras = siembraSector::where('id_sector',$idsectores)->get();
-    $siembrasTodas=array();
-    foreach ($siembras as $siembra) {
-
-        $fechaSiembraToda=Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fecha);
-
-        array_push($siembrasTodas,array(
-                'id_siembra' => $siembra->id,
-                'variedad' => $siembra->variedad,
-                'nombre' => $siembra->cultivo->nombre,
-                'fecha' => $fechaSiembraToda->format('d/m/Y'))
-
-        );
-    }
-
-
-    return Response::json($siembrasTodas);
-});
-*/
-
 /*
  * Rutas para Invernadero-Labores Culturales
  */
@@ -42,7 +11,7 @@ Route::get('invernadero/laboresCulturales',[
 ]);
 
 
-Route::get('sector/cosecha/lista',[
+Route::get('invernadero/cosecha/lista',[
         'uses' =>'cosechaSectorController@buscar',
         'as' =>'sector/cosecha/lista']
 
@@ -54,7 +23,7 @@ Route::get('invernadero/laboresCulturales/crear',[
 
 ]);
 
-Route::post('sector/cosecha/crear/','cosechaSectorController@crear',array('before' => 'csrf', function() {
+Route::post('invernadero/laboresCulturales/crear/','invernaderoLaboresCulturalesController@crear',array('before' => 'csrf', function() {
     //
 }));
 

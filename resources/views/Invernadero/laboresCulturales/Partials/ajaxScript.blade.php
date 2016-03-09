@@ -3,10 +3,10 @@
     {
 
 
-        $("#sector").on('change', function (e) {
+        $("#invernadero").on('change', function (e) {
 
 
-            if (document.getElementById("sector").value == "") {
+            if (document.getElementById("invernadero").value == "") {
                 $("#siembra").empty();
                 $("#siembra").append(
                         "<option value='' selected > Selecciona </option>");
@@ -16,10 +16,11 @@
 
                 $.ajax({
                     method: "GET",
-                    url: "{{ URL::to('sector/ajaxSiembra/carga?id=')  }}"+id,
+                    url: "{{ URL::to('invernadero/ajaxSiembraInvernadero/carga?id=')  }}"+id,
 
                 })
                         .done(function( data ) {
+
                             $("#siembra").empty();
                             $("#siembra").append(
                                     "<option value='' selected > Selecciona </option>");
