@@ -59,10 +59,25 @@ class reportesSectorController extends Controller
 
 
         //Caso de que se requiera reporte solo por sector
+        $string=null;
        if($request->cultivo==""){
-            $this->reporteSoloSector($request,$filtros);
+           $string= $this->reporteSoloSector($request,$filtros);
+
        }
 
+        $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $cultivos= cultivo::select('id','nombre')->orderBy('nombre', 'asc')->get();
+
+        $arrays=$request->session()->get($string);
+
+        return view('Reportes/buscar')->with([
+            'sectores' => $sectores,
+            'cultivos' => $cultivos,
+            'arrays'=>$arrays,
+            'string'=>$string,
+            'filtros'=>$filtros
+
+        ]);
 
 
     }
@@ -107,6 +122,8 @@ class reportesSectorController extends Controller
         else{
             $filtros['cosechas']=false;
         }
+
+
         return $filtros;
     }
 
@@ -214,6 +231,58 @@ class reportesSectorController extends Controller
                 }
             }
         }
+        //////////////////////////////////////Fertilizaciones///////////////////////////////////////////////////
+
+        if($filtros['fertilizaciones']) {
+            $arrayFertilizaciones[0]['Sector'] = "";
+            $arrayFertilizaciones[0]['Siembra'] = "";
+            $arrayFertilizaciones[0]['Tipo'] = "";
+            $arrayFertilizaciones[0]['Fuente'] = "";
+            $arrayFertilizaciones[0]['cantidad'] = "";
+            $arrayFertilizaciones[0]['Programa NPK'] = "";
+            $arrayFertilizaciones[0]['Fecha'] = "";
+
+            $i = 0;
+
+            foreach($sectores as $sector) {
+
+                $fertilizaciones= $sector->fertilizaciones()->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->get();
+
+                foreach ($fertilizaciones as $fertilizacion) {
+                    $siembra = siembraSector::find($fertilizacion->id_siembra);
+
+                    $arrayFertilizaciones[$i]['Sector'] = $sector->nombre;
+
+                    if($siembra!=null){
+                        $cultivo = cultivo::find($siembra->id_cultivo);
+                        $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fecha);
+                        $siembra->fecha = $fecha->format('d/m/Y');
+                        if($cultivo!=null){
+                            $arrayFertilizaciones[$i]['Siembra'] = $cultivo->nombre.' '.$siembra->variedad.' '.$siembra->fecha;
+                        }
+                        else{
+                            $arrayFertilizaciones[$i]['Siembra'] = $siembra->variedad.' '.$siembra->fecha;
+
+                        }
+                    }
+                    else{
+                        $arrayFertilizaciones[$i]['Siembra'] = "";
+                    }
+                    $arrayFertilizaciones[$i]['Tipo'] = $fertilizacion->tipo;
+                    $arrayFertilizaciones[$i]['Fuente'] = $fertilizacion->tipo;
+
+                    $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $fertilizacion->fecha);
+                    $fertilizacion->fecha = $fecha->format('d/m/Y');
+                    $arrayFertilizaciones[$i]['Fecha'] = $fertilizacion->fecha;
+
+
+                    $i++;
+
+                }
+            }
+        }
+
+
         ///////////////////////////////Cosecha////////////////////////////////////////////////////
 
         if($filtros['cosechas']) {
@@ -234,7 +303,7 @@ class reportesSectorController extends Controller
                     $arrayCosechas[$i]['Sector'] = $sector->nombre;
 
                     if($siembra!=null){
-                        $cultivo = cultivo::find(100);
+                        $cultivo = cultivo::find($siembra->id_cultivo);
                         $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fecha);
                         $siembra->fecha = $fecha->format('d/m/Y');
                         if($cultivo!=null){
@@ -278,13 +347,28 @@ class reportesSectorController extends Controller
         $arrays[4][1]="Mantenimientos";
         $arrays[5][0]=$arrayCosechas;
         $arrays[5][1]="Cosechas";
+        $arrays[6][0]=null;
+        $arrays[6][1]['fechaInf']=$request->fechaInicio;
+        $arrays[7][0]=null;
+        $arrays[7][1]['fechaSup']=$request->fechaFin;
 
-        $this->exportarExcel($request->fechaInicio,$request->fechaFin,$arrays);
+        $string = str_random(40);
+        $request->session()->put($string,$arrays);
+
+        return $string;
+
+
+
+       // $this->exportarExcel($request->fechaInicio,$request->fechaFin,$arrays);
     }
 
 
-    public function exportarExcel($fechaInf,$fechaSup,$arrays){
-        //dd($arrays);
+    public function exportarExcel($string){
+
+        $arrays=session()->get($string);
+        $fechaInf=$arrays[6][1]['fechaInf'];
+        $fechaSup=$arrays[7][1]['fechaSup'];
+
         Excel::create('Reporte de sector de '.$fechaInf.' hasta '.$fechaSup, function($excel) use($arrays) {
 
             foreach($arrays as $array){
@@ -312,7 +396,7 @@ class reportesSectorController extends Controller
 
         })->export('xls');
 
-      
+
 
     }
 }

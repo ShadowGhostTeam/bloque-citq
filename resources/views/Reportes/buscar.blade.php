@@ -99,7 +99,7 @@ MAIN SIDEBAR MENU
                                         </div>
 
                                         <div class="form-group">
-                                            <div class="col-lg-2">
+                                            <div class="col-lg-3">
                                                 <div class="input-group date" id="fechaDP">
                                                  <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-calendar"></span>
@@ -112,7 +112,7 @@ MAIN SIDEBAR MENU
                                         <div class="form-group">
 
 
-                                            <div class="col-lg-2">
+                                            <div class="col-lg-3">
                                                 <div class="input-group date" id="fechaDP">
                                                  <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-calendar"></span>
@@ -121,6 +121,7 @@ MAIN SIDEBAR MENU
                                                 </div>
                                             </div>
                                         </div>
+
 
                                     <div class="form-group">
 
@@ -160,11 +161,13 @@ MAIN SIDEBAR MENU
 
 
                                         <div class="form-group" align="center">
+                                            <div class="col-lg-12">
                                             &nbsp;&nbsp;&nbsp;
                                             <button type="submit" class="btn btn-default"  >
                                                 <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
                                                 Generar reporte
                                             </button>
+                                                </div>
                                         </div>
 
                                         {!! Form::close() !!}
@@ -173,8 +176,290 @@ MAIN SIDEBAR MENU
 
                         </div>
                     </div>
+
+                            <hr>
+                    @if (isset($arrays))
+
+                            <div>
+
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" role="tablist">
+                                    @if($filtros['preparaciones'])
+                                    <li role="presentation" class="active"><a href="#preparaciones" aria-controls="preparaciones" role="tab" data-toggle="tab">Preparaciones</a></li>
+                                    @endif
+                                    @if($filtros['siembras'])
+                                    <li role="presentation"><a href="#siembras" aria-controls="siembras" role="tab" data-toggle="tab">Siembras</a></li>
+                                    @endif
+                                    @if($filtros['fertilizaciones'])
+                                    <li role="presentation"><a href="#fertilizaciones" aria-controls="fertilizaciones" role="tab" data-toggle="tab">Fertilizaciones</a></li>
+                                    @endif
+                                    @if($filtros['riegos'])
+                                    <li role="presentation"><a href="#riegos" aria-controls="riegos" role="tab" data-toggle="tab">Riegos</a></li>
+                                    @endif
+                                     @if($filtros['mantenimientos'])
+                                    <li role="presentation"><a href="#mantenimientos" aria-controls="mantenimientos" role="tab" data-toggle="tab">Mantenimientos</a></li>
+                                    @endif
+                                    @if($filtros['cosechas'])
+                                    <li role="presentation"><a href="#cosechas" aria-controls="cosechas" role="tab" data-toggle="tab">Cosechas</a></li>
+                                     @endif
+                                </ul>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+
+                                    @if($filtros['preparaciones'])
+                                    <div role="tabpanel" class="tab-pane active" id="preparaciones">
+
+                                        <div class="table-responsive">
+                                            <table  class="table table-striped table-advance table-hover table_sort"  >
+                                                <thead >
+                                                <tr>
+                                                    <th><i ></i>#</th>
+                                                    <th><i ></i> Sector</th>
+                                                    <th><i ></i> Maquinaria </th>
+                                                    <th><i ></i> Pasadas</th>
+                                                    <th><i></i> Fecha</th>
+
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php $i=0;?>
+                                                @foreach ($arrays[0][0] as $resultado)
+                                                    @if($resultado['Sector']!="")
+                                                    <?php $i++;?>
+                                                    <tr>
+                                                        <td style="width: 5%"><?php echo $i;?></td>
+                                                        <td style="width: 25%">{{$resultado['Sector']}}</td>
+                                                            <td style="width: 25%">{{$resultado['Maquinaria']}}</td>
+                                                        <td style="width: 10%">{{$resultado['Número de pasadas']}}</td>
+                                                        <td style="width: 25%">{{$resultado['Fecha']}}</td>
+                                                    </tr>
+                                                    @endif
+                                                @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    @endif
+
+
+                                    @if($filtros['siembras'])
+                                    <div role="tabpanel" class="tab-pane" id="siembras">
+                                        <div class="table-responsive">
+                                            <table  class="table table-striped table-advance table-hover table_sort"  >
+                                                <thead >
+                                                <tr>
+                                                    <th><i ></i>#</th>
+                                                    <th><i ></i> Sector</th>
+                                                    <th><i ></i> Cultivo </th>
+                                                    <th><i ></i> Variedad</th>
+                                                    <th><i></i> Tipo de siembra</th>
+                                                    <th><i></i> Temporada</th>
+                                                    <th><i></i> Fecha de siembra</th>
+                                                    <th><i></i>Status</th>
+                                                    <th><i></i>Fecha terminación</th>
+                                                    <th><i></i>Comentario</th>
+
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php $i=0;?>
+                                                @foreach ($arrays[1][0] as $resultado)
+                                                    @if($resultado['Sector']!="")
+                                                        <?php $i++;?>
+                                                        <tr>
+                                                            <td style="width: 5%"><?php echo $i;?></td>
+                                                            <td >{{$resultado['Sector']}}</td>
+                                                            <td>{{$resultado['Cultivo']}}</td>
+                                                            <td >{{$resultado['Variedad']}}</td>
+                                                            <td >{{$resultado['Tipo de siembra']}}</td>
+                                                            <td >{{$resultado['Temporada']}}</td>
+                                                            <td >{{$resultado['Fecha de siembra']}}</td>
+                                                            <td >{{$resultado['Status']}}</td>
+                                                            <td >{{$resultado['Fecha de terminación']}}</td>
+                                                            <td >{{$resultado['Comentario']}}</td>
+                                                        </tr>
+                                                    @endif
+                                                @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    @endif
+
+                                    @if($filtros['fertilizaciones'])
+                                    <div role="tabpanel" class="tab-pane" id="fertilizaciones">
+                                        <div class="table-responsive">
+                                            <table  class="table table-striped table-advance table-hover table_sort"  >
+                                                <thead >
+                                                <tr>
+                                                    <th><i ></i>#</th>
+                                                    <th><i ></i> Sector</th>
+                                                    <th><i ></i> Siembra</th>
+                                                    <th><i ></i> Tipo</th>
+                                                    <th><i></i> Fuente</th>
+                                                    <th><i></i> Cantidad</th>
+                                                    <th><i></i> Programa NPK</th>
+                                                    <th><i></i> Fecha</th>
+
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php $i=0;?>
+                                                @foreach ($arrays[2][0] as $resultado)
+                                                    @if($resultado['Sector']!="")
+                                                        <?php $i++;?>
+                                                        <tr>
+                                                            <td style="width: 5%"><?php echo $i;?></td>
+                                                            <td >{{$resultado['Sector']}}</td>
+                                                            <td >{{$resultado['Siembra']}}</td>
+                                                            <td >{{$resultado['Tipo']}}</td>
+                                                            <td >{{$resultado['Fuente']}}</td>
+                                                            <td >{{$resultado['Cantidad']}}</td>
+                                                            <td >{{$resultado['Programa NPK']}}</td>
+                                                            <td >{{$resultado['Fecha']}}</td>
+                                                        </tr>
+                                                    @endif
+                                                @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    @endif
+
+                                    @if($filtros['riegos'])
+                                    <div role="tabpanel" class="tab-pane" id="riegos">
+                                        <div class="table-responsive">
+                                            <table  class="table table-striped table-advance table-hover table_sort"  >
+                                                <thead >
+                                                <tr>
+                                                    <th><i ></i>#</th>
+                                                    <th><i ></i> Sector</th>
+                                                    <th><i ></i> Siembra</th>
+                                                    <th><i ></i> Tiempo</th>
+                                                    <th><i></i> Dist. líneas</th>
+                                                    <th><i></i> Litros/ha</th>
+                                                    <th><i></i> Lámina</th>
+                                                    <th><i></i> Fecha</th>
+
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php $i=0;?>
+                                                @foreach ($arrays[3][0] as $resultado)
+                                                    @if($resultado['Sector']!="")
+                                                        <?php $i++;?>
+                                                        <tr>
+                                                            <td style="width: 5%"><?php echo $i;?></td>
+                                                            <td >{{$resultado['Sector']}}</td>
+                                                            <td >{{$resultado['Siembra']}}</td>
+                                                            <td >{{$resultado['Tiempo']}}</td>
+                                                            <td >{{$resultado['Distancia entre líneas']}}</td>
+                                                            <td >{{$resultado['Litros/Hectárea']}}</td>
+                                                            <td >{{$resultado['Lámina']}}</td>
+                                                            <td >{{$resultado['Fecha']}}</td>
+                                                        </tr>
+                                                    @endif
+                                                @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    @endif
+
+                                    @if($filtros['mantenimientos'])
+                                    <div role="tabpanel" class="tab-pane" id="mantenimientos">
+                                        <div role="tabpanel" class="tab-pane" id="riegos">
+                                            <div class="table-responsive">
+                                                <table  class="table table-striped table-advance table-hover table_sort"  >
+                                                    <thead >
+                                                    <tr>
+                                                        <th><i ></i>#</th>
+                                                        <th><i ></i> Sector</th>
+                                                        <th><i ></i> Siembra</th>
+                                                        <th><i ></i> Actividad</th>
+                                                        <th><i></i> Tipo aplicación</th>
+                                                        <th><i></i> Producto</th>
+                                                        <th><i></i> Cantidad</th>
+                                                        <th><i></i> Fecha</th>
+                                                        <th><i></i> Comentario</th>
+
+
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <?php $i=0;?>
+                                                    @foreach ($arrays[4][0] as $resultado)
+                                                        @if($resultado['Sector']!="")
+                                                            <?php $i++;?>
+                                                            <tr>
+                                                                <td style="width: 5%"><?php echo $i;?></td>
+                                                                <td >{{$resultado['Sector']}}</td>
+                                                                <td >{{$resultado['Siembra']}}</td>
+                                                                <td >{{$resultado['Actividad']}}</td>
+                                                                <td >{{$resultado['Tipo de aplicación']}}</td>
+                                                                <td >{{$resultado['Producto']}}</td>
+                                                                <td >{{$resultado['Cantidad']}}</td>
+                                                                <td >{{$resultado['Fecha']}}</td>
+                                                                <td >{{$resultado['Comentario']}}</td>
+                                                            </tr>
+                                                        @endif
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
+
+                                    @if($filtros['cosechas'])
+                                    <div role="tabpanel" class="tab-pane" id="cosechas">
+                                        <div class="table-responsive">
+                                            <table  class="table table-striped table-advance table-hover table_sort"  >
+                                                <thead >
+                                                <tr>
+                                                    <th><i ></i>#</th>
+                                                    <th><i ></i> Sector</th>
+                                                    <th><i ></i> Siembra</th>
+                                                    <th><i ></i> Fecha</th>
+                                                    <th><i></i> Descripción</th>
+
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php $i=0;?>
+                                                @foreach ($arrays[5][0] as $resultado)
+                                                    @if($resultado['Sector']!="")
+                                                        <?php $i++;?>
+                                                        <tr>
+                                                            <td style="width: 5%"><?php echo $i;?></td>
+                                                            <td >{{$resultado['Sector']}}</td>
+                                                            <td >{{$resultado['Siembra']}}</td>
+                                                            <td >{{$resultado['Fecha']}}</td>
+                                                            <td >{{$resultado['Descripción']}}</td>
+                                                        </tr>
+                                                    @endif
+                                                @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    @endif
+                                </div>
+
+                            </div>
+
+                                <div class="col-xs-12" align="center">
+                                    <a href="{{route('reportes/sector/excel',$string,$filtros)}}">
+                                        <button class="btn btn-success">Exportar a excel</button>
+                                    </a>
+                                </div>
+
+                @endif
                     <!-- FIN CONTENIDO -->
 
+                </div>
+                    </div>
                 </div>
             </section>
         </section>
