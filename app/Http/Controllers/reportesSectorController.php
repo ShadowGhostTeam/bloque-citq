@@ -269,11 +269,66 @@ class reportesSectorController extends Controller
                         $arrayFertilizaciones[$i]['Siembra'] = "";
                     }
                     $arrayFertilizaciones[$i]['Tipo'] = $fertilizacion->tipo;
-                    $arrayFertilizaciones[$i]['Fuente'] = $fertilizacion->tipo;
+                    $arrayFertilizaciones[$i]['Fuente'] = $fertilizacion->fuente;
+                    $arrayFertilizaciones[$i]['Cantidad'] = $fertilizacion->cantidad;
+                    $arrayFertilizaciones[$i]['Programa NPK'] = $fertilizacion->programaNPK;
 
                     $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $fertilizacion->fecha);
                     $fertilizacion->fecha = $fecha->format('d/m/Y');
                     $arrayFertilizaciones[$i]['Fecha'] = $fertilizacion->fecha;
+
+
+                    $i++;
+
+                }
+            }
+        }
+
+        //////////////////////////////////////Riegos///////////////////////////////////////////////////
+
+        if($filtros['riegos']) {
+            $arrayRiegos[0]['Sector'] = "";
+            $arrayRiegos[0]['Siembra'] = "";
+            $arrayRiegos[0]['Tiempo'] = "";
+            $arrayRiegos[0]['Distancia entre líneas'] = "";
+            $arrayRiegos[0]['Litros/Hectárea'] = "";
+            $arrayRiegos[0]['Lámina'] = "";
+            $arrayRiegos[0]['Fecha'] = "";
+
+            $i = 0;
+
+            foreach($sectores as $sector) {
+
+                $riegos= $sector->riegos()->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->get();
+
+                foreach ($riegos as $riego) {
+                    $siembra = siembraSector::find($riego->id_siembra);
+
+                    $arrayRiegos[$i]['Sector'] = $sector->nombre;
+
+                    if($siembra!=null){
+                        $cultivo = cultivo::find($siembra->id_cultivo);
+                        $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fecha);
+                        $siembra->fecha = $fecha->format('d/m/Y');
+                        if($cultivo!=null){
+                            $arrayRiegos[$i]['Siembra'] = $cultivo->nombre.' '.$siembra->variedad.' '.$siembra->fecha;
+                        }
+                        else{
+                            $arrayRiegos[$i]['Siembra'] = $siembra->variedad.' '.$siembra->fecha;
+
+                        }
+                    }
+                    else{
+                        $arrayRiegos[$i]['Siembra'] = "";
+                    }
+                    $arrayRiegos[$i]['Tiempo'] = $riego->tipo;
+                    $arrayRiegos[$i]['Distancia entre líneas'] = $riego->fuente;
+                    $arrayRiegos[$i]['Litros/Hectárea'] = $riego->cantidad;
+                    $arrayRiegos[$i]['Lámina'] = $riego->programaNPK;
+
+                    $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $riego->fecha);
+                    $riego->fecha = $fecha->format('d/m/Y');
+                    $arrayRiegos[$i]['Fecha'] = $riego->fecha;
 
 
                     $i++;
