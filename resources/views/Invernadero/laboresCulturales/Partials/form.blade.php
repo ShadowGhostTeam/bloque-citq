@@ -95,7 +95,7 @@
                                                  <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                   </span>
-                    @if( isset($mantenimientoSector))
+                    @if( isset($laboresInvernadero))
                         {!!Form::text('fecha' ,$mantenimientoSector->fecha,['class'=>'form-control','id'=>'fecha','placeholder'=>'dd/mm/aaaa'])!!}
                     @else
                         {!!Form::text('fecha' ,null,['class'=>'form-control','id'=>'fecha','placeholder'=>'dd/mm/aaaa'])!!}

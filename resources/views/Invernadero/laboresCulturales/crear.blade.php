@@ -20,7 +20,7 @@
 
         <section id="main-content">
             <section class="wrapper site-min-height">
-                <h3><a href="{{ route('sector/mantenimiento') }}"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Búsqueda</button></a></h3>
+                <h3><a href="{{ route('invernadero/laboresCulturales') }}"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Búsqueda</button></a></h3>
                 <div class="row mt">
 
                     <!-- INICIO CONSULTAR FUNCIONES -->
@@ -29,7 +29,7 @@
 
                             @include('Partials.Mensajes.mensajes')
 
-                            {!! Form::open(['action'=>['mantenimientoSectorController@crear'],'class'=>'form-horizontal','role'=>'form','id'=>'formulario'])!!}
+                            {!! Form::open(['action'=>['invernaderoLaboresCulturalesController@crear'],'class'=>'form-horizontal','role'=>'form','id'=>'formulario'])!!}
 
                             <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear Labor de Invernadero</h4><br>
 
@@ -45,8 +45,8 @@
     </section>
 </section>
 
-    @include('Sector.Mantenimiento.Partials.validator')
+    @include('Invernadero.LaboresCulturales.Partials.validator')
 
-@include('Sector.Mantenimiento.Partials.ajaxScript')
+@include('Invernadero.LaboresCulturales.Partials.ajaxScript')
 
     @include('Partials.ScriptsGenerales.scriptsPartialsAbajo')

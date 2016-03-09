@@ -1,19 +1,6 @@
 <script type="text/javascript">
 
     $(document).ready(function() {
-        @if(isset($mantenimientoSector))
-        {
-            @if($mantenimientoSector->actividad=="Deshierbe manual"||$mantenimientoSector->actividad=="Deshierbe máquina")
-            $('#divProducto').hide();
-            $('#divTipoAplicacion').hide();
-            $('#divCantidad').hide();
-            @endif
-        }
-        @else
-        $('#divProducto').hide();
-        $('#divTipoAplicacion').hide();
-        $('#divCantidad').hide();
-      @endif
 
         $('#formulario').bootstrapValidator({
             message: 'Los valores no son válidos',
@@ -22,7 +9,7 @@
                 validating: 'glyphicon glyphicon-refresh'
             },
             fields: {
-                sector:{
+                invernadero:{
                     validators: {
                         notEmpty: {
                             message: 'Seleccione una opción'
@@ -38,6 +25,7 @@
                         }
                     }
                 },
+
                 actividad:{
                     validators: {
                         notEmpty: {
@@ -46,47 +34,10 @@
                     }
                 },
 
-                cantidad:{
-                    validators: {
-
-                        numeric: {
-                            message: 'No es un número válido',
-                            // The default separators
-                            decimalSeparator: '.'
-                        },
-                        greaterThan:{
-                            value: 0,
-                            message: 'Ingrese número mayor o igual a 0'
-                        }
-
-                    }
-                },
-
-                producto:{
-                    validators: {
-
-                        stringLength: {
-                            max: 254,
-                            message: 'Debe ser menor de 254 caracteres'
-                        }
-
-                    }
-                },
-                comentario:{
-                    validators: {
-
-                        stringLength: {
-                            max: 65534,
-                            message: 'Debe ser menor de 65535 caracteres'
-                        }
-
-                    }
-                },
-
                 fecha:{
                     validators: {
                         notEmpty: {
-                            message: 'Ingrese fecha'
+                            message: 'Seleccione una opción'
                         },
 
                         date: {
@@ -103,27 +54,7 @@
                     $('#formulario').data('bootstrapValidator').revalidateField('fecha');
                 });
 
-        $('#actividad').on('change', function() {
-            if ($('#actividad')[0].selectedIndex < 3){
-                $('#divProducto').hide();
-                $('#divTipoAplicacion').hide();
 
-
-                $('#tipoAplicacion').val("");
-                $('#producto').val("");
-                $('#cantidad').val("");
-                $('#formulario').data('bootstrapValidator').revalidateField('cantidad');
-                $('#divCantidad').hide();
-
-            }
-            else{
-                $('#divProducto').show();
-                $('#divTipoAplicacion').show();
-                $('#divCantidad').show();
-
-
-            }
-        });
 
 
     });

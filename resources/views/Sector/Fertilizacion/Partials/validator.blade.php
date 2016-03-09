@@ -28,8 +28,9 @@
 
                 fuente:{
                     validators: {
-                        notEmpty: {
-                            message: 'Seleccione una opción'
+                        stringLength: {
+                            max: 200,
+                            message: 'Debe ser menor de 200 carácteres'
                         }
                     }
                 },

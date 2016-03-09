@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\invernadero;
 use App\laboresCulturales;
-use App\siembraTransplanteInvernadero;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -46,4 +45,17 @@ class invernaderoLaboresCulturalesController extends Controller
 
         ]);
     }
+
+
+    /*Recibe la informacion del formulario de crear y la almacena en la base de datos*/
+    public function crear(fertilizacionSectorRequest $request){
+
+        $fertilizacion=$this->adaptarRequest($request);
+        $fertilizacion->save();
+
+        Session::flash('message', 'La fertilizacion ha sido agregada');
+        return redirect('sector/fertilizacion/crear');
+    }
+
+
 }
