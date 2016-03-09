@@ -321,10 +321,10 @@ class reportesSectorController extends Controller
                     else{
                         $arrayRiegos[$i]['Siembra'] = "";
                     }
-                    $arrayRiegos[$i]['Tiempo'] = $riego->tipo;
-                    $arrayRiegos[$i]['Distancia entre líneas'] = $riego->fuente;
-                    $arrayRiegos[$i]['Litros/Hectárea'] = $riego->cantidad;
-                    $arrayRiegos[$i]['Lámina'] = $riego->programaNPK;
+                    $arrayRiegos[$i]['Tiempo'] = $riego->tiempo;
+                    $arrayRiegos[$i]['Distancia entre líneas'] = $riego->distanciaLineas;
+                    $arrayRiegos[$i]['Litros/Hectárea'] = $riego->litrosHectarea;
+                    $arrayRiegos[$i]['Lámina'] = $riego->lamina;
 
                     $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $riego->fecha);
                     $riego->fecha = $fecha->format('d/m/Y');
@@ -336,7 +336,60 @@ class reportesSectorController extends Controller
                 }
             }
         }
+//////////////////////////////////////Mantenimiento///////////////////////////////////////////////////
 
+        if($filtros['mantenimientos']) {
+            $arrayMantenimientos[0]['Sector'] = "";
+            $arrayMantenimientos[0]['Siembra'] = "";
+            $arrayMantenimientos[0]['Actividad'] = "";
+            $arrayMantenimientos[0]['Tipo de aplicación'] = "";
+            $arrayMantenimientos[0]['Producto'] = "";
+            $arrayMantenimientos[0]['Cantidad'] = "";
+            $arrayMantenimientos[0]['Fecha'] = "";
+            $arrayMantenimientos[0]['Comentario'] = "";
+
+            $i = 0;
+
+            foreach($sectores as $sector) {
+
+                $mantenimientos= $sector->mantenimientos()->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->get();
+
+                foreach ($mantenimientos as $mantenimiento) {
+                    $siembra = siembraSector::find($mantenimiento->id_siembra);
+
+                    $arrayMantenimientos[$i]['Sector'] = $sector->nombre;
+
+                    if($siembra!=null){
+                        $cultivo = cultivo::find($siembra->id_cultivo);
+                        $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fecha);
+                        $siembra->fecha = $fecha->format('d/m/Y');
+                        if($cultivo!=null){
+                            $arrayMantenimientos[$i]['Siembra'] = $cultivo->nombre.' '.$siembra->variedad.' '.$siembra->fecha;
+                        }
+                        else{
+                            $arrayMantenimientos[$i]['Siembra'] = $siembra->variedad.' '.$siembra->fecha;
+
+                        }
+                    }
+                    else{
+                        $arrayMantenimientos[$i]['Siembra'] = "";
+                    }
+                    $arrayMantenimientos[$i]['Actividad'] = $mantenimiento->actividad;
+                    $arrayMantenimientos[$i]['Tipo de aplicación'] = $mantenimiento->tipoAplicación;
+                    $arrayMantenimientos[$i]['Producto'] = $mantenimiento->producto;
+                    $arrayMantenimientos[$i]['Cantidad'] = $mantenimiento->cantidad;
+
+
+                    $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $mantenimiento->fecha);
+                    $mantenimiento->fecha = $fecha->format('d/m/Y');
+                    $arrayMantenimientos[$i]['Fecha'] = $mantenimiento->fecha;
+                    $arrayMantenimientos[$i]['Comentario'] = $mantenimiento->comentario;
+
+                    $i++;
+
+                }
+            }
+        }
 
         ///////////////////////////////Cosecha////////////////////////////////////////////////////
 

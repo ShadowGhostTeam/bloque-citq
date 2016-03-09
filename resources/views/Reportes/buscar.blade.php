@@ -184,31 +184,33 @@ MAIN SIDEBAR MENU
 
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs" role="tablist">
+                                    <?php $active=true;?>
                                     @if($filtros['preparaciones'])
-                                    <li role="presentation" class="active"><a href="#preparaciones" aria-controls="preparaciones" role="tab" data-toggle="tab">Preparaciones</a></li>
+
+                                    <li role="presentation"  @if($active)class="active" <?php $active=false;?>@endif><a href="#preparaciones" aria-controls="preparaciones" role="tab" data-toggle="tab">Preparaciones</a></li>
                                     @endif
                                     @if($filtros['siembras'])
-                                    <li role="presentation"><a href="#siembras" aria-controls="siembras" role="tab" data-toggle="tab">Siembras</a></li>
+                                    <li role="presentation"@if($active)class="active" <?php $active=false;?>@endif><a href="#siembras" aria-controls="siembras" role="tab" data-toggle="tab">Siembras</a></li>
                                     @endif
                                     @if($filtros['fertilizaciones'])
-                                    <li role="presentation"><a href="#fertilizaciones" aria-controls="fertilizaciones" role="tab" data-toggle="tab">Fertilizaciones</a></li>
+                                    <li role="presentation"@if($active)class="active" <?php $active=false;?>@endif><a href="#fertilizaciones" aria-controls="fertilizaciones" role="tab" data-toggle="tab">Fertilizaciones</a></li>
                                     @endif
                                     @if($filtros['riegos'])
-                                    <li role="presentation"><a href="#riegos" aria-controls="riegos" role="tab" data-toggle="tab">Riegos</a></li>
+                                    <li role="presentation"@if($active)class="active" <?php $active=false;?>@endif><a href="#riegos" aria-controls="riegos" role="tab" data-toggle="tab">Riegos</a></li>
                                     @endif
                                      @if($filtros['mantenimientos'])
-                                    <li role="presentation"><a href="#mantenimientos" aria-controls="mantenimientos" role="tab" data-toggle="tab">Mantenimientos</a></li>
+                                    <li role="presentation"@if($active)class="active" <?php $active=false;?>@endif><a href="#mantenimientos" aria-controls="mantenimientos" role="tab" data-toggle="tab">Mantenimientos</a></li>
                                     @endif
                                     @if($filtros['cosechas'])
-                                    <li role="presentation"><a href="#cosechas" aria-controls="cosechas" role="tab" data-toggle="tab">Cosechas</a></li>
+                                    <li role="presentation"@if($active)class="active" <?php $active=false;?>@endif><a href="#cosechas" aria-controls="cosechas" role="tab" data-toggle="tab">Cosechas</a></li>
                                      @endif
                                 </ul>
 
                                 <!-- Tab panes -->
                                 <div class="tab-content">
-
+                                    <?php $active=true;?>
                                     @if($filtros['preparaciones'])
-                                    <div role="tabpanel" class="tab-pane active" id="preparaciones">
+                                    <div role="tabpanel" @if($active)class="tab-pane active" <?php $active=false;?>@else class="tab-pane"@endif  id="preparaciones">
 
                                         <div class="table-responsive">
                                             <table  class="table table-striped table-advance table-hover table_sort"  >
@@ -244,7 +246,7 @@ MAIN SIDEBAR MENU
 
 
                                     @if($filtros['siembras'])
-                                    <div role="tabpanel" class="tab-pane" id="siembras">
+                                    <div role="tabpanel" @if($active)class="tab-pane active" <?php $active=false;?>@else class="tab-pane"@endif  id="siembras">
                                         <div class="table-responsive">
                                             <table  class="table table-striped table-advance table-hover table_sort"  >
                                                 <thead >
@@ -288,7 +290,7 @@ MAIN SIDEBAR MENU
                                     @endif
 
                                     @if($filtros['fertilizaciones'])
-                                    <div role="tabpanel" class="tab-pane" id="fertilizaciones">
+                                    <div role="tabpanel" @if($active)class="tab-pane active" <?php $active=false;?>@else class="tab-pane"@endif  id="fertilizaciones">
                                         <div class="table-responsive">
                                             <table  class="table table-striped table-advance table-hover table_sort"  >
                                                 <thead >
@@ -328,7 +330,7 @@ MAIN SIDEBAR MENU
                                     @endif
 
                                     @if($filtros['riegos'])
-                                    <div role="tabpanel" class="tab-pane" id="riegos">
+                                    <div role="tabpanel" @if($active)class="tab-pane active" <?php $active=false;?>@else class="tab-pane"@endif  id="riegos">
                                         <div class="table-responsive">
                                             <table  class="table table-striped table-advance table-hover table_sort"  >
                                                 <thead >
@@ -368,7 +370,7 @@ MAIN SIDEBAR MENU
                                     @endif
 
                                     @if($filtros['mantenimientos'])
-                                    <div role="tabpanel" class="tab-pane" id="mantenimientos">
+                                    <div role="tabpanel" @if($active)class="tab-pane active" <?php $active=false;?>@else class="tab-pane"@endif  id="mantenimientos">
                                         <div role="tabpanel" class="tab-pane" id="riegos">
                                             <div class="table-responsive">
                                                 <table  class="table table-striped table-advance table-hover table_sort"  >
@@ -413,7 +415,7 @@ MAIN SIDEBAR MENU
                                     @endif
 
                                     @if($filtros['cosechas'])
-                                    <div role="tabpanel" class="tab-pane" id="cosechas">
+                                    <div role="tabpanel" @if($active)class="tab-pane active" <?php $active=false;?>@else class="tab-pane"@endif  id="cosechas">
                                         <div class="table-responsive">
                                             <table  class="table table-striped table-advance table-hover table_sort"  >
                                                 <thead >
