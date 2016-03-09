@@ -6,13 +6,13 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class laboresCulturalesInvernaderoTest extends TestCase
 {
+    ///////////////CREAR
+    /*Unidad*/
     /**
-     * A basic test example.
-     *
-     * @return void
+     * @group laboresCulturalesCrear
      */
-    public function testExample()
-    {
-        $this->assertTrue(true);
+    public function testRutaConsultar(){
+        $response = $this->call('GET', 'invernadero/laboresCulturales/crear');
+        $this->assertEquals(200, $response->status());
     }
 }

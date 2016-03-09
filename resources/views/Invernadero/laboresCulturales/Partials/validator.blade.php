@@ -2,7 +2,7 @@
 
     $(document).ready(function() {
 
-        $('#formulario').bootstrapValidator({
+        $('#formulario0').bootstrapValidator({
             message: 'Los valores no son válidos',
             feedbackIcons: {
                 invalid: 'glyphicon glyphicon-remove',
@@ -18,7 +18,7 @@
                 },
 
 
-                siembra:{
+                siembraT:{
                     validators: {
                         notEmpty: {
                             message: 'Seleccione una opción'
