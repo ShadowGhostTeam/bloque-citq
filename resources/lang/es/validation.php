@@ -106,7 +106,8 @@ return [
     */
 
     'attributes' => [
-        'numPasadas'=>'número de pasadas'
+        'numPasadas'=>'número de pasadas',
+        'siembraT' => 'siembra-transplante'
     ],
 
 ];

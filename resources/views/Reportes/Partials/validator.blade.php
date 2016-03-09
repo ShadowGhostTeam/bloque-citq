@@ -9,7 +9,7 @@
                 validating: 'glyphicon glyphicon-refresh'
             },
             fields: {
-                invernadero:{
+                sector:{
                     validators: {
                         notEmpty: {
                             message: 'Seleccione una opción'
@@ -18,7 +18,7 @@
                 },
 
 
-                siembraT:{
+                maquinaria:{
                     validators: {
                         notEmpty: {
                             message: 'Seleccione una opción'
@@ -26,20 +26,31 @@
                     }
                 },
 
-                actividad:{
+
+
+                numPasadas:{
                     validators: {
                         notEmpty: {
-                            message: 'Seleccione una opción'
+                            message: 'Ingrese un número'
+                        },
+                        greaterThan:{
+                            value: -1,
+                            message: 'Ingrese número mayor o igual a 0'
+                        },
+                        stringLength: {
+                            max: 3,
+                            message: 'Ingrese número entre 0-999'
+                        },
+                        integer:{
+                            message: 'Ingrese número válido'
                         }
                     }
                 },
-
                 fecha:{
                     validators: {
                         notEmpty: {
-                            message: 'Seleccione una opción'
+                            message: 'Ingrese fecha'
                         },
-
                         date: {
                             format: 'DD/MM/YYYY',
                             message: 'Ingrese fecha en formato dd/mm/aaaa'
@@ -53,10 +64,6 @@
                 .on('dp.change dp.show', function(e) {
                     $('#formulario').data('bootstrapValidator').revalidateField('fecha');
                 });
-
-
-
-
     });
 </script>
 

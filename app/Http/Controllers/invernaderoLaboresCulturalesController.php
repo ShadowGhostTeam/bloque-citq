@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\laboresCulturalesInvernaderoRequest;
 use App\invernadero;
 use App\laboresCulturales;
-use Illuminate\Http\Request;
-
+use Carbon\Carbon;
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class invernaderoLaboresCulturalesController extends Controller
 {
     /**
-     * Metodo para ver la pagina inicial de fertilizacion sector
+     * Metodo para ver la pagina inicial de laboresCulturales sector
      *
      *
      */
@@ -46,15 +46,29 @@ class invernaderoLaboresCulturalesController extends Controller
         ]);
     }
 
-
     /*Recibe la informacion del formulario de crear y la almacena en la base de datos*/
-    public function crear(fertilizacionSectorRequest $request){
+    public function crear(laboresCulturalesInvernaderoRequest $request){
 
-        $fertilizacion=$this->adaptarRequest($request);
-        $fertilizacion->save();
+        $laboresCulturales=$this->adaptarRequest($request);
+        $laboresCulturales->save();
 
-        Session::flash('message', 'La fertilizacion ha sido agregada');
-        return redirect('sector/fertilizacion/crear');
+        Session::flash('message', 'La labor cultural ha sido agregada');
+        return redirect('invernadero/laboresCulturales/crear');
+    }
+
+    /*Recibe la informacion del formulario de crear y la adapta a los campos del modelo*/
+    public function adaptarRequest($request){
+        $laboresCulturales = new laboresCulturales();
+        if(isset($request->id)) {
+            $laboresCulturales = laboresCulturales::findOrFail($request->id);
+        }
+
+        $laboresCulturales->actividad= $request->actividad;
+        $laboresCulturales->id_stInvernadero= $request->siembraT;
+        $laboresCulturales->id_invernadero= $request->invernadero;
+        $laboresCulturales->fecha = Carbon::createFromFormat('d/m/Y', $request->fecha)->toDateTimeString();
+
+        return $laboresCulturales;
     }
 
 
