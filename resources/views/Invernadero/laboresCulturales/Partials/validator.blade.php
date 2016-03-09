@@ -2,7 +2,7 @@
 
     $(document).ready(function() {
 
-        $('#formulario0').bootstrapValidator({
+        $('#formulario').bootstrapValidator({
             message: 'Los valores no son válidos',
             feedbackIcons: {
                 invalid: 'glyphicon glyphicon-remove',
