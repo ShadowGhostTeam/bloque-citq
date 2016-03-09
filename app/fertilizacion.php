@@ -20,7 +20,7 @@ class fertilizacion extends Model
      *
      * @var array
      */
-    protected $fillable = ['fecha','programaNPK','cantidad','tipo','id_fuente','id_siembra','id_sector'];
+    protected $fillable = ['fecha','programaNPK','cantidad','tipo','fuente','id_siembra','id_sector'];
 
 
     /**
