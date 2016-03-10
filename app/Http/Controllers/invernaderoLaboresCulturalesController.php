@@ -2,22 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\fertilizacion;
-use App\Http\Requests\fertilizacionSectorRequest;
+use App\laboresCulturales;
 use App\Http\Requests\laboresCulturalesInvernaderoRequest;
 use App\invernadero;
-use App\laboresCulturales;
-use App\sector;
 use App\siembraTransplanteInvernadero;
 use Carbon\Carbon;
 use App\Http\Requests;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\SiembraSector;
+use Illuminate\Support\Facades\Validator;
 
 class invernaderoLaboresCulturalesController extends Controller
 {
     /**
-     * Metodo para ver la pagina inicial de laboresCulturales sector
+     * Metodo para ver la pagina inicial de laboresCulturales invernadero
      *
      *
      */
@@ -25,16 +24,15 @@ class invernaderoLaboresCulturalesController extends Controller
         //
         $now= Carbon::now()->format('Y/m/d');
         $now2 =Carbon::now()->subMonth(6)->format('Y/m/d');
-        $laboresInvernadero = laboresCulturales::whereBetween('fecha', array($now2,$now))->orderBy('fecha', 'desc')->paginate(15);
-        $this->adaptaFechas($laboresInvernadero);
-
-
-
+        $laboresCulturales = laboresCulturales::whereBetween('fecha', array($now2,$now))->orderBy('fecha', 'desc')->paginate(15);
+        $this->adaptaFechas($laboresCulturales);
+        $actividades = ['Deshojes','Despuntes','Brotes','Podas'];
         $invernaderos= invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
         return view('Invernadero/LaboresCulturales/buscar')->with([
             'invernaderos' => $invernaderos,
-            'laboresInvernadero'=>$laboresInvernadero
+            'laboresCulturales'=>$laboresCulturales,
+            'actividades' => $actividades,
 
         ]);
     }
@@ -154,11 +152,11 @@ class invernaderoLaboresCulturalesController extends Controller
 
     /*Eliminar registro*/
     public function eliminar(Request $request){
-        $fertilizacion= fertilizacion::findOrFail($request->id);
-        $fertilizacion->delete();
+        $laboresCulturales= laboresCulturales::findOrFail($request->id);
+        $laboresCulturales->delete();
 
-        Session::flash('message','La fertilizacion ha sido eliminada');
-        return redirect('sector/fertilizacion');
+        Session::flash('message','La labor cultural ha sido eliminada');
+        return redirect('invernadero/laboresCulturales');
     }
 
 
@@ -170,6 +168,103 @@ class invernaderoLaboresCulturalesController extends Controller
             $resultado->fecha=$fecha->format('d/m/Y');
         }
 
+    }
+
+    /*Metodo de Busqueda
+    *
+    * */
+    public function buscar(Request $request){
+        $invernaderos= invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
+
+        /*Ahi se guardaran los resultados de la busqueda*/
+        $laboresCulturales =null;
+
+        $validator = Validator::make($request->all(), [
+            'fechaInicio' => 'date_format:d/m/Y',
+            'fechaFin' => 'date_format:d/m/Y',
+            'invernadero' => 'exists:invernadero,id',
+            'actividad' => 'in:Deshojes,Despuntes,Brotes,Podas'
+        ]);
+
+        /*Si validador no falla se pueden realizar busquedas*/
+        if ($validator->fails()) {
+        }
+        else {
+
+            /*Busqueda sin parametros*/
+            if ($request->fechaFin == "" && $request->fechaInicio == "" && $request->invernadero == "" && $request->actividad == "") {
+                $laboresCulturales  = laboresCulturales::orderBy('fecha', 'desc')->paginate(15);;
+
+            }
+
+            /*Busqueda solo con invernadero*/
+            if ($request->fechaFin == "" && $request->fechaInicio == "" && $request->invernadero != "" && $request->actividad == "") {
+                $laboresCulturales  = laboresCulturales::where('id_invernadero', $request->invernadero)->orderBy('fecha', 'desc')->paginate(15);;
+
+            }
+
+            /*Busqueda solo con actividad*/
+            if ($request->fechaFin == "" && $request->fechaInicio == "" && $request->invernadero == "" && $request->actividad != "") {
+                $laboresCulturales  = laboresCulturales::where('actividad', $request->actividad)->orderBy('fecha', 'desc')->paginate(15);;
+            }
+
+            /*Busqueda solo con actividad y invernadero*/
+            if ($request->fechaFin == "" && $request->fechaInicio == "" && $request->invernadero != "" && $request->actividad != "") {
+                $laboresCulturales  = laboresCulturales::where('id_invernadero', $request->invernadero)->where('actividad', $request->actividad )->orderBy('fecha', 'desc')->paginate(15);
+            }
+
+
+            /*Pregunta si se mandaron fechas, en caso contrario manda error 404*/
+            if ($request->fechaFin != "" && $request->fechaInicio != "") {
+
+                /*Transforma fechas en formato adecuado*/
+                $fecha = $request->fechaInicio . " 00:00:00";
+                $fechaInf = Carbon::createFromFormat("d/m/Y H:i:s", $fecha);
+                $fecha = $request->fechaFin . " 23:59:59";
+                $fechaSup = Carbon::createFromFormat("d/m/Y H:i:s", $fecha);
+
+                /*Hay cuatro posibles casos de busqueda, cada if se basa en un caso */
+                if ($request->invernadero == "" && $request->actividad == "") {
+                    $laboresCulturales = laboresCulturales::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                }
+                if ($request->invernadero != "" && $request->actividad == "") {
+                    $laboresCulturales = laboresCulturales::where('id_invernadero', $request->invernadero)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                }
+                if ($request->invernadero == "" && $request->actividad !== "") {
+                    $laboresCulturales = laboresCulturales::where('actividad', $request->actividad)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                }
+                if ($request->invernadero != "" && $request->actividad !== "") {
+                    $laboresCulturales = laboresCulturales::where('id_invernadero', $request->invernadero)->where('actividad', $request->actividad)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                }
+            }
+        }
+
+        if($laboresCulturales!=null){
+            /*Adapta el formato de fecha para poder imprimirlo en la vista adecuadamente*/
+            $this->adaptaFechas($laboresCulturales);
+
+            /*Si no es nulo puede contar los resultados*/
+            $num = $laboresCulturales->total();
+        }
+        else{
+            $num=0;
+        }
+
+        if ($num <= 0) {
+            Session::flash('error', 'No se encontraron resultados');
+
+        } else {
+            Session::flash('message', 'Se encontraron ' . $num . ' resultados');
+        }
+        $actividades = ['Deshojes','Despuntes','Brotes','Podas'];
+        /*Regresa la vista*/
+
+        return view('Invernadero/LaboresCulturales/buscar')->with([
+            'laboresCulturales' => $laboresCulturales,
+            'invernaderos' => $invernaderos,
+            'actividades' => $actividades,
+
+        ]);
     }
 
 }
