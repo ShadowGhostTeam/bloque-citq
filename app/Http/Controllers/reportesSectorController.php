@@ -66,7 +66,7 @@ class reportesSectorController extends Controller
 
        }
         if($request->cultivo!=""){
-            $string=$this->reporteSoloCultivo($request,$filtros);
+            $string=$this->reporteCultivo($request,$filtros);
         }
 
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
@@ -474,7 +474,7 @@ class reportesSectorController extends Controller
        // $this->exportarExcel($request->fechaInicio,$request->fechaFin,$arrays);
     }
 
-    public function reporteSoloCultivo($request,$filtros){
+    public function reporteCultivo($request,$filtros){
         //Castear fechas
         $fecha = $request->fechaInicio . " 00:00:00";
         $fechaInf = Carbon::createFromFormat("d/m/Y H:i:s", $fecha);
@@ -482,17 +482,34 @@ class reportesSectorController extends Controller
         $fechaSup = Carbon::createFromFormat("d/m/Y H:i:s", $fecha);
 
         $cultivo=cultivo::find($request->cultivo);
-        $siembras = $cultivo->siembras()->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->get();
+        $siembras=null;
         $sectores=null;
-        foreach($siembras as $siembra){
+       if($request->sectores!=""){
+           $sectores= Sector::select('id','nombre')->where('id',$request->sector)->get();
+           $siembras = $cultivo->siembras()->where('id_sector',$request->sector)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->get();
 
+       }
+        else{
+            $siembras = $cultivo->siembras()->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->get();
+            $sectores = DB::table('cultivo')
+                ->where('cultivo.id','=',$request->cultivo)
+                ->join('siembraSector', 'siembraSector.id_cultivo', '=', 'cultivo.id')
+                ->where('siembraSector.fecha', '>=', $fechaInf)
+                ->where('siembraSector.fecha', '<=', $fechaSup)
+                ->join('sector', 'sector.id', '=', 'siembraSector.id_sector')
+                ->select('sector.id','sector.nombre')
+                ->distinct()
+                ->orderby('sector.nombre', 'asc')
+                ->get();
         }
-     
+
+
+
        // $sectores=array_unique($sectores);
        // if(empty($sectores)){
          //   dd("vacio");
         //}
-        dd($sectores);
+
         /*Un arreglo para almacenar resultado de busqueda de cada filtro*/
         $arrayPreparaciones = null;
         $arraySiembras = null;
@@ -504,7 +521,7 @@ class reportesSectorController extends Controller
 
         ///////////////////////////////Preparaciones////////////////////////////////////////////////////
 
-        if($filtros['preparaciones']&&!empty($sectores)) {
+        if($filtros['preparaciones']) {
             $arrayPreparaciones[0]['Sector'] = "";
             $arrayPreparaciones[0]['Maquinaria'] = "";
             $arrayPreparaciones[0]['Número de pasadas'] = 0;
