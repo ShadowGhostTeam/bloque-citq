@@ -181,7 +181,12 @@ MAIN SIDEBAR MENU
                     @if (isset($arrays))
 
                             <div>
+                                <div class="col-xs-12" align="right">
+                                    <a href="{{route('reportes/sector/excel',$string,$filtros)}}">
 
+                                        <button class="btn btn-success"> <i class="fa fa-download"></i>&nbsp;Exportar a excel</button>
+                                    </a>
+                                </div>
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs" role="tablist">
                                     <?php $active=true;?>
@@ -204,6 +209,8 @@ MAIN SIDEBAR MENU
                                     @if($filtros['cosechas'])
                                     <li role="presentation"@if($active)class="active" <?php $active=false;?>@endif><a href="#cosechas" aria-controls="cosechas" role="tab" data-toggle="tab">Cosechas</a></li>
                                      @endif
+
+
                                 </ul>
 
                                 <!-- Tab panes -->
@@ -451,11 +458,7 @@ MAIN SIDEBAR MENU
 
                             </div>
 
-                                <div class="col-xs-12" align="center">
-                                    <a href="{{route('reportes/sector/excel',$string,$filtros)}}">
-                                        <button class="btn btn-success">Exportar a excel</button>
-                                    </a>
-                                </div>
+
 
                 @endif
                     <!-- FIN CONTENIDO -->
