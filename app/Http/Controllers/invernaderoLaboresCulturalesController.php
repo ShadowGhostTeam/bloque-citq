@@ -135,18 +135,18 @@ class invernaderoLaboresCulturalesController extends Controller
     *
     * */
     public function pagConsultar($id){
-        $fertilizacion= fertilizacion::findOrFail($id);
-        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $fertilizacion->fecha);
-        $fertilizacion->fecha=$fecha->format('d/m/Y');
+        $laboresCulturales= laboresCulturales::findOrFail($id);
+        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $laboresCulturales->fecha);
+        $laboresCulturales->fecha=$fecha->format('d/m/Y');
 
         $siembras = array(
-            'id_siembra'=>$fertilizacion->id_siembra,
-            'variedad'=>$fertilizacion->siembra->variedad,
-            'nombre'=>$fertilizacion->siembra->cultivo->nombre);
+            'id_siembra'=>$laboresCulturales->id_siembra,
+            'variedad'=>$laboresCulturales->siembraTransplante->variedad,
+            'nombre'=>$laboresCulturales->siembraTransplante->cultivo->nombre);
 
 
-        return view('Sector/Fertilizacion/consultar')->with([
-            'fertilizacion'=>$fertilizacion,
+        return view('Invernadero/LaboresCulturales/consultar')->with([
+            'laboresCulturales'=>$laboresCulturales,
             'siembras' => $siembras
         ]);
     }

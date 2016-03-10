@@ -12,7 +12,7 @@ class laboresCulturalesInvernaderoTest extends TestCase
     /**
      * @group laboresCulturalesCrear
      */
-    public function testRutaConsultar(){
+    public function testRutaCrear(){
         $response = $this->call('GET', 'invernadero/laboresCulturales/crear');
         $this->assertEquals(200, $response->status());
     }
@@ -33,4 +33,23 @@ class laboresCulturalesInvernaderoTest extends TestCase
         $response = $this->call('GET', 'invernadero/laboresCulturales/modificar/120');
         $this->assertEquals(404, $response->status());
     }
+    //////////////Consultar
+    /*Unidad*/
+    /**
+     * @group laboresCulturalesConsultar
+     */
+    public function testRutaConsultar(){
+        $response = $this->call('GET', 'invernadero/laboresCulturales/consultar/1');
+        $this->assertEquals(200, $response->status());
+    }
+
+    /*Unidad*/
+    /**
+     * @group laboresCulturalesConsultar
+     */
+    public function testRutaConsultarIdIncorrecto(){
+        $response = $this->call('GET', 'invernadero/laboresCulturales/consultar/120');
+        $this->assertEquals(404, $response->status());
+    }
+
 }
