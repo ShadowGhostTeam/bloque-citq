@@ -14,15 +14,14 @@ use App\siembraSector;
 
 $factory->define(App\salidaPlanta::class, function (Faker\Generator $faker) {
 
-    $siembras=  DB::table('siembraPlantula')->lists('id');
-    $siembra=$faker->randomElement($siembras);
-    $id_invernaderoPlantula=DB::table('siembraPlantula')->where('id', $siembra)->value('id_invernaderoPlantula');
-
+    $siembraPlantula=  DB::table('siembraPlantula')->lists('id');
+    $siembra=$faker->randomElement($siembraPlantula);
+    $id_invernadero=DB::table('siembraPlantula')->where('id', $siembra)->value('id_invernaderoPlantula');
     return [
         'fecha'=>$faker->dateTimeBetween($startDate = '-6 months', $endDate = 'now'),
-        'descripcion' => $faker->address,
+        'comentario' => $faker->address,
 
-        'id_invernaderoPlantula' => $id_invernaderoPlantula,
+        'id_invernaderoPlantula' => $id_invernadero,
         'id_siembraPlantula'=>$siembra
     ];
 });

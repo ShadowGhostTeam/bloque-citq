@@ -68,30 +68,18 @@
             </div>
         </div>
 
+
         <div class="form-group">
-            <label for="Fuente" class="col-lg-2 control-label"><strong>*</strong>Fuente</label>
+            <label for="fuente" class="col-lg-2 control-label">Fuente</label>
             <div class="col-lg-10">
-
-                <select  class="form-control" id="fuente" name="fuente">
-                    <option value="">Selecciona</option>
-
-                    @if( isset($fertilizacionSector))
-
-                        @foreach($fuentes as $fuente)
-                            @if($fertilizacionSector->id_fuente == $fuente->id)
-                                <option value="{{  $fuente->id  }}" selected > {{ $fuente->nombre }}  </option>
-                            @else
-                                <option value="{{  $fuente->id  }}"  > {{ $fuente->nombre }}</option>
-                            @endif
-                        @endforeach
-                    @else
-                        @foreach($fuentes as $fuente)
-                            <option value="{{  $fuente->id  }}"  > {{ $fuente->nombre }}</option>
-                        @endforeach
-                    @endif
-                </select>
+                @if( isset($fertilizacionSector))
+                    {!!Form::text('fuente' ,$fertilizacionSector->fuente,['class'=>'form-control','id'=>'fuente','placeholder'=>'Fuente'])!!}
+                @else
+                    {!!Form::text('fuente' ,null,['class'=>'form-control','id'=>'fuente','placeholder'=>'Fuente'])!!}
+                @endif
             </div>
         </div>
+
 
 
         <div class="form-group">

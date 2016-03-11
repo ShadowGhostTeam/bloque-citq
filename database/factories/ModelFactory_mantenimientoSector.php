@@ -20,7 +20,7 @@ $factory->define(App\mantenimientoSector::class, function (Faker\Generator $fake
     return [
         'fecha'=>$faker->dateTimeBetween($startDate = '-6 months', $endDate = 'now'),
         'actividad'=> $faker->randomElement(['Deshierbe manual', 'Deshierbe máquina','Fungicida','Herbicida','Insecticida']),
-        'tipoAplicacion'=> $faker->randomElement(['Sistema','Al suelo', 'Al follaje']),
+        'tipoAplicacion'=> $faker->randomElement(['Sistema de riego','Al suelo', 'Al follaje']),
         'cantidad' => $faker->randomDigit,
         'producto' => $faker->name,
 

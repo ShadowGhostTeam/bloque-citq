@@ -10,11 +10,12 @@
 | database. Just tell the factory how a default model should look.
 |
 */
-use App\siembraSector;
+use App\siembraTransplanteInvernadero;
 
 $factory->define(App\fertilizacionRiego::class, function (Faker\Generator $faker) {
-
     $siembraTransplanteInvernadero =  DB::table('siembraTransplanteInvernadero')->lists('id');
+    $siembra=$faker->randomElement($siembraTransplanteInvernadero);
+    $id_invernadero=DB::table('siembraTransplanteInvernadero')->where('id', $siembra)->value('id_invernadero');
 
     return [
         'fecha'=>$faker->dateTimeBetween($startDate = '-6 months', $endDate = 'now'),
@@ -23,6 +24,7 @@ $factory->define(App\fertilizacionRiego::class, function (Faker\Generator $faker
         'frecuencia' => $faker->randomDigit,
         'formulacion' => $faker->address,
 
-        'id_stInvernadero' => $faker->randomElement($siembraTransplanteInvernadero)
+        'id_stInvernadero' => $siembra,
+        'id_invernadero'=>$id_invernadero
     ];
 });

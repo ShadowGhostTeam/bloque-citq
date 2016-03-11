@@ -20,7 +20,7 @@ class riego extends Model
      *
      * @var array
      */
-    protected $fillable = ['fecha','tiempo','id_siembra','id_sector'];
+    protected $fillable = ['fecha','tiempo','distanciaLineas','litrosHectarea','lamina','id_siembra','id_sector'];
 
 
     /**

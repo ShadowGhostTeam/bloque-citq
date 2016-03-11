@@ -28,8 +28,9 @@
 
                 fuente:{
                     validators: {
-                        notEmpty: {
-                            message: 'Seleccione una opción'
+                        stringLength: {
+                            max: 200,
+                            message: 'Debe ser menor de 200 carácteres'
                         }
                     }
                 },
@@ -42,8 +43,14 @@
                         numeric: {
                             message: 'No es un número válido',
                             // The default separators
-                            thousandsSeparator: ',',
+
                             decimalSeparator: '.'
+
+
+                        },
+                        greaterThan: {
+                            value: 0,
+                            message: 'El número tiene que ser positivo'
                         }
 
                     }

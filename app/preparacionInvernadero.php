@@ -20,7 +20,7 @@ class preparacionInvernadero extends Model
      *
      * @var array
      */
-    protected $fillable = ['fecha','charolas','bolisNuevos','bolisReciclados','macetas','id_stInvernadero'];
+    protected $fillable = ['fecha','tipoSiembra','id_stInvernadero'];
 
 
     /**

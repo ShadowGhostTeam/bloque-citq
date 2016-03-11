@@ -20,7 +20,7 @@ class cosechaInvernadero extends Model
      *
      * @var array
      */
-    protected $fillable = ['nombre','descripcion','id_invernadero','id_stInvernadero'];
+    protected $fillable = ['nombre','comentario','id_invernadero','id_stInvernadero'];
 
 
     /**

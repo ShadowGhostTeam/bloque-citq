@@ -16,7 +16,7 @@ class MantenimientoSector extends Migration
             $table->increments('id');
             $table->dateTime('fecha');
             $table->enum('actividad',['Deshierbe manual', 'Deshierbe máquina','Fungicida','Herbicida','Insecticida']);
-            $table->enum('tipoAplicacion',['Sistema','Al suelo', 'Al follaje']);
+            $table->enum('tipoAplicacion',['Sistema de riego','Al suelo', 'Al follaje']);
             $table->string('producto');
             $table->double('cantidad')->unsigned();
             $table->text('comentario');

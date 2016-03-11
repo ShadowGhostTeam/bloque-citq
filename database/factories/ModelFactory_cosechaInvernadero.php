@@ -13,16 +13,17 @@
 
 $factory->define(App\cosechaInvernadero::class, function (Faker\Generator $faker) {
 
-    $siembraTransplanteInvernadero=  DB::table('siembraTransplanteInvernadero')->lists('id');
-
-
+    $siembraTransplanteInvernadero =  DB::table('siembraTransplanteInvernadero')->lists('id');
+    $siembra=$faker->randomElement($siembraTransplanteInvernadero);
+    $id_invernadero=DB::table('siembraTransplanteInvernadero')->where('id', $siembra)->value('id_invernadero');
 
 
     return [
         'fecha'=>$faker->dateTimeBetween($startDate = '-6 months', $endDate = 'now'),
-        'descripcion' => $faker->address,
+        'comentario' => $faker->address,
         //Se abrevio siembraTransplante a st porque el nombre era muy largo y sql no lo aceptaba
-        'id_stInvernadero' =>$faker->randomElement($siembraTransplanteInvernadero),
+        'id_stInvernadero' => $siembra,
+        'id_invernadero'=>$id_invernadero
 
 
     ];

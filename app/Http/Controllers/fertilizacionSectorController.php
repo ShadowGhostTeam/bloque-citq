@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\cultivo;
 use App\fertilizacion;
-use App\fuente;
+
 use App\Http\Requests\fertilizacionSectorRequest;
 use App\sector;
 use App\siembraSector;
@@ -16,6 +16,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class fertilizacionSectorController extends Controller
 {
@@ -34,10 +35,10 @@ class fertilizacionSectorController extends Controller
 
 
         $sectores= sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $fuentes= fuente::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $tipos = ['Riego','Aplicacion dirigida'];
         return view('Sector/Fertilizacion/buscar')->with([
             'sectores' => $sectores,
-            'fuentes' => $fuentes,
+               'tipos' => $tipos,
             'fertilizaciones'=>$fertilizaciones
 
         ]);
@@ -47,52 +48,106 @@ class fertilizacionSectorController extends Controller
      * */
     public function buscar(Request $request){
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $fuentes= fuente::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
-        /*Pregunta si se mandaron fechas, en caso contrario manda error 404*/
-        if ( $request->fechaFin != "" && $request->fechaInicio !="") {
 
-            /*Transforma fechas en formato adecuado*/
-            $fecha = $request->fechaInicio . " 00:00:00";
-            $fechaInf = Carbon::createFromFormat("d/m/Y H:i:s", $fecha);
-            $fecha = $request->fechaFin . " 23:59:59";
-            $fechaSup = Carbon::createFromFormat("d/m/Y H:i:s", $fecha);
+        /*Ahi se guardaran los resultados de la busqueda*/
+        $fertilizaciones =null;
 
-            /*Hay cuatro posibles casos de busqueda, cada if se basa en un caso */
-            if($request->sector==""&&$request->fuente=="") {
-                $fertilizaciones= fertilizacion::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
-            }
-            if($request->sector!=""&&$request->fuente=="") {
-                $fertilizaciones= fertilizacion::where('id_sector',$request->sector)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
-            }
-            if($request->sector==""&&$request->fuente!=="") {
-                $fertilizaciones= fertilizacion::where('id_fuente',$request->fuente)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
-            }
-            if($request->sector!=""&&$request->fuente!=="") {
-                $fertilizaciones= fertilizacion::where('id_sector',$request->sector)->where('id_fuente',$request->fuente)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
-            }
 
-            /*Adapta el formato de fecha para poder imprimirlo en la vista adecuadamente*/
-            $this->adaptaFechas($fertilizaciones);
-            $num = $fertilizaciones->total();
 
-            if($num<=0){
-                Session::flash('error', 'No se encontraron resultados');
+        $validator = Validator::make($request->all(), [
+            'fechaInicio' => 'date_format:d/m/Y',
+            'fechaFin' => 'date_format:d/m/Y',
+            'sector' => 'exists:sector,id',
+            'tipo' => 'in:Riego,Aplicacion dirigida'
 
-            }
-            else{
-                Session::flash('message', 'Se encontraron '.$num.' resultados');
-            }
+        ]);
 
-            return view('Sector/Fertilizacion/buscar')->with([
-                'fertilizaciones'=>$fertilizaciones,
-                'sectores' => $sectores,
-                'fuentes' => $fuentes
-            ]);
+
+        /*Si validador no falla se pueden realizar busquedas*/
+        if ($validator->fails()) {
         }
         else {
-            return redirect('errors/404');
+
+            /*Busqueda sin parametros*/
+            if ($request->fechaFin == "" && $request->fechaInicio == "" && $request->sector == "" && $request->tipoFertilizacion == "") {
+                $fertilizaciones  = fertilizacion::orderBy('fecha', 'desc')->paginate(15);;
+
+            }
+
+            /*Busqueda solo con sector*/
+            if ($request->fechaFin == "" && $request->fechaInicio == "" && $request->sector != "" && $request->tipoFertilizacion == "") {
+                $fertilizaciones  = fertilizacion::where('id_sector', $request->sector)->orderBy('fecha', 'desc')->paginate(15);;
+
+            }
+
+            /*Busqueda solo con tipo*/
+            if ($request->fechaFin == "" && $request->fechaInicio == "" && $request->sector == "" && $request->tipoFertilizacion != "") {
+                $fertilizaciones  = fertilizacion::where('tipo', $request->tipoFertilizacion)->orderBy('fecha', 'desc')->paginate(15);;
+            }
+
+            /*Busqueda solo con tipo y sector*/
+            if ($request->fechaFin == "" && $request->fechaInicio == "" && $request->sector != "" && $request->tipoFertilizacion != "") {
+                $fertilizaciones  = fertilizacion::where('id_sector', $request->sector)->where('tipo', $request->tipoFertilizacion )->orderBy('fecha', 'desc')->paginate(15);
+            }
+
+
+            /*Pregunta si se mandaron fechas, en caso contrario manda error 404*/
+            if ($request->fechaFin != "" && $request->fechaInicio != "") {
+
+                /*Transforma fechas en formato adecuado*/
+                $fecha = $request->fechaInicio . " 00:00:00";
+                $fechaInf = Carbon::createFromFormat("d/m/Y H:i:s", $fecha);
+                $fecha = $request->fechaFin . " 23:59:59";
+                $fechaSup = Carbon::createFromFormat("d/m/Y H:i:s", $fecha);
+
+                /*Hay cuatro posibles casos de busqueda, cada if se basa en un caso */
+                if ($request->sector == "" && $request->tipoFertilizacion == "") {
+                    $fertilizaciones = fertilizacion::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                }
+                if ($request->sector != "" && $request->tipoFertilizacion == "") {
+                    $fertilizaciones = fertilizacion::where('id_sector', $request->sector)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                }
+                if ($request->sector == "" && $request->tipoFertilizacion !== "") {
+                    $fertilizaciones = fertilizacion::where('tipo', $request->tipoFertilizacion)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                }
+                if ($request->sector != "" && $request->tipoFertilizacion !== "") {
+                    $fertilizaciones = fertilizacion::where('id_sector', $request->sector)->where('tipo', $request->tipoFertilizacion)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                }
+            }
         }
+
+
+        if($fertilizaciones!=null){
+            /*Adapta el formato de fecha para poder imprimirlo en la vista adecuadamente*/
+            $this->adaptaFechas($fertilizaciones);
+
+            /*Si no es nulo puede contar los resultados*/
+            $num = $fertilizaciones->total();
+        }
+        else{
+            $num=0;
+        }
+
+        if ($num <= 0) {
+            Session::flash('error', 'No se encontraron resultados');
+
+        } else {
+            Session::flash('message', 'Se encontraron ' . $num . ' resultados');
+        }
+
+
+
+        $tipos = ['Riego','Aplicacion dirigida'];
+        /*Regresa la vista*/
+        return view('Sector/Fertilizacion/buscar')->with([
+            'fertilizaciones' => $fertilizaciones,
+            'sectores' => $sectores,
+            'tipos' => $tipos,
+
+        ]);
+
+
 
 
     }
@@ -101,7 +156,7 @@ class fertilizacionSectorController extends Controller
     public function pagCrear(){
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
-        $fuentes = fuente::select('id','nombre')->orderBy('nombre', 'asc')->get();
+
 
         $tipoFertilizaciones = ['Riego','Aplicacion dirigida'];
 
@@ -109,7 +164,7 @@ class fertilizacionSectorController extends Controller
         return view('Sector/Fertilizacion/crear')->with([
             'sectores' => $sectores,
             'tipoFertilizaciones'=>$tipoFertilizaciones,
-            'fuentes' => $fuentes
+
 
         ]);
     }
@@ -123,10 +178,7 @@ class fertilizacionSectorController extends Controller
 
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
-
         $fechaSiembraSeleccionada=Carbon::createFromFormat('Y-m-d H:i:s', $fertilizacionSector->siembra->fecha);
-
-
 
         $siembraSeleccionada = array(
             'id_siembra'=>$fertilizacionSector->id_siembra,
@@ -152,7 +204,7 @@ class fertilizacionSectorController extends Controller
             );
         }
 
-        $fuentes = fuente::select('id','nombre')->orderBy('nombre', 'asc')->get();
+
         $tipoFertilizaciones = ['Riego','Aplicacion dirigida'];
 
         $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $fertilizacionSector->fecha);
@@ -164,7 +216,7 @@ class fertilizacionSectorController extends Controller
             'sectores' => $sectores,
             'siembras' => $siembrasTodas,
             'tipoFertilizaciones'=>$tipoFertilizaciones,
-            'fuentes' => $fuentes,
+
             'fertilizacionSector' => $fertilizacionSector,
             'siembraSeleccionada' => $siembraSeleccionada
         ]);
@@ -207,7 +259,7 @@ class fertilizacionSectorController extends Controller
         $fertilizacion->tipo= $request->tipoFertilizacion;
 
         $fertilizacion->id_siembra = $request->siembra;
-        $fertilizacion->id_fuente= $request->fuente;
+        $fertilizacion->fuente= $request->fuente;
         $fertilizacion->id_sector= $request->sector;
         $fertilizacion->fecha = Carbon::createFromFormat('d/m/Y', $request->fecha)->toDateTimeString();
 

@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
 use App\siembraSector;
+use App\siembraTransplanteInvernadero;
 
 Route::filter('force.ssl', function() {
     if( ! Request::secure()) {
@@ -25,7 +26,7 @@ Route::filter('force.ssl', function() {
 /*'before' => 'force.ssl'  */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('login');;
 });
 
 
@@ -358,3 +359,97 @@ Route::get('sector/cosecha/consultar/{id}',[
     'as' =>'sector/cosecha/consultar/item'
 
 ]);
+
+
+/*
+ *
+ * Rutas de inicio de sesion
+ *
+ *
+ * */
+// Authentication routes...
+Route::get('login',[
+    'uses' => 'Auth\AuthController@getLogin',
+    'as' => 'login'
+]);
+Route::post('login','Auth\AuthController@postLogin',array('before' => 'csrf', function()
+{
+}));
+Route::get('logout', [
+    'uses'=>'Auth\AuthController@getLogout',
+    'as'=>'logout'
+]);
+// Registration routes...
+Route::get('register',[
+    'uses'=>'Auth\AuthController@getRegister',
+    'as' => 'register'
+]);
+Route::post('register', 'Auth\AuthController@postRegister');
+// Password reset link request routes...
+Route::get('password/email',[
+    'uses' => 'Auth\PasswordController@getEmail',
+    'as' => 'password/email'
+]);
+Route::post('password/email', 'Auth\PasswordController@postEmail');
+// Password reset routes...
+Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
+Route::post('password/reset', 'Auth\PasswordController@postReset');
+
+
+/*
+ * Ajax siembra
+ * utilizando invernadero
+ * */
+
+
+Route::get('invernadero/ajaxSiembraInvernadero/carga',function() {
+
+    $id = Input::get('id');
+    $siembras = siembraTransplanteInvernadero::where('id_invernadero',$id)->get();
+    $siembrasTodas=array();
+    foreach ($siembras as $siembra) {
+
+        $fechaSiembraToda=Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fecha);
+
+        array_push($siembrasTodas,array(
+                'id_siembra' => $siembra->id,
+                'variedad' => $siembra->variedad,
+                'nombre' => $siembra->cultivo->nombre,
+                'fecha' => $fechaSiembraToda->format('d/m/Y'))
+
+        );
+    }
+
+
+    return Response::json($siembrasTodas);
+});
+
+
+
+/////////////////////INVERNADERO/////////////////////
+require __DIR__ . '/Routes/crudPreparacionInvernadero.php';
+require __DIR__ . '/Routes/crudSiembraInvernadero.php';
+require __DIR__ . '/Routes/crudFertilizacionRiegoInvernadero.php';
+require __DIR__ . '/Routes/crudAplicacionesMantenimientoInvernadero.php';
+require __DIR__ . '/Routes/crudLaboresCulturalesInvernadero.php';
+require __DIR__ . '/Routes/crudCosechaInvernadero.php';
+
+/////////////////////INVERNADERO PLANTULA/////////////////////
+require __DIR__ . '/Routes/crudPreparacionPlantula.php';
+require __DIR__ . '/Routes/crudSiembraPlantula.php';
+require __DIR__ . '/Routes/crudRiegoPlantula.php';
+require __DIR__ . '/Routes/crudAplicacionesPlantula.php';
+require __DIR__ . '/Routes/crudSalidaPlantaPlantula.php';
+
+
+/////////////////////ADMINISTRACION/////////////////////
+
+require __DIR__ . '/Routes/crudMaquinariaAdministracion.php';
+require __DIR__ . '/Routes/crudCultivoAdministracion.php';
+require __DIR__ . '/Routes/crudUsuarios.php';
+
+//////////////////REPORTES///////////////////////////
+require __DIR__ . '/Routes/reportes.php';
+
+//////////////////CONFIGURACION///////////////////////////
+require __DIR__ . '/Routes/configuracion.php';

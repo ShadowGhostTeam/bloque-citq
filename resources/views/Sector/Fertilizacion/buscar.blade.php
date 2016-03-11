@@ -70,7 +70,7 @@ MAIN SIDEBAR MENU
 
 
 
-                                    {!! Form::open(['route' => 'sector/fertilizacion/lista','method'=>'GET' ,'id'=>'formulario']) !!}
+                                    {!! Form::open(['route' => 'sector/fertilizacion/lista','method'=>'GET']) !!}
 
                                         <div class="form-group">
 
@@ -89,19 +89,19 @@ MAIN SIDEBAR MENU
                                         <div class="form-group">
 
                                             <div class="col-lg-3">
-                                                <select  class="form-control" id="fuente" name="fuente">
-                                                    <option value="">Todas las fuentes</option>
+                                                <select  class="form-control" id="tipoFertilizacion" name="tipoFertilizacion">
+                                                    <option value="">Todas los tipos</option>
 
-                                                    @if( isset($fuentes))
-                                                        @foreach($fuentes as $fuente)
-                                                            <option value="{{  $fuente->id  }}" > {{ $fuente->nombre}}  </option>
+                                                    @if( isset($tipos))
+                                                        @foreach($tipos as $tipo)
+                                                            <option value="{{  $tipo  }}" > {{ $tipo}}  </option>
                                                         @endforeach
                                                     @endif
                                                 </select>
                                             </div>
                                         </div>
 
-
+                                    <div id="formulario">
                                         <div class="form-group">
                                             <div class="col-lg-2">
                                                 <div class="input-group date" id="fechaDP">
@@ -135,7 +135,7 @@ MAIN SIDEBAR MENU
 
                                         </div>
                                         {!! Form::close() !!}
-
+                                    </div>
 
 
                             <hr>
@@ -144,7 +144,7 @@ MAIN SIDEBAR MENU
                                     <thead>
                                     <tr>
                                         <th><i class="fa fa-thumb-tack"></i> Sector </th>
-                                        <th> <i class="fa fa-calendar-o"></i> Fuente </th>
+                                        <th> <i class="fa fa-calendar-o"></i> Tipo </th>
                                         <th><i class=" fa fa-edit"></i>Fecha</th>
                                         <th></th>
                                     </tr>
@@ -157,7 +157,7 @@ MAIN SIDEBAR MENU
 
                                             <tr>
                                                 <td>{{ $fertilizacion->sector->nombre }}</td>
-                                                <td>{{ $fertilizacion->fuente->nombre }}</td>
+                                                <td>{{ $fertilizacion->tipo }}</td>
                                                 <td>{{ $fertilizacion->fecha }}</td>
 
 
@@ -240,11 +240,41 @@ MAIN SIDEBAR MENU
                 if ( $('#formulario').data('bootstrapValidator').revalidateField('fechaInicio') && ! $('#formulario').data('bootstrapValidator').revalidateField('fechaFin')) {
                     $('#formulario').data('bootstrapValidator').revalidateField('fechaFin');
                 }
+                if($('#fechaInicioDP').val()=="")
+                {
+                    $('#formulario').data('bootstrapValidator').revalidateField('fechaInicio');
+                }
+
+                if($('#fechaInicioDP').val()==""&&$('#fechaFinDP').val()==""){
+                    $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaInicio',false);
+                    $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaFin',false);
+                }
+                else{
+                    $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaInicio',true);
+                    $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaFin',true);
+                }
+
+
+
             });
+
+
 
             $('#fechaFinDP').on('dp.change dp.show', function(e) {
                 if ( $('#formulario').data('bootstrapValidator').revalidateField('fechaFin') && ! $('#formulario').data('bootstrapValidator').revalidateField('fechaInicio')) {
                     $('#formulario').data('bootstrapValidator').revalidateField('fechaInicio');
+                }
+                if($('#fechaFinDP').val()=="")
+                {
+                    $('#formulario').data('bootstrapValidator').revalidateField('fechaFin');
+                }
+                if($('#fechaInicioDP').val()==""&&$('#fechaFinDP').val()==""){
+                    $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaInicio',false);
+                    $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaFin',false);
+                }
+                else{
+                    $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaInicio',true);
+                    $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaFin',true);
                 }
             });
         });

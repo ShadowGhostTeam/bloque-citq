@@ -17,7 +17,7 @@
                             <span>Preparación </span>
                         </a></li>
 
-                    <li><a href="#">
+                    <li><a href="{{route('sector/siembra')}}">
                             <i class="fa fa-leaf"></i>
                             <span>Siembra </span>
                         </a></li>

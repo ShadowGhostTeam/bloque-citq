@@ -127,7 +127,7 @@ class mantenimientoSectorTest extends TestCase
 
     public function testRutaModificarIncorrecto(){
         $response = $this->call('GET', 'sector/mantenimiento/modificar/1000');
-        $this->assertEquals(400, $response->status());
+        $this->assertEquals(404, $response->status());
     }
 
     /*Integracion*/
@@ -159,9 +159,9 @@ class mantenimientoSectorTest extends TestCase
 
     public function testModificarNoActividad(){
         $this->visit('sector/mantenimiento/modificar/1')
-            ->select(1,"sector")
+            ->select("","actividad")
             ->type("18/02/2016","fecha")
-            ->press('Crear')
+            ->press('Modificar')
             ->see("El campo actividad es obligatorio");
     }
     /**
@@ -208,13 +208,165 @@ class mantenimientoSectorTest extends TestCase
      * @group mantenimientoModificarSector
      */
     public function testModificarFechaIncorrecta(){
-        $this->visit('sector/mantenimiento/crear')
+        $this->visit('sector/mantenimiento/modificar/1')
             ->type("asdas","fecha")
-            ->press('Modificar')
+            ->press("Modificar")
             ->see("fecha no corresponde al formato d/m/Y");
     }
 
+///////////////////////////////////////////BUSCAR//////////////////////////////////////////////////
 
+    //para llamar a solo un grupo phpunit --group mantenimientoBuscarSector
+
+    /*Unidad*/
+    /**
+     * @group mantenimientoBuscarSector
+     */
+    public function testRutaBuscar(){
+        $response = $this->call('GET', 'sector/mantenimiento');
+        $this->assertEquals(200, $response->status());
+    }
+
+    /*Integración*/
+
+    /**
+     * @group mantenimientoBuscarSector
+     */
+    public function testBuscarNoParametros(){
+        $this->visit('sector/mantenimiento')
+            ->press('Buscar')
+            ->see("Se encontraron");
+    }
+    /**
+     * @group mantenimientoBuscarSector
+     */
+    public function testBuscarSectorCorrecto(){
+        $this->visit('sector/mantenimiento')
+            ->select(1,"sector")
+            ->press('Buscar')
+            ->see("Se encontraron");
+    }
+    /**
+     * @group mantenimientoBuscarSector
+     */
+    public function testBuscarActividadCorrecto(){
+        $this->visit('sector/mantenimiento')
+            ->select("Deshierbe manual","actividad")
+            ->press('Buscar')
+            ->see("Se encontraron");
+    }
+
+    /**
+     * @group mantenimientoBuscarSector
+     */
+    public function testBuscarFechaCorrecto(){
+        $this->visit('sector/mantenimiento')
+            ->type("29/02/2015","fechaInicio")
+            ->type("29/02/2016","fechaFin")
+            ->press('Buscar')
+            ->see("Se encontraron");
+    }
+
+    /**
+     * @group mantenimientoBuscarSector
+     */
+    public function testBuscarSectorFechaCorrecto(){
+        $this->visit('sector/mantenimiento')
+            ->type("29/02/2015","fechaInicio")
+            ->type("29/02/2016","fechaFin")
+            ->select(1,"sector")
+            ->press('Buscar')
+            ->see("Se encontraron");
+    }
+    /**
+     * @group mantenimientoBuscarSector
+     */
+    public function testBuscarActividadFechaCorrecto(){
+        $this->visit('sector/mantenimiento')
+            ->type("29/02/2015","fechaInicio")
+            ->type("29/02/2016","fechaFin")
+            ->select("Deshierbe manual","actividad")
+            ->press('Buscar')
+            ->see("Se encontraron");
+    }
+    /**
+     * @group mantenimientoBuscarSector
+     */
+    public function testBuscarSectorActividadFechaCorrecto(){
+        $this->visit('sector/mantenimiento')
+            ->type("29/02/2015","fechaInicio")
+            ->type("29/02/2016","fechaFin")
+            ->select(1,"sector")
+            ->select("Deshierbe manual","actividad")
+            ->press('Buscar')
+            ->see("Se encontraron");
+    }
+
+    /**
+     * @group mantenimientoBuscarSector
+     */
+    public function testBuscarUnaFecha(){
+        $this->visit('sector/preparacion/lista?sector=&actividad=&fechaInicio=&fechaFin=29%2F02%2F2016')
+            ->see("No se encontraron resultados");
+    }
+
+    /**
+     * @group mantenimientoBuscarSector
+     */
+    public function testBuscarUnaFechaTexto(){
+        $this->visit('sector/preparacion/lista?sector=&actividad=&fechaInicio=sdfsdfsd&fechaFin=')
+            ->see("No se encontraron resultados");
+    }
+    /**
+     * @group mantenimientoBuscarSector
+     */
+    public function testBuscarFechasTexto(){
+        $this->visit('sector/preparacion/lista?sector=&actividad=&fechaInicio=sdfsdfsd&fechaFin=sdsdfd')
+            ->see("No se encontraron resultados");
+    }
+    /**
+     * @group mantenimientoBuscarSector
+     */
+    public function testBuscarSectorTexto(){
+        $this->visit('sector/preparacion/lista?sector=asdasd&actividad=&fechaInicio=&fechaFin=')
+            ->see("No se encontraron resultados");
+    }
+    /**
+     * @group mantenimientoBuscarSector
+     */
+    public function testBuscarSectorInexistente(){
+        $this->visit('sector/preparacion/lista?sector=1000&actividad=&fechaInicio=&fechaFin=')
+            ->see("No se encontraron resultados");
+    }
+    /**
+     * @group preparacionBuscarSector
+     */
+    public function testBuscarMaquinariaInexistente(){
+        $this->visit('sector/preparacion/lista?sector=&actividad=1000&fechaInicio=&fechaFin=')
+            ->see("No se encontraron resultados");
+    }
+
+
+
+////////////////////////////////////////////////CONSULTAR/////////////////////////////////////////////////////////
+
+//para llamar a solo un grupo "phpunit --group mantenimientoConsultarSector"
+
+    /*Unidad*/
+    /**
+     * @group mantenimientoConsultarSector
+     */
+    public function testRutaConsultar(){
+        $response = $this->call('GET', 'sector/mantenimiento/consultar/1');
+        $this->assertEquals(200, $response->status());
+    }
+    /**
+     * @group mantenimientoConsultarSector
+     */
+    public function testConsultarIdIncorrecto(){
+        $response = $this->call('GET', 'sector/mantenimiento/consultar/1000');
+        $this->assertEquals(404, $response->status());
+    }
 
 
 

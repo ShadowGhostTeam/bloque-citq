@@ -15,7 +15,7 @@ class SalidaPlanta extends Migration
         Schema::create('salidaPlanta', function (Blueprint $table) {
             $table->increments('id');
             $table->dateTime('fecha');
-            $table->text('descripcion');
+            $table->text('comentario');
 
             $table->integer('id_siembraPlantula')->unsigned();
             $table->foreign('id_siembraPlantula')->references('id')->on('siembraPlantula');

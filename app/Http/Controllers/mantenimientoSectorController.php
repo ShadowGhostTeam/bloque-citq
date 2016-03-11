@@ -15,6 +15,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class mantenimientoSectorController extends Controller
 {
@@ -27,17 +28,17 @@ class mantenimientoSectorController extends Controller
         //
         $now= Carbon::now()->format('Y/m/d');
         $now2 =Carbon::now()->subMonth(6)->format('Y/m/d');
-        $fertilizaciones = fertilizacion::whereBetween('fecha', array($now2,$now))->orderBy('fecha', 'desc')->paginate(15);
-        $this->adaptaFechas($fertilizaciones);
-
+        $mantenimientos = mantenimientoSector::whereBetween('fecha', array($now2,$now))->orderBy('fecha', 'desc')->paginate(15);
+        $this->adaptaFechas($mantenimientos);
+        $actividades = ['Deshierbe manual', 'Deshierbe máquina','Fungicida','Herbicida','Insecticida'];
 
 
         $sectores= sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $fuentes= fuente::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        return view('Sector/Fertilizacion/buscar')->with([
+
+        return view('Sector/Mantenimiento/buscar')->with([
             'sectores' => $sectores,
-            'fuentes' => $fuentes,
-            'fertilizaciones'=>$fertilizaciones
+            'actividades' => $actividades,
+            'mantenimientos'=>$mantenimientos
 
         ]);
     }
@@ -45,62 +46,115 @@ class mantenimientoSectorController extends Controller
      *
      * */
     public function buscar(Request $request){
+
+        /*Listados de combobox*/
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $fuentes= fuente::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $actividades = ['Deshierbe manual', 'Deshierbe máquina','Fungicida','Herbicida','Insecticida'];
 
-        /*Pregunta si se mandaron fechas, en caso contrario manda error 404*/
-        if ( $request->fechaFin != "" && $request->fechaInicio !="") {
+        /*Ahi se guardaran los resultados de la busqueda*/
+        $mantenimientos=null;
 
-            /*Transforma fechas en formato adecuado*/
-            $fecha = $request->fechaInicio . " 00:00:00";
-            $fechaInf = Carbon::createFromFormat("d/m/Y H:i:s", $fecha);
-            $fecha = $request->fechaFin . " 23:59:59";
-            $fechaSup = Carbon::createFromFormat("d/m/Y H:i:s", $fecha);
 
-            /*Hay cuatro posibles casos de busqueda, cada if se basa en un caso */
-            if($request->sector==""&&$request->fuente=="") {
-                $fertilizaciones= fertilizacion::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
-            }
-            if($request->sector!=""&&$request->fuente=="") {
-                $fertilizaciones= fertilizacion::where('id_sector',$request->sector)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
-            }
-            if($request->sector==""&&$request->fuente!=="") {
-                $fertilizaciones= fertilizacion::where('id_fuente',$request->fuente)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
-            }
-            if($request->sector!=""&&$request->fuente!=="") {
-                $fertilizaciones= fertilizacion::where('id_sector',$request->sector)->where('id_fuente',$request->fuente)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+        $validator = Validator::make($request->all(), [
+            'fechaInicio' => 'date_format:d/m/Y',
+            'fechaFin' => 'date_format:d/m/Y',
+            'sector' => 'exists:sector,id',
+            'actividad' => 'in:Deshierbe manual,Deshierbe máquina,Fungicida,Herbicida,Insecticida'
+        ]);
+
+        /*Si validador no falla se pueden realizar busquedas*/
+        if ($validator->fails()) {
+        }
+        else{
+
+            /*Busqueda sin parametros*/
+            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->sector == "" && $request->actividad =="") {
+                $mantenimientos = mantenimientoSector::orderBy('fecha', 'desc')->paginate(15);;
+
             }
 
+            /*Busqueda solo con sector*/
+            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->sector != "" && $request->actividad =="") {
+                $mantenimientos = mantenimientoSector::where('id_sector', $request->sector)->orderBy('fecha', 'desc')->paginate(15);;
+
+            }
+
+            /*Busqueda solo con actividad*/
+            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->sector == "" && $request->actividad !="") {
+                $mantenimientos = mantenimientoSector::where('actividad', $request->actividad)->orderBy('fecha', 'desc')->paginate(15);;
+            }
+
+            /*Busqueda solo con actividad y sector*/
+            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->sector != "" && $request->actividad !="") {
+                $mantenimientos = mantenimientoSector::where('id_sector', $request->sector)->where('actividad', $request->actividad)->orderBy('fecha', 'desc')->paginate(15);
+            }
+
+            /*Pregunta si se mandaron fechas, para calcular busquedas con fechas*/
+            if ( $request->fechaFin != "" && $request->fechaInicio !="") {
+
+                /*Transforma fechas en formato adecuado*/
+
+                $fecha = $request->fechaInicio . " 00:00:00";
+                $fechaInf = Carbon::createFromFormat("d/m/Y H:i:s", $fecha);
+                $fecha = $request->fechaFin . " 23:59:59";
+                $fechaSup = Carbon::createFromFormat("d/m/Y H:i:s", $fecha);
+
+                /*Hay cuatro posibles casos de busqueda con fechas, cada if se basa en un caso */
+
+                /*Solo con fechas*/
+                if ($request->sector == "" && $request->actividad == "") {
+                    $mantenimientos = mantenimientoSector::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                }
+                /*Solo con fechas y sector*/
+                if ($request->sector != "" && $request->actividad == "") {
+                    $mantenimientos = mantenimientoSector::where('id_sector', $request->sector)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                }
+
+                /*Solo con fechas y actividad*/
+                if ($request->sector == "" && $request->actividad !== "") {
+                    $mantenimientos = mantenimientoSector::where('actividad', $request->actividad)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                }
+
+                /*Fechas, actividad y sector, los tres parametros de filtro*/
+                if ($request->sector != "" && $request->actividad !== "") {
+                    $mantenimientos = mantenimientoSector::where('id_sector', $request->sector)->where('actividad', $request->actividad)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                }
+            }
+        }
+
+
+        if($mantenimientos!=null){
             /*Adapta el formato de fecha para poder imprimirlo en la vista adecuadamente*/
-            $this->adaptaFechas($fertilizaciones);
-            $num = $fertilizaciones->total();
+            $this->adaptaFechas($mantenimientos);
 
-            if($num<=0){
-                Session::flash('error', 'No se encontraron resultados');
-
-            }
-            else{
-                Session::flash('message', 'Se encontraron '.$num.' resultados');
-            }
-
-            return view('Sector/Fertilizacion/buscar')->with([
-                'fertilizaciones'=>$fertilizaciones,
-                'sectores' => $sectores,
-                'fuentes' => $fuentes
-            ]);
+            /*Si no es nulo puede contar los resultados*/
+            $num = $mantenimientos->total();
         }
-        else {
-            return redirect('errors/404');
+        else{
+            $num=0;
         }
 
 
+        if($num<=0){
+            Session::flash('error', 'No se encontraron resultados');
+        }
+        else{
+            Session::flash('message', 'Se encontraron '.$num.' resultados');
+        }
+        /*Regresa la vista*/
+        return view('Sector/Mantenimiento/buscar')->with([
+            'mantenimientos'=>$mantenimientos,
+            'sectores' => $sectores,
+            'actividades' => $actividades
+        ]);
     }
+
 
     /*Devuelve la vista de crear con los valores de los combobox*/
     public function pagCrear(){
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
         $actividades = ['Deshierbe manual', 'Deshierbe máquina','Fungicida','Herbicida','Insecticida'];
-        $tipoAplicaciones=['Sistema','Al suelo', 'Al follaje'];
+        $tipoAplicaciones=['Sistema de riego','Al suelo', 'Al follaje'];
 
 
 
@@ -121,7 +175,7 @@ class mantenimientoSectorController extends Controller
 
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
         $actividades = ['Deshierbe manual', 'Deshierbe máquina','Fungicida','Herbicida','Insecticida'];
-        $tipoAplicaciones=['Sistema','Al suelo', 'Al follaje'];
+        $tipoAplicaciones=['Sistema de riego','Al suelo', 'Al follaje'];
 
 
         $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $mantenimientoSector->fecha);
@@ -184,12 +238,12 @@ class mantenimientoSectorController extends Controller
 
 
     /*Modificar registro*/
-    public function modificar(fertilizacionSectorRequest $request){
-        $fertilizacion=$this->adaptarRequest($request);
-        $fertilizacion->save();
-        $fertilizacion->push();
-        Session::flash('message', 'La fertilizacion ha sido modificada');
-        return redirect('sector/fertilizacion/modificar/'.$fertilizacion->id);
+    public function modificar(mantenimientoSectorRequest $request){
+        $mantenimiento=$this->adaptarRequest($request);
+        $mantenimiento->save();
+        $mantenimiento->push();
+        Session::flash('message', 'El mantenimiento ha sido modificado');
+        return redirect('sector/mantenimiento/modificar/'.$mantenimiento->id);
     }
 
 
@@ -206,6 +260,8 @@ class mantenimientoSectorController extends Controller
         $mantenimiento->comentario = $request->comentario;
         $mantenimiento->fecha = Carbon::createFromFormat('d/m/Y', $request->fecha)->toDateTimeString();
         $mantenimiento->tipoAplicacion="";
+        $mantenimiento->producto="";
+        $mantenimiento->cantidad="";
         if($request->actividad!="Deshierbe manual"&&$request->actividad!="Deshierbe máquina"){
             $mantenimiento->producto = $request->producto;
             $mantenimiento->cantidad= $request->cantidad;
@@ -220,18 +276,19 @@ class mantenimientoSectorController extends Controller
      *
      * */
     public function pagConsultar($id){
-        $fertilizacion= fertilizacion::findOrFail($id);
-        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $fertilizacion->fecha);
-        $fertilizacion->fecha=$fecha->format('d/m/Y');
+        $mantenimiento= mantenimientoSector::findOrFail($id);
+        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $mantenimiento->fecha);
+        $mantenimiento->fecha=$fecha->format('d/m/Y');
 
         $siembras = array(
-            'id_siembra'=>$fertilizacion->id_siembra,
-            'variedad'=>$fertilizacion->siembra->variedad,
-            'nombre'=>$fertilizacion->siembra->cultivo->nombre);
+            'id_siembra'=>$mantenimiento->id_siembra,
+            'variedad'=>$mantenimiento->siembra->variedad,
+            'nombre'=>$mantenimiento->siembra->cultivo->nombre
+        );
 
 
-        return view('Sector/Fertilizacion/consultar')->with([
-            'fertilizacion'=>$fertilizacion,
+        return view('Sector/Mantenimiento/consultar')->with([
+            'mantenimiento'=>$mantenimiento,
             'siembras' => $siembras
         ]);
     }
@@ -239,11 +296,11 @@ class mantenimientoSectorController extends Controller
 
     /*Eliminar registro*/
     public function eliminar(Request $request){
-        $fertilizacion= fertilizacion::findOrFail($request->id);
-        $fertilizacion->delete();
+        $mantenimiento= mantenimientoSector::findOrFail($request->id);
+        $mantenimiento->delete();
 
-        Session::flash('message','La fertilizacion ha sido eliminada');
-        return redirect('sector/fertilizacion');
+        Session::flash('message','El mantenimiento ha sido eliminado');
+        return redirect('sector/mantenimiento');
     }
 
 

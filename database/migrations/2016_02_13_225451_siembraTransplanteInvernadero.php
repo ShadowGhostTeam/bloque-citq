@@ -15,13 +15,13 @@ class SiembraTransplanteInvernadero extends Migration
         Schema::create('siembraTransplanteInvernadero', function (Blueprint $table) {
             $table->increments('id');
             $table->dateTime('fecha');
-            $table->enum('tipo',['Siembra','Transplante']);
+            $table->string('variedad');
             $table->enum('status',['Activo','Terminado']);
             $table->dateTime('fechaTerminacion');
-            $table->string('variedad');
+            $table->text('comentario');
 
             $table->integer('id_cultivo')->unsigned();
-            $table->foreign('id_cultivo')->references('id')->on('cultivo');
+
 
             $table->integer('id_invernadero')->unsigned();
             $table->foreign('id_invernadero')->references('id')->on('invernadero');
