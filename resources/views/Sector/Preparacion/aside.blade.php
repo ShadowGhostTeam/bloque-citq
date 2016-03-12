@@ -16,8 +16,7 @@
                             <i class="glyphicon glyphicon-tree-deciduous"></i>
                             <span>Preparación </span>
                         </a></li>
-
-                    <li><a href="{{route('sector/siembra')}}">
+                    <li><a href="{{route('sector/siembra')}}" >
                             <i class="fa fa-leaf"></i>
                             <span>Siembra </span>
                         </a></li>
