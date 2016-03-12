@@ -5,15 +5,15 @@
  * Rutas para Invernadero-Labores Culturales
  */
 Route::get('invernadero/laboresCulturales',[
-    'uses' => 'siembraLaboresCulturalesController@index',
+    'uses' => 'invernaderoLaboresCulturalesController@index',
     'as' =>'invernadero/laboresCulturales'
 
 ]);
 
 
-Route::get('invernadero/cosecha/lista',[
-        'uses' =>'cosechaSectorController@buscar',
-        'as' =>'sector/cosecha/lista']
+Route::get('invernadero/laboresCulturales/lista',[
+        'uses' =>'invernaderoLaboresCulturalesController@buscar',
+        'as' =>'invernadero/laboresCulturales/lista']
 
 );
 
@@ -27,23 +27,23 @@ Route::post('invernadero/laboresCulturales/crear/','invernaderoLaboresCulturales
     //
 }));
 
-Route::get('sector/cosecha/modificar/{id}',[
-    'uses' => 'cosechaSectorController@pagModificar',
-    'as' =>'sector/cosecha/modificar/item'
+Route::get('invernadero/laboresCulturales/modificar/{id}',[
+    'uses' => 'invernaderoLaboresCulturalesController@pagModificar',
+    'as' =>'invernadero/laboresCulturales/modificar/item'
 
 ]);
 
 
-Route::post('sector/cosecha/modificar','cosechaSectorController@modificar',array('before' => 'csrf', function() {
+Route::post('invernadero/laboresCulturales/modificar','invernaderoLaboresCulturalesController@modificar',array('before' => 'csrf', function() {
     //
 }));
 
-Route::post('sector/cosecha/eliminar','cosechaSectorController@eliminar',array('before' => 'csrf', function() {
+Route::post('invernadero/laboresCulturales/eliminar','invernaderoLaboresCulturalesController@eliminar',array('before' => 'csrf', function() {
 
 }));
 
-Route::get('sector/cosecha/consultar/{id}',[
-    'uses' => 'cosechaSectorController@pagConsultar',
-    'as' =>'sector/cosecha/consultar/item'
+Route::get('invernadero/laboresCulturales/consultar/{id}',[
+    'uses' => 'invernaderoLaboresCulturalesController@pagConsultar',
+    'as' =>'invernadero/laboresCulturales/consultar/item'
 
 ]);
