@@ -3,7 +3,7 @@
  * Rutas para Invernadero-Fertilizaciones Riego
  */
 
-/*Route::get('invernadero/fertilizacionRiego',[
+Route::get('invernadero/fertilizacionRiego',[
     'uses'=>'fertilizacionRiegoInvernaderoController@index',
     'as' =>'invernadero/fertilizacionRiego'
 
@@ -15,7 +15,7 @@ Route::get('invernadero/fertilizacionRiego/lista',[
         'as' =>'invernadero/fertilizacionRiego/lista']
 
 );
-*/
+
 
 Route::get('invernadero/fertilizacionRiego/crear',[
     'uses' => 'fertilizacionRiegoInvernaderoController@pagCrear',
@@ -27,7 +27,7 @@ Route::post('invernadero/fertilizacionRiego/crear/','fertilizacionRiegoInvernade
     //
 }));
 
-/*
+
 Route::get('invernadero/fertilizacionRiego/modificar/{id}',[
     'uses' => 'fertilizacionRiegoInvernaderoController@pagModificar',
     'as' =>'invernadero/fertilizacionRiego/modificar/item'
@@ -35,10 +35,11 @@ Route::get('invernadero/fertilizacionRiego/modificar/{id}',[
 ]);
 
 
-Route::post('invernadero/fertilizacionRiego/modificar','fertilizacionRiegoInvernaderoController@modificar',array('before' => 'csrf', function() {
+Route::post('invernadero/fertilizacionRiego/modificar/','fertilizacionRiegoInvernaderoController@modificar',array('before' => 'csrf', function() {
     //
 }));
 
+/*
 Route::post('invernadero/fertilizacionRiego/eliminar','fertilizacionRiegoInvernaderoController@eliminar',array('before' => 'csrf', function() {
 
 }));

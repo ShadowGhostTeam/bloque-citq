@@ -47,16 +47,7 @@
                 <select  class="form-control" id="siembraT" name="siembraT">
                     <option value="">Selecciona</option>
 
-                    @if( isset($fertilizacionesRiego))
-                        @foreach($siembras as $siembra)
-                            @if($siembraSeleccionada['id_siembra'] == $siembra['id_siembra'])
-                                <option value="{{  $siembra['id_siembra']  }}" selected > {{ $siembra['nombre']."   ". $siembra['variedad'] . " - ". $siembra['fecha'] }}  </option>
-                            @else
-                                <option value="{{  $siembra['id_siembra']  }}"  > {{ $siembra['nombre']."   ". $siembra['variedad'] ." - " . $siembra['fecha']  }}  </option>
-                            @endif
-                        @endforeach
 
-                    @endif
                 </select>
             </div>
         </div>
@@ -118,7 +109,7 @@
             <label for="Frecuencia" class="col-lg-2 control-label">Frecuencia</label>
             <div class="col-lg-10">
                 @if( isset($fertilizacionesRiego))
-                    {!!Form::number('frecuencia' ,$ferilizacionesRiego->frecuencia,['class'=>'form-control','min'=>'0','id'=>'frecuencia','placeholder'=>'Frecuencia'])!!}
+                    {!!Form::number('frecuencia' ,$fertilizacionesRiego->frecuencia,['class'=>'form-control','min'=>'0','id'=>'frecuencia','placeholder'=>'Frecuencia'])!!}
                 @else
                     {!!Form::number('frecuencia' ,null,['class'=>'form-control','id'=>'frecuencia','placeholder'=>'Frecuencia'])!!}
                 @endif

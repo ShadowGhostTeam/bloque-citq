@@ -42,7 +42,6 @@
                 </ul>
             </li>
 
-
             <li class="sub-menu">
                 <a href="#"  class="active">
                     <i class="fa fa-th"></i>
@@ -61,11 +60,11 @@
                             <span>Siembra-Transplante </span>
                         </a></li>
 
-                    <li><a href="{{route('sector/fertilizacion')}}" >
+                    <li><a href="{{route('invernadero/fertilizacionRiego')}}" class="active">
                             <i class="fa fa-tasks"></i>
                             <span>Fertilización/Riego </span>
                         </a></li>
-                    <li><a href="{{route('invernadero/laboresCulturales')}}" class="active">
+                    <li><a href="{{route('invernadero/laboresCulturales')}}">
                             <i class="fa fa-tint"></i>
                             <span>Labores Culturales</span>
                         </a></li>

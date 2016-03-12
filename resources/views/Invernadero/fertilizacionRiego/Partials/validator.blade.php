@@ -46,6 +46,7 @@
                         },
                         between: {
                             min: 0,
+                            max: 9999,
                             message: 'El tiempo debe ser mayor a 0'
                         }
                     }
