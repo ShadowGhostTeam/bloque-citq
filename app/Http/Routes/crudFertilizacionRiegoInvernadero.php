@@ -39,14 +39,15 @@ Route::post('invernadero/fertilizacionRiego/modificar/','fertilizacionRiegoInver
     //
 }));
 
-/*
+
 Route::post('invernadero/fertilizacionRiego/eliminar','fertilizacionRiegoInvernaderoController@eliminar',array('before' => 'csrf', function() {
 
 }));
+
 
 Route::get('invernadero/fertilizacionRiego/consultar/{id}',[
     'uses' => 'fertilizacionRiegoInvernaderoController@pagConsultar',
     'as' =>'invernadero/fertilizacionRiego/consultar/item'
 
-]);*/
+]);
 

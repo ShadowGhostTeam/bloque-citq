@@ -1,6 +1,6 @@
 @include('Partials.ScriptsGenerales.scriptsPartials')
 
-<body>
+
 
 <section id="container" >
     <!-- **********************************************************************************************************************************************************
@@ -26,37 +26,58 @@
                     <!-- INICIO CONSULTAR FUNCIONES -->
                     <div class="col-lg-12">
                         <div class="form-panel">
-                            @include('Partials.Mensajes.mensajes')
-                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Modificar fertilización/riego</h4><br>
+
+                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Consultar fertilización/riego</h4><br>
+
                             @if( isset($fertilizacionesRiego))
                                 <table align="right">
                                     <tr>
                                         <td>
-                                            <a href="{{ route('invernadero/fertilizacionRiego/consultar/item',$fertilizacionesRiego->id) }}">
-                                                <button  class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar">
-                                                    <i class="fa fa-eye"></i></button>
-                                            </a> &nbsp
+                                            <a href="{{ route('invernadero/fertilizacionRiego/modificar/item',$fertilizacionesRiego->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
+                                            &nbsp
                                         </td>
+
                                         <td>
                                             {!! Form::open(['action'=>['fertilizacionRiegoInvernaderoController@eliminar'],'role'=>'form'] )  !!}
                                             <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la fertilización?")'><i class="fa fa-trash-o "></i></button>
                                             <input type="hidden" name="id" value={{$fertilizacionesRiego->id}}>
                                             {!! Form::close() !!}
-
                                         </td>
                                     </tr>
                                 </table>
                                 <br><br>
-
                             @endif
+                            <div class="row">
+                                <br>
+                                <div class="col-md-4">
 
-                            {!! Form::open(['action'=>['fertilizacionRiegoInvernaderoController@modificar'],'class'=>'form-horizontal','role'=>'form', 'id' =>'formulario'] )  !!}
+                                </div>
 
 
+                                <div class="col-md-7">
 
-                            @include('Invernadero.fertilizacionRiego.Partials.form')
-                            <input type="hidden" name="id" value="{{$fertilizacionesRiego->id}}">
-                            {!! Form::close() !!}
+                                    <dl class="dl-horizontal">
+                                        <dt>Invernadero</dt><dd>{{ $fertilizacionesRiego->invernadero->nombre }}</dd>
+                                        <dt>Siembra-transplante</dt><dd>{{ $siembras['nombre'] . ' '. $siembras['variedad']  }}</dd>
+                                        <dt>Fecha</dt><dd>{{ $fertilizacionesRiego->fecha }}</dd>
+                                        <dt>Tiempo riego</dt><dd>{{ $fertilizacionesRiego->tiempoRiego }}</dd>
+                                        @if( $fertilizacionesRiego->etapaFenologica != "")
+                                            <dt>Etapa Fenológica</dt><dd>{{ $fertilizacionesRiego->etapaFenologica }}</dd>
+                                        @endif
+                                        @if( $fertilizacionesRiego->frecuencia != "")
+                                            <dt>Frecuencia</dt><dd>{{ $fertilizacionesRiego->frecuencia }}</dd>
+                                        @endif
+                                        @if( $fertilizacionesRiego->formulación != "")
+                                            <dt>Formulación</dt><dd>{{ $fertilizacionesRiego->formulacion }}</dd>
+                                        @endif
+                                    </dl>
+                                </div>
+
+                            </div>
+
+
+                            <br>
+
                         </div>
                     </div>
                     <!-- FIN CONSULTAR FUNCIONES -->
@@ -66,8 +87,7 @@
     </section>
 </section>
 
-@include('Invernadero.fertilizacionRiego.Partials.validator')
 
-@include('Invernadero.fertilizacionRiego.Partials.ajaxScript')
 
- @include('Partials.ScriptsGenerales.scriptsPartialsAbajo')
+
+@include('Partials.ScriptsGenerales.scriptsPartialsAbajo')

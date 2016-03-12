@@ -47,7 +47,17 @@
                 <select  class="form-control" id="siembraT" name="siembraT">
                     <option value="">Selecciona</option>
 
+                    @if( isset($fertilizacionesRiego))
 
+                        @foreach($siembras as $siembra)
+                            @if($siembraSeleccionada['id_siembra'] == $siembra['id_siembra'])
+                                <option value="{{  $siembra['id_siembra']  }}" selected > {{ $siembra['nombre']."   ". $siembra['variedad'] . " - ". $siembra['fecha'] }}  </option>
+                            @else
+                                <option value="{{  $siembra['id_siembra']  }}"  > {{ $siembra['nombre']."   ". $siembra['variedad'] ." - " . $siembra['fecha']  }}  </option>
+                            @endif
+                        @endforeach
+
+                    @endif
                 </select>
             </div>
         </div>
@@ -81,7 +91,7 @@
         </div>
 
         <div class="form-group">
-            <label for="etapaFenologica" class="col-lg-2 control-label"><strong>*</strong>Etapa Fenológica</label>
+            <label for="etapaFenologica" class="col-lg-2 control-label">Etapa Fenológica</label>
             <div class="col-lg-10">
 
                 <select  class="form-control" id="etapaFenologica" name="etapaFenologica">
@@ -89,7 +99,7 @@
 
                     @if( isset($fertilizacionesRiego))
 
-                        @foreach($etapasFenologica as $etapa)
+                        @foreach($etapaFenologica as $etapa)
                             @if($fertilizacionesRiego->etapaFenologica == $etapa)
                                 <option value="{{  $etapa   }}" selected > {{ $etapa }}  </option>
                             @else
@@ -97,7 +107,7 @@
                             @endif
                         @endforeach
                     @else
-                        @foreach($etapasFenologica as $etapa)
+                        @foreach($etapaFenologica as $etapa)
                             <option value="{{  $etapa  }}" > {{ $etapa }}  </option>
                         @endforeach
                     @endif
@@ -109,7 +119,7 @@
             <label for="Frecuencia" class="col-lg-2 control-label">Frecuencia</label>
             <div class="col-lg-10">
                 @if( isset($fertilizacionesRiego))
-                    {!!Form::number('frecuencia' ,$fertilizacionesRiego->frecuencia,['class'=>'form-control','min'=>'0','id'=>'frecuencia','placeholder'=>'Frecuencia'])!!}
+                    {!!Form::number('frecuencia' ,$fertilizacionesRiego->frecuencia,['class'=>'form-control','id'=>'frecuencia','placeholder'=>'Frecuencia'])!!}
                 @else
                     {!!Form::number('frecuencia' ,null,['class'=>'form-control','id'=>'frecuencia','placeholder'=>'Frecuencia'])!!}
                 @endif
@@ -120,9 +130,9 @@
             <label for="Formulacion" class="col-lg-2 control-label">Formulación</label>
             <div class="col-lg-10">
                 @if( isset($fertilizacionesRiego))
-                    {!!Form::text('formulacion' ,$fertilizacionesRiego->formulacion,['class'=>'form-control','id'=>'formulacion','placeholder'=>'Formulación'])!!}
+                    {!!Form::textarea('formulacion' ,$fertilizacionesRiego->formulacion,['class'=>'form-control','id'=>'formulacion','placeholder'=>'Formulación'])!!}
                 @else
-                    {!!Form::text('formulacion' ,null,['class'=>'form-control','id'=>'formulacion','placeholder'=>'Formulación'])!!}
+                    {!!Form::textarea('formulacion' ,null,['class'=>'form-control','id'=>'formulacion','placeholder'=>'Formulación'])!!}
                 @endif
             </div>
         </div>
@@ -130,7 +140,7 @@
         <div class="form-group" align="center">
             @if( isset($fertilizacionesRiego))
 
-                {!! Form::submit('Modificar',['class'=>'btn btn-success', 'onclick'=>"return confirm ('¿Seguro que desea modificar este modulo?')"])!!}
+                {!! Form::submit('Modificar',['class'=>'btn btn-success', 'onclick'=>"return confirm ('¿Seguro que desea modificar la fertilización?')"])!!}
             @else
                 {!! Form::submit('Crear',['class'=>'btn btn-success'])!!}
             @endif

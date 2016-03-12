@@ -158,4 +158,45 @@ class fertilizacionRiegoInvernaderoTest extends TestCase
         $this->assertEquals(200, $response->status());
     }
 
+    ///////////////////////////////////////CONSULTAR///////////////////////////////////////////////////////
+    //para llamar a solo un grupo phpunit --group fertilizacionRiegoConsultarInvernadero
+
+    /*Unidad*/
+    /**
+     * @group fertilizacionRiegoConsultarInvernadero
+     */
+    public function testRutaConsultar(){
+        $response = $this->call('GET', 'invernadero/fertilizacionRiego/consultar/1');
+        $this->assertEquals(200, $response->status());
+    }
+
+    /*Unidad*/
+    /**
+     * @group fertilizacionRiegoConsultarInvernadero
+     */
+    public function testRutaConsultarIdIncorrecto(){
+        $response = $this->call('GET', 'invernadero/fertilizacionRiego/consultar/120');
+        $this->assertEquals(404, $response->status());
+    }
+
+    /////////////////////////////////////MODIFICAR//////////////////////////////////////////////////////////////
+    //para llamar a solo un grupo phpunit --group fertilizacionRiegoModificarInvernadero
+
+    /*Unidad*/
+    /**
+     * @group fertilizacionRiegoModificarInvernadero
+     */
+    public function testRutaModificar(){
+        $response = $this->call('GET', 'invernadero/fertilizacionRiego/modificar/1');
+        $this->assertEquals(200, $response->status());
+    }
+
+    /**
+     * @group fertilizacionRiegoModificarInvernadero
+     */
+    public function testModificarIdIncorrecto(){
+        $response = $this->call('GET', 'invernadero/fertilizacionRiego/modificar/120');
+        $this->assertEquals(404, $response->status());
+    }
+
 }

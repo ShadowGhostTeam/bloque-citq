@@ -25,11 +25,11 @@ class fertilizacionRiegoInvernaderoController extends Controller
         $fertilizacionesRiego = fertilizacionRiego::whereBetween('fecha', array($now2,$now))->orderBy('fecha', 'desc')->paginate(15);
         $this->adaptaFechas($fertilizacionesRiego);
         $invernaderos= invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $siembraT= siembraTransplanteInvernadero::select('id','variedad')->orderBy('variedad', 'asc')->get();
+        $etapaFenologica = ['Etapa1'];
 
         return view('Invernadero/fertilizacionRiego/buscar')->with([
             'invernaderos' => $invernaderos,
-            'siembraT' => $siembraT,
+            'etapaFenologica' => $etapaFenologica,
             'fertilizacionesRiego'=>$fertilizacionesRiego
 
         ]);
@@ -39,7 +39,7 @@ class fertilizacionRiegoInvernaderoController extends Controller
 
         /*Listados de combobox*/
         $invernaderos= invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $siembraT= siembraTransplanteInvernadero::select('id','variedad')->orderBy('variedad', 'asc')->get();
+
 
         /*Ahi se guardaran los resultados de la busqueda*/
         $fertilizacionesRiego=null;
@@ -49,7 +49,7 @@ class fertilizacionRiegoInvernaderoController extends Controller
             'fechaInicio' => 'date_format:d/m/Y',
             'fechaFin' => 'date_format:d/m/Y',
             'invernadero' => 'exists:invernadero,id',
-            'siembraT' => 'exists:siembraTransplanteInvernadero,id'
+            'etapaFenologica' => 'in:Etapa1'
         ]);
 
         /*Si validador no falla se pueden realizar busquedas*/
@@ -58,25 +58,25 @@ class fertilizacionRiegoInvernaderoController extends Controller
         else{
 
             /*Busqueda sin parametros*/
-            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->invernadero == "" && $request->siembraT == "") {
+            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->invernadero == "" && $request->etapaFenologica == "") {
                 $fertilizacionesRiego = fertilizacionRiego::orderBy('fecha', 'desc')->paginate(15);;
 
             }
 
             /*Busqueda solo con invernadero*/
-            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->invernadero != "" && $request->siembraT =="") {
+            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->invernadero != "" && $request->etapaFenologica =="") {
                 $fertilizacionesRiego = fertilizacionRiego::where('id_invernadero', $request->invernadero)->orderBy('fecha', 'desc')->paginate(15);;
 
             }
 
-            /*Busqueda solo con siembraT*/
-            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->invernadero == "" && $request->siembraT !="") {
-                $fertilizacionesRiego = fertilizacionRiego::where('id_stInvernadero', $request->siembraT)->orderBy('fecha', 'desc')->paginate(15);;
+            /*Busqueda solo con etapaFenologica*/
+            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->invernadero == "" && $request->etapaFenologica !="") {
+                $fertilizacionesRiego = fertilizacionRiego::where('etapaFenologica', $request->etapaFenologica)->orderBy('fecha', 'desc')->paginate(15);;
             }
 
-            /*Busqueda solo con siembraT y invernadero*/
-            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->invernadero != "" && $request->siembraT !="") {
-                $fertilizacionesRiego = fertilizacionRiego::where('id_invernadero', $request->invernadero)->where('id_stInvernadero', $request->siembraT)->orderBy('fecha', 'desc')->paginate(15);
+            /*Busqueda solo con etapaFenologica y invernadero*/
+            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->invernadero != "" && $request->etapaFenologica !="") {
+                $fertilizacionesRiego = fertilizacionRiego::where('id_invernadero', $request->invernadero)->where('etapaFenologica', $request->etapaFenologica)->orderBy('fecha', 'desc')->paginate(15);
             }
 
             /*Pregunta si se mandaron fechas, para calcular busquedas con fechas*/
@@ -92,22 +92,22 @@ class fertilizacionRiegoInvernaderoController extends Controller
                 /*Hay cuatro posibles casos de busqueda con fechas, cada if se basa en un caso */
 
                 /*Solo con fechas*/
-                if ($request->invernadero == "" && $request->siembraT == "") {
+                if ($request->invernadero == "" && $request->etapaFenologica == "") {
                     $fertilizacionesRiego = fertilizacionRiego::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
                 }
                 /*Solo con fechas y invernadero*/
-                if ($request->invernadero != "" && $request->siembraT == "") {
+                if ($request->invernadero != "" && $request->etapaFenologica == "") {
                     $fertilizacionesRiego = fertilizacionRiego::where('id_invernadero', $request->invernadero)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
                 }
 
-                /*Solo con fechas y siembraT*/
-                if ($request->invernadero == "" && $request->siembraT !== "") {
-                    $fertilizacionesRiego = fertilizacionRiego::where('id_stInvernadero', $request->siembraT)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                /*Solo con fechas y etapaFenologica*/
+                if ($request->invernadero == "" && $request->etapaFenologica !== "") {
+                    $fertilizacionesRiego = fertilizacionRiego::where('etapaFenologica', $request->etapaFenologica)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
                 }
 
-                /*Fechas, siembraT y invernadero, los tres parametros de filtro*/
-                if ($request->invernadero != "" && $request->siembraT !== "") {
-                    $fertilizacionesRiego = fertilizacionRiego::where('id_invernadero', $request->invernadero)->where('id_stInvernadero', $request->siembraT)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                /*Fechas, etapaFenologica y invernadero, los tres parametros de filtro*/
+                if ($request->invernadero != "" && $request->etapaFenologica !== "") {
+                    $fertilizacionesRiego = fertilizacionRiego::where('id_invernadero', $request->invernadero)->where('etapaFenologica', $request->etapaFenologica)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
                 }
             }
         }
@@ -129,11 +129,13 @@ class fertilizacionRiegoInvernaderoController extends Controller
         else {
             Session::flash('message', 'Se encontraron '.$num.' resultados');
         }
+
+        $etapaFenologica = ['Etapa1'];
         /*Regresa la vista*/
         return view('invernadero/fertilizacionRiego/buscar')->with([
             'fertilizacionesRiego'=>$fertilizacionesRiego,
             'invernaderos' => $invernaderos,
-            'siembraT' => $siembraT
+            'etapaFenologica' => $etapaFenologica
         ]);
     }
 
@@ -142,10 +144,10 @@ class fertilizacionRiegoInvernaderoController extends Controller
     /*Devuelve la vista de crear con los valores de los combobox*/
     public function pagCrear(){
         $invernaderos= invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $etapasFenologica = ['Etapa1'];
+        $etapaFenologica = ['Etapa1'];
         return view('Invernadero/fertilizacionRiego/crear')->with([
             'invernaderos' => $invernaderos,
-            'etapasFenologica' => $etapasFenologica
+            'etapaFenologica' => $etapaFenologica
 
 
         ]);
@@ -158,7 +160,30 @@ class fertilizacionRiegoInvernaderoController extends Controller
     public function pagModificar($id){
         $fertilizacionesRiego= fertilizacionRiego::findOrFail($id);
         $invernaderos= invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $etapasFenologica = ['Etapa1'];
+        $etapaFenologica = ['Etapa1'];
+        $fechaSiembraSeleccionada=Carbon::createFromFormat('Y-m-d H:i:s', $fertilizacionesRiego->siembraTransplante->fecha);
+
+        $siembraSeleccionada = array(
+            'id_siembra'=>$fertilizacionesRiego->id_stInvernadero,
+            'variedad'=>$fertilizacionesRiego->siembraTransplante->variedad,
+            'nombre'=>$fertilizacionesRiego->siembraTransplante->cultivo->nombre,
+            'fecha'=>$fechaSiembraSeleccionada->format('d/m/Y')
+        );
+
+        $siembras = siembraTransplanteInvernadero::where('id_invernadero',$fertilizacionesRiego->id_invernadero)->get();
+        $siembrasTodas=array();
+        foreach ($siembras as $siembra) {
+
+            $fechaSiembraToda=Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fecha);
+
+            array_push($siembrasTodas,array(
+                    'id_siembra' => $siembra->id,
+                    'variedad' => $siembra->variedad,
+                    'nombre' => $siembra->cultivo->nombre,
+                    'fecha' => $fechaSiembraToda->format('d/m/Y'))
+
+            );
+        }
 
         $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $fertilizacionesRiego->fecha);
         $fertilizacionesRiego->fecha=$fecha->format('d/m/Y');
@@ -167,7 +192,9 @@ class fertilizacionRiegoInvernaderoController extends Controller
 
         return view('Invernadero/fertilizacionRiego/modificar')->with([
             'invernaderos' => $invernaderos,
-            'etapasFenologica'=>$etapasFenologica,
+            'siembras' => $siembrasTodas,
+            'etapaFenologica'=>$etapaFenologica,
+            'siembraSeleccionada' => $siembraSeleccionada,
             'fertilizacionesRiego' => $fertilizacionesRiego,
         ]);
     }
@@ -191,6 +218,27 @@ class fertilizacionRiegoInvernaderoController extends Controller
         return redirect('invernadero/fertilizacionRiego/modificar/'.$fertilizacionesRiego->id);
     }
 
+    /*
+    * Pagina para consultar
+    *
+    * */
+    public function pagConsultar($id){
+        $fertilizacionesRiego = fertilizacionRiego::findOrFail($id);
+        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $fertilizacionesRiego->fecha);
+        $fertilizacionesRiego->fecha=$fecha->format('d/m/Y');
+
+        $siembras = array(
+            'id_siembra'=>$fertilizacionesRiego->id_siembra,
+            'variedad'=>$fertilizacionesRiego->siembraTransplante->variedad,
+            'nombre'=>$fertilizacionesRiego->siembraTransplante->cultivo->nombre);
+
+
+        return view('Invernadero/fertilizacionRiego/consultar')->with([
+            'fertilizacionesRiego'=>$fertilizacionesRiego,
+            'siembras' => $siembras
+        ]);
+    }
+
     /*Recibe la informacion del formulario de crear y la adapta a los campos del modelo*/
     public function adaptarRequest($request){
         $fertilizacionesRiego = new fertilizacionRiego();
@@ -207,6 +255,15 @@ class fertilizacionRiegoInvernaderoController extends Controller
         $fertilizacionesRiego->etapaFenologica = $request->etapaFenologica;
 
         return $fertilizacionesRiego;
+    }
+
+    /*Eliminar registro*/
+    public function eliminar(Request $request){
+        $fertilizacionesRiego = fertilizacionRiego::findOrFail($request->id);
+        $fertilizacionesRiego->delete();
+
+        Session::flash('message','La fertilización ha sido eliminada');
+        return redirect('invernadero/fertilizacionRiego');
     }
 
     /*

@@ -85,14 +85,16 @@ MAIN SIDEBAR MENU
                                                 </select>
                                             </div>
                                         </div>
+
                                         <div class="form-group">
 
                                             <div class="col-lg-3">
-                                                <select  class="form-control" id="siembraT" name="siembraT">
-                                                    <option value="">Todas las siembras transplante</option>
-                                                    @if( isset($siembraT))
-                                                        @foreach($siembraT as $siembra)
-                                                            <option value="{{  $siembra->id  }}" > {{ $siembra->variedad }}  </option>
+                                                <select  class="form-control" id="actividad" name="actividad">
+                                                    <option value="">Todas las etapas</option>
+
+                                                    @if( isset($etapaFenologica))
+                                                        @foreach($etapaFenologica as $etapa)
+                                                            <option value="{{  $etapa  }}" > {{ $etapa }}  </option>
                                                         @endforeach
                                                     @endif
                                                 </select>
@@ -144,7 +146,7 @@ MAIN SIDEBAR MENU
                                     <thead>
                                     <tr>
                                         <th><i class="fa fa-thumb-tack"></i> Invernadero </th>
-                                        <th> <i class="fa fa-calendar-o"></i> Siembra Transplante </th>
+                                        <th> <i class="fa fa-calendar-o"></i> Etapa Fenológica </th>
                                         <th><i class=" fa fa-edit"></i> Fecha </th>
                                         <th></th>
                                     </tr>
@@ -157,12 +159,12 @@ MAIN SIDEBAR MENU
 
                                             <tr>
                                                 <td>{{ $fertilizacionRiego->invernadero->nombre }}</td>
-                                                <td>{{ $fertilizacionRiego->siembraTransplante->variedad }}</td>
+                                                <td>{{ $fertilizacionRiego->etapaFenologica }}</td>
                                                 <td>{{ $fertilizacionRiego->fecha }}</td>
 
 
                                                 <td style="width: 5px">
-                                                    <a href="#"><button class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar"><i class="fa fa-eye"></i></button></a>
+                                                    <a href="{{ route('invernadero/fertilizacionRiego/consultar/item',$fertilizacionRiego->id) }}"><button class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar"><i class="fa fa-eye"></i></button></a>
                                                 </td>
 
                                                 <td style="width: 5px">
@@ -170,9 +172,9 @@ MAIN SIDEBAR MENU
                                                 </td>
 
                                                 <td style="width: 5px">
-                                                    {!! Form::open(['action'=>['mantenimientoSectorController@eliminar'],'role'=>'form'] )  !!}
+                                                    {!! Form::open(['action'=>['fertilizacionRiegoInvernaderoController@eliminar'],'role'=>'form'] )  !!}
                                                     <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la fertilización?")'><i class="fa fa-trash-o "></i></button>
-                                                    <input type="hidden" name="id" value=>
+                                                    <input type="hidden" name="id" value={{$fertilizacionRiego->id}}>
                                                     {!! Form::close() !!}
                                                 </td>
 
@@ -277,7 +279,6 @@ MAIN SIDEBAR MENU
             });
         });
     </script>
-
 
 
 @include('Partials.ScriptsGenerales.scriptsPartialsAbajo')
