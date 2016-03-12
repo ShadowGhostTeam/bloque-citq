@@ -11,8 +11,6 @@
         </div>
     </div>
 
-
-
     <div class="col-md-6" align="center">
     <p align="left" class="help-block"> (*) Obligatorio </p><br>
 
@@ -23,13 +21,13 @@
                 <select  class="form-control" id="invernadero" name="invernadero">
                     <option value="">Selecciona</option>
 
-                    @if( isset($laboresInvernadero))
+                    @if( isset($laboresCulturales))
 
                         @foreach($invernaderos as $invernadero)
-                            @if($mantenimientoSector->id_sector == $sector->id)
-                                <option value="{{  $sector->id  }}" selected > {{ $sector->nombre}}  </option>
+                            @if($laboresCulturales->id_invernadero== $invernadero->id)
+                                <option value="{{  $invernadero->id  }}" selected > {{ $invernadero->nombre}}  </option>
                             @else
-                                <option value="{{  $sector->id  }}" > {{ $sector->nombre}}  </option>
+                                <option value="{{  $invernadero->id  }}" > {{ $invernadero->nombre}}  </option>
                             @endif
                         @endforeach
                     @else
@@ -48,7 +46,7 @@
                 <select  class="form-control" id="siembraT" name="siembraT">
                     <option value="">Selecciona</option>
 
-                    @if( isset($laboresInvernadero))
+                    @if( isset($laboresCulturales))
 
                         @foreach($siembras as $siembra)
                             @if($siembraSeleccionada['id_siembra'] == $siembra['id_siembra'])
@@ -70,10 +68,10 @@
                 <select  class="form-control" id="actividad" name="actividad">
                     <option value="">Selecciona</option>
 
-                    @if( isset($laboresInvernadero))
+                    @if( isset($laboresCulturales))
 
                         @foreach($actividades as $actividad)
-                            @if($mantenimientoSector->actividad == $actividad)
+                            @if($laboresCulturales->actividad == $actividad)
                                 <option value="{{  $actividad  }}" selected > {{ $actividad}}  </option>
                             @else
                                 <option value="{{  $actividad }}"  > {{ $actividad }}</option>
@@ -95,8 +93,8 @@
                                                  <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                   </span>
-                    @if( isset($laboresInvernadero))
-                        {!!Form::text('fecha' ,$mantenimientoSector->fecha,['class'=>'form-control','id'=>'fecha','placeholder'=>'dd/mm/aaaa'])!!}
+                    @if( isset($laboresCulturales))
+                        {!!Form::text('fecha' ,$laboresCulturales->fecha,['class'=>'form-control','id'=>'fecha','placeholder'=>'dd/mm/aaaa'])!!}
                     @else
                         {!!Form::text('fecha' ,null,['class'=>'form-control','id'=>'fecha','placeholder'=>'dd/mm/aaaa'])!!}
                     @endif
@@ -108,9 +106,9 @@
 
 
         <div class="form-group" align="center">
-            @if( isset($laboresInvernadero))
+            @if( isset($laboresCulturales))
 
-            {!! Form::submit('Modificar',['class'=>'btn btn-success', 'onclick'=>"return confirm ('¿Seguro que desea modificar el mantenimiento?')"])!!}
+            {!! Form::submit('Modificar',['class'=>'btn btn-success', 'onclick'=>"return confirm ('¿Seguro que desea modificar la labor cultural?')"])!!}
             @else
                 {!! Form::submit('Crear',['class'=>'btn btn-success'])!!}
             @endif
