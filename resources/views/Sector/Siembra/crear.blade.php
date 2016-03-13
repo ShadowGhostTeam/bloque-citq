@@ -7,24 +7,27 @@
     *********************************************************************************************************************************************************** -->
     <!--header start-->
     @include('Partials.ScriptsGenerales.headerPartials')
-            <!--header end-->
+    <!--header end-->
 
     <!-- **********************************************************************************************************************************************************
     MAIN SIDEBAR MENU
     *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Sector.Preparacion.aside')
-<<<<<<< HEAD
+    @include('Sector.Siembra.aside')
     <!--sidebar end-->
-=======
-            <!--sidebar end-->
->>>>>>> 1904f9e26c0b4f14656f6f83413b0272c3759e1e
 
     <section id="container">
 
         <section id="main-content">
             <section class="wrapper site-min-height">
-                <h3><a href="{{ route('sector/preparacion') }}"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Búsqueda</button></a></h3>
+                <h3>
+                    <a href="{{ route('sector/siembra') }}">
+                        <button type="button" class="btn btn-primary">
+                            <i class="glyphicon glyphicon-arrow-left"></i>
+                            Búsqueda
+                        </button>
+                    </a>
+                </h3>
                 <div class="row mt">
 
                     <!-- INICIO CONSULTAR FUNCIONES -->
@@ -33,11 +36,11 @@
 
                             @include('Partials.Mensajes.mensajes')
 
-                            {!! Form::open(['action'=>['preparacionSectorController@crear'],'class'=>'form-horizontal','role'=>'form','id'=>'formulario'])!!}
+                            {!! Form::open(['action'=>['siembraSectorController@crear'],'class'=>'form-horizontal','role'=>'form','id'=>'formulario'])!!}
 
-                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear preparación</h4><br>
+                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear siembra</h4><br>
 
-                            @include('Sector.Preparacion.Partials.form')
+                            @include('Sector.Siembra.Partials.form')
 
                             {!! Form::close() !!}
                         </div>
@@ -47,8 +50,8 @@
             </section>
         </section>
     </section>
+</section>
 
-
-@include('Sector.Preparacion.Partials.validator')
-
-@include('Partials.ScriptsGenerales.scriptsPartialsAbajo')
+    @include('Sector.Siembra.Partials.validator')
+    @include('Sector.Siembra.Partials.Script')
+    @include('Partials.ScriptsGenerales.scriptsPartialsAbajo')
