@@ -372,8 +372,7 @@ Route::get('login',[
     'uses' => 'Auth\AuthController@getLogin',
     'as' => 'login'
 ]);
-Route::post('login','Auth\AuthController@postLogin',array('before' => 'csrf', function()
-{
+Route::post('login','Auth\AuthController@postLogin',array('before' => 'csrf', function() {
 }));
 Route::get('logout', [
     'uses'=>'Auth\AuthController@getLogout',
