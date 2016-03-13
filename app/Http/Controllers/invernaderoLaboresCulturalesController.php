@@ -10,7 +10,6 @@ use Carbon\Carbon;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use App\SiembraSector;
 use Illuminate\Support\Facades\Validator;
 
 class invernaderoLaboresCulturalesController extends Controller
@@ -263,7 +262,6 @@ class invernaderoLaboresCulturalesController extends Controller
             'laboresCulturales' => $laboresCulturales,
             'invernaderos' => $invernaderos,
             'actividades' => $actividades,
-
         ]);
     }
 
