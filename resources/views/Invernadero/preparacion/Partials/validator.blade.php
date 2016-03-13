@@ -17,8 +17,7 @@
                     }
                 },
 
-
-                siembraT:{
+                tipoSiembra:{
                     validators: {
                         notEmpty: {
                             message: 'Seleccione una opción'
@@ -26,13 +25,6 @@
                     }
                 },
 
-                actividad:{
-                    validators: {
-                        notEmpty: {
-                            message: 'Seleccione una opción'
-                        }
-                    }
-                },
 
                 fecha:{
                     validators: {

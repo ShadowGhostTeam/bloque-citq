@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class fertilizacionSectorRequest extends Request
+class preparacionInvernaderoRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,10 +25,7 @@ class fertilizacionSectorRequest extends Request
     {
         return [
             'invernadero'=>'required|exists:invernadero,id',
-            'charolas'=>'numeric|min:0',
-            'bolisNuevos' => 'numeric|min:0',
-            'bolisReciclados' => 'numeric|min:0',
-            'fecha' =>  'required|date_format:d/m/Y',
+            'tipoSiembra' =>  'required',
             'macetas'=>'numeric|min:0'
         ];
     }

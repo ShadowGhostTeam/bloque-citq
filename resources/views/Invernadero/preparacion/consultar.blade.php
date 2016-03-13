@@ -14,13 +14,13 @@
     MAIN SIDEBAR MENU
     *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Sector.Mantenimiento.aside')
+    @include('Invernadero.Preparacion.aside')
     <!--sidebar end-->
 
     <section id="container">
         <section id="main-content">
             <section class="wrapper site-min-height">
-                <h3><a href="{{ route('sector/mantenimiento') }}"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Búsqueda</button></a></h3>
+                <h3><a href="{{ route('invernadero/preparacion') }}"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Búsqueda</button></a></h3>
                 <div class="row mt">
 
                     <!-- INICIO CONSULTAR FUNCIONES -->
@@ -29,20 +29,20 @@
 
                             <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Consultar mantenimiento</h4><br>
 
-                            @if( isset($mantenimiento))
+                            @if( isset($preparacionInvernadero))
 
 
                                 <table align="right">
                                     <tr>
                                         <td>
-                                            <a href="{{ route('sector/mantenimiento/modificar/item',$mantenimiento->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
+                                            <a href="{{ route('invernadero/preparacion/modificar/item',$preparacionInvernadero->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
                                             &nbsp
                                         </td>
 
                                         <td>
-                                            {!! Form::open(['action'=>['mantenimientoSectorController@eliminar'],'role'=>'form'] )  !!}
-                                            <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar el mantenimiento?")'><i class="fa fa-trash-o "></i></button>
-                                            <input type="hidden" name="id" value={{$mantenimiento->id}}>
+                                            {!! Form::open(['action'=>['preparacionInvernaderoController@eliminar'],'role'=>'form'] )  !!}
+                                            <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la preparación?")'><i class="fa fa-trash-o "></i></button>
+                                            <input type="hidden" name="id" value={{$preparacionInvernadero->id}}>
                                             {!! Form::close() !!}
 
                                         </td>
@@ -61,16 +61,11 @@
                                 <div class="col-md-7">
 
                                     <dl class="dl-horizontal">
-                                        <dt>Sector</dt><dd>{{ $mantenimiento->sector->nombre }}</dd>
-                                        <dt>Siembra</dt><dd>{{ $siembras['nombre'] . ' '. $siembras['variedad']  }}</dd>
-                                        <dt>Actividad</dt><dd>{{ $mantenimiento->actividad }}</dd>
-                                        @if($mantenimiento->actividad!="Deshierbe manual"&&$mantenimiento->actividad!="Deshierbe máquina")
-                                            <dt>Tipo aplicación</dt><dd>{{ $mantenimiento->tipoAplicacion }}</dd>
-                                            <dt>Producto</dt><dd>{{ $mantenimiento->producto }}</dd>
-                                            <dt>Cantidad kg ó l/ha</dt><dd>{{ $mantenimiento->cantidad }}</dd>
-                                        @endif
-                                        <dt>Fecha</dt><dd>{{ $mantenimiento->fecha }}</dd>
-                                        <dt>Comentario</dt><dd>{{ $mantenimiento->comentario}}</dd>
+                                        <dt>Invernadero</dt><dd>{{ $preparacionInvernadero->invernadero->nombre }}</dd>
+                                        {{--<dt>Siembra</dt><dd>--}}{{--{{ $siembras['nombre'] . ' '. $siembras['variedad']  }}--}}{{--</dd>--}}
+                                        <dt>Tipo de siembra</dt><dd>{{ $preparacionInvernadero->tipoSiembra }}</dd>
+                                        <dt>Fecha</dt><dd>{{ $preparacionInvernadero->fecha }}</dd>
+
                                     </dl>
                                 </div>
 

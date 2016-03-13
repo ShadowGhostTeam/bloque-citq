@@ -23,13 +23,13 @@
                 <select  class="form-control" id="invernadero" name="invernadero">
                     <option value="">Selecciona</option>
 
-                    @if( isset($laboresInvernadero))
+                    @if( isset($preparacionInvernadero))
 
                         @foreach($invernaderos as $invernadero)
-                            @if($mantenimientoSector->id_sector == $sector->id)
-                                <option value="{{  $sector->id  }}" selected > {{ $sector->nombre}}  </option>
+                            @if($preparacionInvernadero->id_invernadero == $invernadero->id)
+                                <option value="{{  $invernadero->id  }}" selected > {{ $invernadero->nombre}}  </option>
                             @else
-                                <option value="{{  $sector->id  }}" > {{ $sector->nombre}}  </option>
+                                <option value="{{  $invernadero->id  }}" > {{ $invernadero->nombre}}  </option>
                             @endif
                         @endforeach
                     @else
@@ -42,51 +42,31 @@
         </div>
 
         <div class="form-group">
-            <label for="Siembra" class="col-lg-2 control-label"><strong>*</strong>Siembra-Transplante</label>
+            <label for="Actividad" class="col-lg-2 control-label"><strong>*</strong>Tipo de Siembra</label>
             <div class="col-lg-10">
 
-                <select  class="form-control" id="siembraT" name="siembraT">
+                <select  class="form-control" id="tipoSiembra" name="tipoSiembra">
                     <option value="">Selecciona</option>
 
-                    @if( isset($laboresInvernadero))
+                    @if( isset($preparacionInvernadero))
 
-                        @foreach($siembras as $siembra)
-                            @if($siembraSeleccionada['id_siembra'] == $siembra['id_siembra'])
-                                <option value="{{  $siembra['id_siembra']  }}" selected > {{ $siembra['nombre']."   ". $siembra['variedad'] . " - ". $siembra['fecha'] }}  </option>
+                        @foreach($tipoSiembras as $tipoSiembra)
+                            @if($preparacionInvernadero->tipoSiembra == $tipoSiembra)
+                                <option value="{{  $tipoSiembra  }}" selected > {{ $tipoSiembra}}  </option>
                             @else
-                                <option value="{{  $siembra['id_siembra']  }}"  > {{ $siembra['nombre']."   ". $siembra['variedad'] ." - " . $siembra['fecha']  }}  </option>
-                            @endif
-                        @endforeach
-
-                    @endif
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="Actividad" class="col-lg-2 control-label"><strong>*</strong>Actividad</label>
-            <div class="col-lg-10">
-
-                <select  class="form-control" id="actividad" name="actividad">
-                    <option value="">Selecciona</option>
-
-                    @if( isset($laboresInvernadero))
-
-                        @foreach($actividades as $actividad)
-                            @if($mantenimientoSector->actividad == $actividad)
-                                <option value="{{  $actividad  }}" selected > {{ $actividad}}  </option>
-                            @else
-                                <option value="{{  $actividad }}"  > {{ $actividad }}</option>
+                                <option value="{{  $tipoSiembra }}"  > {{ $tipoSiembra }}</option>
                             @endif
                         @endforeach
                     @else
-                        @foreach($actividades as $actividad)
-                            <option value="{{  $actividad }}"  > {{ $actividad }}</option>
+                        @foreach($tipoSiembras as $tipoSiembra)
+                            <option value="{{  $tipoSiembra }}"  > {{ $tipoSiembra }}</option>
                         @endforeach
                     @endif
                 </select>
             </div>
         </div>
+
+
 
         <div class="form-group">
             <label for="Fecha" class="col-lg-2 control-label"><strong>*</strong>Fecha</label>
@@ -95,8 +75,8 @@
                                                  <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                   </span>
-                    @if( isset($laboresInvernadero))
-                        {!!Form::text('fecha' ,$mantenimientoSector->fecha,['class'=>'form-control','id'=>'fecha','placeholder'=>'dd/mm/aaaa'])!!}
+                    @if( isset($preparacionInvernadero))
+                        {!!Form::text('fecha' ,$preparacionInvernadero->fecha,['class'=>'form-control','id'=>'fecha','placeholder'=>'dd/mm/aaaa'])!!}
                     @else
                         {!!Form::text('fecha' ,null,['class'=>'form-control','id'=>'fecha','placeholder'=>'dd/mm/aaaa'])!!}
                     @endif
@@ -108,9 +88,9 @@
 
 
         <div class="form-group" align="center">
-            @if( isset($laboresInvernadero))
+            @if( isset($preparacionInvernadero))
 
-            {!! Form::submit('Modificar',['class'=>'btn btn-success', 'onclick'=>"return confirm ('¿Seguro que desea modificar el mantenimiento?')"])!!}
+            {!! Form::submit('Modificar',['class'=>'btn btn-success', 'onclick'=>"return confirm ('¿Seguro que desea modificar la preparación?')"])!!}
             @else
                 {!! Form::submit('Crear',['class'=>'btn btn-success'])!!}
             @endif

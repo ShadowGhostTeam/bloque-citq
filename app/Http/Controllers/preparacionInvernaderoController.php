@@ -9,25 +9,30 @@
 namespace App\Http\Controllers;
 
 use App\invernadero;
-
-use App\Http\Requests\preparacionSectorRequest;
+use App\Http\Requests\preparacionInvernaderoRequest;
 use App\preparacionInvernadero;
+use Carbon\Carbon;
+use App\Http\Requests;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
-class preparacionInvernaderoController
+
+class preparacionInvernaderoController extends Controller
 {
     public function index() {
         $now= Carbon::now()->format('Y/m/d');
         $now2 =Carbon::now()->subMonth(6)->format('Y/m/d');
-        $preparaciones = preparacionSector::whereBetween('fecha', array($now2,$now))->orderBy('fecha', 'desc')->paginate(15);
+        $preparaciones = preparacionInvernadero::whereBetween('fecha', array($now2,$now))->orderBy('fecha', 'desc')->paginate(15);
+        $tipoSiembras = ['Bolis nuevos','Bolis reciclados','Macetas','Charolas'];
         $this->adaptaFechas($preparaciones);
 
 
-        $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $maquinarias= Maquinaria::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        return view('Sector/Preparacion/buscar')->with([
-            'sectores' => $sectores,
-            'maquinarias' => $maquinarias,
-            'preparaciones'=>$preparaciones
+        $invernaderos= Invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        return view('Invernadero/preparacion/buscar')->with([
+            'invernaderos' => $invernaderos,
+            'preparaciones'=>$preparaciones,
+            'tipoSiembras' => $tipoSiembras
 
         ]);
     }
@@ -37,10 +42,11 @@ class preparacionInvernaderoController
      * */
     public function pagCrear() {
         $invernaderos= Invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $tipoSiembras = ['Bolis nuevos','Bolis reciclados','Macetas','Charolas'];
 
-
-        return view('Invernadero/Preparacion/crear')->with([
-            'invernaderos' => $invernaderos
+        return view('Invernadero/preparacion/crear')->with([
+            'invernaderos' => $invernaderos,
+            'tipoSiembras' => $tipoSiembras
         ]);
     }
 
@@ -49,15 +55,15 @@ class preparacionInvernaderoController
      */
     public function pagModificar($id) {
         $preparacionInvernadero= preparacionInvernadero::findOrFail($id);
-
         $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $preparacionInvernadero->fecha);
         $preparacionInvernadero->fecha=$fecha->format('d/m/Y');
         $invernaderos= Invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
-
+        $tipoSiembras = ['Bolis nuevos','Bolis reciclados','Macetas','Charolas'];
 
         return view('Invernadero/preparacion/modificar')->with([
-            '$preparacionInvernadero'=>$preparacionInvernadero,
-            'invernaderos' => $invernaderos
+            'preparacionInvernadero'=>$preparacionInvernadero,
+            'invernaderos' => $invernaderos,
+            'tipoSiembras' => $tipoSiembras
 
         ]);
     }
@@ -67,13 +73,13 @@ class preparacionInvernaderoController
      */
 
     public function pagConsultar($id) {
-        $preparacion= preparacionInvernadero::findOrFail($id);
-        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $preparacion->fecha);
-        $preparacion->fecha=$fecha->format('d/m/Y');
+        $preparacionInvernadero= preparacionInvernadero::findOrFail($id);
+        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $preparacionInvernadero->fecha);
+        $preparacionInvernadero->fecha=$fecha->format('d/m/Y');
 
 
-        return view('invernadero/preparacion/consultar')->with([
-            'preparacion'=>$preparacion
+        return view('Invernadero/preparacion/consultar')->with([
+            'preparacionInvernadero'=>$preparacionInvernadero
         ]);
     }
 
@@ -86,7 +92,6 @@ class preparacionInvernaderoController
     public function crear(preparacionInvernaderoRequest $request){
         $preparacion=$this->adaptarRequest($request);
         $preparacion->save();
-
         Session::flash('message', 'La preparacion ha sido agregada');
         return redirect('invernadero/preparacion/crear');
     }
@@ -95,19 +100,19 @@ class preparacionInvernaderoController
     /*
      * Recibe la informacion del formulario de modificar y la actualiza en la base de datos
      */
-    public function modificar(preparacionSectorRequest $request){
+    public function modificar(preparacionInvernaderoRequest $request){
         $preparacion=$this->adaptarRequest($request);
         $preparacion->save();
         $preparacion->push();
         Session::flash('message', 'La preparacion ha sido modificada');
-        return redirect('Invernadero/Preparacion/modificar/'.$preparacion->id);
+        return redirect('invernadero/preparacion//modificar/'.$preparacion->id);
     }
 
     /*
      * Elimina un registro de la base de datos
      */
     public function eliminar(Request $request){
-        $preparacion= preparacionSector::findOrFail($request->id);
+        $preparacion= preparacionInvernadero::findOrFail($request->id);
         $preparacion->delete();
 
         Session::flash('message','La preparacion ha sido eliminada');
@@ -119,11 +124,9 @@ class preparacionInvernaderoController
      */
 
     public function buscar(Request $request){
-
         /*Listados de combobox*/
-        $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $maquinarias= Maquinaria::select('id','nombre')->orderBy('nombre', 'asc')->get();
-
+        $invernaderos= Invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $tipoSiembras = ['Bolis nuevos','Bolis reciclados','Macetas','Charolas'];
         /*Ahi se guardaran los resultados de la busqueda*/
         $preparaciones=null;
 
@@ -131,8 +134,7 @@ class preparacionInvernaderoController
         $validator = Validator::make($request->all(), [
             'fechaInicio' => 'date_format:d/m/Y',
             'fechaFin' => 'date_format:d/m/Y',
-            'sector' => 'exists:sector,id',
-            'maquinaria' => 'exists:maquinaria,id'
+            'invernadero' => 'exists:invernadero,id'
         ]);
 
         /*Si validador no falla se pueden realizar busquedas*/
@@ -141,26 +143,27 @@ class preparacionInvernaderoController
         else{
 
             /*Busqueda sin parametros*/
-            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->sector == "" && $request->maquinaria =="") {
-                $preparaciones = preparacionSector::orderBy('fecha', 'desc')->paginate(15);;
+            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->invernadero == "") {
+                $preparaciones = preparacionInvernadero::orderBy('fecha', 'desc')->paginate(15);;
 
             }
 
-            /*Busqueda solo con sector*/
-            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->sector != "" && $request->maquinaria =="") {
-                $preparaciones = preparacionSector::where('id_sector', $request->sector)->orderBy('fecha', 'desc')->paginate(15);;
+            /*Busqueda solo con invernadero*/
+            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->invernadero != "") {
+                $preparaciones = preparacionInvernadero::where('id_invernadero', $request->invernadero)->orderBy('fecha', 'desc')->paginate(15);;
 
             }
 
-            /*Busqueda solo con maquinaria*/
-            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->sector == "" && $request->maquinaria !="") {
-                $preparaciones = preparacionSector::where('id_maquinaria', $request->maquinaria)->orderBy('fecha', 'desc')->paginate(15);;
+            /*Busqueda solo con tipoSiembra*/
+            if ($request->fechaFin == "" && $request->fechaInicio == "" && $request->invernadero == "" && $request->tipoSiembra != "") {
+                $preparaciones  = preparacionInvernadero::where('tipoSiembra', $request->tipoSiembra)->orderBy('fecha', 'desc')->paginate(15);;
             }
 
-            /*Busqueda solo con maquinaria y sector*/
-            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->sector != "" && $request->maquinaria !="") {
-                $preparaciones = preparacionSector::where('id_sector', $request->sector)->where('id_maquinaria', $request->maquinaria)->orderBy('fecha', 'desc')->paginate(15);
+            /*Busqueda solo con tipoSiembra y invernadero*/
+            if ($request->fechaFin == "" && $request->fechaInicio == "" && $request->invernadero != "" && $request->tipoSiembra != "") {
+                $preparaciones  = preparacionInvernadero::where('id_invernadero', $request->invernadero)->where('tipoSiembra', $request->tipoSiembra )->orderBy('fecha', 'desc')->paginate(15);
             }
+
 
             /*Pregunta si se mandaron fechas, para calcular busquedas con fechas*/
             if ( $request->fechaFin != "" && $request->fechaInicio !="") {
@@ -175,23 +178,22 @@ class preparacionInvernaderoController
                 /*Hay cuatro posibles casos de busqueda con fechas, cada if se basa en un caso */
 
                 /*Solo con fechas*/
-                if ($request->sector == "" && $request->maquinaria == "") {
-                    $preparaciones = preparacionSector::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                if ($request->invernadero == "" && $request->tipoSector == "") {
+                    $preparaciones = preparacionInvernadero::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
                 }
-                /*Solo con fechas y sector*/
-                if ($request->sector != "" && $request->maquinaria == "") {
-                    $preparaciones = preparacionSector::where('id_sector', $request->sector)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                /*Solo con fechas e invernadero*/
+                if ($request->invernadero != "" && $request->tipoSector == "") {
+                    $preparaciones = preparacionInvernadero::where('id_invernadero', $request->invernadero)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                }
+                /*Solo con fechas y tipoSiembra*/
+                if ($request->invernadero == "" &&$request->tipoSiembra != "") {
+                    $preparaciones = preparacionInvernadero::where('tipoSiembra', $request->tipoSiembra)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                }
+                /*los tres*/
+                if ($request->invernadero != "" && $request->tipoSector != "") {
+                    $preparaciones = preparacionInvernadero::where('id_invernadero', $request->invernadero)->where('tipoSiembra', $request->tipoSiembra)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
                 }
 
-                /*Solo con fechas y maquinaria*/
-                if ($request->sector == "" && $request->maquinaria !== "") {
-                    $preparaciones = preparacionSector::where('id_maquinaria', $request->maquinaria)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
-                }
-
-                /*Fechas, maquinaria y sector, los tres parametros de filtro*/
-                if ($request->sector != "" && $request->maquinaria !== "") {
-                    $preparaciones = preparacionSector::where('id_sector', $request->sector)->where('id_maquinaria', $request->maquinaria)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
-                }
             }
         }
 
@@ -215,10 +217,10 @@ class preparacionInvernaderoController
             Session::flash('message', 'Se encontraron '.$num.' resultados');
         }
         /*Regresa la vista*/
-        return view('Sector/Preparacion/buscar')->with([
+        return view('Invernadero/preparacion/buscar')->with([
             'preparaciones'=>$preparaciones,
-            'sectores' => $sectores,
-            'maquinarias' => $maquinarias
+            'invernaderos' => $invernaderos,
+            'tipoSiembras' => $tipoSiembras
         ]);
     }
 
@@ -236,9 +238,8 @@ class preparacionInvernaderoController
             $preparacion = preparacionInvernadero::findOrFail($request->id);
         }
 
-        $preparacion->id_sector= $request->sector;
-        $preparacion->id_maquinaria= $request->maquinaria;
-        $preparacion->numPasadas= $request->numPasadas;
+        $preparacion->id_invernadero= $request->invernadero;
+        $preparacion->tipoSiembra= $request->tipoSiembra;
         $preparacion->fecha=Carbon::createFromFormat('d/m/Y', $request->fecha)->toDateTimeString();
 
 

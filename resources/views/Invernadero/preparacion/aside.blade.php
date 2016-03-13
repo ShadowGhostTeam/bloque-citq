@@ -51,7 +51,7 @@
                 </a>
 
                 <ul class="sub">
-                    <li><a href="{{route('sector/preparacion')}}"  >
+                    <li><a href="{{route('sector/preparacion')}}"  class="active" >
                             <i class="glyphicon glyphicon-tree-deciduous"></i>
                             <span>Preparación </span>
                         </a></li>
@@ -65,7 +65,7 @@
                             <i class="fa fa-tasks"></i>
                             <span>Fertilización/Riego </span>
                         </a></li>
-                    <li><a href="{{route('invernadero/laboresCulturales')}}" class="active">
+                    <li><a href="{{route('invernadero/laboresCulturales')}}">
                             <i class="fa fa-tint"></i>
                             <span>Labores Culturales</span>
                         </a></li>

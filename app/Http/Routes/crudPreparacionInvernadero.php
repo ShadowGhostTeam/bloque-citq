@@ -1,5 +1,9 @@
 <?php
 
+
+/*
+ * Rutas para Invernadero-Labores Culturales
+ */
 Route::get('invernadero/preparacion',[
     'uses' => 'preparacionInvernaderoController@index',
     'as' =>'invernadero/preparacion'
@@ -29,6 +33,17 @@ Route::get('invernadero/preparacion/modificar/{id}',[
 
 ]);
 
+
+Route::post('invernadero/preparacion/modificar','preparacionInvernaderoController@modificar',array('before' => 'csrf', function() {
+    //
+}));
+
 Route::post('invernadero/preparacion/eliminar','preparacionInvernaderoController@eliminar',array('before' => 'csrf', function() {
 
 }));
+
+Route::get('invernadero/preparacion/consultar/{id}',[
+    'uses' => 'preparacionInvernaderoController@pagConsultar',
+    'as' =>'invernadero/preparacion/consultar/item'
+
+]);
