@@ -41,6 +41,8 @@ class cultivo extends Model
 
     // 1 a N
     public function siembras(){
-        return $this->hasMany('App\sectorSiembra', 'id_cultivo', 'id')->orderBy('fecha','asc');
+        return $this->hasMany('App\siembraSector', 'id_cultivo', 'id')->orderBy('fecha','asc');
     }
+
+
 }

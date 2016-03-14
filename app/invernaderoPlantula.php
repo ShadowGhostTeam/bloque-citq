@@ -44,10 +44,6 @@ class invernaderoPlantula extends Model
         return $this->hasMany('App\preparacionPlantula', 'id_invernaderoPlantula', 'id')->orderBy('fecha','asc');
     }
 
-    public function aplicacionesRiegos(){
-        return $this->hasMany('App\aplicacionRiego', 'id_invernaderoPlantula', 'id')->orderBy('fecha','asc');
-    }
-
 
     public function salidas(){
         return $this->hasMany('App\salidaPlanta', 'id_invernaderoPlantula', 'id')->orderBy('fecha','asc');

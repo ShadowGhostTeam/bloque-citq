@@ -31,7 +31,7 @@
 
                             {!! Form::open(['action'=>['invernaderoLaboresCulturalesController@crear'],'class'=>'form-horizontal','role'=>'form','id'=>'formulario'])!!}
 
-                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear Labor de Invernadero</h4><br>
+                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear labor cultural</h4><br>
 
                             @include('Invernadero.LaboresCulturales.Partials.form')
 

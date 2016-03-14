@@ -18,7 +18,7 @@
                 },
 
 
-                siembra:{
+                siembraT:{
                     validators: {
                         notEmpty: {
                             message: 'Seleccione una opción'

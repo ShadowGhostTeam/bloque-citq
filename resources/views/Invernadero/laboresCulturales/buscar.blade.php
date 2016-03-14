@@ -45,13 +45,13 @@
 MAIN SIDEBAR MENU
 *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Sector.Mantenimiento.aside')
+    @include('Invernadero.LaboresCulturales.aside')
     <!--sidebar end-->
 
     <section id="container">
         <section id="main-content">
             <section class="wrapper site-min-height">
-                <h3 style="color:#078006"><i class="fa fa-angle-right"></i>Mantenimiento</h3>
+                <h3 style="color:#078006"><i class="fa fa-angle-right"></i>Labores culturales</h3>
                 <div class="row mt">
 
 
@@ -62,7 +62,7 @@ MAIN SIDEBAR MENU
                             @include('Partials.Mensajes.mensajes')
 
                             <div class="form-group" align="right">
-                                <a href="{{route('sector/mantenimiento/crear')}}"> <button class="btn agregar tooltips" data-placement="left" data-original-title="Agregar"><i class="fa fa-plus"></i></i></button></a>
+                                <a href="{{route('invernadero/laboresCulturales/crear')}}"> <button class="btn agregar tooltips" data-placement="left" data-original-title="Agregar"><i class="fa fa-plus"></i></button></a>
                             </div>
 
                             <div class="row">
@@ -70,17 +70,17 @@ MAIN SIDEBAR MENU
 
 
 
-                                    {!! Form::open(['route' => 'sector/mantenimiento/lista' ,'method'=>'GET']) !!}
+                                    {!! Form::open(['route' => 'invernadero/laboresCulturales/lista' ,'method'=>'GET']) !!}
 
                                         <div class="form-group">
 
                                             <div class="col-lg-3">
-                                                <select  class="form-control" id="sector" name="sector">
-                                                    <option value="">Todos los sectores</option>
+                                                <select  class="form-control" id="invernadero" name="invernadero">
+                                                    <option value="">Todos los invernaderos</option>
 
-                                                    @if( isset($sectores))
-                                                        @foreach($sectores as $sector)
-                                                            <option value="{{  $sector->id  }}" > {{ $sector->nombre}}  </option>
+                                                    @if( isset($invernaderos))
+                                                        @foreach($invernaderos as $invernadero)
+                                                            <option value="{{  $invernadero->id  }}" > {{ $invernadero->nombre}}  </option>
                                                         @endforeach
                                                     @endif
                                                 </select>
@@ -145,7 +145,7 @@ MAIN SIDEBAR MENU
                                 <table class="table table-striped table-advance table-hover">
                                     <thead>
                                     <tr>
-                                        <th><i class="fa fa-thumb-tack"></i> Sector </th>
+                                        <th><i class="fa fa-thumb-tack"></i> Invernadero </th>
                                         <th> <i class="fa fa-calendar-o"></i> Actividad </th>
                                         <th><i class=" fa fa-edit"></i>Fecha</th>
                                         <th></th>
@@ -153,28 +153,28 @@ MAIN SIDEBAR MENU
                                     </thead>
                                     <tbody>
 
-                                    @if ( isset( $mantenimientos) )
+                                    @if ( isset( $laboresCulturales) )
 
-                                        @foreach( $mantenimientos as $mantenimiento )
+                                        @foreach( $laboresCulturales as $laborCultural)
 
                                             <tr>
-                                                <td>{{ $mantenimiento->sector->nombre }}</td>
-                                                <td>{{ $mantenimiento->actividad }}</td>
-                                                <td>{{ $mantenimiento->fecha }}</td>
+                                                <td>{{ $laborCultural->invernadero->nombre }}</td>
+                                                <td>{{ $laborCultural->actividad }}</td>
+                                                <td>{{ $laborCultural->fecha }}</td>
 
 
                                                 <td style="width: 5px">
-                                                    <a href="{{ route('sector/mantenimiento/consultar/item',$mantenimiento->id) }}"><button class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar"><i class="fa fa-eye"></i></button></a>
+                                                    <a href="{{ route('invernadero/laboresCulturales/consultar/item',$laborCultural->id) }}"><button class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar"><i class="fa fa-eye"></i></button></a>
                                                 </td>
 
                                                 <td style="width: 5px">
-                                                    <a href="{{ route('sector/mantenimiento/modificar/item',$mantenimiento->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
+                                                    <a href="{{ route('invernadero/laboresCulturales/modificar/item',$laborCultural->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
                                                 </td>
 
                                                 <td style="width: 5px">
-                                                    {!! Form::open(['action'=>['mantenimientoSectorController@eliminar'],'role'=>'form'] )  !!}
-                                                    <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar el mantenimiento?")'><i class="fa fa-trash-o "></i></button>
-                                                    <input type="hidden" name="id" value={{$mantenimiento->id}}>
+                                                    {!! Form::open(['action'=>['invernaderoLaboresCulturalesController@eliminar'],'role'=>'form'] )  !!}
+                                                    <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la labor cultural?")'><i class="fa fa-trash-o "></i></button>
+                                                    <input type="hidden" name="id" value={{$laborCultural->id}}>
                                                     {!! Form::close() !!}
                                                 </td>
 
@@ -188,8 +188,8 @@ MAIN SIDEBAR MENU
                                     </tbody>
                                 </table>
                             </div>
-                            @if (isset($mantenimientos))
-                                {!! $mantenimientos->setPath('')->appends(Input::query())->render()!!}
+                            @if (isset($laboresCulturales))
+                                {!! $laboresCulturales->setPath('')->appends(Input::query())->render()!!}
                             @endif
                         </div>
                     </div>

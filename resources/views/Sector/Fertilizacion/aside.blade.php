@@ -17,7 +17,7 @@
                             <span>Preparación </span>
                         </a></li>
 
-                    <li><a href="#">
+                    <li><a href="{{route('sector/siembra')}}"  >
                             <i class="fa fa-leaf"></i>
                             <span>Siembra </span>
                         </a></li>
@@ -34,7 +34,7 @@
                             <i class="fa fa-wrench"></i>
                             <span>Mantenimiento </span>
                         </a></li>
-                    <li><a href="#" >
+                    <li><a href="{{route('sector/cosecha')}}" >
                             <i class="fa fa-reply-all"></i>
                             <span>Cosecha </span>
                         </a></li>
