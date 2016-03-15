@@ -430,7 +430,7 @@ require __DIR__ . '/Routes/crudPreparacionInvernadero.php';
 require __DIR__ . '/Routes/crudSiembraInvernadero.php';
 require __DIR__ . '/Routes/crudFertilizacionRiegoInvernadero.php';
 require __DIR__ . '/Routes/crudAplicacionesMantenimientoInvernadero.php';
-require __DIR__ . '/Routes/crudlaboresCulturalesInvernadero.php';
+require __DIR__ . '/Routes/crudLaboresCulturalesInvernadero.php';
 require __DIR__ . '/Routes/crudCosechaInvernadero.php';
 
 /////////////////////INVERNADERO PLANTULA/////////////////////

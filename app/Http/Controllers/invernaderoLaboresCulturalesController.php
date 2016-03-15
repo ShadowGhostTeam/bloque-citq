@@ -2,28 +2,15 @@
 
 namespace App\Http\Controllers;
 
-<<<<<<< HEAD
-use App\fertilizacion;
-use App\Http\Requests\fertilizacionSectorRequest;
-use App\Http\Requests\laboresCulturalesInvernaderoRequest;
-use App\invernadero;
-use App\laboresCulturales;
-use App\sector;
-=======
 use App\laboresCulturales;
 use App\Http\Requests\laboresCulturalesInvernaderoRequest;
 use App\invernadero;
->>>>>>> 30580a85a09145dad180356001e18a9bf0cd9a57
 use App\siembraTransplanteInvernadero;
 use Carbon\Carbon;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-<<<<<<< HEAD
-use App\SiembraSector;
-=======
 use Illuminate\Support\Facades\Validator;
->>>>>>> 30580a85a09145dad180356001e18a9bf0cd9a57
 
 class invernaderoLaboresCulturalesController extends Controller
 {
@@ -41,7 +28,7 @@ class invernaderoLaboresCulturalesController extends Controller
         $actividades = ['Deshojes','Despuntes','Brotes','Podas'];
         $invernaderos= invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
-        return view('Invernadero/laboresCulturales/buscar')->with([
+        return view('Invernadero/LaboresCulturales/buscar')->with([
             'invernaderos' => $invernaderos,
             'laboresCulturales'=>$laboresCulturales,
             'actividades' => $actividades,
@@ -53,7 +40,7 @@ class invernaderoLaboresCulturalesController extends Controller
     public function pagCrear(){
         $invernaderos= invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
         $actividades = ['Deshojes','Despuntes','Brotes','Podas'];
-        return view('Invernadero/laboresCulturales/crear')->with([
+        return view('Invernadero/LaboresCulturales/crear')->with([
             'invernaderos' => $invernaderos,
             'actividades' => $actividades
 
@@ -121,11 +108,7 @@ class invernaderoLaboresCulturalesController extends Controller
         $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $laboresCulturales->fecha);
         $laboresCulturales->fecha=$fecha->format('d/m/Y');
 
-<<<<<<< HEAD
         return view('Invernadero/LaboresCulturales/modificar')->with([
-=======
-        return view('Invernadero/laboresCulturales/modificar')->with([
->>>>>>> 30580a85a09145dad180356001e18a9bf0cd9a57
             'invernaderos' => $invernaderos,
             'siembras' => $siembrasTodas,
             'actividades'=> $actividades,
@@ -149,20 +132,6 @@ class invernaderoLaboresCulturalesController extends Controller
     *
     * */
     public function pagConsultar($id){
-<<<<<<< HEAD
-        $fertilizacion= fertilizacion::findOrFail($id);
-        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $fertilizacion->fecha);
-        $fertilizacion->fecha=$fecha->format('d/m/Y');
-
-        $siembras = array(
-            'id_siembra'=>$fertilizacion->id_siembra,
-            'variedad'=>$fertilizacion->siembra->variedad,
-            'nombre'=>$fertilizacion->siembra->cultivo->nombre);
-
-
-        return view('Sector/Fertilizacion/consultar')->with([
-            'fertilizacion'=>$fertilizacion,
-=======
         $laboresCulturales= laboresCulturales::findOrFail($id);
         $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $laboresCulturales->fecha);
         $laboresCulturales->fecha=$fecha->format('d/m/Y');
@@ -173,9 +142,8 @@ class invernaderoLaboresCulturalesController extends Controller
             'nombre'=>$laboresCulturales->siembraTransplante->cultivo->nombre);
 
 
-        return view('Invernadero/laboresCulturales/consultar')->with([
+        return view('Invernadero/LaboresCulturales/consultar')->with([
             'laboresCulturales'=>$laboresCulturales,
->>>>>>> 30580a85a09145dad180356001e18a9bf0cd9a57
             'siembras' => $siembras
         ]);
     }
@@ -183,19 +151,11 @@ class invernaderoLaboresCulturalesController extends Controller
 
     /*Eliminar registro*/
     public function eliminar(Request $request){
-<<<<<<< HEAD
-        $fertilizacion= fertilizacion::findOrFail($request->id);
-        $fertilizacion->delete();
-
-        Session::flash('message','La fertilizacion ha sido eliminada');
-        return redirect('sector/fertilizacion');
-=======
         $laboresCulturales= laboresCulturales::findOrFail($request->id);
         $laboresCulturales->delete();
 
         Session::flash('message','La labor cultural ha sido eliminada');
         return redirect('invernadero/laboresCulturales');
->>>>>>> 30580a85a09145dad180356001e18a9bf0cd9a57
     }
 
 
@@ -208,8 +168,6 @@ class invernaderoLaboresCulturalesController extends Controller
         }
 
     }
-<<<<<<< HEAD
-=======
 
     /*Metodo de Busqueda
     *
@@ -300,12 +258,11 @@ class invernaderoLaboresCulturalesController extends Controller
         $actividades = ['Deshojes','Despuntes','Brotes','Podas'];
         /*Regresa la vista*/
 
-        return view('Invernadero/laboresCulturales/buscar')->with([
+        return view('Invernadero/LaboresCulturales/buscar')->with([
             'laboresCulturales' => $laboresCulturales,
             'invernaderos' => $invernaderos,
             'actividades' => $actividades,
         ]);
     }
->>>>>>> 30580a85a09145dad180356001e18a9bf0cd9a57
 
 }

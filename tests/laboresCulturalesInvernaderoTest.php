@@ -33,8 +33,6 @@ class laboresCulturalesInvernaderoTest extends TestCase
         $response = $this->call('GET', 'invernadero/laboresCulturales/modificar/120');
         $this->assertEquals(404, $response->status());
     }
-<<<<<<< HEAD
-=======
     //////////////Consultar
     /*Unidad*/
     /**
@@ -193,5 +191,4 @@ class laboresCulturalesInvernaderoTest extends TestCase
     }
 
 
->>>>>>> 30580a85a09145dad180356001e18a9bf0cd9a57
 }
