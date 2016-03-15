@@ -12,7 +12,7 @@ class LaboresCulturales extends Migration
      */
     public function up()
     {
-        Schema::create('Labores_culturales', function (Blueprint $table) {
+        Schema::create('labores_culturales', function (Blueprint $table) {
             $table->increments('id');
             $table->dateTime('fecha');
             $table->enum('actividad',['Deshojes','Despuntes','Brotes','Podas']);
