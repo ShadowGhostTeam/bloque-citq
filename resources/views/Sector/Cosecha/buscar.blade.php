@@ -45,13 +45,13 @@
 MAIN SIDEBAR MENU
 *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Invernadero.laboresCulturales.aside')
+    @include('Sector.Cosecha.aside')
     <!--sidebar end-->
 
     <section id="container">
         <section id="main-content">
             <section class="wrapper site-min-height">
-                <h3 style="color:#078006"><i class="fa fa-angle-right"></i>Labores culturales</h3>
+                <h3 style="color:#078006"><i class="fa fa-angle-right"></i>Cosecha</h3>
                 <div class="row mt">
 
 
@@ -62,7 +62,7 @@ MAIN SIDEBAR MENU
                             @include('Partials.Mensajes.mensajes')
 
                             <div class="form-group" align="right">
-                                <a href="{{route('laboresCulturales')}}"> <button class="btn agregar tooltips" data-placement="left" data-original-title="Agregar"><i class="fa fa-plus"></i></button></a>
+                                <a href="{{route('sector/cosecha/crear')}}"> <button class="btn agregar tooltips" data-placement="left" data-original-title="Agregar"><i class="fa fa-plus"></i></i></button></a>
                             </div>
 
                             <div class="row">
@@ -70,36 +70,37 @@ MAIN SIDEBAR MENU
 
 
 
-                                    {!! Form::open(['route' => 'invernadero/laboresCulturales/lista' ,'method'=>'GET']) !!}
+                                    {!! Form::open(['route' => 'sector/cosecha/lista' ,'method'=>'GET']) !!}
 
                                         <div class="form-group">
 
                                             <div class="col-lg-3">
-                                                <select  class="form-control" id="invernadero" name="invernadero">
-                                                    <option value="">Todos los invernaderos</option>
+                                                <select  class="form-control" id="sector" name="sector">
+                                                    <option value="">Todos los sectores</option>
 
-                                                    @if( isset($invernaderos))
-                                                        @foreach($invernaderos as $invernadero)
-                                                            <option value="{{  $invernadero->id  }}" > {{ $invernadero->nombre}}  </option>
+                                                    @if( isset($sectores))
+                                                        @foreach($sectores as $sector)
+                                                            <option value="{{  $sector->id  }}" > {{ $sector->nombre}}  </option>
                                                         @endforeach
                                                     @endif
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="form-group">
+
+                                       {{-- <div class="form-group">
 
                                             <div class="col-lg-3">
-                                                <select  class="form-control" id="actividad" name="actividad">
-                                                    <option value="">Todas las actividades</option>
+                                                <select  class="form-control" id="maquinaria" name="maquinaria">
+                                                    <option value="">Toda la maquinaria</option>
 
-                                                    @if( isset($actividades))
-                                                        @foreach($actividades as $actividad)
-                                                            <option value="{{  $actividad  }}" > {{ $actividad}}  </option>
+                                                    --}}{{--@if( isset($maquinarias))
+                                                        @foreach($maquinarias as $maquinaria)
+                                                            <option value="{{  $maquinaria->id  }}" > {{ $maquinaria->nombre}}  </option>
                                                         @endforeach
-                                                    @endif
+                                                    @endif--}}{{--
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div>--}}
 
                                     <div id="formulario">
                                         <div class="form-group">
@@ -145,36 +146,36 @@ MAIN SIDEBAR MENU
                                 <table class="table table-striped table-advance table-hover">
                                     <thead>
                                     <tr>
-                                        <th><i class="fa fa-thumb-tack"></i> Invernadero </th>
-                                        <th> <i class="fa fa-calendar-o"></i> Actividad </th>
-                                        <th><i class=" fa fa-edit"></i>Fecha</th>
+                                        <th><i class="fa fa-thumb-tack"></i> Sector </th>
+                                        <th> <i class="fa fa-info"></i> descripcion </th>
+                                        <th><i class=" fa fa-calendar-o"></i>Fecha</th>
                                         <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
 
-                                    @if ( isset( $laboresCulturales) )
+                                    @if ( isset( $cosechas) )
 
-                                        @foreach( $laboresCulturales as $laborCultural)
+                                        @foreach( $cosechas as $cosecha )
 
                                             <tr>
-                                                <td>{{ $laborCultural->invernadero->nombre }}</td>
-                                                <td>{{ $laborCultural->actividad }}</td>
-                                                <td>{{ $laborCultural->fecha }}</td>
+                                                <td>{{ $cosecha->sector->nombre }}</td>
+                                                <td>{{ $cosecha->descripcion }}</td>
+                                                <td>{{ $cosecha->fecha }}</td>
 
 
                                                 <td style="width: 5px">
-                                                    <a href="{{ route('invernadero/laboresCulturales/consultar/item',$laborCultural->id) }}"><button class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar"><i class="fa fa-eye"></i></button></a>
+                                                    <a href="{{ route('sector/cosecha/consultar/item',$cosecha->id) }}"><button class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar"><i class="fa fa-eye"></i></button></a>
                                                 </td>
 
                                                 <td style="width: 5px">
-                                                    <a href="{{ route('invernadero/laboresCulturales/modificar/item',$laborCultural->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
+                                                    <a href="{{ route('sector/cosecha/modificar/item',$cosecha->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
                                                 </td>
 
                                                 <td style="width: 5px">
-                                                    {!! Form::open(['action'=>['invernaderoLaboresCulturalesController@eliminar'],'role'=>'form'] )  !!}
-                                                    <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la labor cultural?")'><i class="fa fa-trash-o "></i></button>
-                                                    <input type="hidden" name="id" value={{$laborCultural->id}}>
+                                                    {!! Form::open(['action'=>['cosechaSectorController@eliminar'],'role'=>'form'] )  !!}
+                                                    <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la cosecha?")'><i class="fa fa-trash-o "></i></button>
+                                                    <input type="hidden" name="id" value={{$cosecha->id}}>
                                                     {!! Form::close() !!}
                                                 </td>
 
@@ -188,8 +189,8 @@ MAIN SIDEBAR MENU
                                     </tbody>
                                 </table>
                             </div>
-                            @if (isset($laboresCulturales))
-                                {!! $laboresCulturales->setPath('')->appends(Input::query())->render()!!}
+                            @if (isset($cosechas))
+                                {!! $cosechas->setPath('')->appends(Input::query())->render()!!}
                             @endif
                         </div>
                     </div>
