@@ -57,7 +57,7 @@
 
 
 
-                            @include('Invernadero.LaboresCulturales.Partials.form')
+                            @include('Invernadero.laboresCulturales.Partials.form')
                             <input type="hidden" name="id" value="{{$laboresCulturales->id}}">
                             {!! Form::close() !!}
                         </div>
@@ -69,8 +69,8 @@
     </section>
 </section>
 
-@include('Invernadero.LaboresCulturales.Partials.validator')
+@include('Invernadero.laboresCulturales.Partials.validator')
 
-@include('Invernadero.LaboresCulturales.Partials.ajaxScript')
+@include('Invernadero.laboresCulturales.Partials.ajaxScript')
 
 @include('Partials.ScriptsGenerales.scriptsPartialsAbajo')
