@@ -13,7 +13,7 @@ class siembraSector extends Model
      *
      * @var string
      */
-    protected $table = 'siembraSector';
+    protected $table = 'siembra_sector';
 
     /**
      * The attributes that are mass assignable.

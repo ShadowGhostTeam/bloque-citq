@@ -13,7 +13,7 @@ class fertilizacionRiego extends Model
      *
      * @var string
      */
-    protected $table = 'fertilizacionRiego';
+    protected $table = 'fertilizacion_riego';
 
     /**
      * The attributes that are mass assignable.

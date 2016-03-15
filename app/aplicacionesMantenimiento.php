@@ -13,7 +13,7 @@ class aplicacionesMantenimiento extends Model
      *
      * @var string
      */
-    protected $table = 'aplicacionesMantenimiento';
+    protected $table = 'aplicaciones_mantenimiento';
 
     /**
      * The attributes that are mass assignable.

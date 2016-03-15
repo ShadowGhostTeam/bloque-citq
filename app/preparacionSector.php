@@ -13,7 +13,7 @@ class preparacionSector extends Model
      *
      * @var string
      */
-    protected $table = 'preparacionSector';
+    protected $table = 'preparacion_sector';
 
     /**
      * The attributes that are mass assignable.

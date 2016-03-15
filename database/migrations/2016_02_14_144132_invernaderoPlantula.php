@@ -14,7 +14,7 @@ class InvernaderoPlantula extends Migration
     {
         //
 
-        Schema::create('invernaderoPlantula', function (Blueprint $table) {
+        Schema::create('invernadero_plantula', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
             $table->text('descripcion');

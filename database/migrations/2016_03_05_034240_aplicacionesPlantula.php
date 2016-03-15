@@ -12,7 +12,7 @@ class AplicacionesPlantula extends Migration
      */
     public function up()
     {
-        Schema::create('aplicacionesPlantula', function (Blueprint $table) {
+        Schema::create('aplicaciones_plantula', function (Blueprint $table) {
             $table->increments('id');
 
             $table->dateTime('fecha');
@@ -24,10 +24,10 @@ class AplicacionesPlantula extends Migration
             $table->text('comentario');
 
             $table->integer('id_siembraPlantula')->unsigned();
-            $table->foreign('id_siembraPlantula')->references('id')->on('siembraPlantula');
+            $table->foreign('id_siembraPlantula')->references('id')->on('siembra_plantula');
 
             $table->integer('id_invernaderoPlantula')->unsigned();
-            $table->foreign('id_invernaderoPlantula')->references('id')->on('invernaderoPlantula');
+            $table->foreign('id_invernaderoPlantula')->references('id')->on('invernadero_plantula');
 
             $table->timestamps();
         });
