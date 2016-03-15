@@ -7,14 +7,18 @@
     *********************************************************************************************************************************************************** -->
     <!--header start-->
     @include('Partials.ScriptsGenerales.headerPartials')
-    <!--header end-->
+            <!--header end-->
 
     <!-- **********************************************************************************************************************************************************
     MAIN SIDEBAR MENU
     *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
     @include('Sector.Preparacion.aside')
+<<<<<<< HEAD
     <!--sidebar end-->
+=======
+            <!--sidebar end-->
+>>>>>>> 1904f9e26c0b4f14656f6f83413b0272c3759e1e
 
     <section id="container">
 
@@ -45,6 +49,6 @@
     </section>
 
 
-    @include('Sector.Preparacion.Partials.validator')
+@include('Sector.Preparacion.Partials.validator')
 
-    @include('Partials.ScriptsGenerales.scriptsPartialsAbajo')
+@include('Partials.ScriptsGenerales.scriptsPartialsAbajo')

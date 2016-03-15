@@ -13,7 +13,7 @@ class laboresCulturales extends Model
      *
      * @var string
      */
-    protected $table = 'LaboresCulturales';
+    protected $table = 'laboresCulturales';
 
     /**
      * The attributes that are mass assignable.
