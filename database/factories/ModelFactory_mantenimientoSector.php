@@ -13,9 +13,9 @@
 use App\siembraSector;
 
 $factory->define(App\mantenimientoSector::class, function (Faker\Generator $faker) {
-    $siembras=  DB::table('siembraSector')->lists('id');
+    $siembras=  DB::table('siembra_sector')->lists('id');
     $siembra=$faker->randomElement($siembras);
-    $id_sector=DB::table('siembraSector')->where('id', $siembra)->value('id_sector');
+    $id_sector=DB::table('siembra_sector')->where('id', $siembra)->value('id_sector');
 
     return [
         'fecha'=>$faker->dateTimeBetween($startDate = '-6 months', $endDate = 'now'),
