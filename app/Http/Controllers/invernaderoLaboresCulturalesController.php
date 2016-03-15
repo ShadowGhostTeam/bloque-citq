@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\fertilizacion;
+use App\Http\Requests\fertilizacionSectorRequest;
 use App\Http\Requests\laboresCulturalesInvernaderoRequest;
 use App\invernadero;
 use App\laboresCulturales;
+use App\sector;
+use App\siembraTransplanteInvernadero;
 use Carbon\Carbon;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Session;
+use App\SiembraSector;
 
 class invernaderoLaboresCulturalesController extends Controller
 {
@@ -71,5 +76,100 @@ class invernaderoLaboresCulturalesController extends Controller
         return $laboresCulturales;
     }
 
+    /*
+    * Crear pagina de modificar
+    *
+    * */
+    public function pagModificar($id){
+        $invernaderos= invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $laboresCulturales= laboresCulturales::findOrFail($id);
+        $actividades = ['Deshojes','Despuntes','Brotes','Podas'];
+        $fechaSiembraSeleccionada=Carbon::createFromFormat('Y-m-d H:i:s', $laboresCulturales->siembraTransplante->fecha);
+
+        $siembraSeleccionada = array(
+            'id_siembra'=>$laboresCulturales->id_stInvernadero,
+            'variedad'=>$laboresCulturales->siembraTransplante->variedad,
+            'nombre'=>$laboresCulturales->siembraTransplante->cultivo->nombre,
+            'fecha'=>$fechaSiembraSeleccionada->format('d/m/Y')
+        );
+
+        $siembras = siembraTransplanteInvernadero::where('id_invernadero',$laboresCulturales->id_invernadero)->get();
+        $siembrasTodas=array();
+        foreach ($siembras as $siembra) {
+
+            $fechaSiembraToda=Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fecha);
+
+            array_push($siembrasTodas,array(
+                    'id_siembra' => $siembra->id,
+                    'variedad' => $siembra->variedad,
+                    'nombre' => $siembra->cultivo->nombre,
+                    'fecha' => $fechaSiembraToda->format('d/m/Y'))
+
+            );
+        }
+
+        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $laboresCulturales->fecha);
+        $laboresCulturales->fecha=$fecha->format('d/m/Y');
+
+        return view('Invernadero/LaboresCulturales/modificar')->with([
+            'invernaderos' => $invernaderos,
+            'siembras' => $siembrasTodas,
+            'actividades'=> $actividades,
+            'siembraSeleccionada' => $siembraSeleccionada,
+            'laboresCulturales' => $laboresCulturales
+        ]);
+    }
+
+
+    /*Modificar registro*/
+    public function modificar(laboresCulturalesInvernaderoRequest $request){
+        $laboresCulturales=$this->adaptarRequest($request);
+        $laboresCulturales->save();
+        $laboresCulturales->push();
+        Session::flash('message', 'La labor cultural ha sido modificada');
+        return redirect('invernadero/laboresCulturales/modificar/'.$laboresCulturales->id);
+    }
+
+    /*
+    * Pagina para consultar
+    *
+    * */
+    public function pagConsultar($id){
+        $fertilizacion= fertilizacion::findOrFail($id);
+        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $fertilizacion->fecha);
+        $fertilizacion->fecha=$fecha->format('d/m/Y');
+
+        $siembras = array(
+            'id_siembra'=>$fertilizacion->id_siembra,
+            'variedad'=>$fertilizacion->siembra->variedad,
+            'nombre'=>$fertilizacion->siembra->cultivo->nombre);
+
+
+        return view('Sector/Fertilizacion/consultar')->with([
+            'fertilizacion'=>$fertilizacion,
+            'siembras' => $siembras
+        ]);
+    }
+
+
+    /*Eliminar registro*/
+    public function eliminar(Request $request){
+        $fertilizacion= fertilizacion::findOrFail($request->id);
+        $fertilizacion->delete();
+
+        Session::flash('message','La fertilizacion ha sido eliminada');
+        return redirect('sector/fertilizacion');
+    }
+
+
+    /*Adapta fechas a formato adecuado para imprimir en la vista*/
+    public function adaptaFechas($resultados){
+
+        foreach($resultados as $resultado  ){
+            $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $resultado->fecha);
+            $resultado->fecha=$fecha->format('d/m/Y');
+        }
+
+    }
 
 }
