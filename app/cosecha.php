@@ -39,7 +39,7 @@ class cosecha extends Model
 
     // 1 a N
     public  function siembra(){
-        return $this->belongsTo('App\siembraSector','id_siembra');
+        return $this->belongsTo('App\siembra','id_siembra');
     }
     public  function sector(){
         return $this->belongsTo('App\sector','id_sector');

@@ -42,6 +42,12 @@ class siembraPlantula extends Model
     // 1 a N
 
 
+
+    public function aplicacionesRiegos(){
+        return $this->hasMany('App\aplicacionRiego', 'id_siembraPlantula', 'id')->orderBy('fecha','asc');
+    }
+
+
     public function salidas(){
         return $this->hasMany('App\salidaPlanta', 'id_siembraPlantula', 'id')->orderBy('fecha','asc');
     }

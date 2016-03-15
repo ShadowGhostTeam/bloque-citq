@@ -8,7 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
-class AuthController extends Controller{
+class AuthController extends Controller
+{
     /*
     |--------------------------------------------------------------------------
     | Registration & Login Controller
@@ -27,7 +28,8 @@ class AuthController extends Controller{
      *
      * @return void
      */
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('guest', ['except' => 'getLogout']);
     }
 
@@ -37,7 +39,8 @@ class AuthController extends Controller{
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data){
+    protected function validator(array $data)
+    {
         return Validator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
@@ -51,7 +54,8 @@ class AuthController extends Controller{
      * @param  array  $data
      * @return User
      */
-    protected function create(array $data){
+    protected function create(array $data)
+    {
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -67,7 +71,8 @@ class AuthController extends Controller{
     public  function redirectPath(){
         return route('sector/preparacion');
     }
-    protected function getFailedLoginMessage(){
+    protected function getFailedLoginMessage()
+    {
         return 'Usuario o Contrasena equivocados.';
     }
 

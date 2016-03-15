@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\cultivo;
-use App\Http\Requests\siembraSectorRequest;
+use App\fertilizacion;
+use App\fuente;
+use App\Http\Requests\fertilizacionSectorRequest;
 use App\sector;
 use App\siembraSector;
 use Carbon\Carbon;
@@ -14,12 +16,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator;
 
 class siembraSectorController extends Controller
 {
     /**
-     * Metodo para ver la pagina inicial de siembra sector
+     * Metodo para ver la pagina inicial de fertilizacion sector
      *
      *
      */
@@ -28,125 +29,73 @@ class siembraSectorController extends Controller
         //
         $now= Carbon::now()->format('Y/m/d');
         $now2 =Carbon::now()->subMonth(6)->format('Y/m/d');
-        $siembras = siembraSector::whereBetween('fecha', array($now2,$now))->orderBy('fecha', 'desc')->paginate(15);
-        $this->adaptaFechas($siembras);
+        $fertilizaciones = fertilizacion::whereBetween('fecha', array($now2,$now))->orderBy('fecha', 'desc')->paginate(15);
+        $this->adaptaFechas($fertilizaciones);
 
 
 
         $sectores= sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $cultivos= cultivo::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        return view('Sector/Siembra/buscar')->with([
+        $fuentes= fuente::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        return view('Sector/Fertilizacion/buscar')->with([
             'sectores' => $sectores,
-            'cultivos' => $cultivos,
-            'siembras'=> $siembras
+            'fuentes' => $fuentes,
+            'fertilizaciones'=>$fertilizaciones
 
         ]);
     }
-
     /*Metodo de Busqueda
-    *
-    * */
-    public function buscar(Request $request){
+     *
+     * */
+    public function buscar(Request $request)
+    {
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $cultivos= cultivo::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $fuentes= fuente::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
+        /*Pregunta si se mandaron fechas, en caso contrario manda error 404*/
+        if ( $request->fechaFin != "" && $request->fechaInicio !="") {
 
-        /*Ahi se guardaran los resultados de la busqueda*/
-        $siembras =null;
+            /*Transforma fechas en formato adecuado*/
+            $fecha = $request->fechaInicio . " 00:00:00";
+            $fechaInf = Carbon::createFromFormat("d/m/Y H:i:s", $fecha);
+            $fecha = $request->fechaFin . " 23:59:59";
+            $fechaSup = Carbon::createFromFormat("d/m/Y H:i:s", $fecha);
 
-
-
-        $validator = Validator::make($request->all(), [
-            'fechaInicio' => 'date_format:d/m/Y',
-            'fechaFin' => 'date_format:d/m/Y',
-            'sector' => 'exists:sector,id',
-            'cultivo' => 'exists:cultivo,id',
-        ]);
-
-
-        /*Si validador no falla se pueden realizar busquedas*/
-        if ($validator->fails()) {
-        }
-        else {
-
-            /*Busqueda sin parametros*/
-            if ($request->fechaFin == "" && $request->fechaInicio == "" && $request->sector == "" && $request->cultivo == "") {
-                $siembras  = siembraSector::orderBy('fecha', 'desc')->paginate(15);;
-
+            /*Hay cuatro posibles casos de busqueda, cada if se basa en un caso */
+            if($request->sector==""&&$request->fuente=="") {
+                $fertilizaciones= fertilizacion::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+            }
+            if($request->sector!=""&&$request->fuente=="") {
+                $fertilizaciones= fertilizacion::where('id_sector',$request->sector)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+            }
+            if($request->sector==""&&$request->fuente!=="") {
+                $fertilizaciones= fertilizacion::where('id_fuente',$request->fuente)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+            }
+            if($request->sector!=""&&$request->fuente!=="") {
+                $fertilizaciones= fertilizacion::where('id_sector',$request->sector)->where('id_fuente',$request->fuente)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
             }
 
-            /*Busqueda solo con sector*/
-            if ($request->fechaFin == "" && $request->fechaInicio == "" && $request->sector != "" && $request->cultivo == "") {
-                $siembras  = siembraSector::where('id_sector', $request->sector)->orderBy('fecha', 'desc')->paginate(15);;
-
-            }
-
-            /*Busqueda solo con cultivo*/
-            if ($request->fechaFin == "" && $request->fechaInicio == "" && $request->sector == "" && $request->cultivo != "") {
-                $siembras  = siembraSector::where('id_cultivo', $request->cultivo)->orderBy('fecha', 'desc')->paginate(15);;
-            }
-
-            /*Busqueda solo con cultivo y sector*/
-            if ($request->fechaFin == "" && $request->fechaInicio == "" && $request->sector != "" && $request->cultivo != "") {
-                $siembras  = siembraSector::where('id_sector', $request->sector)->where('id_cultivo', $request->cultivo)->orderBy('fecha', 'desc')->paginate(15);
-            }
-
-
-            /*Pregunta si se mandaron fechas, en caso contrario manda error 404*/
-            if ($request->fechaFin != "" && $request->fechaInicio != "") {
-
-                /*Transforma fechas en formato adecuado*/
-                $fecha = $request->fechaInicio . " 00:00:00";
-                $fechaInf = Carbon::createFromFormat("d/m/Y H:i:s", $fecha);
-                $fecha = $request->fechaFin . " 23:59:59";
-                $fechaSup = Carbon::createFromFormat("d/m/Y H:i:s", $fecha);
-
-                /*Hay cuatro posibles casos de busqueda, cada if se basa en un caso */
-                if ($request->sector == "" && $request->cultivo == "") {
-                    $siembras = siembraSector::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
-                }
-                if ($request->sector != "" && $request->cultivo == "") {
-                    $siembras = siembraSector::where('id_sector', $request->sector)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
-                }
-                if ($request->sector == "" && $request->cultivo !== "") {
-                    $siembras = siembraSector::where('id_cultivo', $request->cultivo)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
-                }
-                if ($request->sector != "" && $request->cultivo !== "") {
-                    $siembras = siembraSector::where('id_sector', $request->sector)->where('id_cultivo', $request->cultivo)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
-                }
-            }
-        }
-
-
-        if($siembras!=null){
             /*Adapta el formato de fecha para poder imprimirlo en la vista adecuadamente*/
-            $this->adaptaFechas($siembras);
+            $this->adaptaFechas($fertilizaciones);
+            $num = $fertilizaciones->total();
 
-            /*Si no es nulo puede contar los resultados*/
-            $num = $siembras->total();
+            if($num<=0){
+                Session::flash('error', 'No se encontraron resultados');
+
+            }
+            else{
+                Session::flash('message', 'Se encontraron '.$num.' resultados');
+            }
+
+            return view('Sector/Fertilizacion/buscar')->with([
+                'fertilizaciones'=>$fertilizaciones,
+                'sectores' => $sectores,
+                'fuentes' => $fuentes
+            ]);
         }
-        else{
-            $num=0;
+        else
+        {
+            return redirect('errors/404');
         }
-
-        if ($num <= 0) {
-            Session::flash('error', 'No se encontraron resultados');
-
-        } else {
-            Session::flash('message', 'Se encontraron ' . $num . ' resultados');
-        }
-
-
-
-
-        /*Regresa la vista*/
-        return view('Sector/Siembra/buscar')->with([
-            'siembras' => $siembras,
-            'sectores' => $sectores,
-            'cultivos' => $cultivos
-        ]);
-
-
 
 
     }
@@ -155,17 +104,17 @@ class siembraSectorController extends Controller
     public function pagCrear()
     {
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $cultivos = cultivo::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $tipoSiembras = ['Maquinaria','A mano'];
-        $temporadas = ['Primavera-Verano','Otoño-Invierno'];
-        $tipoStatus = ['Activo', 'Terminado'];
 
-        return view('Sector/Siembra/crear')->with([
+        $fuentes = fuente::select('id','nombre')->orderBy('nombre', 'asc')->get();
+
+        $tipoFertilizaciones = ['Riego','Aplicacion dirigida'];
+
+
+        return view('Sector/Fertilizacion/crear')->with([
             'sectores' => $sectores,
-            'tipoSiembras' => $tipoSiembras,
-            'temporadas' => $temporadas,
-            'cultivos' => $cultivos,
-            'tipoStatus' => $tipoStatus
+            'tipoFertilizaciones'=>$tipoFertilizaciones,
+            'fuentes' => $fuentes
+
         ]);
     }
 
@@ -175,77 +124,103 @@ class siembraSectorController extends Controller
      * */
     public function pagModificar($id)
     {
-        $siembraSector= siembraSector::findOrFail($id);
+        $fertilizacionSector= fertilizacion::findOrFail($id);
 
         $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
-        $cultivos = cultivo::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $tipoSiembras = ['Maquinaria','A mano'];
-        $temporadas = ['Primavera-Verano', 'Otoño-Invierno'];
-        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $siembraSector->fecha);
-        $siembraSector->fecha=$fecha->format('d/m/Y');
-        $fechaTerminacion=Carbon::createFromFormat('Y-m-d H:i:s', $siembraSector->fechaTerminacion);
-        $siembraSector->fechaTerminacion=$fechaTerminacion->format('d/m/Y');
-        $tipoStatus = ['Activo', 'Terminado'];
 
-        return view('Sector/Siembra/modificar')->with([
+        $fechaSiembraSeleccionada=Carbon::createFromFormat('Y-m-d H:i:s', $fertilizacionSector->siembra->fecha);
+
+
+
+        $siembraSeleccionada = array(
+            'id_siembra'=>$fertilizacionSector->id_siembra,
+            'variedad'=>$fertilizacionSector->siembra->variedad,
+            'nombre'=>$fertilizacionSector->siembra->cultivo->nombre,
+            'fecha'=>$fechaSiembraSeleccionada->format('d/m/Y')
+        );
+
+
+        $siembras = siembraSector::where('id_sector',$fertilizacionSector->id_sector)->get();
+
+        $siembrasTodas=array();
+        foreach ($siembras as $siembra) {
+
+            $fechaSiembraToda=Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fecha);
+
+            array_push($siembrasTodas,array(
+                'id_siembra' => $siembra->id,
+                'variedad' => $siembra->variedad,
+                'nombre' => $siembra->cultivo->nombre,
+                'fecha' => $fechaSiembraToda->format('d/m/Y'))
+
+            );
+        }
+
+        $fuentes = fuente::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $tipoFertilizaciones = ['Riego','Aplicacion dirigida'];
+
+        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $fertilizacionSector->fecha);
+        $fertilizacionSector->fecha=$fecha->format('d/m/Y');
+
+
+
+        return view('Sector/Fertilizacion/modificar')->with([
             'sectores' => $sectores,
-            'tipoSiembras'=> $tipoSiembras,
-            'temporadas'=> $temporadas,
-            'cultivos' => $cultivos,
-            'siembraSector' => $siembraSector,
-            'tipoStatus' => $tipoStatus,
+            'siembras' => $siembrasTodas,
+            'tipoFertilizaciones'=>$tipoFertilizaciones,
+            'fuentes' => $fuentes,
+            'fertilizacionSector' => $fertilizacionSector,
+            'siembraSeleccionada' => $siembraSeleccionada
         ]);
     }
 
 
     /*Recibe la informacion del formulario de crear y la almacena en la base de datos*/
-    public function crear(siembraSectorRequest $request)
+    public function crear(fertilizacionSectorRequest $request)
     {
 
-        $siembra=$this->adaptarRequest($request);
-        $siembra->save();
+        $fertilizacion=$this->adaptarRequest($request);
+        $fertilizacion->save();
 
-        Session::flash('message', 'La siembra ha sido agregada');
-        return redirect('sector/siembra/crear');
+        Session::flash('message', 'La fertilizacion ha sido agregada');
+        return redirect('sector/fertilizacion/crear');
     }
 
 
 
     /*Modificar registro*/
-    public function modificar(siembraSectorRequest $request)
+    public function modificar(fertilizacionSectorRequest $request)
     {
-        $siembra=$this->adaptarRequest($request);
-        $siembra->save();
-        $siembra->push();
-        Session::flash('message', 'La siembra ha sido modificada');
-        return redirect('sector/siembra/modificar/'.$siembra->id);
+        $fertilizacion=$this->adaptarRequest($request);
+        $fertilizacion->save();
+        $fertilizacion->push();
+        Session::flash('message', 'La fertilizacion ha sido modificada');
+        return redirect('sector/fertilizacion/modificar/'.$fertilizacion->id);
     }
 
 
 
     /*Recibe la informacion del formulario de crear y la adapta a los campos del modelo*/
     public function adaptarRequest($request){
-        $siembra = new SiembraSector();
+        $fertilizacion = new fertilizacion();
         if(isset($request->id)) {
-            $siembra = siembraSector::findOrFail($request->id);
+            $fertilizacion = fertilizacion::findOrFail($request->id);
         }
 
-        $siembra->id_sector = $request->sector;
-        $siembra->id_cultivo = $request->cultivo;
-        $siembra->fecha = Carbon::createFromFormat('d/m/Y', $request->fecha)->toDateTimeString();
 
-        if($request->fechaTerminacion != "") {
-            $siembra->fechaTerminacion = Carbon::createFromFormat('d/m/Y', $request->fechaTerminacion)->toDateTimeString();
-        }
+        $fertilizacion->programaNPK = $request->programaNPK;
+        $fertilizacion->cantidad= $request->cantidad;
+        $fertilizacion->tipo= $request->tipoFertilizacion;
 
-        $siembra->status = $request->status;
-        $siembra->tipo = $request->tipoSiembra;
-        $siembra->variedad = $request->variedad;
-        $siembra->comentario = $request->comentario;
-        $siembra->temporada = $request->temporada;
+        $fertilizacion->id_siembra = $request->siembra;
+        $fertilizacion->id_fuente= $request->fuente;
+        $fertilizacion->id_sector= $request->sector;
+        $fertilizacion->fecha = Carbon::createFromFormat('d/m/Y', $request->fecha)->toDateTimeString();
 
-        return $siembra;
+
+
+        return $fertilizacion;
     }
 
     /*
@@ -254,13 +229,19 @@ class siembraSectorController extends Controller
      * */
     public function pagConsultar($id)
     {
-        $siembra= siembraSector::findOrFail($id);
-        $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fecha);
-        $siembra->fecha=$fecha->format('d/m/Y');
+        $fertilizacion= fertilizacion::findOrFail($id);
+        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $fertilizacion->fecha);
+        $fertilizacion->fecha=$fecha->format('d/m/Y');
+
+        $siembras = array(
+            'id_siembra'=>$fertilizacion->id_siembra,
+            'variedad'=>$fertilizacion->siembra->variedad,
+            'nombre'=>$fertilizacion->siembra->cultivo->nombre);
 
 
-        return view('Sector/Siembra/consultar')->with([
-            'siembra'=>$siembra
+        return view('Sector/Fertilizacion/consultar')->with([
+            'fertilizacion'=>$fertilizacion,
+            'siembras' => $siembras
         ]);
     }
 
@@ -268,15 +249,11 @@ class siembraSectorController extends Controller
     /*Eliminar registro*/
     public function eliminar(Request $request)
     {
-        $siembra= siembraSector::findOrFail($request->id);
-        try {
-            $siembra->delete();
-            Session::flash('message','La siembra ha sido eliminada');
-        }
-        catch(\Exception $ex) {
-            Session::flash('message','No puedes eliminar esta siembra porque otros registros dependen de ella');
-        }
-        return redirect('sector/siembra');
+        $fertilizacion= fertilizacion::findOrFail($request->id);
+        $fertilizacion->delete();
+
+        Session::flash('message','La fertilizacion ha sido eliminada');
+        return redirect('sector/fertilizacion');
     }
 
 
