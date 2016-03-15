@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Validator;
 class invernaderoLaboresCulturalesController extends Controller
 {
     /**
-     * Metodo para ver la pagina inicial de LaboresCulturales invernadero
+     * Metodo para ver la pagina inicial de laboresCulturales invernadero
      *
      *
      */
@@ -28,9 +28,9 @@ class invernaderoLaboresCulturalesController extends Controller
         $actividades = ['Deshojes','Despuntes','Brotes','Podas'];
         $invernaderos= invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
-        return view('Invernadero/LaboresCulturales/buscar')->with([
+        return view('Invernadero/laboresCulturales/buscar')->with([
             'invernaderos' => $invernaderos,
-            'LaboresCulturales'=>$laboresCulturales,
+            'laboresCulturales'=>$laboresCulturales,
             'actividades' => $actividades,
 
         ]);
@@ -40,7 +40,7 @@ class invernaderoLaboresCulturalesController extends Controller
     public function pagCrear(){
         $invernaderos= invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
         $actividades = ['Deshojes','Despuntes','Brotes','Podas'];
-        return view('Invernadero/LaboresCulturales/crear')->with([
+        return view('Invernadero/laboresCulturales/crear')->with([
             'invernaderos' => $invernaderos,
             'actividades' => $actividades
 
@@ -55,7 +55,7 @@ class invernaderoLaboresCulturalesController extends Controller
         $laboresCulturales->save();
 
         Session::flash('message', 'La labor cultural ha sido agregada');
-        return redirect('invernadero/LaboresCulturales/crear');
+        return redirect('invernadero/laboresCulturales/crear');
     }
 
     /*Recibe la informacion del formulario de crear y la adapta a los campos del modelo*/
@@ -108,12 +108,12 @@ class invernaderoLaboresCulturalesController extends Controller
         $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $laboresCulturales->fecha);
         $laboresCulturales->fecha=$fecha->format('d/m/Y');
 
-        return view('Invernadero/LaboresCulturales/modificar')->with([
+        return view('Invernadero/laboresCulturales/modificar')->with([
             'invernaderos' => $invernaderos,
             'siembras' => $siembrasTodas,
             'actividades'=> $actividades,
             'siembraSeleccionada' => $siembraSeleccionada,
-            'LaboresCulturales' => $laboresCulturales
+            'laboresCulturales' => $laboresCulturales
         ]);
     }
 
@@ -124,7 +124,7 @@ class invernaderoLaboresCulturalesController extends Controller
         $laboresCulturales->save();
         $laboresCulturales->push();
         Session::flash('message', 'La labor cultural ha sido modificada');
-        return redirect('invernadero/LaboresCulturales/modificar/'.$laboresCulturales->id);
+        return redirect('invernadero/laboresCulturales/modificar/'.$laboresCulturales->id);
     }
 
     /*
@@ -142,8 +142,8 @@ class invernaderoLaboresCulturalesController extends Controller
             'nombre'=>$laboresCulturales->siembraTransplante->cultivo->nombre);
 
 
-        return view('Invernadero/LaboresCulturales/consultar')->with([
-            'LaboresCulturales'=>$laboresCulturales,
+        return view('Invernadero/laboresCulturales/consultar')->with([
+            'laboresCulturales'=>$laboresCulturales,
             'siembras' => $siembras
         ]);
     }
@@ -155,7 +155,7 @@ class invernaderoLaboresCulturalesController extends Controller
         $laboresCulturales->delete();
 
         Session::flash('message','La labor cultural ha sido eliminada');
-        return redirect('invernadero/LaboresCulturales');
+        return redirect('invernadero/laboresCulturales');
     }
 
 
@@ -258,8 +258,8 @@ class invernaderoLaboresCulturalesController extends Controller
         $actividades = ['Deshojes','Despuntes','Brotes','Podas'];
         /*Regresa la vista*/
 
-        return view('Invernadero/LaboresCulturales/buscar')->with([
-            'LaboresCulturales' => $laboresCulturales,
+        return view('Invernadero/laboresCulturales/buscar')->with([
+            'laboresCulturales' => $laboresCulturales,
             'invernaderos' => $invernaderos,
             'actividades' => $actividades,
         ]);
