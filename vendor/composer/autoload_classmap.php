@@ -49,7 +49,7 @@ return array(
     'App\\fertilizacionRiego' => $baseDir . '/app/fertilizacionRiego.php',
     'App\\invernadero' => $baseDir . '/app/invernadero.php',
     'App\\invernaderoPlantula' => $baseDir . '/app/invernaderoPlantula.php',
-    'App\\laboresCulturales' => $baseDir . '/app/laboresCulturales.php',
+    'App\\LaboresCulturales' => $baseDir . '/app/LaboresCulturales.php',
     'App\\mantenimientoSector' => $baseDir . '/app/mantenimientoSector.php',
     'App\\maquinaria' => $baseDir . '/app/maquinaria.php',
     'App\\preparacionInvernadero' => $baseDir . '/app/preparacionInvernadero.php',

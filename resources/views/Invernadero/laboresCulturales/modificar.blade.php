@@ -20,7 +20,7 @@
     <section id="container">
         <section id="main-content">
             <section class="wrapper site-min-height">
-                <h3><a href="{{ route('invernadero/laboresCulturales') }}"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Búsqueda</button></a></h3>
+                <h3><a href="{{ route('LaboresCulturales') }}"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Búsqueda</button></a></h3>
                 <div class="row mt">
 
                     <!-- INICIO CONSULTAR FUNCIONES -->
@@ -34,7 +34,7 @@
                                 <table align="right">
                                     <tr>
                                         <td>
-                                            <a href="{{ route('invernadero/laboresCulturales/consultar/item',$laboresCulturales->id) }}">
+                                            <a href="{{ route('LaboresCulturales',$laboresCulturales->id) }}">
                                                 <button  class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar">
                                                     <i class="fa fa-eye"></i></button>
                                             </a> &nbsp
