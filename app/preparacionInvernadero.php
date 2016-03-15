@@ -13,7 +13,7 @@ class preparacionInvernadero extends Model
      *
      * @var string
      */
-    protected $table = 'preparacionInvernadero';
+    protected $table = 'preparacion_invernadero';
 
     /**
      * The attributes that are mass assignable.

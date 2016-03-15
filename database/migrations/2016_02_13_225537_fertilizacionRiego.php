@@ -12,7 +12,7 @@ class FertilizacionRiego extends Migration
      */
     public function up()
     {
-        Schema::create('fertilizacionRiego', function (Blueprint $table) {
+        Schema::create('fertilizacion_riego', function (Blueprint $table) {
             $table->increments('id');
             $table->dateTime('fecha');
             $table->enum('etapaFenologica',['Etapa1']);
@@ -22,7 +22,7 @@ class FertilizacionRiego extends Migration
 
             //Se abrevio siembraTransplante a st porque el nombre era muy largo y sql no lo aceptaba
             $table->integer('id_stInvernadero')->unsigned();
-            $table->foreign('id_stInvernadero')->references('id')->on('siembraTransplanteInvernadero');
+            $table->foreign('id_stInvernadero')->references('id')->on('siembra_invernadero');
 
             $table->integer('id_invernadero')->unsigned();
             $table->foreign('id_invernadero')->references('id')->on('invernadero');

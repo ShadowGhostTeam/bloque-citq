@@ -13,7 +13,7 @@ class riegoPlantula extends Model
      *
      * @var string
      */
-    protected $table = 'riegoPlantula';
+    protected $table = 'riego_plantula';
 
     /**
      * The attributes that are mass assignable.

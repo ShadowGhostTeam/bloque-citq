@@ -12,7 +12,7 @@ class RiegoPlantula extends Migration
      */
     public function up()
     {
-        Schema::create('riegoPlantula', function (Blueprint $table) {
+        Schema::create('riego_plantula', function (Blueprint $table) {
             $table->increments('id');
 
             $table->dateTime('fecha');
@@ -21,10 +21,10 @@ class RiegoPlantula extends Migration
             $table->string('formulacion');
 
             $table->integer('id_siembraPlantula')->unsigned();
-            $table->foreign('id_siembraPlantula')->references('id')->on('siembraPlantula');
+            $table->foreign('id_siembraPlantula')->references('id')->on('siembra_plantula');
 
             $table->integer('id_invernaderoPlantula')->unsigned();
-            $table->foreign('id_invernaderoPlantula')->references('id')->on('invernaderoPlantula');
+            $table->foreign('id_invernaderoPlantula')->references('id')->on('invernadero_plantula');
 
             $table->timestamps();
         });

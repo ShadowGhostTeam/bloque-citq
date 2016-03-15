@@ -13,7 +13,7 @@ class aplicacionesPlantula extends Model
      *
      * @var string
      */
-    protected $table = 'aplicacionesPlantula';
+    protected $table = 'aplicaciones_plantula';
 
     /**
      * The attributes that are mass assignable.

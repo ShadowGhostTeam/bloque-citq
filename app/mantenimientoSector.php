@@ -13,7 +13,7 @@ class mantenimientoSector extends Model
      *
      * @var string
      */
-    protected $table = 'mantenimientoSector';
+    protected $table = 'mantenimiento_sector';
 
     /**
      * The attributes that are mass assignable.
