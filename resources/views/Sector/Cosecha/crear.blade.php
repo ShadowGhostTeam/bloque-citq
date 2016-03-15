@@ -1,4 +1,5 @@
 @include('Partials.ScriptsGenerales.scriptsPartials')
+
 <body>
 
 <section id="container" >
@@ -13,14 +14,14 @@
     MAIN SIDEBAR MENU
     *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Invernadero.laboresCulturales.aside')
+    @include('Sector.Cosecha.aside')
     <!--sidebar end-->
 
     <section id="container">
 
         <section id="main-content">
             <section class="wrapper site-min-height">
-                <h3><a href="{{ route('laboresCulturales') }}"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Búsqueda</button></a></h3>
+                <h3><a href="{{ route('sector/cosecha') }}"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Búsqueda</button></a></h3>
                 <div class="row mt">
 
                     <!-- INICIO CONSULTAR FUNCIONES -->
@@ -29,11 +30,11 @@
 
                             @include('Partials.Mensajes.mensajes')
 
-                            {!! Form::open(['action'=>['invernaderoLaboresCulturalesController@crear'],'class'=>'form-horizontal','role'=>'form','id'=>'formulario'])!!}
+                            {!! Form::open(['action'=>['cosechaSectorController@crear'],'class'=>'form-horizontal','role'=>'form','id'=>'formulario'])!!}
 
-                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear labor cultural</h4><br>
+                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear cosecha</h4><br>
 
-                            @include('Invernadero.laboresCulturales.Partials.form')
+                            @include('Sector.Cosecha.Partials.form')
 
                             {!! Form::close() !!}
                         </div>
@@ -43,10 +44,8 @@
             </section>
         </section>
     </section>
-</section>
 
-    @include('Invernadero.laboresCulturales.Partials.validator')
 
-@include('Invernadero.laboresCulturales.Partials.ajaxScript')
-
+    @include('Sector.Cosecha.Partials.validator')
+    @include('Sector.Cosecha.Partials.ajaxScript')
     @include('Partials.ScriptsGenerales.scriptsPartialsAbajo')
