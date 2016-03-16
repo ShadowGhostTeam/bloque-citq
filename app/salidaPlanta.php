@@ -13,7 +13,7 @@ class salidaPlanta extends Model
      *
      * @var string
      */
-    protected $table = 'salidaPlanta';
+    protected $table = 'salida_planta';
 
     /**
      * The attributes that are mass assignable.

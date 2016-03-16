@@ -13,7 +13,7 @@ class siembraTransplanteInvernadero extends Model
      *
      * @var string
      */
-    protected $table = 'siembraTransplanteInvernadero';
+    protected $table = 'siembra_invernadero';
 
     /**
      * The attributes that are mass assignable.

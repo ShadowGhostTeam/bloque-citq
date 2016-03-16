@@ -12,7 +12,7 @@
 */
 
 $factory->define(App\siembraPlantula::class, function (Faker\Generator $faker) {
-    $invernadero=  DB::table('invernaderoPlantula')->lists('id');
+    $invernadero=  DB::table('invernadero_plantula')->lists('id');
     $cultivos=  DB::table('cultivo')->lists('id');
     return [
 

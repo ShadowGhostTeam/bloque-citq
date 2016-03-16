@@ -13,7 +13,7 @@
 
 $factory->define(App\preparacionPlantula::class, function (Faker\Generator $faker) {
 
-    $invernadero=  DB::table('invernaderoPlantula')->lists('id');
+    $invernadero=  DB::table('invernadero_plantula')->lists('id');
 
     return [
         'charolas'=>$faker->randomDigit,

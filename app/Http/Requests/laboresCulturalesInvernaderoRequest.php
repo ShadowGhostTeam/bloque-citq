@@ -24,7 +24,7 @@ class laboresCulturalesInvernaderoRequest extends Request
         return [
             //
             'invernadero'=>'required|exists:invernadero,id',
-            'siembraT' => 'required|exists:siembraTransplanteInvernadero,id',
+            'siembraT' => 'required|exists:siembra_invernadero,id',
             'actividad' => 'required|in:Deshojes,Despuntes,Brotes,Podas',
            'fecha' =>  'required|date_format:d/m/Y',
 

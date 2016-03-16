@@ -12,7 +12,7 @@ class SiembraSector extends Migration
      */
     public function up()
     {
-        Schema::create('siembraSector', function (Blueprint $table) {
+        Schema::create('siembra_sector', function (Blueprint $table) {
             $table->increments('id');
             $table->dateTime('fecha');
             $table->enum('tipo',['Maquinaria','A mano']);

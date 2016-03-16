@@ -12,7 +12,7 @@ class PreparacionSector extends Migration
      */
     public function up()
     {
-        Schema::create('preparacionSector', function (Blueprint $table) {
+        Schema::create('preparacion_sector', function (Blueprint $table) {
             $table->increments('id');
             $table->dateTime('fecha');
             $table->integer('numPasadas')->unsigned();

@@ -13,9 +13,9 @@
 use App\siembraTransplanteInvernadero;
 
 $factory->define(App\fertilizacionRiego::class, function (Faker\Generator $faker) {
-    $siembraTransplanteInvernadero =  DB::table('siembraTransplanteInvernadero')->lists('id');
+    $siembraTransplanteInvernadero =  DB::table('siembra_invernadero')->lists('id');
     $siembra=$faker->randomElement($siembraTransplanteInvernadero);
-    $id_invernadero=DB::table('siembraTransplanteInvernadero')->where('id', $siembra)->value('id_invernadero');
+    $id_invernadero=DB::table('siembra_invernadero')->where('id', $siembra)->value('id_invernadero');
 
     return [
         'fecha'=>$faker->dateTimeBetween($startDate = '-6 months', $endDate = 'now'),
