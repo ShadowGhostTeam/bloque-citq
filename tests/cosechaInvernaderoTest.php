@@ -55,35 +55,35 @@ class cosechaInvernaderoTest extends TestCase
 
     ////////////////////////////////////////////////BUSCAR///////////////////////////////////////////////////////////
 
-    //para llamar a solo un grupo "phpunit --group cosechaBuscarSector"
+    //para llamar a solo un grupo "phpunit --group cosechaBuscarInvernadero"
 
     /*Unidad*/
     /**
-     * @group cosechaBuscarSector
+     * @group cosechaBuscarInvernadero
      */
 
     public function testRutaBuscar(){
-        $response = $this->call('GET', 'sector/cosecha');
+        $response = $this->call('GET', 'invernadero/cosecha');
         $this->assertEquals(200, $response->status());
     }
 
     /*Integración*/
 
     /**
-     * @group cosechaBuscarSector
+     * @group cosechaBuscarInvernadero
      */
-    public function testBuscarSectorCorrecto(){
-        $this->visit('sector/cosecha')
-            ->select(1,"sector")
+    public function testBuscarInvernaderoCorrecto(){
+        $this->visit('invernadero/cosecha')
+            ->select(1,"invernadero")
             ->press('Buscar')
             ->see("Se encontraron");
     }
 
     /**
-     * @group cosechaBuscarSector
+     * @group cosechaBuscarInvernadero
      */
     public function testBuscarFechaCorrecto(){
-        $this->visit('sector/cosecha')
+        $this->visit('invernadero/cosecha')
             ->type("29/02/2015","fechaInicio")
             ->type("29/02/2016","fechaFin")
             ->press('Buscar')
@@ -91,51 +91,51 @@ class cosechaInvernaderoTest extends TestCase
     }
 
     /**
-     * @group cosechaBuscarSector
+     * @group cosechaBuscarInvernadero
      */
-    public function testBuscarSectorFechaCorrecto(){
-        $this->visit('sector/cosecha')
+    public function testBuscarInvernaderoFechaCorrecto(){
+        $this->visit('invernadero/cosecha')
             ->type("29/02/2015","fechaInicio")
             ->type("29/02/2016","fechaFin")
-            ->select(1,"sector")
+            ->select(1,"invernadero")
             ->press('Buscar')
             ->see("Se encontraron");
     }
 
     /**
-     * @group cosechaBuscarSector
+     * @group cosechaBuscarInvernadero
      */
     public function testBuscarUnaFecha(){
-        $this->visit('sector/cosecha/lista?sector=&fechaInicio=&fechaFin=29%2F02%2F2016')
+        $this->visit('invernadero/cosecha/lista?invernadero=&fechaInicio=&fechaFin=29%2F02%2F2016')
             ->see("No se encontraron resultados");
     }
 
     /**
-     * @group cosechaBuscarSector
+     * @group cosechaBuscarInvernadero
      */
     public function testBuscarUnaFechaTexto(){
-        $this->visit('sector/cosecha/lista?sector=&fechaInicio=sdfsdfsd&fechaFin=')
+        $this->visit('invernadero/cosecha/lista?invernadero=&fechaInicio=sdfsdfsd&fechaFin=')
             ->see("No se encontraron resultados");
     }
     /**
-     * @group cosechaBuscarSector
+     * @group cosechaBuscarInvernadero
      */
     public function testBuscarFechasTexto(){
-        $this->visit('sector/cosecha/lista?sector=&fechaInicio=sdfsdfsd&fechaFin=sdsdfd')
+        $this->visit('invernadero/cosecha/lista?invernadero=&fechaInicio=sdfsdfsd&fechaFin=sdsdfd')
             ->see("No se encontraron resultados");
     }
     /**
-     * @group cosechaBuscarSector
+     * @group cosechaBuscarInvernadero
      */
-    public function testBuscarSectorTexto(){
-        $this->visit('sector/cosecha/lista?sector=asdasd&fechaInicio=&fechaFin=')
+    public function testBuscarInvernaderoTexto(){
+        $this->visit('invernadero/cosecha/lista?invernadero=asdasd&fechaInicio=&fechaFin=')
             ->see("No se encontraron resultados");
     }
     /**
-     * @group cosechaBuscarSector
+     * @group cosechaBuscarInvernadero
      */
-    public function testBuscarSectorInexistente(){
-        $this->visit('sector/cosecha/lista?sector=1000&fechaInicio=&fechaFin=')
+    public function testBuscarInvernaderoInexistente(){
+        $this->visit('invernadero/cosecha/lista?invernadero=1000&fechaInicio=&fechaFin=')
             ->see("No se encontraron resultados");
     }
 
