@@ -25,7 +25,7 @@ class riegoSectorRequest extends Request
     {
         return [
             'sector'=>'required|exists:sector,id',
-            'siembra' => 'required|exists:siembrasector,id',
+            'siembra' => 'required|exists:siembra_sector,id',
             'tiempo' => 'required|numeric|min:0',
             'fecha' =>  'required|date_format:d/m/Y',
             'distanciaLineas'=>'required|numeric',
