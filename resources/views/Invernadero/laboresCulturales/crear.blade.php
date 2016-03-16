@@ -33,7 +33,7 @@
 
                             <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear labor cultural</h4><br>
 
-                            @include('Invernadero.LaboresCulturales.Partials.form')
+                            @include('Invernadero.laboresCulturales.Partials.form')
 
                             {!! Form::close() !!}
                         </div>
@@ -45,8 +45,8 @@
     </section>
 </section>
 
-    @include('Invernadero.LaboresCulturales.Partials.validator')
+    @include('Invernadero.laboresCulturales.Partials.validator')
 
-@include('Invernadero.LaboresCulturales.Partials.ajaxScript')
+@include('Invernadero.laboresCulturales.Partials.ajaxScript')
 
     @include('Partials.ScriptsGenerales.scriptsPartialsAbajo')

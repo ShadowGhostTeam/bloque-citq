@@ -28,7 +28,7 @@ class invernaderoLaboresCulturalesController extends Controller
         $actividades = ['Deshojes','Despuntes','Brotes','Podas'];
         $invernaderos= invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
-        return view('Invernadero/LaboresCulturales/buscar')->with([
+        return view('Invernadero/laboresCulturales/buscar')->with([
             'invernaderos' => $invernaderos,
             'laboresCulturales'=>$laboresCulturales,
             'actividades' => $actividades,
@@ -40,7 +40,7 @@ class invernaderoLaboresCulturalesController extends Controller
     public function pagCrear(){
         $invernaderos= invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
         $actividades = ['Deshojes','Despuntes','Brotes','Podas'];
-        return view('Invernadero/LaboresCulturales/crear')->with([
+        return view('Invernadero/laboresCulturales/crear')->with([
             'invernaderos' => $invernaderos,
             'actividades' => $actividades
 
@@ -108,7 +108,7 @@ class invernaderoLaboresCulturalesController extends Controller
         $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $laboresCulturales->fecha);
         $laboresCulturales->fecha=$fecha->format('d/m/Y');
 
-        return view('Invernadero/LaboresCulturales/modificar')->with([
+        return view('Invernadero/laboresCulturales/modificar')->with([
             'invernaderos' => $invernaderos,
             'siembras' => $siembrasTodas,
             'actividades'=> $actividades,
@@ -142,7 +142,7 @@ class invernaderoLaboresCulturalesController extends Controller
             'nombre'=>$laboresCulturales->siembraTransplante->cultivo->nombre);
 
 
-        return view('Invernadero/LaboresCulturales/consultar')->with([
+        return view('Invernadero/laboresCulturales/consultar')->with([
             'laboresCulturales'=>$laboresCulturales,
             'siembras' => $siembras
         ]);
@@ -258,7 +258,7 @@ class invernaderoLaboresCulturalesController extends Controller
         $actividades = ['Deshojes','Despuntes','Brotes','Podas'];
         /*Regresa la vista*/
 
-        return view('Invernadero/LaboresCulturales/buscar')->with([
+        return view('Invernadero/laboresCulturales/buscar')->with([
             'laboresCulturales' => $laboresCulturales,
             'invernaderos' => $invernaderos,
             'actividades' => $actividades,
