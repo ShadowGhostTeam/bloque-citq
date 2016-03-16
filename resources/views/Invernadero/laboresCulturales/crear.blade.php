@@ -13,7 +13,7 @@
     MAIN SIDEBAR MENU
     *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Invernadero.LaboresCulturales.aside')
+    @include('Invernadero.laboresCulturales.aside')
     <!--sidebar end-->
 
     <section id="container">
