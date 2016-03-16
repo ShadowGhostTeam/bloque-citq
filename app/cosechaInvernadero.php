@@ -44,4 +44,7 @@ class cosechaInvernadero extends Model
     public  function invernadero(){
         return $this->belongsTo('App\invernadero','id_invernadero');
     }
+    public function descripcion() {
+        return $this->belongsTo('App\invernadero','comentario');
+    }
 }

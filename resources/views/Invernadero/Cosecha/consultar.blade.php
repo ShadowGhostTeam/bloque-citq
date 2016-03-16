@@ -14,13 +14,13 @@
     MAIN SIDEBAR MENU
     *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Sector.Cosecha.aside')
+    @include('Invernadero.Cosecha.aside')
     <!--sidebar end-->
 
     <section id="container">
         <section id="main-content">
             <section class="wrapper site-min-height">
-                <h3><a href="{{ route('sector/cosecha') }}"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Búsqueda</button></a></h3>
+                <h3><a href="{{ route('invernadero/cosecha') }}"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Búsqueda</button></a></h3>
                 <div class="row mt">
 
                     <!-- INICIO CONSULTAR FUNCIONES -->
@@ -29,18 +29,18 @@
 
                             <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Consultar cosecha</h4><br>
 
-                            @if( isset($preparacion))
+                            @if( isset($cosecha))
 
 
                                 <table align="right">
                                     <tr>
                                         <td>
-                                            <a href="{{ route('sector/cosecha/modificar/item',$cosecha->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
+                                            <a href="{{ route('invernadero/cosecha/modificar/item',$cosecha->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
                                             &nbsp
                                         </td>
 
                                         <td>
-                                            {!! Form::open(['action'=>['preparacionSectorController@eliminar'],'role'=>'form'] )  !!}
+                                            {!! Form::open(['action'=>['cosechaInvernaderoController@eliminar'],'role'=>'form'] )  !!}
                                             <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la cosecha?")'><i class="fa fa-trash-o "></i></button>
                                             <input type="hidden" name="id" value={{$cosecha->id}}>
                                             {!! Form::close() !!}
@@ -61,7 +61,7 @@
                                 <div class="col-md-7">
 
                                     <dl class="dl-horizontal">
-                                        <dt>Sector</dt><dd>{{ $cosecha->sector->nombre }}</dd>
+                                        <dt>Invernadero</dt><dd>{{ $cosecha->invernadero->nombre }}</dd>
                                         <dt>Descripcion</dt><dd>{{ $cosecha->descripcion }}</dd>
                                         <dt>Fecha</dt><dd>{{ $cosecha->fecha }}</dd>
                                     </dl>

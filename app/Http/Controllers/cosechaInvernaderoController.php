@@ -16,7 +16,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
-class cosechaSectorController extends Controller
+class cosechaInvernaderoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -33,9 +33,9 @@ class cosechaSectorController extends Controller
         $this->adaptaFechas($cosechas);
 
 
-        $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        return view('Sector/cosecha/buscar')->with([
-            'sectores' => $sectores,
+        $invernaderos= Invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        return view('invernadero/cosecha/buscar')->with([
+            'invernaderos' => $invernaderos,
             'cosechas'=>$cosechas
 
         ]);
@@ -45,7 +45,7 @@ class cosechaSectorController extends Controller
      * Devuelve la vista de crear con los valores de los combobox
      * */
     public function pagCrear() {
-        $sectores = Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $invernaderos = Invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
         return view('Sector/cosecha/crear')->with([
             'sectores' => $sectores,
@@ -108,7 +108,7 @@ class cosechaSectorController extends Controller
         $cosecha->fecha=$fecha->format('d/m/Y');
 
 
-        return view('Sector/cosecha/consultar')->with([
+        return view('Invernadero/cosecha/consultar')->with([
             'cosecha'=>$cosecha
         ]);
     }
