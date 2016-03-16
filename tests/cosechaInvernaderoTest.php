@@ -8,27 +8,27 @@ class cosechaInvernaderoTest extends TestCase
 {
     ///////////////////////////////////////CREAR//////////////////////////////////////////////////////
 
-    //para llamar a solo un grupo phpunit --group cosechaCrearSector
+    //para llamar a solo un grupo phpunit --group cosechaCrearInvernadero
 
     /*Unidad*/
     /**
-     * @group cosechaCrearSector
+     * @group cosechaCrearInvernadero
      */
     public function testRutaCrear(){
-        $response = $this->call('GET', 'sector/cosecha/crear');
+        $response = $this->call('GET', 'invernadero/cosecha/crear');
         $this->assertEquals(200, $response->status());
     }
 
     ////////////////////////////////////////////////MODIFICAR/////////////////////////////////////////////////////////////////
 
-    //para llamar a solo un grupo "phpunit --group cosechaModificarSector"
+    //para llamar a solo un grupo "phpunit --group cosechaModificarInvernadero"
 
     /*Unidad*/
     /**
-     * @group cosechaModificarSector
+     * @group cosechaModificarInvernadero
      */
     public function testRutaModificar(){
-        $response = $this->call('GET', 'sector/cosecha/modificar/12');
+        $response = $this->call('GET', 'invernadero/cosecha/modificar/12');
         $this->assertEquals(200, $response->status());
     }
 
