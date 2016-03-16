@@ -24,7 +24,7 @@ class fertilizacionRiegoInvernaderoRequest extends Request
         return [
             //
             'invernadero'=>'required|exists:invernadero,id',
-            'siembraT' => 'required|exists:siembraTransplanteInvernadero,id',
+            'siembraT' => 'required|exists:siembra_invernadero,id',
             'fecha' =>  'required|date_format:d/m/Y',
             'tiempoRiego' =>  'required|numeric|min:0',
             'etapaFenologica' => 'in:Etapa1',
