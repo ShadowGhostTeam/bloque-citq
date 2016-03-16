@@ -34,21 +34,21 @@ class cosechaInvernaderoTest extends TestCase
 
     ////////////////////////////////////////////////CONSULTAR/////////////////////////////////////////////////////////
 
-//para llamar a solo un grupo "phpunit --group cosechaConsultarSector"
+//para llamar a solo un grupo "phpunit --group cosechaConsultarInvernadero"
 
     /*Unidad*/
     /**
-     * @group cosechaConsultarSector
+     * @group cosechaConsultarInvernadero
      */
     public function testRutaConsultar(){
-        $response = $this->call('GET', 'sector/cosecha/consultar/12');
+        $response = $this->call('GET', 'invernadero/cosecha/consultar/12');
         $this->assertEquals(200, $response->status());
     }
     /**
-     * @group cosechaConsultarSector
+     * @group cosechaConsultarInvernadero
      */
     public function testConsultarIdIncorrecto(){
-        $response = $this->call('GET', 'sector/cosecha/consultar/120');
+        $response = $this->call('GET', 'invernadero/cosecha/consultar/120');
         $this->assertEquals(404, $response->status());
     }
 
