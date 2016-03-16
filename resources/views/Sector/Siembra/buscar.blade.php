@@ -45,7 +45,7 @@
 MAIN SIDEBAR MENU
 *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Sector.siembra.aside')
+    @include('Sector.Siembra.aside')
             <!--sidebar end-->
 
     <section id="container">
