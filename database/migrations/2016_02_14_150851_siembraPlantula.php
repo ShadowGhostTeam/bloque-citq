@@ -12,7 +12,7 @@ class SiembraPlantula extends Migration
      */
     public function up()
     {
-        Schema::create('siembraPlantula', function (Blueprint $table) {
+        Schema::create('siembra_plantula', function (Blueprint $table) {
             //
             $table->increments('id');
 
@@ -27,7 +27,7 @@ class SiembraPlantula extends Migration
 
 
             $table->integer('id_invernaderoPlantula')->unsigned();
-            $table->foreign('id_invernaderoPlantula')->references('id')->on('invernaderoPlantula');
+            $table->foreign('id_invernaderoPlantula')->references('id')->on('invernadero_plantula');
 
 
             $table->timestamps();

@@ -13,7 +13,7 @@ class invernaderoPlantula extends Model
      *
      * @var string
      */
-    protected $table = 'invernaderoPlantula';
+    protected $table = 'invernadero_plantula';
 
     /**
      * The attributes that are mass assignable.
@@ -42,10 +42,6 @@ class invernaderoPlantula extends Model
 
     public function preparaciones(){
         return $this->hasMany('App\preparacionPlantula', 'id_invernaderoPlantula', 'id')->orderBy('fecha','asc');
-    }
-
-    public function aplicacionesRiegos(){
-        return $this->hasMany('App\aplicacionRiego', 'id_invernaderoPlantula', 'id')->orderBy('fecha','asc');
     }
 
 

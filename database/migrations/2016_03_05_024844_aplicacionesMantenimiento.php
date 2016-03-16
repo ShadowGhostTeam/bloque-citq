@@ -12,7 +12,7 @@ class AplicacionesMantenimiento extends Migration
      */
     public function up()
     {
-        Schema::create('aplicacionesMantenimiento', function (Blueprint $table) {
+        Schema::create('aplicaciones_mantenimiento', function (Blueprint $table) {
             $table->increments('id');
             $table->dateTime('fecha');
             $table->enum('aplicacion',['Fungicida','Herbicida','Insecticida']);
@@ -24,7 +24,7 @@ class AplicacionesMantenimiento extends Migration
 
             //Se abrevio siembraTransplante a st porque el nombre era muy largo y sql no lo aceptaba
             $table->integer('id_stInvernadero')->unsigned();
-            $table->foreign('id_stInvernadero')->references('id')->on('siembraTransplanteInvernadero');
+            $table->foreign('id_stInvernadero')->references('id')->on('siembra_invernadero');
 
             $table->integer('id_invernadero')->unsigned();
             $table->foreign('id_invernadero')->references('id')->on('invernadero');

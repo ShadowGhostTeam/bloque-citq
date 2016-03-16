@@ -14,14 +14,14 @@ class PreparacionPlantula extends Migration
     {
         //
 
-        Schema::create('preparacionPlantula', function (Blueprint $table) {
+        Schema::create('preparacion_plantula', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('charolas');
             $table->text('sustrato');
             $table->dateTime('fecha');
 
             $table->integer('id_invernaderoPlantula')->unsigned();
-            $table->foreign('id_invernaderoPlantula')->references('id')->on('invernaderoPlantula');
+            $table->foreign('id_invernaderoPlantula')->references('id')->on('invernadero_plantula');
 
 
 

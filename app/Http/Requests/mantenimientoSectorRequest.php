@@ -25,7 +25,7 @@ class mantenimientoSectorRequest extends Request
     {
         return [
             'sector'=>'required|exists:sector,id',
-            'siembra' => 'required|exists:siembrasector,id',
+            'siembra' => 'required|exists:siembra_sector,id',
             'actividad' => 'required|in:Deshierbe manual,Deshierbe máquina,Fungicida,Herbicida,Insecticida',
             'fecha' =>  'required|date_format:d/m/Y',
             'tipoAplicacion'=>'in:Sistema de riego,Al suelo,Al follaje',

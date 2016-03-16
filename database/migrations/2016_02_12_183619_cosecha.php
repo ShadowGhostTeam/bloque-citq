@@ -18,7 +18,7 @@ class Cosecha extends Migration
             $table->text('descripcion');
 
             $table->integer('id_siembra')->unsigned();
-            $table->foreign('id_siembra')->references('id')->on('siembraSector');
+            $table->foreign('id_siembra')->references('id')->on('siembra_sector');
 
             $table->integer('id_sector')->unsigned();
             $table->foreign('id_sector')->references('id')->on('sector');

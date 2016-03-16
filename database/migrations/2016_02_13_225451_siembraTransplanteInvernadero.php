@@ -12,7 +12,7 @@ class SiembraTransplanteInvernadero extends Migration
      */
     public function up()
     {
-        Schema::create('siembraTransplanteInvernadero', function (Blueprint $table) {
+        Schema::create('siembra_invernadero', function (Blueprint $table) {
             $table->increments('id');
             $table->dateTime('fecha');
             $table->string('variedad');

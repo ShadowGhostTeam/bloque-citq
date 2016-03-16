@@ -13,7 +13,7 @@ class siembraPlantula extends Model
      *
      * @var string
      */
-    protected $table = 'siembraPlantula';
+    protected $table = 'siembra_plantula';
 
     /**
      * The attributes that are mass assignable.
@@ -40,12 +40,6 @@ class siembraPlantula extends Model
 
 
     // 1 a N
-
-
-
-    public function aplicacionesRiegos(){
-        return $this->hasMany('App\aplicacionRiego', 'id_siembraPlantula', 'id')->orderBy('fecha','asc');
-    }
 
 
     public function salidas(){

@@ -12,7 +12,7 @@ class MantenimientoSector extends Migration
      */
     public function up()
     {
-        Schema::create('mantenimientoSector', function (Blueprint $table) {
+        Schema::create('mantenimiento_sector', function (Blueprint $table) {
             $table->increments('id');
             $table->dateTime('fecha');
             $table->enum('actividad',['Deshierbe manual', 'Deshierbe máquina','Fungicida','Herbicida','Insecticida']);
@@ -22,7 +22,7 @@ class MantenimientoSector extends Migration
             $table->text('comentario');
 
             $table->integer('id_siembra')->unsigned();
-            $table->foreign('id_siembra')->references('id')->on('siembraSector');
+            $table->foreign('id_siembra')->references('id')->on('siembra_sector');
 
             $table->integer('id_sector')->unsigned();
             $table->foreign('id_sector')->references('id')->on('sector');

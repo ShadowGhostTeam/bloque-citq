@@ -13,7 +13,7 @@ class cosechaInvernadero extends Model
      *
      * @var string
      */
-    protected $table = 'cosechaInvernadero';
+    protected $table = 'cosecha_invernadero';
 
     /**
      * The attributes that are mass assignable.
