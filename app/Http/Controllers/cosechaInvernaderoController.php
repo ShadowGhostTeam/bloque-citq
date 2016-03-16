@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\cosechaSectorRequest;
+use App\Http\Requests\cosechaInvernaderoRequest;
 
-use App\cosecha;
-use App\maquinaria;
-use App\sector;
-use App\siembraSector;
+use App\cosechaInvernadero;
+use App\invernadero;
+use App\siembraTransplanteInvernadero;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -29,7 +28,7 @@ class cosechaInvernaderoController extends Controller
     public function index() {
         $now= Carbon::now()->format('Y/m/d');
         $now2 =Carbon::now()->subMonth(6)->format('Y/m/d');
-        $cosechas = cosecha::whereBetween('fecha', array($now2,$now))->orderBy('fecha', 'desc')->paginate(15);
+        $cosechas = cosechaInvernadero::whereBetween('fecha', array($now2,$now))->orderBy('fecha', 'desc')->paginate(15);
         $this->adaptaFechas($cosechas);
 
 
@@ -47,8 +46,8 @@ class cosechaInvernaderoController extends Controller
     public function pagCrear() {
         $invernaderos = Invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
-        return view('Sector/cosecha/crear')->with([
-            'sectores' => $sectores,
+        return view('invernadero/cosecha/crear')->with([
+            'invernaderos' => $invernaderos,
         ]);
     }
 
@@ -56,19 +55,19 @@ class cosechaInvernaderoController extends Controller
      * Devuelve vista modificar con los valores del registro que se manda como parametro ($id)
      */
     public function pagModificar($id) {
-        $cosechaSector= cosecha::findOrFail($id);
-        $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $cosechaInvernadero= cosechaInvernadero::findOrFail($id);
+        $invernaderos= Invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
-        $fechaSiembraSeleccionada=Carbon::createFromFormat('Y-m-d H:i:s', $cosechaSector->siembra->fecha);
+        $fechaSiembraSeleccionada=Carbon::createFromFormat('Y-m-d H:i:s', $cosechaInvernadero->siembraTransplante->fecha);
 
         $siembraSeleccionada = array(
-            'id_siembra'=>$cosechaSector->id_siembra,
-            'variedad'=>$cosechaSector->siembra->variedad,
-            'nombre'=>$cosechaSector->siembra->cultivo->nombre,
+            'id_stInvernadero'=>$cosechaInvernadero->id_stInvernadero,
+            'variedad'=>$cosechaInvernadero->siembraTransplante->variedad,
+            'nombre'=>$cosechaInvernadero->siembraTransplante->cultivo->nombre,
             'fecha'=>$fechaSiembraSeleccionada->format('d/m/Y')
         );
 
-        $siembras = siembraSector::where('id_sector',$cosechaSector->id_sector)->get();
+        $siembras = siembraTransplanteInvernadero::where('id_invernadero',$cosechaInvernadero->id_invernadero)->get();
 
         $siembrasTodas=array();
         foreach ($siembras as $siembra) {
@@ -76,7 +75,7 @@ class cosechaInvernaderoController extends Controller
             $fechaSiembraTodas=Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fecha);
 
             array_push($siembrasTodas,array(
-                    'id_siembra' => $siembra->id,
+                    'id_stInvernadero' => $siembra->id,
                     'variedad' => $siembra->variedad,
                     'nombre' => $siembra->cultivo->nombre,
                     'fecha' => $fechaSiembraTodas->format('d/m/Y'))
@@ -84,15 +83,15 @@ class cosechaInvernaderoController extends Controller
             );
         }
 
-        $descripcion= cosecha::select('descripcion')->where('id', $cosechaSector->id)->get();
-        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $cosechaSector->fecha);
-        $cosechaSector->fecha= $fecha->format('d/m/Y');
+        $comentario= cosechaInvernadero::select('comentario')->where('id', $cosechaInvernadero->id)->get();
+        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $cosechaInvernadero->fecha);
+        $cosechaInvernadero->fecha= $fecha->format('d/m/Y');
         //dd($siembras, $siembraSeleccionada);
-        return view('Sector/cosecha/modificar')->with([
-            'cosechaSector'=> $cosechaSector,
-            'sectores' => $sectores,
+        return view('invernadero/cosecha/modificar')->with([
+            'cosechaInvernadero'=> $cosechaInvernadero,
+            'invernaderos' => $invernaderos,
             'siembras' => $siembrasTodas,
-            'descripcion' => $descripcion,
+            'comentario' => $comentario,
             'fecha' => $fecha,
             'siembraSeleccionada' => $siembraSeleccionada
         ]);
@@ -103,13 +102,13 @@ class cosechaInvernaderoController extends Controller
      */
 
     public function pagConsultar($id) {
-        $cosecha= cosecha::findOrFail($id);
-        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $cosecha->fecha);
-        $cosecha->fecha=$fecha->format('d/m/Y');
+        $cosechaInvernadero= cosechaInvernadero::findOrFail($id);
+        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $cosechaInvernadero->fecha);
+        $cosechaInvernadero->fecha=$fecha->format('d/m/Y');
 
 
-        return view('Invernadero/cosecha/consultar')->with([
-            'cosecha'=>$cosecha
+        return view('invernadero/cosecha/consultar')->with([
+            'cosechaInvernadero'=>$cosechaInvernadero
         ]);
     }
 
@@ -119,36 +118,36 @@ class cosechaInvernaderoController extends Controller
      * Recibe la informacion del formulario de crear y la almacena en la base de datos
      */
 
-    public function crear(cosechaSectorRequest $request){
-        $cosecha=$this->adaptarRequest($request);
-        $cosecha->save();
+    public function crear(cosechaInvernaderoRequest $request){
+        $cosechaInvernadero=$this->adaptarRequest($request);
+        $cosechaInvernadero->save();
 
         Session::flash('message', 'La cosecha ha sido agregada');
-        return redirect('sector/cosecha/crear');
+        return redirect('invernadero/cosecha/crear');
     }
 
 
     /*
      * Recibe la informacion del formulario de modificar y la actualiza en la base de datos
      */
-    public function modificar(cosechaSectorRequest $request){
+    public function modificar(cosechaInvernaeroRequest $request){
         //dd($request);
-        $cosecha=$this->adaptarRequest($request);
-        $cosecha->save();
-        $cosecha->push();
+        $cosechaInvernadero=$this->adaptarRequest($request);
+        $cosechaInvernadero->save();
+        $cosechaInvernadero->push();
         Session::flash('message', 'La cosecha ha sido modificada');
-        return redirect('sector/cosecha/modificar/'.$cosecha->id);
+        return redirect('invernadero/cosecha/modificar/'.$cosechaInvernadero->id);
     }
 
     /*
      * Elimina un registro de la base de datos
      */
     public function eliminar(Request $request){
-        $cosecha= cosecha::findOrFail($request->id);
-        $cosecha->delete();
+        $cosechaInvernadero= cosechaInvernadero::findOrFail($request->id);
+        $cosechaInvernadero->delete();
 
         Session::flash('message','La cosecha ha sido eliminada');
-        return redirect('sector/cosecha');
+        return redirect('invernadero/cosecha');
     }
 
     /*
@@ -158,7 +157,7 @@ class cosechaInvernaderoController extends Controller
     public function buscar(Request $request){
 
         /*Listados de combobox*/
-        $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $invernaderos= Invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
         /*Ahi se guardaran los resultados de la busqueda*/
         $cosechas=null;
@@ -167,7 +166,7 @@ class cosechaInvernaderoController extends Controller
         $validator = Validator::make($request->all(), [
             'fechaInicio' => 'date_format:d/m/Y',
             'fechaFin' => 'date_format:d/m/Y',
-            'sector' => 'exists:sector,id'
+            'invernadero' => 'exists:invernadero,id'
         ]);
 
         /*Si validador no falla se pueden realizar busquedas*/
@@ -176,14 +175,14 @@ class cosechaInvernaderoController extends Controller
         else{
 
             /*Busqueda sin parametros*/
-            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->sector == "") {
-                $cosechas = cosecha::orderBy('fecha', 'desc')->paginate(15);;
+            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->invernadero == "") {
+                $cosechas = cosechaInvernadero::orderBy('fecha', 'desc')->paginate(15);;
 
             }
 
-            /*Busqueda solo con sector*/
-            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->sector != "") {
-                $cosechas = cosecha::where('id_sector', $request->sector)->orderBy('fecha', 'desc')->paginate(15);;
+            /*Busqueda solo con invernadero*/
+            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->invernadero != "") {
+                $cosechas = cosechaInvernadero::where('id_invernadero', $request->invernadero)->orderBy('fecha', 'desc')->paginate(15);;
 
             }
 
@@ -201,12 +200,12 @@ class cosechaInvernaderoController extends Controller
                 /*Hay cuatro posibles casos de busqueda con fechas, cada if se basa en un caso */
 
                 /*Solo con fechas*/
-                if ($request->sector == "") {
-                    $cosechas = cosecha::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                if ($request->invernadero == "") {
+                    $cosechas = Invernadero::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
                 }
-                /*Solo con fechas y sector*/
-                if ($request->sector != "") {
-                    $cosechas = cosecha::where('id_sector', $request->sector)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                /*Solo con fechas y ivnernadero*/
+                if ($request->invernadero != "") {
+                    $cosechas = cosechaInvernadero::where('id_invernadero', $request->invernadero)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
                 }
             }
         }
@@ -231,9 +230,9 @@ class cosechaInvernaderoController extends Controller
                 Session::flash('message', 'Se encontraron '.$num.' resultados');
             }
         /*Regresa la vista*/
-            return view('Sector/cosecha/buscar')->with([
+            return view('invernadero/cosecha/buscar')->with([
                 'cosechas'=>$cosechas,
-                'sectores' => $sectores
+                'invernaderos' => $invernaderos
             ]);
     }
 
@@ -246,17 +245,17 @@ class cosechaInvernaderoController extends Controller
      * Recibe la informacion del formulario de crear y la adapta a los campos del modelo
      */
     public function adaptarRequest($request){
-        $cosecha=new cosecha();
+        $cosechaInvernadero=new cosechaInvernadero();
         if(isset($request->id)) {
-            $cosecha = cosecha::findOrFail($request->id);
+            $cosechaInvernadero = cosechaInvernadero::findOrFail($request->id);
         }
 
-        $cosecha->id_sector= $request->sector;
-        $cosecha->id_siembra= $request->siembra;
-        $cosecha->descripcion= $request->descripcion;
-        $cosecha->fecha=Carbon::createFromFormat('d/m/Y', $request->fecha)->toDateTimeString();
+        $cosechaInvernadero->id_invernadero= $request->invernadero;
+        $cosechaInvernadero->id_stInvernadero= $request->siembra;
+        $cosechaInvernadero->comentario= $request->comentario;
+        $cosechaInvernadero->fecha=Carbon::createFromFormat('d/m/Y', $request->fecha)->toDateTimeString();
 
-        return $cosecha;
+        return $cosechaInvernadero;
     }
     /*
      * Adapta fechas de resultado de busqueda a formato adecuado para imprimir en la vista de busqueda

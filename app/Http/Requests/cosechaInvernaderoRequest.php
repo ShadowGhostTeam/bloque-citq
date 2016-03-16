@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class cosechaSectorRequest extends Request
+class cosechaInvernaderoRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,9 @@ class cosechaSectorRequest extends Request
     public function rules()
     {
         return [
-            'sector'=>'required|exists:sector,id',
-            'siembra' => 'required|exists:siembraSector,id',
-            'descripcion'=>'max:65535',
+            'invernadero'=>'required|exists:invernadero,id',
+            'siembra' => 'required|exists:siembra_transplante_invernadero,id',
+            'comentario'=>'max:65535',
             'fecha' =>  'required |date_format:d/m/Y'
         ];
     }
