@@ -484,10 +484,10 @@ class reportesSectorController extends Controller
         $cultivo=cultivo::find($request->cultivo);
         $siembras=null;
         $sectores=null;
-       if($request->sectores!=""){
+       if($request->sector!=""){
            $sectores= Sector::select('id','nombre')->where('id',$request->sector)->get();
            $siembras = $cultivo->siembras()->where('id_sector',$request->sector)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->get();
-
+            
        }
         else{
             $siembras = $cultivo->siembras()->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->get();
