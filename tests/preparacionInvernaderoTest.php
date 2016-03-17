@@ -26,6 +26,53 @@ class preparacionInvernaderoTest extends TestCase
         $this->assertEquals(200, $response->status());
     }
 
+    /**
+     * @group preparacionCrearInvernadero
+     */
+
+    public function testCrearCorrecto(){
+        $this->visit('invernadero/preparacion/crear')
+            ->select(1,"invernadero")
+            ->select("Bolis nuevos","tipoSiembra")
+            ->type("18/02/2016","fecha")
+            ->press('Crear')
+            ->see("La preparacion ha sido agregada");
+    }
+
+
+    public function testCrearNoInvernadero(){
+        $this->visit('invernadero/preparacion/crear')
+            ->select("Bolis nuevos","tipoSiembra")
+            ->type("18/02/2016","fecha")
+            ->press('Crear')
+            ->see("El campo invernadero es obligatorio");
+    }
+
+    public function testCrearNoTipoSiembra(){
+        $this->visit('invernadero/preparacion/crear')
+            ->select(1,"invernadero")
+            ->type("18/02/2016","fecha")
+            ->press('Crear')
+            ->see("El campo tipo de siembra es obligatorio");
+    }
+
+    public function testCrearNoFecha(){
+        $this->visit('invernadero/preparacion/crear')
+            ->select(1,"invernadero")
+            ->select("Bolis nuevos","tipoSiembra")
+            ->press('Crear')
+            ->see("El campo fecha es obligatorio");
+    }
+
+    public function testCrearFechaIncorrecta(){
+        $this->visit('invernadero/preparacion/crear')
+            ->select(1,"invernadero")
+            ->select("Bolis nuevos","tipoSiembra")
+            ->type("asdas","fecha")
+            ->press('Crear')
+            ->see("fecha no corresponde al formato d/m/Y");
+    }
+
 
     ////////////////////////////////////////////////MODIFICAR/////////////////////////////////////////////////////////////////
 
@@ -47,6 +94,62 @@ class preparacionInvernaderoTest extends TestCase
         $this->assertEquals(404, $response->status());
     }
 
+    /**
+     * @group preparacionModificarInvernadero
+     */
+    public function testModificarCorrecto(){
+        $this->visit('invernadero/preparacion/modificar/12')
+            ->select(1,"invernadero")
+            ->select("Bolis nuevos","tipoSiembra")
+            ->type("18/02/2016","fecha")
+            ->press('Modificar')
+            ->see("ha sido modificada");
+    }
+
+    /**
+     * @group preparacionModificarInvernadero
+     */
+    public function testModificarNoInvernadero(){
+        $this->visit('invernadero/preparacion/modificar/12')
+            ->select("Bolis nuevos","tipoSiembra")
+            ->type("18/02/2016","fecha")
+            ->press('Modificar')
+            ->see("El campo invernadero es obligatorio");
+    }
+
+    /**
+     * @group preparacionModificarInvernadero
+     */
+    public function testModificarNoTipoSiembra(){
+        $this->visit('invernadero/preparacion/modificar/12')
+            ->select(1,"invernadero")
+            ->type("18/02/2016","fecha")
+            ->press('Modificar')
+            ->see("El campo tipo de siembra es obligatorio");
+    }
+
+    /**
+     * @group preparacionModificarInvernadero
+     */
+    public function testModificarNoFecha(){
+        $this->visit('invernadero/preparacion/modificar/12')
+            ->select(1,"invernadero")
+            ->select("Bolis nuevos","tipoSiembra")
+            ->press('Modificar')
+            ->see("El campo fecha es obligatorio");
+    }
+
+    /**
+     * @group preparacionModificarInvernadero
+     */
+    public function testModificarFechaIncorresta(){
+        $this->visit('invernadero/preparacion/modificar/12')
+            ->select(1,"invernadero")
+            ->select("Bolis nuevos","tipoSiembra")
+            ->type("asdasd","fecha")
+            ->press('Modificar')
+            ->see("fecha no corresponde al formato d/m/Y");
+    }
 
     ////////////////////////////////////////////////CONSULTAR/////////////////////////////////////////////////////////
 
