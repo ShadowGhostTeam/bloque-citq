@@ -251,7 +251,7 @@ class cosechaInvernaderoController extends Controller
         }
 
         $cosechaInvernadero->id_invernadero= $request->invernadero;
-        $cosechaInvernadero->id_stInvernadero= $request->siembra;
+        $cosechaInvernadero->id_stInvernadero= $request->siembraT;
         $cosechaInvernadero->comentario= $request->comentario;
         $cosechaInvernadero->fecha=Carbon::createFromFormat('d/m/Y', $request->fecha)->toDateTimeString();
 

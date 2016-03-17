@@ -25,7 +25,7 @@ class cosechaInvernaderoRequest extends Request
     {
         return [
             'invernadero'=>'required|exists:invernadero,id',
-            'siembra' => 'required|exists:siembra_invernadero,id',
+            'siembraT' => 'required|exists:siembra_invernadero,id',
             'comentario'=>'max:65535',
             'fecha' =>  'required |date_format:d/m/Y'
         ];

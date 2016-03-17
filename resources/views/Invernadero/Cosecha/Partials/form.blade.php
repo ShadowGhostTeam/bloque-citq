@@ -46,7 +46,7 @@
             <label for="Siembra" class="col-lg-2 control-label"><strong>*</strong>Siembra</label>
             <div class="col-lg-10">
 
-                <select  class="form-control" id="siembra" name="siembra">
+                <select  class="form-control" id="siembraT" name="siembraT">
                     <option value="">Selecciona</option>
 
                     @if( isset($siembraSeleccionada))
