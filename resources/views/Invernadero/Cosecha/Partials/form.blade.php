@@ -17,24 +17,24 @@
     <p align="left" class="help-block"> (*) Obligatorio </p><br>
 
         <div class="form-group">
-            <label for="Sector" class="col-lg-2 control-label"><strong>*</strong>Sector</label>
+            <label for="Invernadero" class="col-lg-2 control-label"><strong>*</strong>Invernadero</label>
             <div class="col-lg-10">
 
-                <select  class="form-control" id="sector" name="sector">
+                <select  class="form-control" id="invernadero" name="invernadero">
                     <option value="">Selecciona</option>
 
-                    @if( isset($cosechaSector))
+                    @if( isset($cosechaInvernadero))
 
-                        @foreach($sectores as $sector)
-                            @if($cosechaSector->id_sector == $sector->id)
-                                <option value="{{  $sector->id  }}" selected > {{ $sector->nombre}}  </option>
+                        @foreach($invernaderos as $invernadero)
+                            @if($cosechaInvernadero->id_invernadero == $invernadero->id)
+                                <option value="{{  $invernadero->id  }}" selected > {{ $invernadero->nombre}}  </option>
                             @else
-                                <option value="{{  $sector->id  }}" > {{ $sector->nombre}}  </option>
+                                <option value="{{  $invernadero->id  }}" > {{ $invernadero->nombre}}  </option>
                             @endif
                         @endforeach
                     @else
-                        @foreach($sectores as $sector)
-                            <option value="{{  $sector->id  }}" > {{ $sector->nombre}}  </option>
+                        @foreach($invernaderos as $invernadero)
+                            <option value="{{  $invernadero->id  }}" > {{ $invernadero->nombre}}  </option>
                         @endforeach
                     @endif
                 </select>
@@ -52,16 +52,16 @@
                     @if( isset($siembraSeleccionada))
 
                         @foreach($siembras as $siembra)
-                            @if($siembraSeleccionada['id_siembra'] == $siembra['id_siembra'])
-                                <option value="{{  $siembra['id_siembra']  }}" selected > {{ $siembra['nombre']."   ". $siembra['variedad'] . " - ". $siembra['fecha'] }}  </option>
+                            @if($siembraSeleccionada['id_stInvernadero'] == $siembra['id_stInvernadero'])
+                                <option value="{{  $siembra['id_stInvernadero']  }}" selected > {{ $siembra['nombre']."   ". $siembra['variedad'] . " - ". $siembra['fecha'] }}  </option>
                             @else
-                                <option value="{{  $siembra['id_siembra']  }}"  > {{ $siembra['nombre']."   ". $siembra['variedad'] ." - " . $siembra['fecha']  }}  </option>
+                                <option value="{{  $siembra['id_stInvernadero']  }}"  > {{ $siembra['nombre']."   ". $siembra['variedad'] ." - " . $siembra['fecha']  }}  </option>
                             @endif
                         @endforeach
                     @else
                         @if( isset($siembras))
                             @foreach($siembras as $siembra)
-                                <option value="{{  $siembra['id_siembra']  }}"> {{ $siembra['nombre']."   ". $siembra['variedad'] ." - " . $siembra['fecha']  }}  </option>
+                                <option value="{{  $siembra['id_stInvernadero']  }}"> {{ $siembra['nombre']."   ". $siembra['variedad'] ." - " . $siembra['fecha']  }}  </option>
                             @endforeach
                         @endif
                     @endif
@@ -70,12 +70,12 @@
         </div>
 
         <div class="form-group">
-            <label for="Descripción" class="col-lg-2 control-label">Descripción</label>
+            <label for="Comentario" class="col-lg-2 control-label">Comentario</label>
             <div class="col-lg-10">
-                @if( isset($cosechaSector))
-                    {!!Form::textArea('descripcion' ,$cosechaSector->descripcion,['class'=>'form-control','id'=>'descripcion','placeholder'=>'Aquí puedes incluir una descripción.'])!!}
+                @if( isset($cosechaInvernadero))
+                    {!!Form::textArea('comentario' ,$cosechaInvernadero->comentario,['class'=>'form-control','id'=>'comentario','placeholder'=>'Aquí puedes incluir un comentario.'])!!}
                 @else
-                    {!!Form::textArea('descripcion' ,null,['class'=>'form-control','id'=>'descripcion','placeholder'=>'Aquí puedes incluir una descripción.'])!!}
+                    {!!Form::textArea('comentario' ,null,['class'=>'form-control','id'=>'comentario','placeholder'=>'Aquí puedes incluir un comentario.'])!!}
                 @endif
             </div>
         </div>
@@ -87,8 +87,8 @@
                                                  <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                   </span>
-                    @if( isset($cosechaSector))
-                        {!!Form::text('fecha' ,$cosechaSector->fecha,['class'=>'form-control','id'=>'fecha','placeholder'=>'dd/mm/aaaa'])!!}
+                    @if( isset($cosechaInvernadero))
+                        {!!Form::text('fecha' ,$cosechaInvernadero->fecha,['class'=>'form-control','id'=>'fecha','placeholder'=>'dd/mm/aaaa'])!!}
                     @else
                         {!!Form::text('fecha' ,null,['class'=>'form-control','id'=>'fecha','placeholder'=>'dd/mm/aaaa'])!!}
                     @endif
@@ -97,7 +97,7 @@
         </div>
 
         <div class="form-group" align="center">
-            @if( isset($cosechaSector))
+            @if( isset($cosechaInvernadero))
 
             {!! Form::submit('Modificar',['class'=>'btn btn-success', 'onclick'=>"return confirm ('¿Seguro que desea modificar la cosecha?')"])!!}
             @else

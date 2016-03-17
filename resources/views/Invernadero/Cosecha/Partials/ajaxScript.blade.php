@@ -3,10 +3,10 @@
     {
 
 
-        $("#sector").on('change', function (e) {
+        $("#invernadero").on('change', function (e) {
 
 
-            if (document.getElementById("sector").value == "") {
+            if (document.getElementById("invernadero").value == "") {
                 $("#siembra").empty();
                 $("#siembra").append(
                         "<option value='' selected > Selecciona </option>");;
@@ -16,7 +16,7 @@
 
                 $.ajax({
                     method: "GET",
-                    url: "{{ URL::to('sector/ajaxSiembra/carga?id=')  }}"+id,
+                    url: "{{ URL::to('invernadero/ajaxSiembra/carga?id=')  }}"+id,
 
                 })
                         .done(function( data ) {
@@ -27,7 +27,7 @@
                             $.each(data,function(index,siembras){
 
                                 $("#siembra").append(
-                                        '<option value="'+siembras.id_siembra+'">'+siembras.nombre+'  '+siembras.variedad+" - "+ siembras.fecha +"</option>");
+                                        '<option value="'+siembras.id_stInvernadero+'">'+siembras.nombre+'  '+siembras.variedad+" - "+ siembras.fecha +"</option>");
                             });
                             $('#formulario').data('bootstrapValidator').revalidateField('siembra');
 

@@ -9,7 +9,7 @@
                 validating: 'glyphicon glyphicon-refresh'
             },
             fields: {
-                sector:{
+                invernadero:{
                     validators: {
                         notEmpty: {
                             message: 'Seleccione una opción'
@@ -27,7 +27,7 @@
                 },
 
 
-                descripcion:{
+                comentario:{
                     validators: {
                         stringLength: {
                             max: 300,
