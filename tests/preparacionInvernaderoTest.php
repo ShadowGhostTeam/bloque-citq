@@ -111,6 +111,7 @@ class preparacionInvernaderoTest extends TestCase
      */
     public function testModificarNoInvernadero(){
         $this->visit('invernadero/preparacion/modificar/2')
+            ->select("","invernadero")
             ->select("Bolis nuevos","tipoSiembra")
             ->type("18/02/2016","fecha")
             ->press('Modificar')
@@ -123,9 +124,10 @@ class preparacionInvernaderoTest extends TestCase
     public function testModificarNoTipoSiembra(){
         $this->visit('invernadero/preparacion/modificar/2')
             ->select(1,"invernadero")
+            ->select("","tipoSiembra")
             ->type("18/02/2016","fecha")
             ->press('Modificar')
-            ->see("El campo tipo de siembra es obligatorio");
+            ->see("El campo tipo siembra es obligatorio");
     }
 
     /**
@@ -135,6 +137,7 @@ class preparacionInvernaderoTest extends TestCase
         $this->visit('invernadero/preparacion/modificar/2')
             ->select(1,"invernadero")
             ->select("Bolis nuevos","tipoSiembra")
+            ->type("","fecha")
             ->press('Modificar')
             ->see("El campo fecha es obligatorio");
     }
@@ -142,7 +145,7 @@ class preparacionInvernaderoTest extends TestCase
     /**
      * @group preparacionModificarInvernadero
      */
-    public function testModificarFechaIncorresta(){
+    public function testModificarFechaIncorrecta(){
         $this->visit('invernadero/preparacion/modificar/2')
             ->select(1,"invernadero")
             ->select("Bolis nuevos","tipoSiembra")
