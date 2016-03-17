@@ -130,7 +130,7 @@ class cosechaInvernaderoController extends Controller
     /*
      * Recibe la informacion del formulario de modificar y la actualiza en la base de datos
      */
-    public function modificar(cosechaInvernaeroRequest $request){
+    public function modificar(cosechaInvernaderoRequest $request){
         //dd($request);
         $cosechaInvernadero=$this->adaptarRequest($request);
         $cosechaInvernadero->save();
