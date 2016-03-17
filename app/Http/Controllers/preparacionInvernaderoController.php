@@ -143,13 +143,13 @@ class preparacionInvernaderoController extends Controller
         else{
 
             /*Busqueda sin parametros*/
-            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->invernadero == "") {
+            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->invernadero == "" && $request->tipoSiembra == "") {
                 $preparaciones = preparacionInvernadero::orderBy('fecha', 'desc')->paginate(15);;
 
             }
 
             /*Busqueda solo con invernadero*/
-            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->invernadero != "") {
+            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->invernadero != "" && $request->tipoSiembra == "") {
                 $preparaciones = preparacionInvernadero::where('id_invernadero', $request->invernadero)->orderBy('fecha', 'desc')->paginate(15);;
 
             }

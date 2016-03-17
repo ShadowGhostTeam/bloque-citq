@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class preparacionInvernaderoRequest extends Request
+class preparacionPlantulaRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,9 @@ class preparacionInvernaderoRequest extends Request
     public function rules()
     {
         return [
-            'invernadero'=>'required|exists:invernadero,id',
-            'tipoSiembra' =>  'required',
+            'invernadero'=>'required|exists:invernadero_plantula,id',
+            'sustrato' =>  'required',
+            'Charolas'=>'numeric|min:0',
             'fecha' =>  'required |date_format:d/m/Y'
         ];
     }
