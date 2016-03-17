@@ -45,7 +45,7 @@
 MAIN SIDEBAR MENU
 *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Sector.Cosecha.aside')
+    @include('Invernadero.Cosecha.aside')
     <!--sidebar end-->
 
     <section id="container">
@@ -62,7 +62,7 @@ MAIN SIDEBAR MENU
                             @include('Partials.Mensajes.mensajes')
 
                             <div class="form-group" align="right">
-                                <a href="{{route('sector/cosecha/crear')}}"> <button class="btn agregar tooltips" data-placement="left" data-original-title="Agregar"><i class="fa fa-plus"></i></i></button></a>
+                                <a href="{{route('invernadero/cosecha/crear')}}"> <button class="btn agregar tooltips" data-placement="left" data-original-title="Agregar"><i class="fa fa-plus"></i></i></button></a>
                             </div>
 
                             <div class="row">
@@ -70,17 +70,17 @@ MAIN SIDEBAR MENU
 
 
 
-                                    {!! Form::open(['route' => 'sector/cosecha/lista' ,'method'=>'GET']) !!}
+                                    {!! Form::open(['route' => 'invernadero/cosecha/lista' ,'method'=>'GET']) !!}
 
                                         <div class="form-group">
 
                                             <div class="col-lg-3">
-                                                <select  class="form-control" id="sector" name="sector">
-                                                    <option value="">Todos los sectores</option>
+                                                <select  class="form-control" id="invernadero" name="invernadero">
+                                                    <option value="">Todos los invernaderos</option>
 
-                                                    @if( isset($sectores))
-                                                        @foreach($sectores as $sector)
-                                                            <option value="{{  $sector->id  }}" > {{ $sector->nombre}}  </option>
+                                                    @if( isset($invernaderos))
+                                                        @foreach($invernaderos as $invernadero)
+                                                            <option value="{{  $invernadero->id  }}" > {{ $invernadero->nombre}}  </option>
                                                         @endforeach
                                                     @endif
                                                 </select>
@@ -146,8 +146,8 @@ MAIN SIDEBAR MENU
                                 <table class="table table-striped table-advance table-hover">
                                     <thead>
                                     <tr>
-                                        <th><i class="fa fa-thumb-tack"></i> Sector </th>
-                                        <th> <i class="fa fa-info"></i> descripcion </th>
+                                        <th><i class="fa fa-thumb-tack"></i> Invernadero </th>
+                                        <th> <i class="fa fa-info"></i> Comentario </th>
                                         <th><i class=" fa fa-calendar-o"></i>Fecha</th>
                                         <th></th>
                                     </tr>
@@ -159,21 +159,21 @@ MAIN SIDEBAR MENU
                                         @foreach( $cosechas as $cosecha )
 
                                             <tr>
-                                                <td>{{ $cosecha->sector->nombre }}</td>
-                                                <td>{{ $cosecha->descripcion }}</td>
+                                                <td>{{ $cosecha->invernadero->nombre }}</td>
+                                                <td>{{ $cosecha->comentario }}</td>
                                                 <td>{{ $cosecha->fecha }}</td>
 
 
                                                 <td style="width: 5px">
-                                                    <a href="{{ route('sector/cosecha/consultar/item',$cosecha->id) }}"><button class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar"><i class="fa fa-eye"></i></button></a>
+                                                    <a href="{{ route('invernadero/cosecha/consultar/item',$cosecha->id) }}"><button class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar"><i class="fa fa-eye"></i></button></a>
                                                 </td>
 
                                                 <td style="width: 5px">
-                                                    <a href="{{ route('sector/cosecha/modificar/item',$cosecha->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
+                                                    <a href="{{ route('invernadero/cosecha/modificar/item',$cosecha->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
                                                 </td>
 
                                                 <td style="width: 5px">
-                                                    {!! Form::open(['action'=>['cosechaSectorController@eliminar'],'role'=>'form'] )  !!}
+                                                    {!! Form::open(['action'=>['cosechaInvernaderoController@eliminar'],'role'=>'form'] )  !!}
                                                     <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la cosecha?")'><i class="fa fa-trash-o "></i></button>
                                                     <input type="hidden" name="id" value={{$cosecha->id}}>
                                                     {!! Form::close() !!}
