@@ -83,7 +83,7 @@ class preparacionInvernaderoTest extends TestCase
      * @group preparacionModificarInvernadero
      */
     public function testRutaModificar(){
-        $response = $this->call('GET', 'invernadero/preparacion/modificar/13');
+        $response = $this->call('GET', 'invernadero/preparacion/modificar/2');
         $this->assertEquals(200, $response->status());
     }
     /**
@@ -98,7 +98,7 @@ class preparacionInvernaderoTest extends TestCase
      * @group preparacionModificarInvernadero
      */
     public function testModificarCorrecto(){
-        $this->visit('invernadero/preparacion/modificar/12')
+        $this->visit('invernadero/preparacion/modificar/2')
             ->select(1,"invernadero")
             ->select("Bolis nuevos","tipoSiembra")
             ->type("18/02/2016","fecha")
@@ -110,7 +110,7 @@ class preparacionInvernaderoTest extends TestCase
      * @group preparacionModificarInvernadero
      */
     public function testModificarNoInvernadero(){
-        $this->visit('invernadero/preparacion/modificar/12')
+        $this->visit('invernadero/preparacion/modificar/2')
             ->select("Bolis nuevos","tipoSiembra")
             ->type("18/02/2016","fecha")
             ->press('Modificar')
@@ -121,7 +121,7 @@ class preparacionInvernaderoTest extends TestCase
      * @group preparacionModificarInvernadero
      */
     public function testModificarNoTipoSiembra(){
-        $this->visit('invernadero/preparacion/modificar/12')
+        $this->visit('invernadero/preparacion/modificar/2')
             ->select(1,"invernadero")
             ->type("18/02/2016","fecha")
             ->press('Modificar')
@@ -132,7 +132,7 @@ class preparacionInvernaderoTest extends TestCase
      * @group preparacionModificarInvernadero
      */
     public function testModificarNoFecha(){
-        $this->visit('invernadero/preparacion/modificar/12')
+        $this->visit('invernadero/preparacion/modificar/2')
             ->select(1,"invernadero")
             ->select("Bolis nuevos","tipoSiembra")
             ->press('Modificar')
@@ -143,7 +143,7 @@ class preparacionInvernaderoTest extends TestCase
      * @group preparacionModificarInvernadero
      */
     public function testModificarFechaIncorresta(){
-        $this->visit('invernadero/preparacion/modificar/12')
+        $this->visit('invernadero/preparacion/modificar/2')
             ->select(1,"invernadero")
             ->select("Bolis nuevos","tipoSiembra")
             ->type("asdasd","fecha")
@@ -160,7 +160,7 @@ class preparacionInvernaderoTest extends TestCase
      * @group preparacionConsultarInvernadero
      */
     public function testRutaConsultar(){
-        $response = $this->call('GET', 'invernadero/preparacion/consultar/12');
+        $response = $this->call('GET', 'invernadero/preparacion/consultar/2');
         $this->assertEquals(200, $response->status());
     }
     /**
@@ -217,7 +217,7 @@ class preparacionInvernaderoTest extends TestCase
         $this->visit('invernadero/preparacion')
             ->type("29/02/2015","fechaInicio")
             ->type("29/02/2016","fechaFin")
-            ->select(1,"Invernadero")
+            ->select(1,"invernadero")
             ->press('Buscar')
             ->see("Se encontraron");
     }
