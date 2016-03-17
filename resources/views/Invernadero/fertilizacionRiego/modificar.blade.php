@@ -14,36 +14,33 @@
     MAIN SIDEBAR MENU
     *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Invernadero.laboresCulturales.aside')
+    @include('Invernadero.fertilizacionRiego.aside')
     <!--sidebar end-->
 
     <section id="container">
         <section id="main-content">
             <section class="wrapper site-min-height">
-                <h3><a href="{{ route('invernadero/laboresCulturales') }}"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Búsqueda</button></a></h3>
+                <h3><a href="{{ route('invernadero/fertilizacionRiego') }}"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Búsqueda</button></a></h3>
                 <div class="row mt">
 
                     <!-- INICIO CONSULTAR FUNCIONES -->
                     <div class="col-lg-12">
                         <div class="form-panel">
                             @include('Partials.Mensajes.mensajes')
-                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Modificar labor cultural</h4><br>
-                            @if( isset($laboresCulturales))
-
-
+                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Modificar fertilización/riego</h4><br>
+                            @if( isset($fertilizacionesRiego))
                                 <table align="right">
                                     <tr>
                                         <td>
-                                            <a href="{{ route('invernadero/laboresCulturales/consultar/item',$laboresCulturales->id) }}">
+                                            <a href="{{ route('invernadero/fertilizacionRiego/consultar/item',$fertilizacionesRiego->id) }}">
                                                 <button  class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar">
                                                     <i class="fa fa-eye"></i></button>
                                             </a> &nbsp
                                         </td>
-
                                         <td>
-                                            {!! Form::open(['action'=>['invernaderoLaboresCulturalesController@eliminar'],'role'=>'form'] )  !!}
-                                            <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la labor cultural?")'><i class="fa fa-trash-o "></i></button>
-                                            <input type="hidden" name="id" value={{$laboresCulturales->id}}>
+                                            {!! Form::open(['action'=>['fertilizacionRiegoInvernaderoController@eliminar'],'role'=>'form'] )  !!}
+                                            <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la fertilización?")'><i class="fa fa-trash-o "></i></button>
+                                            <input type="hidden" name="id" value={{$fertilizacionesRiego->id}}>
                                             {!! Form::close() !!}
 
                                         </td>
@@ -53,12 +50,12 @@
 
                             @endif
 
-                            {!! Form::open(['action'=>['invernaderoLaboresCulturalesController@modificar'],'class'=>'form-horizontal','role'=>'form', 'id' =>'formulario'] )  !!}
+                            {!! Form::open(['action'=>['fertilizacionRiegoInvernaderoController@modificar'],'class'=>'form-horizontal','role'=>'form', 'id' =>'formulario'] )  !!}
 
 
 
-                            @include('Invernadero.laboresCulturales.Partials.form')
-                            <input type="hidden" name="id" value="{{$laboresCulturales->id}}">
+                            @include('Invernadero.fertilizacionRiego.Partials.form')
+                            <input type="hidden" name="id" value="{{$fertilizacionesRiego->id}}">
                             {!! Form::close() !!}
                         </div>
                     </div>
@@ -69,8 +66,8 @@
     </section>
 </section>
 
-@include('Invernadero.laboresCulturales.Partials.validator')
+@include('Invernadero.fertilizacionRiego.Partials.validator')
 
-@include('Invernadero.laboresCulturales.Partials.ajaxScript')
+@include('Invernadero.fertilizacionRiego.Partials.ajaxScript')
 
-@include('Partials.ScriptsGenerales.scriptsPartialsAbajo')
+ @include('Partials.ScriptsGenerales.scriptsPartialsAbajo')

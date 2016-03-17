@@ -274,7 +274,7 @@ class siembraSectorController extends Controller
             Session::flash('message','La siembra ha sido eliminada');
         }
         catch(\Exception $ex) {
-            Session::flash('message','No puedes eliminar esta siembra porque otros registros dependen de ella');
+            Session::flash('error','No puedes eliminar esta siembra porque otros registros dependen de ella');
         }
         return redirect('sector/siembra');
     }

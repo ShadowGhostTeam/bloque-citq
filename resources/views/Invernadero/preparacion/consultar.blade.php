@@ -14,35 +14,35 @@
     MAIN SIDEBAR MENU
     *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Invernadero.laboresCulturales.aside')
+    @include('Invernadero.Preparacion.aside')
     <!--sidebar end-->
 
     <section id="container">
         <section id="main-content">
             <section class="wrapper site-min-height">
-                <h3><a href="{{ route('invernadero/laboresCulturales') }}"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Búsqueda</button></a></h3>
+                <h3><a href="{{ route('invernadero/preparacion') }}"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Búsqueda</button></a></h3>
                 <div class="row mt">
 
                     <!-- INICIO CONSULTAR FUNCIONES -->
                     <div class="col-lg-12">
                         <div class="form-panel">
 
-                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Consultar labores culturales</h4><br>
+                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Consultar mantenimiento</h4><br>
 
-                            @if( isset($laboresCulturales))
+                            @if( isset($preparacionInvernadero))
 
 
                                 <table align="right">
                                     <tr>
                                         <td>
-                                            <a href="{{ route('invernadero/laboresCulturales/modificar/item',$laboresCulturales->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
+                                            <a href="{{ route('invernadero/preparacion/modificar/item',$preparacionInvernadero->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
                                             &nbsp
                                         </td>
 
                                         <td>
-                                            {!! Form::open(['action'=>['invernaderoLaboresCulturalesController@eliminar'],'role'=>'form'] )  !!}
-                                            <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la labor cultural?")'><i class="fa fa-trash-o "></i></button>
-                                            <input type="hidden" name="id" value={{$laboresCulturales->id}}>
+                                            {!! Form::open(['action'=>['preparacionInvernaderoController@eliminar'],'role'=>'form'] )  !!}
+                                            <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la preparación?")'><i class="fa fa-trash-o "></i></button>
+                                            <input type="hidden" name="id" value={{$preparacionInvernadero->id}}>
                                             {!! Form::close() !!}
 
                                         </td>
@@ -61,10 +61,11 @@
                                 <div class="col-md-7">
 
                                     <dl class="dl-horizontal">
-                                        <dt>Invernadero</dt><dd>{{ $laboresCulturales->invernadero->nombre }}</dd>
-                                        <dt>Siembra-Transplante</dt><dd>{{ $siembras['nombre'] . ' '. $siembras['variedad']  }}</dd>
-                                        <dt>Actividad</dt><dd>{{ $laboresCulturales->actividad }}</dd>
-                                        <dt>Fecha</dt><dd>{{ $laboresCulturales->fecha }}</dd>
+                                        <dt>Invernadero</dt><dd>{{ $preparacionInvernadero->invernadero->nombre }}</dd>
+                                        {{--<dt>Siembra</dt><dd>--}}{{--{{ $siembras['nombre'] . ' '. $siembras['variedad']  }}--}}{{--</dd>--}}
+                                        <dt>Tipo de siembra</dt><dd>{{ $preparacionInvernadero->tipoSiembra }}</dd>
+                                        <dt>Fecha</dt><dd>{{ $preparacionInvernadero->fecha }}</dd>
+
                                     </dl>
                                 </div>
 
