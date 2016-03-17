@@ -30,7 +30,7 @@ class riegoSectorController extends Controller
         //
         $now= Carbon::now()->format('Y/m/d');
         $now2 =Carbon::now()->subMonth(6)->format('Y/m/d');
-        $riegos = riego::whereBetween('fecha', array($now2,$now))->orderBy('fecha', 'desc')->paginate(15);
+        $riegos = riego::orderBy('fecha', 'desc')->paginate(15);
         $this->adaptaFechas($riegos);
 
         $sectores= sector::select('id','nombre')->orderBy('nombre', 'asc')->get();

@@ -29,6 +29,12 @@ Route::post('invernadero/siembra/crear/','siembraTransplanteInvernaderoControlle
     //
 }));
 
+Route::get('invernadero/siembra/consultar/{id}',[
+    'uses' => 'siembraTransplanteInvernaderoController@pagConsultar',
+    'as' =>'invernadero/siembra/consultar/item'
+
+]);
+
 Route::get('invernadero/siembra/modificar/{id}',[
     'uses' => 'siembraTransplanteInvernaderoController@pagModificar',
     'as' =>'invernadero/siembra/modificar/item'
@@ -44,8 +50,3 @@ Route::post('invernadero/siembra/eliminar','siembraTransplanteInvernaderoControl
 
 }));
 
-Route::get('invernadero/siembra/consultar/{id}',[
-    'uses' => 'siembraTransplanteInvernaderoController@pagConsultar',
-    'as' =>'sector/siembra/consultar/item'
-
-]);
