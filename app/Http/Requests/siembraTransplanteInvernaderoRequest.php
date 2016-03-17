@@ -27,7 +27,6 @@ class siembraTransplanteInvernaderoRequest extends Request
             'invernadero'=>'required|exists:invernadero,id',
             'cultivo' => 'required|exists:cultivo,id',
             'fecha' =>  'required|date_format:d/m/Y',
-            'fechaTerminacion' => 'date_format:d/m/Y',
             'status'=>'required|in:Activo,Terminado',
         ];
     }
