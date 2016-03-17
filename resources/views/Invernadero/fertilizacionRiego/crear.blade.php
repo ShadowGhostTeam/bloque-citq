@@ -7,20 +7,20 @@
     *********************************************************************************************************************************************************** -->
     <!--header start-->
     @include('Partials.ScriptsGenerales.headerPartials')
-    <!--header end-->
+            <!--header end-->
 
     <!-- **********************************************************************************************************************************************************
     MAIN SIDEBAR MENU
     *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Invernadero.laboresCulturales.aside')
-    <!--sidebar end-->
+    @include('Invernadero.fertilizacionRiego.aside')
+            <!--sidebar end-->
 
     <section id="container">
 
         <section id="main-content">
             <section class="wrapper site-min-height">
-                <h3><a href="{{ route('invernadero/laboresCulturales') }}"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Búsqueda</button></a></h3>
+                <h3><a href="{{ route('invernadero/fertilizacionRiego') }}"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Búsqueda</button></a></h3>
                 <div class="row mt">
 
                     <!-- INICIO CONSULTAR FUNCIONES -->
@@ -29,11 +29,11 @@
 
                             @include('Partials.Mensajes.mensajes')
 
-                            {!! Form::open(['action'=>['invernaderoLaboresCulturalesController@crear'],'class'=>'form-horizontal','role'=>'form','id'=>'formulario'])!!}
+                            {!! Form::open(['action'=>['fertilizacionRiegoInvernaderoController@crear'],'class'=>'form-horizontal','role'=>'form','id'=>'formulario'])!!}
 
-                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear labor cultural</h4><br>
+                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear fertilización/riego</h4><br>
 
-                            @include('Invernadero.laboresCulturales.Partials.form')
+                            @include('Invernadero.fertilizacionRiego.Partials.form')
 
                             {!! Form::close() !!}
                         </div>
@@ -45,8 +45,8 @@
     </section>
 </section>
 
-    @include('Invernadero.laboresCulturales.Partials.validator')
+@include('Invernadero.fertilizacionRiego.Partials.validator')
 
-@include('Invernadero.laboresCulturales.Partials.ajaxScript')
+@include('Invernadero.fertilizacionRiego.Partials.ajaxScript')
 
-    @include('Partials.ScriptsGenerales.scriptsPartialsAbajo')
+@include('Partials.ScriptsGenerales.scriptsPartialsAbajo')

@@ -13,14 +13,21 @@
     MAIN SIDEBAR MENU
     *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Invernadero.laboresCulturales.aside')
+    @include('Invernadero.Siembra.aside')
     <!--sidebar end-->
 
     <section id="container">
 
         <section id="main-content">
             <section class="wrapper site-min-height">
-                <h3><a href="{{ route('invernadero/laboresCulturales') }}"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Búsqueda</button></a></h3>
+                <h3>
+                    <a href="{{ route('invernadero/siembra') }}">
+                        <button type="button" class="btn btn-primary">
+                            <i class="glyphicon glyphicon-arrow-left"></i>
+                            Búsqueda
+                        </button>
+                    </a>
+                </h3>
                 <div class="row mt">
 
                     <!-- INICIO CONSULTAR FUNCIONES -->
@@ -29,11 +36,11 @@
 
                             @include('Partials.Mensajes.mensajes')
 
-                            {!! Form::open(['action'=>['invernaderoLaboresCulturalesController@crear'],'class'=>'form-horizontal','role'=>'form','id'=>'formulario'])!!}
+                            {!! Form::open(['action'=>['siembraTransplanteInvernaderoController@crear'],'class'=>'form-horizontal','role'=>'form','id'=>'formulario'])!!}
 
-                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear labor cultural</h4><br>
+                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear siembra</h4><br>
 
-                            @include('Invernadero.laboresCulturales.Partials.form')
+                            @include('Invernadero.Siembra.Partials.form')
 
                             {!! Form::close() !!}
                         </div>
@@ -45,8 +52,6 @@
     </section>
 </section>
 
-    @include('Invernadero.laboresCulturales.Partials.validator')
-
-@include('Invernadero.laboresCulturales.Partials.ajaxScript')
-
+    @include('Invernadero.Siembra.Partials.validator')
+    @include('Invernadero.Siembra.Partials.Script')
     @include('Partials.ScriptsGenerales.scriptsPartialsAbajo')

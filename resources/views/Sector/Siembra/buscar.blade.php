@@ -45,13 +45,13 @@
 MAIN SIDEBAR MENU
 *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Sector.siembra.aside')
+    @include('Sector.Siembra.aside')
             <!--sidebar end-->
 
     <section id="container">
         <section id="main-content">
             <section class="wrapper site-min-height">
-                <h3 style="color:#078006"><i class="fa fa-angle-right"></i>Preparación</h3>
+                <h3 style="color:#078006"><i class="fa fa-angle-right"></i>Siembra</h3>
                 <div class="row mt">
 
 
@@ -90,7 +90,7 @@ MAIN SIDEBAR MENU
 
                                         <div class="col-lg-3">
                                             <select  class="form-control" id="cultivo" name="cultivo">
-                                                <option value="">Todas los cultivo</option>
+                                                <option value="">Todos los cultivos</option>
 
                                                 @if( isset($cultivos))
                                                     @foreach($cultivos as $cultivo)

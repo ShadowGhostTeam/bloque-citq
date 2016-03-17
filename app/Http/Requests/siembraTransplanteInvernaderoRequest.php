@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class riegoSectorRequest extends Request
+class siembraTransplanteInvernaderoRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,11 @@ class riegoSectorRequest extends Request
     public function rules()
     {
         return [
-            'sector'=>'required|exists:sector,id',
-            'siembra' => 'required|exists:siembra_sector,id',
-            'tiempo' => 'required|numeric|min:0',
+            'invernadero'=>'required|exists:invernadero,id',
+            'cultivo' => 'required|exists:cultivo,id',
             'fecha' =>  'required|date_format:d/m/Y',
-            'distanciaLineas'=>'required|numeric',
+            'fechaTerminacion' => 'date_format:d/m/Y',
+            'status'=>'required|in:Activo,Terminado',
         ];
     }
 }

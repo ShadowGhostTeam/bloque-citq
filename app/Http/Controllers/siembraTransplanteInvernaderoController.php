@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\cultivo;
-use App\Http\Requests\siembraSectorRequest;
+use App\Http\Requests\siembraTransplanteInvernaderoRequest;
 use App\sector;
+use App\invernadero;
 use App\siembraSector;
+use App\siembraTransplanteInvernadero;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -16,7 +18,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
-class siembraSectorController extends Controller
+class siembraTransplanteInvernaderoController extends Controller
 {
     /**
      * Metodo para ver la pagina inicial de siembra sector
@@ -146,24 +148,17 @@ class siembraSectorController extends Controller
             'cultivos' => $cultivos
         ]);
 
-
-
-
     }
 
     /*Devuelve la vista de crear con los valores de los combobox*/
     public function pagCrear()
     {
-        $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $invernaderos= invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
         $cultivos = cultivo::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $tipoSiembras = ['Maquinaria','A mano'];
-        $temporadas = ['Primavera-Verano','Otoño-Invierno'];
         $tipoStatus = ['Activo', 'Terminado'];
 
-        return view('Sector/Siembra/crear')->with([
-            'sectores' => $sectores,
-            'tipoSiembras' => $tipoSiembras,
-            'temporadas' => $temporadas,
+        return view('Invernadero/Siembra/crear')->with([
+            'invernaderos' => $invernaderos,
             'cultivos' => $cultivos,
             'tipoStatus' => $tipoStatus
         ]);
@@ -200,14 +195,13 @@ class siembraSectorController extends Controller
 
 
     /*Recibe la informacion del formulario de crear y la almacena en la base de datos*/
-    public function crear(siembraSectorRequest $request)
+    public function crear(siembraTransplanteInvernaderoRequest $request)
     {
-
         $siembra=$this->adaptarRequest($request);
         $siembra->save();
 
         Session::flash('message', 'La siembra ha sido agregada');
-        return redirect('sector/siembra/crear');
+        return redirect('invernadero/siembra/crear');
     }
 
 
@@ -226,12 +220,12 @@ class siembraSectorController extends Controller
 
     /*Recibe la informacion del formulario de crear y la adapta a los campos del modelo*/
     public function adaptarRequest($request){
-        $siembra = new SiembraSector();
+        $siembra = new siembraTransplanteInvernadero();
         if(isset($request->id)) {
-            $siembra = siembraSector::findOrFail($request->id);
+            $siembra = siembraTransplanteInvernadero::findOrFail($request->id);
         }
 
-        $siembra->id_sector = $request->sector;
+        $siembra->id_invernadero = $request->invernadero;
         $siembra->id_cultivo = $request->cultivo;
         $siembra->fecha = Carbon::createFromFormat('d/m/Y', $request->fecha)->toDateTimeString();
 
@@ -240,11 +234,8 @@ class siembraSectorController extends Controller
         }
 
         $siembra->status = $request->status;
-        $siembra->tipo = $request->tipoSiembra;
         $siembra->variedad = $request->variedad;
         $siembra->comentario = $request->comentario;
-        $siembra->temporada = $request->temporada;
-
         return $siembra;
     }
 
