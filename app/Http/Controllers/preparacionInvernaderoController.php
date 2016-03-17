@@ -105,7 +105,7 @@ class preparacionInvernaderoController extends Controller
         $preparacion->save();
         $preparacion->push();
         Session::flash('message', 'La preparacion ha sido modificada');
-        return redirect('invernadero/preparacion//modificar/'.$preparacion->id);
+        return redirect('invernadero/preparacion/modificar/'.$preparacion->id);
     }
 
     /*
