@@ -45,7 +45,7 @@
 MAIN SIDEBAR MENU
 *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Invernadero.Preparacion.aside')
+    @include('Invernadero.preparacion.aside')
     <!--sidebar end-->
 
     <section id="container">
