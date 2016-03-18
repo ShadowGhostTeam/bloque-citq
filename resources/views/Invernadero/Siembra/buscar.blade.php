@@ -170,7 +170,7 @@ MAIN SIDEBAR MENU
                                                         <td>{{ $siembra->fecha }}</td>
                                                         <td>{{ $siembra->status }}</td>
                                                         @if ( $siembra->fechaTerminacion == "30/11/-0001" )
-                                                            <td>{{ "Sin fecha de terminación" }}</td>
+                                                            <td>{{ "No ha terminado" }}</td>
                                                         @else
                                                             <td>{{ $siembra->fechaTerminacion }}</td>
                                                         @endif
