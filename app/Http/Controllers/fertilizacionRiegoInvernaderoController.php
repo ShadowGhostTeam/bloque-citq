@@ -132,7 +132,7 @@ class fertilizacionRiegoInvernaderoController extends Controller
 
         $etapaFenologica = ['Etapa1'];
         /*Regresa la vista*/
-        return view('invernadero/fertilizacionRiego/buscar')->with([
+        return view('Invernadero/fertilizacionRiego/buscar')->with([
             'fertilizacionesRiego'=>$fertilizacionesRiego,
             'invernaderos' => $invernaderos,
             'etapaFenologica' => $etapaFenologica
