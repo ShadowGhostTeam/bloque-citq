@@ -4,86 +4,86 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class cosechaSectorTest extends TestCase
+class cosechaInvernaderoTest extends TestCase
 {
     ///////////////////////////////////////CREAR//////////////////////////////////////////////////////
 
-    //para llamar a solo un grupo phpunit --group cosechaCrearSector
+    //para llamar a solo un grupo phpunit --group cosechaCrearInvernadero
 
     /*Unidad*/
     /**
-     * @group cosechaCrearSector
+     * @group cosechaCrearInvernadero
      */
     public function testRutaCrear(){
-        $response = $this->call('GET', 'sector/cosecha/crear');
+        $response = $this->call('GET', 'invernadero/cosecha/crear');
         $this->assertEquals(200, $response->status());
     }
 
     ////////////////////////////////////////////////MODIFICAR/////////////////////////////////////////////////////////////////
 
-    //para llamar a solo un grupo "phpunit --group cosechaModificarSector"
+    //para llamar a solo un grupo "phpunit --group cosechaModificarInvernadero"
 
     /*Unidad*/
     /**
-     * @group cosechaModificarSector
+     * @group cosechaModificarInvernadero
      */
     public function testRutaModificar(){
-        $response = $this->call('GET', 'sector/cosecha/modificar/12');
+        $response = $this->call('GET', 'invernadero/cosecha/modificar/12');
         $this->assertEquals(200, $response->status());
     }
 
     ////////////////////////////////////////////////CONSULTAR/////////////////////////////////////////////////////////
 
-//para llamar a solo un grupo "phpunit --group cosechaConsultarSector"
+//para llamar a solo un grupo "phpunit --group cosechaConsultarInvernadero"
 
     /*Unidad*/
     /**
-     * @group cosechaConsultarSector
+     * @group cosechaConsultarInvernadero
      */
     public function testRutaConsultar(){
-        $response = $this->call('GET', 'sector/cosecha/consultar/12');
+        $response = $this->call('GET', 'invernadero/cosecha/consultar/12');
         $this->assertEquals(200, $response->status());
     }
     /**
-     * @group cosechaConsultarSector
+     * @group cosechaConsultarInvernadero
      */
     public function testConsultarIdIncorrecto(){
-        $response = $this->call('GET', 'sector/cosecha/consultar/120');
+        $response = $this->call('GET', 'invernadero/cosecha/consultar/120');
         $this->assertEquals(404, $response->status());
     }
 
 
     ////////////////////////////////////////////////BUSCAR///////////////////////////////////////////////////////////
 
-    //para llamar a solo un grupo "phpunit --group cosechaBuscarSector"
+    //para llamar a solo un grupo "phpunit --group cosechaBuscarInvernadero"
 
     /*Unidad*/
     /**
-     * @group cosechaBuscarSector
+     * @group cosechaBuscarInvernadero
      */
 
     public function testRutaBuscar(){
-        $response = $this->call('GET', 'sector/cosecha');
+        $response = $this->call('GET', 'invernadero/cosecha');
         $this->assertEquals(200, $response->status());
     }
 
     /*Integración*/
 
     /**
-     * @group cosechaBuscarSector
+     * @group cosechaBuscarInvernadero
      */
-    public function testBuscarSectorCorrecto(){
-        $this->visit('sector/cosecha')
-            ->select(1,"sector")
+    public function testBuscarInvernaderoCorrecto(){
+        $this->visit('invernadero/cosecha')
+            ->select(1,"invernadero")
             ->press('Buscar')
             ->see("Se encontraron");
     }
 
     /**
-     * @group cosechaBuscarSector
+     * @group cosechaBuscarInvernadero
      */
     public function testBuscarFechaCorrecto(){
-        $this->visit('sector/cosecha')
+        $this->visit('invernadero/cosecha')
             ->type("29/02/2015","fechaInicio")
             ->type("29/02/2016","fechaFin")
             ->press('Buscar')
@@ -91,54 +91,53 @@ class cosechaSectorTest extends TestCase
     }
 
     /**
-     * @group cosechaBuscarSector
+     * @group cosechaBuscarInvernadero
      */
-    public function testBuscarSectorFechaCorrecto(){
-        $this->visit('sector/cosecha')
+    public function testBuscarInvernaderoFechaCorrecto(){
+        $this->visit('invernadero/cosecha')
             ->type("29/02/2015","fechaInicio")
             ->type("29/02/2016","fechaFin")
-            ->select(1,"sector")
+            ->select(1,"invernadero")
             ->press('Buscar')
             ->see("Se encontraron");
     }
 
     /**
-     * @group cosechaBuscarSector
+     * @group cosechaBuscarInvernadero
      */
     public function testBuscarUnaFecha(){
-        $this->visit('sector/cosecha/lista?sector=&fechaInicio=&fechaFin=29%2F02%2F2016')
+        $this->visit('invernadero/cosecha/lista?invernadero=&fechaInicio=&fechaFin=29%2F02%2F2016')
             ->see("No se encontraron resultados");
     }
 
     /**
-     * @group cosechaBuscarSector
+     * @group cosechaBuscarInvernadero
      */
     public function testBuscarUnaFechaTexto(){
-        $this->visit('sector/cosecha/lista?sector=&fechaInicio=sdfsdfsd&fechaFin=')
+        $this->visit('invernadero/cosecha/lista?invernadero=&fechaInicio=sdfsdfsd&fechaFin=')
             ->see("No se encontraron resultados");
     }
     /**
-     * @group cosechaBuscarSector
+     * @group cosechaBuscarInvernadero
      */
     public function testBuscarFechasTexto(){
-        $this->visit('sector/cosecha/lista?sector=&fechaInicio=sdfsdfsd&fechaFin=sdsdfd')
+        $this->visit('invernadero/cosecha/lista?invernadero=&fechaInicio=sdfsdfsd&fechaFin=sdsdfd')
             ->see("No se encontraron resultados");
     }
     /**
-     * @group cosechaBuscarSector
+     * @group cosechaBuscarInvernadero
      */
-    public function testBuscarSectorTexto(){
-        $this->visit('sector/cosecha/lista?sector=asdasd&fechaInicio=&fechaFin=')
+    public function testBuscarInvernaderoTexto(){
+        $this->visit('invernadero/cosecha/lista?invernadero=asdasd&fechaInicio=&fechaFin=')
             ->see("No se encontraron resultados");
     }
     /**
-     * @group cosechaBuscarSector
+     * @group cosechaBuscarInvernadero
      */
-    public function testBuscarSectorInexistente(){
-        $this->visit('sector/cosecha/lista?sector=1000&fechaInicio=&fechaFin=')
+    public function testBuscarInvernaderoInexistente(){
+        $this->visit('invernadero/cosecha/lista?invernadero=1000&fechaInicio=&fechaFin=')
             ->see("No se encontraron resultados");
     }
+
 
 }
-
-

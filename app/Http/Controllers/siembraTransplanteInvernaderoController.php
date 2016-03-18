@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Validator;
 class siembraTransplanteInvernaderoController extends Controller
 {
     /**
-     * Metodo para ver la pagina inicial de siembra sector
+     * Metodo para ver la pagina inicial de siembra invernadero
      *
      *
      */
@@ -53,7 +53,7 @@ class siembraTransplanteInvernaderoController extends Controller
         $validator = Validator::make($request->all(), [
             'fechaInicio' => 'date_format:d/m/Y',
             'fechaFin' => 'date_format:d/m/Y',
-            'invernadero' => ':sector,id',
+            'invernadero' => 'exists:invernadero,id',
             'cultivo' => 'exists:cultivo,id',
             'status'=>'in:Activo,Terminado',
         ]);
@@ -81,7 +81,7 @@ class siembraTransplanteInvernaderoController extends Controller
             }
 
             /*Busqueda solo con status*/
-            if ($request->fechaFin == "" && $request->fechaInicio == "" && $request->sector == "" && $request->cultivo == "" && $request->status != "") {
+            if ($request->fechaFin == "" && $request->fechaInicio == "" && $request->invernadero == "" && $request->cultivo == "" && $request->status != "") {
                 $siembras  = siembraTransplanteInvernadero::where('status', $request->status)->orderBy('fecha', 'desc')->paginate(15);;
             }
 
@@ -132,7 +132,7 @@ class siembraTransplanteInvernaderoController extends Controller
                 }
 
                 /*Busqueda solo con status*/
-                if ($request->sector == "" && $request->cultivo == "" && $request->status != "") {
+                if ($request->invernadero == "" && $request->cultivo == "" && $request->status != "") {
                     $siembras  = siembraTransplanteInvernadero::where('status', $request->status)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
                 }
 
@@ -205,25 +205,24 @@ class siembraTransplanteInvernaderoController extends Controller
      * */
     public function pagModificar($id)
     {
-        $siembraTransplanteInvernadero= siembraTransplanteInvernadero::findOrFail($id);
+        $siembra= siembraTransplanteInvernadero::findOrFail($id);
 
-        $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
-
+        $invernaderos= invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
         $cultivos = cultivo::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $tipoSiembras = ['Maquinaria','A mano'];
-        $temporadas = ['Primavera-Verano', 'Otoño-Invierno'];
-        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $siembraTransplanteInvernadero->fecha);
-        $siembraTransplanteInvernadero->fecha=$fecha->format('d/m/Y');
-        $fechaTerminacion=Carbon::createFromFormat('Y-m-d H:i:s', $siembraTransplanteInvernadero->fechaTerminacion);
-        $siembraTransplanteInvernadero->fechaTerminacion=$fechaTerminacion->format('d/m/Y');
+        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fecha);
+        if ($siembra->fechaTerminacion == "0000-00-00 00:00:00"){
+
+        }else{
+            $fechaTerminacion=Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fechaTerminacion);
+            $siembra->fechaTerminacion=$fechaTerminacion->format('d/m/Y');
+        }
+        $siembra->fecha=$fecha->format('d/m/Y');
         $tipoStatus = ['Activo', 'Terminado'];
 
-        return view('Sector/Siembra/modificar')->with([
-            'sectores' => $sectores,
-            'tipoSiembras'=> $tipoSiembras,
-            'temporadas'=> $temporadas,
+        return view('Invernadero/Siembra/modificar')->with([
+            'invernaderos' => $invernaderos,
             'cultivos' => $cultivos,
-            'siembraTransplanteInvernadero' => $siembraTransplanteInvernadero,
+            'siembraInvernadero' => $siembra,
             'tipoStatus' => $tipoStatus,
         ]);
     }
@@ -248,7 +247,7 @@ class siembraTransplanteInvernaderoController extends Controller
         $siembra->save();
         $siembra->push();
         Session::flash('message', 'La siembra ha sido modificada');
-        return redirect('sector/siembra/modificar/'.$siembra->id);
+        return redirect('invernadero/siembra/modificar/'.$siembra->id);
     }
 
 
@@ -282,10 +281,11 @@ class siembraTransplanteInvernaderoController extends Controller
     {
         $siembra= siembraTransplanteInvernadero::findOrFail($id);
         $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fecha);
+        $fechaTerminacion=Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fechaTerminacion);
         $siembra->fecha=$fecha->format('d/m/Y');
+        $siembra->fechaTerminacion=$fecha->format('d/m/Y');
 
-
-        return view('Sector/Siembra/consultar')->with([
+        return view('Invernadero/Siembra/consultar')->with([
             'siembra'=>$siembra
         ]);
     }
@@ -302,7 +302,7 @@ class siembraTransplanteInvernaderoController extends Controller
         catch(\Exception $ex) {
             Session::flash('error','No puedes eliminar esta siembra porque otros registros dependen de ella');
         }
-        return redirect('sector/siembra');
+        return redirect('invernadero/siembra');
     }
 
 
