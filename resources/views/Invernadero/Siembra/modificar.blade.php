@@ -14,14 +14,14 @@
     MAIN SIDEBAR MENU
     *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Sector.Siembra.aside')
+    @include('Invernadero.Siembra.aside')
     <!--sidebar end-->
 
     <section id="container">
         <section id="main-content">
             <section class="wrapper site-min-height">
                 <h3>
-                    <a href="{{ route('sector/siembra') }}">
+                    <a href="{{ route('invernadero/siembra') }}">
                         <button type="button" class="btn btn-primary">
                             <i class="glyphicon glyphicon-arrow-left"></i> Búsqueda
                         </button>
@@ -34,13 +34,12 @@
                         <div class="form-panel">
                             @include('Partials.Mensajes.mensajes')
                             <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Modificar siembra</h4><br>
-                            @if( isset($siembraSector))
-
+                            @if( isset($siembraInvernadero))
 
                                 <table align="right">
                                     <tr>
                                         <td>
-                                            <a href="{{ route('sector/siembra/consultar/item',$siembraSector->id) }}">
+                                            <a href="{{ route('invernadero/siembra/consultar/item',$siembraInvernadero->id) }}">
                                                 <button  class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar">
                                                     <i class="fa fa-eye"></i>
                                                 </button>
@@ -48,11 +47,11 @@
                                         </td>
 
                                         <td>
-                                            {!! Form::open(['action'=>['siembraSectorController@eliminar'],'role'=>'form'] )  !!}
+                                            {!! Form::open(['action'=>['siembraTransplanteInvernaderoController@eliminar'],'role'=>'form'] )  !!}
                                             <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la siembra?")'>
                                                 <i class="fa fa-trash-o "></i>
                                             </button>
-                                            <input type="hidden" name="id" value={{$siembraSector->id}}>
+                                            <input type="hidden" name="id" value={{$siembraInvernadero->id}}>
                                             {!! Form::close() !!}
 
                                         </td>
@@ -62,12 +61,10 @@
 
                             @endif
 
-                            {!! Form::open(['action'=>['siembraSectorController@modificar'],'class'=>'form-horizontal','role'=>'form', 'id' =>'formulario'] )  !!}
+                            {!! Form::open(['action'=>['siembraTransplanteInvernaderoController@modificar'],'class'=>'form-horizontal','role'=>'form', 'id' =>'formulario'] )  !!}
 
-
-
-                            @include('Sector.Siembra.Partials.form')
-                            <input type="hidden" name="id" value="{{$siembraSector->id}}">
+                            @include('Invernadero.Siembra.Partials.form')
+                            <input type="hidden" name="id" value="{{$siembraInvernadero->id}}">
                             {!! Form::close() !!}
                         </div>
                     </div>
@@ -77,8 +74,8 @@
         </section>
     </section>
 </section>
-    @include('Sector.Siembra.Partials.validator')
+    @include('Invernadero.Siembra.Partials.validator')
 
-    @include('Sector.Siembra.Partials.Script')
+    @include('Invernadero.Siembra.Partials.Script')
 
     @include('Partials.ScriptsGenerales.scriptsPartialsAbajo')
