@@ -152,10 +152,10 @@ MAIN SIDEBAR MENU
                                             <thead>
                                             <tr>
                                                 <th><i class="fa fa-thumb-tack"></i> Invernadero </th>
-                                                <th> <i class="fa fa-calendar-o"></i> Cultivo </th>
-                                                <th><i class=" fa fa-edit"></i>Fecha</th>
-                                                <th><i class=" fa fa-circle-thin"></i> Status </th>
-                                                <th><i class=" fa fa-edit"></i>Fecha de Terminación</th>
+                                                <th> <i class="fa fa-tree"></i> Cultivo </th>
+                                                <th><i class="fa fa-calendar-o"></i> Fecha </th>
+                                                <th><i class="fa fa-circle-thin"></i> Status </th>
+                                                <th><i class="fa fa-calendar-o"></i> Fecha de Terminación </th>
                                             </tr>
                                             </thead>
                                             <tbody>

@@ -14,14 +14,14 @@
     MAIN SIDEBAR MENU
     *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Sector.Siembra.aside')
+    @include('Invernadero.Siembra.aside')
     <!--sidebar end-->
 
     <section id="container">
         <section id="main-content">
             <section class="wrapper site-min-height">
                 <h3>
-                    <a href="{{ route('sector/siembra') }}">
+                    <a href="{{ route('invernadero/siembra') }}">
                         <button type="button" class="btn btn-primary">
                             <i class="glyphicon glyphicon-arrow-left"></i>
                             Búsqueda
@@ -38,16 +38,15 @@
 
                             @if( isset($siembra))
 
-
                                 <table align="right">
                                     <tr>
                                         <td>
-                                            <a href="{{ route('sector/siembra/modificar/item',$siembra->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
+                                            <a href="{{ route('invernadero/siembra/modificar/item',$siembra->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
                                             &nbsp
                                         </td>
 
                                         <td>
-                                            {!! Form::open(['action'=>['siembraSectorController@eliminar'],'role'=>'form'] )  !!}
+                                            {!! Form::open(['action'=>['siembraTransplanteInvernaderoController@eliminar'],'role'=>'form'] )  !!}
                                             <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la siembra?")'>
                                                 <i class="fa fa-trash-o "></i>
                                             </button>
@@ -70,13 +69,12 @@
                                 <div class="col-md-7">
 
                                     <dl class="dl-horizontal">
-                                        <dt>Sector</dt><dd>{{ $siembra->sector->nombre }}</dd>
+                                        <dt>Invernadero</dt><dd>{{ $siembra->invernadero->nombre }}</dd>
                                         <dt>Cultivo</dt><dd>{{ $siembra->cultivo->nombre }}</dd>
                                         <dt>Fecha</dt><dd>{{ $siembra->fecha }}</dd>
                                         <dt>Status</dt><dd>{{ $siembra->status}}</dd>
-                                        <dt>Tipo de siembra</dt><dd>{{ $siembra->tipo}}</dd>
+                                        <dt>Fecha de Terminación</dt><dd>{{ $siembra->fechaTerminacion}}</dd>
                                         <dt>Variedad</dt><dd>{{ $siembra->variedad }}</dd>
-                                        <dt>Temporada</dt><dd>{{ $siembra->temporada}}</dd>
                                         <dt>Comentario</dt><dd>{{ $siembra->comentario}}</dd>
                                     </dl>
                                 </div>
