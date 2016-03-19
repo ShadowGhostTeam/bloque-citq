@@ -127,7 +127,7 @@
 
 
         <div class="form-group">
-            <label for="Cantidad" class="col-lg-2 control-label">Cantidad (kg)</label>
+            <label for="Cantidad" class="col-lg-2 control-label">Cantidad (kg- l/ha)</label>
             <div class="col-lg-10">
                 @if( isset($fertilizacionSector))
                     {!!Form::text('cantidad' ,$fertilizacionSector->cantidad,['class'=>'form-control','id'=>'cantidad','placeholder'=>'Número en kg'])!!}
