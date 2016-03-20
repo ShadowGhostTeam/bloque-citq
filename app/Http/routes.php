@@ -378,12 +378,6 @@ Route::get('logout', [
     'uses'=>'Auth\AuthController@getLogout',
     'as'=>'logout'
 ]);
-// Registration routes...
-Route::get('register',[
-    'uses'=>'Auth\AuthController@getRegister',
-    'as' => 'register'
-]);
-Route::post('register', 'Auth\AuthController@postRegister');
 // Password reset link request routes...
 Route::get('password/email',[
     'uses' => 'Auth\PasswordController@getEmail',

@@ -107,7 +107,21 @@ return [
 
     'attributes' => [
         'numPasadas'=>'número de pasadas',
-        'siembraT' => 'transplante'
+        'siembraT' => 'transplante',
+
+        'resetearContrasena'=>'Resetear Contraseña',
+        'confirmarContrasena'=>'Confirmar Contraseña',
+        'contrasena' => 'Contraseña',
+
+        'contrasenaActual' => 'Contraseña actual',
+        'contrasenaNueva' => 'Contraseña nueva',
+        'contrasenaConfirmar' => 'Confirmar nueva contraseña ',
+        'recuperarContrasena' => 'Recuperar contraseña ',
+        'recordarContrasena' => 'Recordar contraseña',
+        'guardar' => 'Guardar',
+        'mensajeModificarContrasena' => 'return confirm("¿Seguro que desea modificar contraseña?")',
+        'enviar' => 'Enviar',
+        'errores' => 'Existen algunos problemas con los valores ingresados.',
     ],
 
 ];
