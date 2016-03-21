@@ -5,7 +5,7 @@
 <html lang="en-us">
 <meta charset="utf-8" />
 <head>
-    <title>{{trans('validation.attributes.recuperarContrasena')}}| DocumentaQro</title>
+    <title>{{trans('validation.attributes.recuperarContrasena')}}| CITQRO</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- BOOTSTRAP -->
     <link rel="stylesheet" href=" {{ asset('assets/css/login.css') }}">
@@ -43,7 +43,7 @@
                                 <ul>
                                     <li>
                                         <div class="col-md-12"  style="text-align: center">
-                                            <span class="un"><i class="fa fa-envelope-o fa-lg"></i></span><input placeholder="documentaqro@gmail.com" type="email" class="text" name="email" value="{{ old('email') }}">
+                                            <span class="un"><i class="fa fa-envelope-o fa-lg"></i></span><input placeholder="citqro@gmail.com" type="email" class="text" name="email" value="{{ old('email') }}">
                                         </div>
                                     </li>
 
