@@ -14,6 +14,15 @@ use Illuminate\Support\Facades\Session;
 
 class contrasenaController extends Controller
 {
+
+    //Login
+    public function  __construct()
+    {
+        if(!Auth::check()){
+            $this->middleware('auth');
+        }
+    }
+
     /*
      * Muestra la página
      * */
