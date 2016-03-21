@@ -78,14 +78,13 @@
             </div>
         </div>
 
-
         <div class="form-group">
             <label for="tiempoRiego" class="col-lg-2 control-label"><strong>*</strong>Tiempo Riego</label>
             <div class="col-lg-10">
                 @if( isset($fertilizacionesRiego))
-                    {!!Form::number('tiempoRiego' ,$fertilizacionesRiego->tiempoRiego,['class'=>'form-control','id'=>'tiempoRiego','placeholder'=>'Tiempo de riego'])!!}
+                    {!!Form::text('tiempoRiego' ,$fertilizacionesRiego->tiempoRiego,['class'=>'form-control','id'=>'tiempoRiego','placeholder'=>'Tiempo de riego'])!!}
                 @else
-                    {!!Form::number('tiempoRiego' ,null,['class'=>'form-control', 'id'=>'tiempoRiego','placeholder'=>'Tiempo de riego'])!!}
+                    {!!Form::text('tiempoRiego' ,null,['class'=>'form-control','id'=>'tiempoRiego','placeholder'=>'Tiempo de riego'])!!}
                 @endif
             </div>
         </div>
@@ -116,12 +115,12 @@
         </div>
 
         <div class="form-group">
-            <label for="Frecuencia" class="col-lg-2 control-label">Frecuencia</label>
+            <label for="tiempoRiego" class="col-lg-2 control-label">Frecuencia</label>
             <div class="col-lg-10">
                 @if( isset($fertilizacionesRiego))
-                    {!!Form::number('frecuencia' ,$fertilizacionesRiego->frecuencia,['class'=>'form-control','id'=>'frecuencia','placeholder'=>'Frecuencia'])!!}
+                    {!!Form::text('frecuencia' ,$fertilizacionesRiego->frecuencia,['class'=>'form-control','id'=>'frecuencia','placeholder'=>'Frecuencia'])!!}
                 @else
-                    {!!Form::number('frecuencia' ,null,['class'=>'form-control','id'=>'frecuencia','placeholder'=>'Frecuencia'])!!}
+                    {!!Form::text('frecuencia' ,null,['class'=>'form-control','id'=>'frecuencia','placeholder'=>'Frecuencia'])!!}
                 @endif
             </div>
         </div>

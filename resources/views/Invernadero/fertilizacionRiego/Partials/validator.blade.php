@@ -44,20 +44,34 @@
                         notEmpty: {
                             message: 'Seleccione una opción'
                         },
-                        between: {
-                            min: 0,
-                            max: 9999,
-                            message: 'El tiempo debe ser mayor a 0'
+                        numeric: {
+                            message: 'No es un número válido',
+                            // The default separators
+
+                            decimalSeparator: '.'
+
+
+                        },
+                        greaterThan: {
+                            value: 0,
+                            message: 'El número tiene que ser positivo'
                         }
                     }
                 },
 
                 frecuencia:{
                     validators: {
-                        between: {
-                            min: 0,
-                            max: 999,
-                            message: 'La frecuencia debe estar entre 0 y 999'
+                        numeric: {
+                            message: 'No es un número válido',
+                            // The default separators
+
+                            decimalSeparator: '.'
+
+
+                        },
+                        greaterThan: {
+                            value: 0,
+                            message: 'El número tiene que ser positivo'
                         }
                     }
                 }
