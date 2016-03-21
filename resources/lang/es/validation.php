@@ -76,7 +76,7 @@ return [
     'timezone'             => 'El :attribute debe ser una zona válida.',
     'unique'               => ':attribute ya ha sido registrado.',
     'url'                  => 'El formato :attribute es inválido.',
-
+    "current_password"     => 'Contraseña actual equivocada',
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
@@ -122,6 +122,9 @@ return [
         'mensajeModificarContrasena' => 'return confirm("¿Seguro que desea modificar contraseña?")',
         'enviar' => 'Enviar',
         'errores' => 'Existen algunos problemas con los valores ingresados.',
+        'Configuracion' => 'Configuración',
+        'contrasena_confirmation' => ' confirmar nueva contraseña'
+
     ],
 
 ];
