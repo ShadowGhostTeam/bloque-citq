@@ -33,7 +33,7 @@ class cosechaInvernaderoController extends Controller
 
 
         $invernaderos= Invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        return view('invernadero/cosecha/buscar')->with([
+        return view('Invernadero/Cosecha/buscar')->with([
             'invernaderos' => $invernaderos,
             'cosechas'=>$cosechas
 
@@ -46,7 +46,7 @@ class cosechaInvernaderoController extends Controller
     public function pagCrear() {
         $invernaderos = Invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
-        return view('invernadero/cosecha/crear')->with([
+        return view('Invernadero/Cosecha/crear')->with([
             'invernaderos' => $invernaderos,
         ]);
     }
@@ -87,7 +87,7 @@ class cosechaInvernaderoController extends Controller
         $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $cosechaInvernadero->fecha);
         $cosechaInvernadero->fecha= $fecha->format('d/m/Y');
         //dd($siembras, $siembraSeleccionada);
-        return view('invernadero/cosecha/modificar')->with([
+        return view('Invernadero/Cosecha/modificar')->with([
             'cosechaInvernadero'=> $cosechaInvernadero,
             'invernaderos' => $invernaderos,
             'siembras' => $siembrasTodas,
@@ -107,7 +107,7 @@ class cosechaInvernaderoController extends Controller
         $cosechaInvernadero->fecha=$fecha->format('d/m/Y');
 
 
-        return view('invernadero/cosecha/consultar')->with([
+        return view('Invernadero/Cosecha/consultar')->with([
             'cosechaInvernadero'=>$cosechaInvernadero
         ]);
     }
@@ -230,7 +230,7 @@ class cosechaInvernaderoController extends Controller
                 Session::flash('message', 'Se encontraron '.$num.' resultados');
             }
         /*Regresa la vista*/
-            return view('invernadero/cosecha/buscar')->with([
+            return view('Invernadero/Cosecha/buscar')->with([
                 'cosechas'=>$cosechas,
                 'invernaderos' => $invernaderos
             ]);
