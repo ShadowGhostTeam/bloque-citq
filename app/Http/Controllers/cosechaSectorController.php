@@ -47,7 +47,7 @@ class cosechaSectorController extends Controller
     public function pagCrear() {
         $sectores = Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
-        return view('Sector/cosecha/crear')->with([
+        return view('sector/cosecha/crear')->with([
             'sectores' => $sectores,
         ]);
     }
@@ -88,7 +88,7 @@ class cosechaSectorController extends Controller
         $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $cosechaSector->fecha);
         $cosechaSector->fecha= $fecha->format('d/m/Y');
         //dd($siembras, $siembraSeleccionada);
-        return view('Sector/cosecha/modificar')->with([
+        return view('sector/cosecha/modificar')->with([
             'cosechaSector'=> $cosechaSector,
             'sectores' => $sectores,
             'siembras' => $siembrasTodas,
@@ -231,7 +231,7 @@ class cosechaSectorController extends Controller
                 Session::flash('message', 'Se encontraron '.$num.' resultados');
             }
         /*Regresa la vista*/
-            return view('Sector/cosecha/buscar')->with([
+            return view('sector/cosecha/buscar')->with([
                 'cosechas'=>$cosechas,
                 'sectores' => $sectores
             ]);
