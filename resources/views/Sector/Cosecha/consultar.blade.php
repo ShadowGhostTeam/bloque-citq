@@ -29,7 +29,7 @@
 
                             <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Consultar cosecha</h4><br>
 
-                            @if( isset($preparacion))
+                            @if( isset($cosecha))
 
 
                                 <table align="right">
@@ -40,7 +40,7 @@
                                         </td>
 
                                         <td>
-                                            {!! Form::open(['action'=>['preparacionSectorController@eliminar'],'role'=>'form'] )  !!}
+                                            {!! Form::open(['action'=>['cosechaSectorController@eliminar'],'role'=>'form'] )  !!}
                                             <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la cosecha?")'><i class="fa fa-trash-o "></i></button>
                                             <input type="hidden" name="id" value={{$cosecha->id}}>
                                             {!! Form::close() !!}
