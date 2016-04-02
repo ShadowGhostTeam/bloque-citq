@@ -18,6 +18,11 @@ class SiembraPlantula extends Migration
 
             $table->dateTime('fecha');
             $table->enum('status',['Activo','Terminado']);
+            $table->enum('contenedor',['Tipo1','Tipo2']);
+            $table->integer('numPlantas')->unsigned();
+            $table->string('sustrato');
+            $table->text('comentario');
+
             $table->dateTime('fechaTerminacion');
             $table->enum('destino',['Campo','Invernadero']);
             $table->string('variedad');

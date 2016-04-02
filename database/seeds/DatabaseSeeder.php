@@ -45,7 +45,6 @@ class DatabaseSeeder extends Seeder
         $this->call('siembraPlantulaSeeder');
         $this->call('aplicacionesPlantulaSeeder');
         $this->call('riegoPlantulaSeeder');
-        $this->call('preparacionPlantulaSeeder');
         $this->call('salidaPlantaSeeder');
 
         //RBAC
