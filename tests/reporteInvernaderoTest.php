@@ -44,6 +44,30 @@ class reporteInvernaderoTest extends TestCase
             ->see('El campo fecha fin es obligatorio.');
     }
 
+    /**
+     * @group reportesInvernadero
+     */
+    public function testFechaFinInvalida(){
+        $user=User::find(1);
+        $this->actingAs($user)
+            ->visit('reportes/invernadero')
+            ->type("asdasd","fechaFin")
+            ->press('Generar reporte')
+            ->see('fecha fin no corresponde al formato d/m/Y.');
+    }
+
+    /**
+     * @group reportesInvernadero
+     */
+    public function testFechaInicioInvalida(){
+        $user=User::find(1);
+        $this->actingAs($user)
+            ->visit('reportes/invernadero')
+            ->type("asdasd","fechaInicio")
+            ->press('Generar reporte')
+            ->see('fecha inicio no corresponde al formato d/m/Y.');
+    }
+
 
 
 
