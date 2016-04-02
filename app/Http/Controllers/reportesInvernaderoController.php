@@ -33,10 +33,10 @@ class reportesInvernaderoController extends Controller
     public function index() {
 
 
-        $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $invernaderos= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
         $cultivos= cultivo::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        return view('Reportes/buscar')->with([
-            'sectores' => $sectores,
+        return view('Reportes/Invernadero/buscar')->with([
+            'invernaderos' => $invernaderos,
             'cultivos' => $cultivos
 
         ]);

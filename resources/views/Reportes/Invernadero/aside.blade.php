@@ -120,12 +120,12 @@
                 </a>
 
                 <ul class="sub">
-                    <li><a href="{{route('reportes/sector')}}"  class="active">
+                    <li><a href="{{route('reportes/sector')}}">
                             <i class="fa fa-th"></i>
                             <span>Sector</span>
                         </a></li>
 
-                    <li><a href="#">
+                    <li><a href="{{route('reportes/invernadero')}}"  class="active">
                             <i class="fa fa-th-large"></i>
                             <span>Invernadero</span>
                         </a></li>

@@ -45,7 +45,7 @@
 MAIN SIDEBAR MENU
 *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Reportes.aside')
+    @include('Reportes.Invernadero.aside')
     <!--sidebar end-->
 
     <section id="container">
@@ -58,7 +58,7 @@ MAIN SIDEBAR MENU
                     <!-- INICIO CONTENIDO -->
                     <div class="col-lg-12">
                         <div class="form-panel">
-                            <h4><i class="fa fa-angle-right"></i>Sector</h4>
+                            <h4><i class="fa fa-angle-right"></i>Invernadero</h4>
                             @include('Partials.Mensajes.mensajes')
 
 
@@ -67,17 +67,17 @@ MAIN SIDEBAR MENU
 
 
 
-                                    {!! Form::open(['route' => 'reportes/sector/generar' ,'method'=>'GET','id'=>'formulario']) !!}
+                                    {!! Form::open(['route' => 'reportes/invernadero/generar' ,'method'=>'GET','id'=>'formulario']) !!}
 
                                         <div class="form-group">
 
                                             <div class="col-lg-3">
-                                                <select  class="form-control" id="sector" name="sector">
-                                                    <option value="">Todos los sectores</option>
+                                                <select  class="form-control" id="invernadero" name="invernadero">
+                                                    <option value="">Todos los invernaderos</option>
 
-                                                    @if( isset($sectores))
-                                                        @foreach($sectores as $sector)
-                                                            <option value="{{  $sector->id  }}" > {{ $sector->nombre}}  </option>
+                                                    @if( isset($invernaderos))
+                                                        @foreach($invernaderos as $invernadero)
+                                                            <option value="{{  $invernadero->id  }}" > {{ $invernadero->nombre}}  </option>
                                                         @endforeach
                                                     @endif
                                                 </select>
@@ -138,17 +138,17 @@ MAIN SIDEBAR MENU
                                             &nbsp;&nbsp;&nbsp;
                                             <label>
                                                 {!!Form::checkbox('filtros[]' ,'fertilizaciones',['class'=>'form-control','value'=>'Preparaciones','id'=>'chkPreparaciones'])!!}
-                                                Fertilizaciones
+                                                Fertilizaciones-Riegos
                                             </label>
                                             &nbsp;&nbsp;&nbsp;
                                             <label>
-                                                {!!Form::checkbox('filtros[]' ,'riegos',['class'=>'form-control','value'=>'Preparaciones','id'=>'chkPreparaciones'])!!}
-                                                Riegos
+                                                {!!Form::checkbox('filtros[]' ,'labores',['class'=>'form-control','value'=>'Preparaciones','id'=>'chkPreparaciones'])!!}
+                                                Labores culturales
                                             </label>
                                             &nbsp;&nbsp;&nbsp;
                                             <label>
                                                 {!!Form::checkbox('filtros[]' ,'mantenimientos',['class'=>'form-control','value'=>'Preparaciones','id'=>'chkPreparaciones'])!!}
-                                                Mantenimientos
+                                                Aplicaciones mantenimiento
                                             </label>
                                             &nbsp;&nbsp;&nbsp;
                                             <label>
@@ -200,7 +200,7 @@ MAIN SIDEBAR MENU
                                     @if($filtros['fertilizaciones'])
                                     <li role="presentation"@if($active)class="active" <?php $active=false;?>@endif><a href="#fertilizaciones" aria-controls="fertilizaciones" role="tab" data-toggle="tab">Fertilizaciones</a></li>
                                     @endif
-                                    @if($filtros['riegos'])
+                                    @if($filtros['labores'])
                                     <li role="presentation"@if($active)class="active" <?php $active=false;?>@endif><a href="#riegos" aria-controls="riegos" role="tab" data-toggle="tab">Riegos</a></li>
                                     @endif
                                      @if($filtros['mantenimientos'])
@@ -336,7 +336,7 @@ MAIN SIDEBAR MENU
                                     </div>
                                     @endif
 
-                                    @if($filtros['riegos'])
+                                    @if($filtros['labores'])
                                     <div role="tabpanel" @if($active)class="tab-pane active" <?php $active=false;?>@else class="tab-pane"@endif  id="riegos">
                                         <div class="table-responsive">
                                             <table  class="table table-striped table-advance table-hover table_sort"  >
@@ -482,7 +482,7 @@ MAIN SIDEBAR MENU
                     validating: 'glyphicon glyphicon-refresh'
                 },
                 fields: {
-                    sector: {
+                    invernadero: {
                         validators: {
                         }
                     },
