@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use App\User;
 
 class reportesSectorTest extends TestCase
 {
@@ -24,15 +25,54 @@ class reportesSectorTest extends TestCase
     }
 
     /*Unidad*/
+
+
+    /*Unidad*/
     /**
      * @group reportesSector
      */
-    public function testNoSectorNoCultivo(){
+
+    public function testNoFechaInicio(){
         $user=User::find(1);
         $this->actingAs($user)
             ->visit('reportes/sector')
             ->press('Generar reporte')
-            ->see('Seleecione un sector y/o cultivo');
+            ->see('El campo fecha inicio es obligatorio.');
+    }
+
+    /**
+     * @group reportesSector
+     */
+    public function testNoFechaFin(){
+        $user=User::find(1);
+        $this->actingAs($user)
+            ->visit('reportes/sector')
+            ->press('Generar reporte')
+            ->see('El campo fecha fin es obligatorio.');
+    }
+
+    /**
+     * @group reportesSector
+     */
+    public function testFechaFinInvalida(){
+        $user=User::find(1);
+        $this->actingAs($user)
+            ->visit('reportes/sector')
+            ->type("asdasd","fechaFin")
+            ->press('Generar reporte')
+            ->see('fecha fin no corresponde al formato d/m/Y.');
+    }
+
+    /**
+     * @group reportesSector
+     */
+    public function testFechaInicioInvalida(){
+        $user=User::find(1);
+        $this->actingAs($user)
+            ->visit('reportes/sector')
+            ->type("asdasd","fechaInicio")
+            ->press('Generar reporte')
+            ->see('fecha inicio no corresponde al formato d/m/Y.');
     }
 
 

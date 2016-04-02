@@ -595,7 +595,14 @@ class reportesSectorController extends Controller
 
 
         //////////////////////////////////////Fertilizaciones///////////////////////////////////////////////////
+        if($request->sector!=""){
+            $siembras = $cultivo->siembras()->where('id_sector',$request->sector)->orderBy('fecha', 'asc')->get();
 
+        }
+        else {
+            $siembras = $cultivo->siembras()->orderBy('fecha', 'asc')->get();
+        }
+        
         if($filtros['fertilizaciones']) {
             $arrayFertilizaciones[0]['Sector'] = "";
             $arrayFertilizaciones[0]['Siembra'] = "";
