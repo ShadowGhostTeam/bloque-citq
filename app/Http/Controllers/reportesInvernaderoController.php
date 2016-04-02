@@ -6,10 +6,12 @@ use App\cultivo;
 use App\Http\Requests\preparacionSectorRequest;
 
 use App\Http\Requests\reportesSectorRequest;
+use App\invernadero;
 use App\maquinaria;
 use App\preparacionSector;
 use App\sector;
 use App\siembraSector;
+use App\siembraTransplanteInvernadero;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -33,7 +35,7 @@ class reportesInvernaderoController extends Controller
     public function index() {
 
 
-        $invernaderos= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $invernaderos= invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
         $cultivos= cultivo::select('id','nombre')->orderBy('nombre', 'asc')->get();
         return view('Reportes/Invernadero/buscar')->with([
             'invernaderos' => $invernaderos,
@@ -62,20 +64,20 @@ class reportesInvernaderoController extends Controller
         //Caso de que se requiera reporte solo por sector
         $string=null;
        if($request->cultivo==""){
-           $string= $this->reporteSoloSector($request,$filtros);
+           $string= $this->reporteSoloInvernadero($request,$filtros);
 
        }
         if($request->cultivo!=""){
             $string=$this->reporteCultivo($request,$filtros);
         }
 
-        $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $invernaderos= invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
         $cultivos= cultivo::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
         $arrays=$request->session()->get($string);
 
-        return view('Reportes/buscar')->with([
-            'sectores' => $sectores,
+        return view('Reportes/Invernadero/buscar')->with([
+            'invernaderos' => $invernaderos,
             'cultivos' => $cultivos,
             'arrays'=>$arrays,
             'string'=>$string,
@@ -108,11 +110,11 @@ class reportesInvernaderoController extends Controller
         else{
             $filtros['fertilizaciones']=false;
         }
-        if (in_array("riegos", $request->filtros)) {
-            $filtros['riegos']=true;
+        if (in_array("labores", $request->filtros)) {
+            $filtros['labores']=true;
         }
         else{
-            $filtros['riegos']=false;
+            $filtros['labores']=false;
         }
         if (in_array("mantenimientos", $request->filtros)) {
             $filtros['mantenimientos']=true;
@@ -132,7 +134,7 @@ class reportesInvernaderoController extends Controller
     }
 
 
-    public function reporteSoloSector($request,$filtros){
+    public function reporteSoloInvernadero($request,$filtros){
 
         //Castear fechas
         $fecha = $request->fechaInicio . " 00:00:00";
@@ -140,12 +142,12 @@ class reportesInvernaderoController extends Controller
         $fecha = $request->fechaFin . " 23:59:59";
         $fechaSup = Carbon::createFromFormat("d/m/Y H:i:s", $fecha);
 
-        $sectores=null;
-        if($request->sector==""){
-            $sectores= Sector::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $invernaderos=null;
+        if($request->invernadero==""){
+            $invernaderos= invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
         }
         else{
-            $sectores= Sector::select('id','nombre')->where('id',$request->sector)->get();
+            $invernaderos= invernadero::select('id','nombre')->where('id',$request->invernadero)->get();
         }
 
 
@@ -153,46 +155,44 @@ class reportesInvernaderoController extends Controller
         $arrayPreparaciones = null;
         $arraySiembras = null;
         $arrayFertilizaciones = null;
-        $arrayRiegos = null;
+        $arrayLabores = null;
         $arrayMantenimientos = null;
         $arrayCosechas = null;
 
         ///////////////////////////////Preparaciones////////////////////////////////////////////////////
 
             if($filtros['preparaciones']) {
-                $arrayPreparaciones[0]['Sector'] = "";
-                $arrayPreparaciones[0]['Maquinaria'] = "";
-                $arrayPreparaciones[0]['Número de pasadas'] = 0;
+                $arrayPreparaciones[0]['Invernadero'] = "";
+                $arrayPreparaciones[0]['Tipo de siembra'] = "";
                 $arrayPreparaciones[0]['Fecha'] = "";
                 $i = 0;
 
-                foreach($sectores as $sector) {
+                foreach($invernaderos as $invernadero) {
 
-                    $preparaciones = $sector->preparaciones()->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->get();
+                    $preparaciones = $invernadero->preparaciones()->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->get();
 
                     foreach ($preparaciones as $preparacion) {
-                        $maquinaria = maquinaria::findOrFail($preparacion->id_maquinaria);
-                        $arrayPreparaciones[$i]['Sector'] = $sector->nombre;
-                        $arrayPreparaciones[$i]['Maquinaria'] = $maquinaria->nombre;
-                        $arrayPreparaciones[$i]['Número de pasadas'] = $preparacion->numPasadas;
-
+                        $arrayPreparaciones[$i]['Invernadero'] = $invernadero->nombre;
+                        $arrayPreparaciones[$i]['Tipo de siembra'] = $preparacion->tipoSiembra;
                         $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $preparacion->fecha);
-                        $preparacion->fecha = $fecha->format('d/m/Y');
-
-                        $arrayPreparaciones[$i]['Fecha'] = $preparacion->fecha;
+                        $fecha = $fecha->format('d/m/Y');
+                        $arrayPreparaciones[$i]['Fecha'] = $fecha;
                         $i++;
 
                     }
                 }
             }
+
+        //dd($arrayPreparaciones);
+
         ///////////////////////////////Siembras////////////////////////////////////////////////////
 
         if($filtros['siembras']) {
-            $arraySiembras[0]['Sector'] = "";
+            $arraySiembras[0]['Invernadero'] = "";
             $arraySiembras[0]['Cultivo'] = "";
             $arraySiembras[0]['Variedad'] = "";
-            $arraySiembras[0]['Tipo de siembra'] = "";
-            $arraySiembras[0]['Temporada'] = "";
+
+
             $arraySiembras[0]['Fecha de siembra'] = "";
             $arraySiembras[0]['Status'] = "";
             $arraySiembras[0]['Fecha de terminación'] = "";
@@ -200,14 +200,14 @@ class reportesInvernaderoController extends Controller
 
             $i = 0;
 
-            foreach($sectores as $sector) {
+            foreach($invernaderos as $invernadero) {
 
-                $siembras = $sector->siembras()->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->get();
+                $siembras = $invernadero->siembras()->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->get();
 
                 foreach ($siembras as $siembra) {
                     $cultivo = cultivo::find($siembra->id_cultivo);
 
-                    $arraySiembras[$i]['Sector'] = $sector->nombre;
+                    $arraySiembras[$i]['Invernadero'] = $invernadero->nombre;
                     if($cultivo!=null){
                         $arraySiembras[$i]['Cultivo'] = $cultivo->nombre;
                     }
@@ -216,18 +216,17 @@ class reportesInvernaderoController extends Controller
                     }
 
                     $arraySiembras[$i]['Variedad'] = $siembra->variedad;
-                    $arraySiembras[$i]['Tipo de siembra'] = $siembra->tipo;
-                    $arraySiembras[$i]['Temporada'] = $siembra->temporada;
+
 
                     $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fecha);
-                    $siembra->fecha = $fecha->format('d/m/Y');
-                    $arraySiembras[$i]['Fecha de siembra'] = $siembra->fecha;
+                    $fecha = $fecha->format('d/m/Y');
+                    $arraySiembras[$i]['Fecha de siembra'] = $fecha;
 
                     $arraySiembras[$i]['Status'] = $siembra->status;;
 
                     $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fechaTerminacion);
-                    $siembra->fechaTerminacion = $fecha->format('d/m/Y');
-                    $arraySiembras[$i]['Fecha de terminación'] = $siembra->fechaTerminacion;
+                    $fecha= $fecha->format('d/m/Y');
+                    $arraySiembras[$i]['Fecha de terminación'] = $fecha;
                     $arraySiembras[$i]['Comentario'] = $siembra->comentario;
 
                     $i++;
@@ -235,47 +234,50 @@ class reportesInvernaderoController extends Controller
                 }
             }
         }
+
+        //dd($arraySiembras);
+
         //////////////////////////////////////Fertilizaciones///////////////////////////////////////////////////
 
         if($filtros['fertilizaciones']) {
-            $arrayFertilizaciones[0]['Sector'] = "";
+            $arrayFertilizaciones[0]['Invernadero'] = "";
             $arrayFertilizaciones[0]['Siembra'] = "";
-            $arrayFertilizaciones[0]['Tipo'] = "";
-            $arrayFertilizaciones[0]['Fuente'] = "";
-            $arrayFertilizaciones[0]['Cantidad'] = "";
-            $arrayFertilizaciones[0]['Programa NPK'] = "";
+            $arrayFertilizaciones[0]['Etapa fenológica'] = "";
+            $arrayFertilizaciones[0]['Tiempo de riego'] = 0;
+            $arrayFertilizaciones[0]['Frecuencia'] = 0;
+            $arrayFertilizaciones[0]['Formulación'] = "";
             $arrayFertilizaciones[0]['Fecha'] = "";
 
             $i = 0;
 
-            foreach($sectores as $sector) {
+            foreach($invernaderos as $invernadero) {
 
-                $fertilizaciones= $sector->fertilizaciones()->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->get();
+                $fertilizaciones= $invernadero->fertilizacionesRiegos()->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->get();
 
                 foreach ($fertilizaciones as $fertilizacion) {
-                    $siembra = siembraSector::find($fertilizacion->id_siembra);
+                    $siembra = siembraTransplanteInvernadero::find($fertilizacion->id_stInvernadero);
 
-                    $arrayFertilizaciones[$i]['Sector'] = $sector->nombre;
+                    $arrayFertilizaciones[$i]['Invernadero'] = $invernadero->nombre;
 
                     if($siembra!=null){
                         $cultivo = cultivo::find($siembra->id_cultivo);
                         $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fecha);
-                        $siembra->fecha = $fecha->format('d/m/Y');
+                        $fecha = $fecha->format('d/m/Y');
                         if($cultivo!=null){
-                            $arrayFertilizaciones[$i]['Siembra'] = $cultivo->nombre.' '.$siembra->variedad.' '.$siembra->fecha;
+                            $arrayFertilizaciones[$i]['Siembra'] = $cultivo->nombre.' '.$siembra->variedad.' '.$fecha;
                         }
                         else{
-                            $arrayFertilizaciones[$i]['Siembra'] = $siembra->variedad.' '.$siembra->fecha;
+                            $arrayFertilizaciones[$i]['Siembra'] = $siembra->variedad.' '.$fecha;
 
                         }
                     }
                     else{
                         $arrayFertilizaciones[$i]['Siembra'] = "";
                     }
-                    $arrayFertilizaciones[$i]['Tipo'] = $fertilizacion->tipo;
-                    $arrayFertilizaciones[$i]['Fuente'] = $fertilizacion->fuente;
-                    $arrayFertilizaciones[$i]['Cantidad'] = $fertilizacion->cantidad;
-                    $arrayFertilizaciones[$i]['Programa NPK'] = $fertilizacion->programaNPK;
+                    $arrayFertilizaciones[$i]['Etapa fenológica'] = $fertilizacion->etapaFenologica;
+                    $arrayFertilizaciones[$i]['Tiempo de riego'] = $fertilizacion->tiempoRiego;
+                    $arrayFertilizaciones[$i]['Frecuencia'] = $fertilizacion->frecuencia;
+                    $arrayFertilizaciones[$i]['Formulación'] = $fertilizacion->formulacion;
 
                     $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $fertilizacion->fecha);
                     $fertilizacion->fecha = $fecha->format('d/m/Y');
@@ -288,51 +290,46 @@ class reportesInvernaderoController extends Controller
             }
         }
 
-        //////////////////////////////////////Riegos///////////////////////////////////////////////////
+        //dd($arrayFertilizaciones);
 
-        if($filtros['riegos']) {
-            $arrayRiegos[0]['Sector'] = "";
-            $arrayRiegos[0]['Siembra'] = "";
-            $arrayRiegos[0]['Tiempo'] = "";
-            $arrayRiegos[0]['Distancia entre líneas'] = "";
-            $arrayRiegos[0]['Litros/Hectárea'] = "";
-            $arrayRiegos[0]['Lámina'] = "";
-            $arrayRiegos[0]['Fecha'] = "";
+        //////////////////////////////////////Labores culturales///////////////////////////////////////////////////
+
+        if($filtros['labores']) {
+            $arrayLabores[0]['Invernadero'] = "";
+            $arrayLabores[0]['Siembra'] = "";
+            $arrayLabores[0]['Actividad']="";
+            $arrayLabores[0]['Fecha'] = "";
 
             $i = 0;
 
-            foreach($sectores as $sector) {
+            foreach($invernaderos as $invernadero) {
 
-                $riegos= $sector->riegos()->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->get();
+                $labores= $invernadero->laboresCulturales()->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->get();
 
-                foreach ($riegos as $riego) {
-                    $siembra = siembraSector::find($riego->id_siembra);
-
-                    $arrayRiegos[$i]['Sector'] = $sector->nombre;
+                foreach ($labores as $labor) {
+                    $siembra = siembraTransplanteInvernadero::find($labor->id_stInvernadero);
+                    $arrayLabores[$i]['Invernadero'] = $invernadero->nombre;
 
                     if($siembra!=null){
                         $cultivo = cultivo::find($siembra->id_cultivo);
                         $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fecha);
-                        $siembra->fecha = $fecha->format('d/m/Y');
+                        $fecha = $fecha->format('d/m/Y');
                         if($cultivo!=null){
-                            $arrayRiegos[$i]['Siembra'] = $cultivo->nombre.' '.$siembra->variedad.' '.$siembra->fecha;
+                            $arrayLabores[$i]['Siembra'] = $cultivo->nombre.' '.$siembra->variedad.' '.$fecha;
                         }
                         else{
-                            $arrayRiegos[$i]['Siembra'] = $siembra->variedad.' '.$siembra->fecha;
+                            $arrayLabores[$i]['Siembra'] = $siembra->variedad.' '.$fecha;
 
                         }
                     }
                     else{
-                        $arrayRiegos[$i]['Siembra'] = "";
+                        $arrayLabores[$i]['Siembra'] = "";
                     }
-                    $arrayRiegos[$i]['Tiempo'] = $riego->tiempo;
-                    $arrayRiegos[$i]['Distancia entre líneas'] = $riego->distanciaLineas;
-                    $arrayRiegos[$i]['Litros/Hectárea'] = $riego->litrosHectarea;
-                    $arrayRiegos[$i]['Lámina'] = $riego->lamina;
+                    $arrayLabores[$i]['Actividad']=$labor->actividad;
 
-                    $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $riego->fecha);
-                    $riego->fecha = $fecha->format('d/m/Y');
-                    $arrayRiegos[$i]['Fecha'] = $riego->fecha;
+                    $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $labor->fecha);
+                    $fecha = $fecha->format('d/m/Y');
+                    $arrayLabores[$i]['Fecha'] = $fecha;
 
 
                     $i++;
@@ -340,12 +337,14 @@ class reportesInvernaderoController extends Controller
                 }
             }
         }
+       // dd($arrayLabores);
+
 //////////////////////////////////////Mantenimiento///////////////////////////////////////////////////
 
         if($filtros['mantenimientos']) {
-            $arrayMantenimientos[0]['Sector'] = "";
+            $arrayMantenimientos[0]['Invernadero'] = "";
             $arrayMantenimientos[0]['Siembra'] = "";
-            $arrayMantenimientos[0]['Actividad'] = "";
+            $arrayMantenimientos[0]['Aplicación'] = "";
             $arrayMantenimientos[0]['Tipo de aplicación'] = "";
             $arrayMantenimientos[0]['Producto'] = "";
             $arrayMantenimientos[0]['Cantidad'] = "";
@@ -354,39 +353,39 @@ class reportesInvernaderoController extends Controller
 
             $i = 0;
 
-            foreach($sectores as $sector) {
+            foreach($invernaderos as $invernadero) {
 
-                $mantenimientos= $sector->mantenimientos()->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->get();
+                $mantenimientos= $invernadero->mantenimientos()->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->get();
 
                 foreach ($mantenimientos as $mantenimiento) {
-                    $siembra = siembraSector::find($mantenimiento->id_siembra);
+                    $siembra = siembraTransplanteInvernadero::find($mantenimiento->id_stInvernadero);
 
-                    $arrayMantenimientos[$i]['Sector'] = $sector->nombre;
+                    $arrayMantenimientos[$i]['Invernadero'] = $invernadero->nombre;
 
                     if($siembra!=null){
                         $cultivo = cultivo::find($siembra->id_cultivo);
                         $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fecha);
-                        $siembra->fecha = $fecha->format('d/m/Y');
+                        $fecha = $fecha->format('d/m/Y');
                         if($cultivo!=null){
-                            $arrayMantenimientos[$i]['Siembra'] = $cultivo->nombre.' '.$siembra->variedad.' '.$siembra->fecha;
+                            $arrayMantenimientos[$i]['Siembra'] = $cultivo->nombre.' '.$siembra->variedad.' '.$fecha;
                         }
                         else{
-                            $arrayMantenimientos[$i]['Siembra'] = $siembra->variedad.' '.$siembra->fecha;
+                            $arrayMantenimientos[$i]['Siembra'] = $siembra->variedad.' '.$fecha;
 
                         }
                     }
                     else{
                         $arrayMantenimientos[$i]['Siembra'] = "";
                     }
-                    $arrayMantenimientos[$i]['Actividad'] = $mantenimiento->actividad;
+                    $arrayMantenimientos[$i]['Aplicación'] = $mantenimiento->aplicacion;
                     $arrayMantenimientos[$i]['Tipo de aplicación'] = $mantenimiento->tipoAplicacion;
                     $arrayMantenimientos[$i]['Producto'] = $mantenimiento->producto;
                     $arrayMantenimientos[$i]['Cantidad'] = $mantenimiento->cantidad;
 
 
                     $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $mantenimiento->fecha);
-                    $mantenimiento->fecha = $fecha->format('d/m/Y');
-                    $arrayMantenimientos[$i]['Fecha'] = $mantenimiento->fecha;
+                    $fecha = $fecha->format('d/m/Y');
+                    $arrayMantenimientos[$i]['Fecha'] = $fecha;
                     $arrayMantenimientos[$i]['Comentario'] = $mantenimiento->comentario;
 
                     $i++;
@@ -395,34 +394,36 @@ class reportesInvernaderoController extends Controller
             }
         }
 
+       // dd($arrayMantenimientos);
+
         ///////////////////////////////Cosecha////////////////////////////////////////////////////
 
         if($filtros['cosechas']) {
-            $arrayCosechas[0]['Sector'] = "";
+            $arrayCosechas[0]['Invernadero'] = "";
             $arrayCosechas[0]['Siembra'] = "";
             $arrayCosechas[0]['Fecha'] = "";
-            $arrayCosechas[0]['Descripción'] = "";
+            $arrayCosechas[0]['Comentario'] = "";
 
             $i = 0;
 
-            foreach($sectores as $sector) {
+            foreach($invernaderos as $invernadero) {
 
-                $cosechas = $sector->cosechas()->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->get();
+                $cosechas = $invernadero->cosechas()->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->get();
 
                 foreach ($cosechas as $cosecha) {
-                    $siembra = siembraSector::find($cosecha->id_siembra);
+                    $siembra = siembraTransplanteInvernadero::find($cosecha->id_stInvernadero);
 
-                    $arrayCosechas[$i]['Sector'] = $sector->nombre;
+                    $arrayCosechas[$i]['Invernadero'] = $invernadero->nombre;
 
                     if($siembra!=null){
                         $cultivo = cultivo::find($siembra->id_cultivo);
                         $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fecha);
-                        $siembra->fecha = $fecha->format('d/m/Y');
+                        $fecha = $fecha->format('d/m/Y');
                         if($cultivo!=null){
-                            $arrayCosechas[$i]['Siembra'] = $cultivo->nombre.' '.$siembra->variedad.' '.$siembra->fecha;
+                            $arrayCosechas[$i]['Siembra'] = $cultivo->nombre.' '.$siembra->variedad.' '.$fecha;
                         }
                         else{
-                            $arrayCosechas[$i]['Siembra'] = $siembra->variedad.' '.$siembra->fecha;
+                            $arrayCosechas[$i]['Siembra'] = $siembra->variedad.' '.$fecha;
 
                         }
                     }
@@ -431,15 +432,17 @@ class reportesInvernaderoController extends Controller
                     }
 
                     $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $cosecha->fecha);
-                    $cosecha->fecha = $fecha->format('d/m/Y');
-                    $arrayCosechas[$i]['Fecha'] = $cosecha->fecha;
-                    $arrayCosechas[$i]['Descripción'] = $cosecha->descripcion;
+                    $fecha = $fecha->format('d/m/Y');
+                    $arrayCosechas[$i]['Fecha'] = $fecha;
+                    $arrayCosechas[$i]['Comentario'] = $cosecha->comentario;
 
                     $i++;
 
                 }
             }
         }
+
+        //dd($arrayCosechas);
 
 
         /*
@@ -452,11 +455,11 @@ class reportesInvernaderoController extends Controller
         $arrays[1][0]=$arraySiembras;
         $arrays[1][1]="Siembras";
         $arrays[2][0]=$arrayFertilizaciones;
-        $arrays[2][1]="Fertilizaciones";
-        $arrays[3][0]=$arrayRiegos;
-        $arrays[3][1]="Riegos";
+        $arrays[2][1]="Fertilizaciones-Riegos";
+        $arrays[3][0]=$arrayLabores;
+        $arrays[3][1]="Labores culturales";
         $arrays[4][0]=$arrayMantenimientos;
-        $arrays[4][1]="Mantenimientos";
+        $arrays[4][1]="Aplicaciones de mantenimiento";
         $arrays[5][0]=$arrayCosechas;
         $arrays[5][1]="Cosechas";
         $arrays[6][0]=null;
@@ -483,23 +486,23 @@ class reportesInvernaderoController extends Controller
 
         $cultivo=cultivo::find($request->cultivo);
         $siembras=null;
-        $sectores=null;
-       if($request->sector!=""){
-           $sectores= Sector::select('id','nombre')->where('id',$request->sector)->get();
-           $siembras = $cultivo->siembras()->where('id_sector',$request->sector)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->get();
+        $invernaderos=null;
+       if($request->invernadero!=""){
+           $invernaderos= invernadero::select('id','nombre')->where('id',$request->invernadero)->get();
+           $siembras = $cultivo->siembrasInvernadero()->where('id_invernadero',$request->invernadero)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->get();
             
        }
         else{
-            $siembras = $cultivo->siembras()->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->get();
-            $sectores = DB::table('cultivo')
+            $siembras = $cultivo->siembrasInvernadero()->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->get();
+            $invernaderos = DB::table('cultivo')
                 ->where('cultivo.id','=',$request->cultivo)
-                ->join('siembra_sector', 'siembra_sector.id_cultivo', '=', 'cultivo.id')
-                ->where('siembra_sector.fecha', '>=', $fechaInf)
-                ->where('siembra_sector.fecha', '<=', $fechaSup)
-                ->join('sector', 'sector.id', '=', 'siembra_sector.id_sector')
-                ->select('sector.id','sector.nombre')
+                ->join('siembra_invernadero', 'siembra_invernadero.id_cultivo', '=', 'cultivo.id')
+                ->where('siembra_invernadero.fecha', '>=', $fechaInf)
+                ->where('siembra_invernadero.fecha', '<=', $fechaSup)
+                ->join('invernadero', 'invernadero.id', '=', 'siembra_invernadero.id_invernadero')
+                ->select('invernadero.id','invernadero.nombre')
                 ->distinct()
-                ->orderby('sector.nombre', 'asc')
+                ->orderby('invernadero.nombre', 'asc')
                 ->get();
         }
 
@@ -514,7 +517,7 @@ class reportesInvernaderoController extends Controller
         $arrayPreparaciones = null;
         $arraySiembras = null;
         $arrayFertilizaciones = null;
-        $arrayRiegos = null;
+        $arrayLabores = null;
         $arrayMantenimientos = null;
         $arrayCosechas = null;
 
@@ -522,41 +525,39 @@ class reportesInvernaderoController extends Controller
         ///////////////////////////////Preparaciones////////////////////////////////////////////////////
 
         if($filtros['preparaciones']) {
-            $arrayPreparaciones[0]['Sector'] = "";
-            $arrayPreparaciones[0]['Maquinaria'] = "";
-            $arrayPreparaciones[0]['Número de pasadas'] = 0;
+            $arrayPreparaciones[0]['Invernadero'] = "";
+            $arrayPreparaciones[0]['Tipo de siembra'] = "";
             $arrayPreparaciones[0]['Fecha'] = "";
             $i = 0;
 
-            foreach($sectores as $sector) {
+            foreach($invernaderos as $invernadero) {
 
-                $sector=sector::find($sector->id);
-                $preparaciones = $sector->preparaciones()->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->get();
+                $invernadero=invernadero::find($invernadero->id);
+                $preparaciones = $invernadero->preparaciones()->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->get();
 
                 foreach ($preparaciones as $preparacion) {
-                    $maquinaria = maquinaria::findOrFail($preparacion->id_maquinaria);
-                    $arrayPreparaciones[$i]['Sector'] = $sector->nombre;
-                    $arrayPreparaciones[$i]['Maquinaria'] = $maquinaria->nombre;
-                    $arrayPreparaciones[$i]['Número de pasadas'] = $preparacion->numPasadas;
+                    $arrayPreparaciones[$i]['Invernadero'] = $invernadero->nombre;
+                    $arrayPreparaciones[$i]['Tipo de siembra'] = $preparacion->tipoSiembra;
 
                     $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $preparacion->fecha);
-                    $preparacion->fecha = $fecha->format('d/m/Y');
+                    $fecha = $fecha->format('d/m/Y');
 
-                    $arrayPreparaciones[$i]['Fecha'] = $preparacion->fecha;
+                    $arrayPreparaciones[$i]['Fecha'] = $fecha;
                     $i++;
 
                 }
             }
         }
+       // dd($arrayPreparaciones);
 
         ///////////////////////////////Siembras////////////////////////////////////////////////////
 
         if($filtros['siembras']) {
-            $arraySiembras[0]['Sector'] = "";
+            $arraySiembras[0]['Invernadero'] = "";
             $arraySiembras[0]['Cultivo'] = "";
             $arraySiembras[0]['Variedad'] = "";
-            $arraySiembras[0]['Tipo de siembra'] = "";
-            $arraySiembras[0]['Temporada'] = "";
+
+
             $arraySiembras[0]['Fecha de siembra'] = "";
             $arraySiembras[0]['Status'] = "";
             $arraySiembras[0]['Fecha de terminación'] = "";
@@ -570,12 +571,11 @@ class reportesInvernaderoController extends Controller
                 foreach ($siembras as $siembra) {
 
 
-                    $arraySiembras[$i]['Sector'] = $siembra->sector->nombre;
+                    $arraySiembras[$i]['Invernadero'] = $siembra->invernadero->nombre;
                     $arraySiembras[$i]['Cultivo'] = $cultivo->nombre;
 
                     $arraySiembras[$i]['Variedad'] = $siembra->variedad;
-                    $arraySiembras[$i]['Tipo de siembra'] = $siembra->tipo;
-                    $arraySiembras[$i]['Temporada'] = $siembra->temporada;
+
 
                     $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fecha);
                     $fecha = $fecha->format('d/m/Y');
@@ -593,84 +593,86 @@ class reportesInvernaderoController extends Controller
                 }
             }
 
-
+  //dd($arraySiembras);
         //////////////////////////////////////Fertilizaciones///////////////////////////////////////////////////
+        if($request->invernadero!=""){
+            $siembras = $cultivo->siembrasInvernadero()->where('id_invernadero',$request->invernadero)->orderBy('fecha', 'asc')->get();
+
+        }
+        else {
+            $siembras = $cultivo->siembrasInvernadero()->orderBy('fecha', 'asc')->get();
+        }
 
         if($filtros['fertilizaciones']) {
-            $arrayFertilizaciones[0]['Sector'] = "";
+            $arrayFertilizaciones[0]['Invernadero'] = "";
             $arrayFertilizaciones[0]['Siembra'] = "";
-            $arrayFertilizaciones[0]['Tipo'] = "";
-            $arrayFertilizaciones[0]['Fuente'] = "";
-            $arrayFertilizaciones[0]['Cantidad'] = "";
-            $arrayFertilizaciones[0]['Programa NPK'] = "";
+            $arrayFertilizaciones[0]['Etapa fenológica'] = "";
+            $arrayFertilizaciones[0]['Tiempo de riego'] = 0;
+            $arrayFertilizaciones[0]['Frecuencia'] = 0;
+            $arrayFertilizaciones[0]['Formulación'] = "";
             $arrayFertilizaciones[0]['Fecha'] = "";
 
             $i = 0;
 
             foreach($siembras as $siembra) {
 
-                $fertilizaciones= $siembra->fertilizaciones()->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->get();
+                $fertilizaciones= $siembra->fertilizacionesRiegos()->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->get();
+
 
                 foreach ($fertilizaciones as $fertilizacion) {
 
 
-                    $arrayFertilizaciones[$i]['Sector'] = $siembra->sector->nombre;
+                    $arrayFertilizaciones[$i]['Invernadero'] = $siembra->invernadero->nombre;
                     $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fecha);
                     $fecha = $fecha->format('d/m/Y');
                     $arrayFertilizaciones[$i]['Siembra'] = $cultivo->nombre.' '.$siembra->variedad.' '.$fecha;
 
-                    $arrayFertilizaciones[$i]['Tipo'] = $fertilizacion->tipo;
-                    $arrayFertilizaciones[$i]['Fuente'] = $fertilizacion->fuente;
-                    $arrayFertilizaciones[$i]['Cantidad'] = $fertilizacion->cantidad;
-                    $arrayFertilizaciones[$i]['Programa NPK'] = $fertilizacion->programaNPK;
+                    $arrayFertilizaciones[$i]['Etapa fenológica'] = $fertilizacion->etapaFenologica;
+                    $arrayFertilizaciones[$i]['Tiempo de riego'] = $fertilizacion->tiempoRiego;
+                    $arrayFertilizaciones[$i]['Frecuencia'] = $fertilizacion->frecuencia;
+                    $arrayFertilizaciones[$i]['Formulación'] = $fertilizacion->formulacion;
 
                     $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $fertilizacion->fecha);
-                    $fertilizacion->fecha = $fecha->format('d/m/Y');
-                    $arrayFertilizaciones[$i]['Fecha'] = $fertilizacion->fecha;
+                    $fecha = $fecha->format('d/m/Y');
+                    $arrayFertilizaciones[$i]['Fecha'] = $fecha;
 
 
                     $i++;
 
                 }
             }
+           // dd($arrayFertilizaciones);
         }
-        //////////////////////////////////////Riegos///////////////////////////////////////////////////
+        //////////////////////////////////////Labores culturales///////////////////////////////////////////////////
 
-        if($filtros['riegos']) {
-            $arrayRiegos[0]['Sector'] = "";
-            $arrayRiegos[0]['Siembra'] = "";
-            $arrayRiegos[0]['Tiempo'] = "";
-            $arrayRiegos[0]['Distancia entre líneas'] = "";
-            $arrayRiegos[0]['Litros/Hectárea'] = "";
-            $arrayRiegos[0]['Lámina'] = "";
-            $arrayRiegos[0]['Fecha'] = "";
+        if($filtros['labores']) {
+            $arrayLabores[0]['Invernadero'] = "";
+            $arrayLabores[0]['Siembra'] = "";
+            $arrayLabores[0]['Actividad']="";
+            $arrayLabores[0]['Fecha'] = "";
 
             $i = 0;
 
             foreach($siembras as $siembra) {
 
-                $riegos= $siembra->riegos()->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->get();
+                $labores= $siembra->laboresCulturales()->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'asc')->get();
 
-                foreach ($riegos as $riego) {
+                foreach ($labores as $labor) {
 
 
-                    $arrayRiegos[$i]['Sector'] = $siembra->sector->nombre;
+                    $arrayLabores[$i]['Invernadero'] = $siembra->invernadero->nombre;
 
 
 
                         $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fecha);
                         $fecha = $fecha->format('d/m/Y');
 
-                    $arrayRiegos[$i]['Siembra'] = $cultivo->nombre.' '.$siembra->variedad.' '.$fecha;
+                    $arrayLabores[$i]['Siembra'] = $cultivo->nombre.' '.$siembra->variedad.' '.$fecha;
 
-                    $arrayRiegos[$i]['Tiempo'] = $riego->tiempo;
-                    $arrayRiegos[$i]['Distancia entre líneas'] = $riego->distanciaLineas;
-                    $arrayRiegos[$i]['Litros/Hectárea'] = $riego->litrosHectarea;
-                    $arrayRiegos[$i]['Lámina'] = $riego->lamina;
-
-                    $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $riego->fecha);
-                    $riego->fecha = $fecha->format('d/m/Y');
-                    $arrayRiegos[$i]['Fecha'] = $riego->fecha;
+                    $arrayLabores[$i]['Actividad'] = $labor->actividad;
+                    $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $labor->fecha);
+                    $fecha = $fecha->format('d/m/Y');
+                    $arrayLabores[$i]['Fecha'] = $fecha;
 
 
                     $i++;
@@ -678,13 +680,14 @@ class reportesInvernaderoController extends Controller
                 }
             }
         }
+       // dd($arrayLabores);
 
         //////////////////////////////////////Mantenimiento///////////////////////////////////////////////////
 
         if($filtros['mantenimientos']) {
-            $arrayMantenimientos[0]['Sector'] = "";
+            $arrayMantenimientos[0]['Invernadero'] = "";
             $arrayMantenimientos[0]['Siembra'] = "";
-            $arrayMantenimientos[0]['Actividad'] = "";
+            $arrayMantenimientos[0]['Aplicación'] = "";
             $arrayMantenimientos[0]['Tipo de aplicación'] = "";
             $arrayMantenimientos[0]['Producto'] = "";
             $arrayMantenimientos[0]['Cantidad'] = "";
@@ -700,21 +703,21 @@ class reportesInvernaderoController extends Controller
                 foreach ($mantenimientos as $mantenimiento) {
 
 
-                    $arrayMantenimientos[$i]['Sector'] = $siembra->sector->nombre;
+                    $arrayMantenimientos[$i]['Invernadero'] = $siembra->invernadero->nombre;
                     $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fecha);
                     $fecha = $fecha->format('d/m/Y');
                     $arrayMantenimientos[$i]['Siembra'] = $cultivo->nombre.' '.$siembra->variedad.' '.$fecha;
 
 
-                    $arrayMantenimientos[$i]['Actividad'] = $mantenimiento->actividad;
+                    $arrayMantenimientos[$i]['Aplicación'] = $mantenimiento->aplicacion;
                     $arrayMantenimientos[$i]['Tipo de aplicación'] = $mantenimiento->tipoAplicacion;
                     $arrayMantenimientos[$i]['Producto'] = $mantenimiento->producto;
                     $arrayMantenimientos[$i]['Cantidad'] = $mantenimiento->cantidad;
 
 
                     $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $mantenimiento->fecha);
-                    $mantenimiento->fecha = $fecha->format('d/m/Y');
-                    $arrayMantenimientos[$i]['Fecha'] = $mantenimiento->fecha;
+                    $fecha = $fecha->format('d/m/Y');
+                    $arrayMantenimientos[$i]['Fecha'] = $fecha;
                     $arrayMantenimientos[$i]['Comentario'] = $mantenimiento->comentario;
 
                     $i++;
@@ -722,14 +725,14 @@ class reportesInvernaderoController extends Controller
                 }
             }
         }
-
+      //dd($arrayMantenimientos);
         ///////////////////////////////Cosecha////////////////////////////////////////////////////
 
         if($filtros['cosechas']) {
-            $arrayCosechas[0]['Sector'] = "";
+            $arrayCosechas[0]['Invernadero'] = "";
             $arrayCosechas[0]['Siembra'] = "";
             $arrayCosechas[0]['Fecha'] = "";
-            $arrayCosechas[0]['Descripción'] = "";
+            $arrayCosechas[0]['Comentario'] = "";
 
             $i = 0;
 
@@ -740,16 +743,16 @@ class reportesInvernaderoController extends Controller
                 foreach ($cosechas as $cosecha) {
 
 
-                    $arrayCosechas[$i]['Sector'] = $siembra->sector->nombre;
+                    $arrayCosechas[$i]['Invernadero'] = $siembra->invernadero->nombre;
                     $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fecha);
                     $fecha = $fecha->format('d/m/Y');
                     $arrayCosechas[$i]['Siembra'] = $cultivo->nombre.' '.$siembra->variedad.' '.$fecha;
 
 
                     $fecha = Carbon::createFromFormat('Y-m-d H:i:s', $cosecha->fecha);
-                    $cosecha->fecha = $fecha->format('d/m/Y');
-                    $arrayCosechas[$i]['Fecha'] = $cosecha->fecha;
-                    $arrayCosechas[$i]['Descripción'] = $cosecha->descripcion;
+                    $fecha = $fecha->format('d/m/Y');
+                    $arrayCosechas[$i]['Fecha'] = $fecha;
+                    $arrayCosechas[$i]['Comentario'] = $cosecha->comentario;
 
                     $i++;
 
@@ -757,16 +760,18 @@ class reportesInvernaderoController extends Controller
             }
         }
 
+        //dd($arrayCosechas);
+
         $arrays[0][0]=$arrayPreparaciones;
         $arrays[0][1]="Preparaciones";
         $arrays[1][0]=$arraySiembras;
         $arrays[1][1]="Siembras";
         $arrays[2][0]=$arrayFertilizaciones;
-        $arrays[2][1]="Fertilizaciones";
-        $arrays[3][0]=$arrayRiegos;
-        $arrays[3][1]="Riegos";
+        $arrays[2][1]="Fertilizaciones-Riegos";
+        $arrays[3][0]=$arrayLabores;
+        $arrays[3][1]="Labores culturales";
         $arrays[4][0]=$arrayMantenimientos;
-        $arrays[4][1]="Mantenimientos";
+        $arrays[4][1]="Aplicaciones de mantenimiento";
         $arrays[5][0]=$arrayCosechas;
         $arrays[5][1]="Cosechas";
         $arrays[6][0]=null;
@@ -795,7 +800,7 @@ class reportesInvernaderoController extends Controller
         $fechaInf=$arrays[6][1]['fechaInf'];
         $fechaSup=$arrays[7][1]['fechaSup'];
 
-        Excel::create('Reporte de sector de '.$fechaInf.' hasta '.$fechaSup, function($excel) use($arrays) {
+        Excel::create('Reporte de invernadero de '.$fechaInf.' hasta '.$fechaSup, function($excel) use($arrays) {
 
             foreach($arrays as $array){
 

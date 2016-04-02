@@ -47,16 +47,19 @@ class siembraTransplanteInvernadero extends Model
     }
 
     public function fertilizacionesRiegos(){
-        return $this->hasMany('App\fertilizacionRiego', 'id_stInvernadero', 'id')->orderBy('fecha','asc');
+        return $this->hasMany('App\fertilizacionRiego', 'id_stInvernadero', 'id');
     }
 
 
     public function mantenimientos(){
-        return $this->hasMany('App\mantenimientoInvernadero', 'id_stInvernadero', 'id')->orderBy('fecha','asc');
+        return $this->hasMany('App\aplicacionesMantenimiento', 'id_stInvernadero', 'id');
+    }
+    public function laboresCulturales(){
+        return $this->hasMany('App\laboresCulturales', 'id_stInvernadero', 'id');
     }
 
     public function cosechas(){
-        return $this->hasMany('App\cosechaInvernadero', 'id_stInvernadero', 'id')->orderBy('fecha','asc');
+        return $this->hasMany('App\cosechaInvernadero', 'id_stInvernadero', 'id');
     }
 
     public  function invernadero(){

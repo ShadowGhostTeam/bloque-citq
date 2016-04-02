@@ -40,24 +40,28 @@ class invernadero extends Model
 
 
     // 1 a N
-    public function siembrasTransplantes(){
-        return $this->hasMany('App\siembraTransplanteInvernadero', 'id_invernadero', 'id')->orderBy('fecha','asc');
+    public function siembras(){
+        return $this->hasMany('App\siembraTransplanteInvernadero', 'id_invernadero', 'id');
     }
 
     public function preparaciones(){
-        return $this->hasMany('App\preparacionInvernadero', 'id_invernadero', 'id')->orderBy('fecha','asc');
+        return $this->hasMany('App\preparacionInvernadero', 'id_invernadero', 'id');
     }
 
     public function fertilizacionesRiegos(){
-        return $this->hasMany('App\fertilizacionRiego', 'id_invernadero', 'id')->orderBy('fecha','asc');
+        return $this->hasMany('App\fertilizacionRiego', 'id_invernadero', 'id');
+    }
+
+    public function laboresCulturales(){
+        return $this->hasMany('App\laboresCulturales', 'id_invernadero', 'id');
     }
 
 
     public function mantenimientos(){
-        return $this->hasMany('App\mantenimientoInvernadero', 'id_invernadero', 'id')->orderBy('fecha','asc');
+        return $this->hasMany('App\aplicacionesMantenimiento', 'id_invernadero', 'id');
     }
 
     public function cosechas(){
-        return $this->hasMany('App\cosechaInvernadero', 'id_invernadero', 'id')->orderBy('fecha','asc');
+        return $this->hasMany('App\cosechaInvernadero', 'id_invernadero', 'id');
     }
 }

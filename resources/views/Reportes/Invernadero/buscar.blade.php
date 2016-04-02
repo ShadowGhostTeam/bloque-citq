@@ -182,7 +182,7 @@ MAIN SIDEBAR MENU
 
                             <div>
                                 <div class="col-xs-12" align="right">
-                                    <a href="{{route('reportes/sector/excel',$string,$filtros)}}">
+                                    <a href="{{route('reportes/invernadero/excel',$string,$filtros)}}">
 
                                         <button class="btn btn-success"> <i class="fa fa-download"></i>&nbsp;Exportar a excel</button>
                                     </a>
@@ -198,13 +198,13 @@ MAIN SIDEBAR MENU
                                     <li role="presentation"@if($active)class="active" <?php $active=false;?>@endif><a href="#siembras" aria-controls="siembras" role="tab" data-toggle="tab">Siembras</a></li>
                                     @endif
                                     @if($filtros['fertilizaciones'])
-                                    <li role="presentation"@if($active)class="active" <?php $active=false;?>@endif><a href="#fertilizaciones" aria-controls="fertilizaciones" role="tab" data-toggle="tab">Fertilizaciones</a></li>
+                                    <li role="presentation"@if($active)class="active" <?php $active=false;?>@endif><a href="#fertilizaciones" aria-controls="fertilizaciones" role="tab" data-toggle="tab">Fertilizaciones-Riegos</a></li>
                                     @endif
                                     @if($filtros['labores'])
-                                    <li role="presentation"@if($active)class="active" <?php $active=false;?>@endif><a href="#riegos" aria-controls="riegos" role="tab" data-toggle="tab">Riegos</a></li>
+                                    <li role="presentation"@if($active)class="active" <?php $active=false;?>@endif><a href="#riegos" aria-controls="riegos" role="tab" data-toggle="tab">Labores culturales</a></li>
                                     @endif
                                      @if($filtros['mantenimientos'])
-                                    <li role="presentation"@if($active)class="active" <?php $active=false;?>@endif><a href="#mantenimientos" aria-controls="mantenimientos" role="tab" data-toggle="tab">Mantenimientos</a></li>
+                                    <li role="presentation"@if($active)class="active" <?php $active=false;?>@endif><a href="#mantenimientos" aria-controls="mantenimientos" role="tab" data-toggle="tab">Aplicaciones mantenimiento</a></li>
                                     @endif
                                     @if($filtros['cosechas'])
                                     <li role="presentation"@if($active)class="active" <?php $active=false;?>@endif><a href="#cosechas" aria-controls="cosechas" role="tab" data-toggle="tab">Cosechas</a></li>
@@ -224,9 +224,8 @@ MAIN SIDEBAR MENU
                                                 <thead >
                                                 <tr>
                                                     <th><i ></i>#</th>
-                                                    <th><i ></i> Sector</th>
-                                                    <th><i ></i> Maquinaria </th>
-                                                    <th><i ></i> Pasadas</th>
+                                                    <th><i ></i> Invernadero</th>
+                                                    <th><i ></i> Tipo de siembra</th>
                                                     <th><i></i> Fecha</th>
 
                                                 </tr>
@@ -234,13 +233,12 @@ MAIN SIDEBAR MENU
                                                 <tbody>
                                                 <?php $i=0;?>
                                                 @foreach ($arrays[0][0] as $resultado)
-                                                    @if($resultado['Sector']!="")
+                                                    @if($resultado['Invernadero']!="")
                                                     <?php $i++;?>
                                                     <tr>
                                                         <td style="width: 5%"><?php echo $i;?></td>
-                                                        <td style="width: 25%">{{$resultado['Sector']}}</td>
-                                                            <td style="width: 25%">{{$resultado['Maquinaria']}}</td>
-                                                        <td style="width: 10%">{{$resultado['Número de pasadas']}}</td>
+                                                        <td style="width: 25%">{{$resultado['Invernadero']}}</td>
+                                                            <td style="width: 25%">{{$resultado['Tipo de siembra']}}</td>
                                                         <td style="width: 25%">{{$resultado['Fecha']}}</td>
                                                     </tr>
                                                     @endif
@@ -259,11 +257,9 @@ MAIN SIDEBAR MENU
                                                 <thead >
                                                 <tr>
                                                     <th><i ></i>#</th>
-                                                    <th><i ></i> Sector</th>
+                                                    <th><i ></i> Invernadero</th>
                                                     <th><i ></i> Cultivo </th>
                                                     <th><i ></i> Variedad</th>
-                                                    <th><i></i> Tipo de siembra</th>
-                                                    <th><i></i> Temporada</th>
                                                     <th><i></i> Fecha de siembra</th>
                                                     <th><i></i>Status</th>
                                                     <th><i></i>Fecha terminación</th>
@@ -274,15 +270,13 @@ MAIN SIDEBAR MENU
                                                 <tbody>
                                                 <?php $i=0;?>
                                                 @foreach ($arrays[1][0] as $resultado)
-                                                    @if($resultado['Sector']!="")
+                                                    @if($resultado['Invernadero']!="")
                                                         <?php $i++;?>
                                                         <tr>
                                                             <td style="width: 5%"><?php echo $i;?></td>
-                                                            <td >{{$resultado['Sector']}}</td>
+                                                            <td >{{$resultado['Invernadero']}}</td>
                                                             <td>{{$resultado['Cultivo']}}</td>
                                                             <td >{{$resultado['Variedad']}}</td>
-                                                            <td >{{$resultado['Tipo de siembra']}}</td>
-                                                            <td >{{$resultado['Temporada']}}</td>
                                                             <td >{{$resultado['Fecha de siembra']}}</td>
                                                             <td >{{$resultado['Status']}}</td>
                                                             <td >{{$resultado['Fecha de terminación']}}</td>
@@ -303,29 +297,29 @@ MAIN SIDEBAR MENU
                                                 <thead >
                                                 <tr>
                                                     <th><i ></i>#</th>
-                                                    <th><i ></i> Sector</th>
-                                                    <th><i ></i> Siembra</th>
-                                                    <th><i ></i> Tipo</th>
-                                                    <th><i></i> Fuente</th>
-                                                    <th><i></i> Cantidad</th>
-                                                    <th><i></i> Programa NPK</th>
-                                                    <th><i></i> Fecha</th>
+                                                    <th><i ></i>Invernadero</th>
+                                                    <th><i ></i>Siembra</th>
+                                                    <th><i ></i>Etapa fenológica</th>
+                                                    <th><i></i>Tiempo de riego</th>
+                                                    <th><i></i>Frecuencia</th>
+                                                    <th><i></i>Formulación</th>
+                                                    <th><i></i>Fecha</th>
 
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 <?php $i=0;?>
                                                 @foreach ($arrays[2][0] as $resultado)
-                                                    @if($resultado['Sector']!="")
+                                                    @if($resultado['Invernadero']!="")
                                                         <?php $i++;?>
                                                         <tr>
                                                             <td style="width: 5%"><?php echo $i;?></td>
-                                                            <td >{{$resultado['Sector']}}</td>
+                                                            <td >{{$resultado['Invernadero']}}</td>
                                                             <td >{{$resultado['Siembra']}}</td>
-                                                            <td >{{$resultado['Tipo']}}</td>
-                                                            <td >{{$resultado['Fuente']}}</td>
-                                                            <td >{{$resultado['Cantidad']}}</td>
-                                                            <td >{{$resultado['Programa NPK']}}</td>
+                                                            <td >{{$resultado['Etapa fenológica']}}</td>
+                                                            <td >{{$resultado['Tiempo de riego']}}</td>
+                                                            <td >{{$resultado['Frecuencia']}}</td>
+                                                            <td >{{$resultado['Formulación']}}</td>
                                                             <td >{{$resultado['Fecha']}}</td>
                                                         </tr>
                                                     @endif
@@ -343,29 +337,23 @@ MAIN SIDEBAR MENU
                                                 <thead >
                                                 <tr>
                                                     <th><i ></i>#</th>
-                                                    <th><i ></i> Sector</th>
-                                                    <th><i ></i> Siembra</th>
-                                                    <th><i ></i> Tiempo</th>
-                                                    <th><i></i> Dist. líneas</th>
-                                                    <th><i></i> Litros/ha</th>
-                                                    <th><i></i> Lámina</th>
-                                                    <th><i></i> Fecha</th>
+                                                    <th><i ></i>Invernadero</th>
+                                                    <th><i ></i>Siembra</th>
+                                                    <th><i ></i>Actividad</th>
+                                                    <th><i></i>Fecha</th>
 
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 <?php $i=0;?>
                                                 @foreach ($arrays[3][0] as $resultado)
-                                                    @if($resultado['Sector']!="")
+                                                    @if($resultado['Invernadero']!="")
                                                         <?php $i++;?>
                                                         <tr>
                                                             <td style="width: 5%"><?php echo $i;?></td>
-                                                            <td >{{$resultado['Sector']}}</td>
+                                                            <td >{{$resultado['Invernadero']}}</td>
                                                             <td >{{$resultado['Siembra']}}</td>
-                                                            <td >{{$resultado['Tiempo']}}</td>
-                                                            <td >{{$resultado['Distancia entre líneas']}}</td>
-                                                            <td >{{$resultado['Litros/Hectárea']}}</td>
-                                                            <td >{{$resultado['Lámina']}}</td>
+                                                            <td >{{$resultado['Actividad']}}</td>
                                                             <td >{{$resultado['Fecha']}}</td>
                                                         </tr>
                                                     @endif
@@ -384,14 +372,14 @@ MAIN SIDEBAR MENU
                                                     <thead >
                                                     <tr>
                                                         <th><i ></i>#</th>
-                                                        <th><i ></i> Sector</th>
-                                                        <th><i ></i> Siembra</th>
-                                                        <th><i ></i> Actividad</th>
-                                                        <th><i></i> Tipo aplicación</th>
-                                                        <th><i></i> Producto</th>
-                                                        <th><i></i> Cantidad</th>
-                                                        <th><i></i> Fecha</th>
-                                                        <th><i></i> Comentario</th>
+                                                        <th><i ></i>Invernadero</th>
+                                                        <th><i ></i>Siembra</th>
+                                                        <th><i ></i>Aplicación</th>
+                                                        <th><i></i>Tipo aplicación</th>
+                                                        <th><i></i>Producto</th>
+                                                        <th><i></i>Cantidad</th>
+                                                        <th><i></i>Fecha</th>
+                                                        <th><i></i>Comentario</th>
 
 
                                                     </tr>
@@ -399,13 +387,13 @@ MAIN SIDEBAR MENU
                                                     <tbody>
                                                     <?php $i=0;?>
                                                     @foreach ($arrays[4][0] as $resultado)
-                                                        @if($resultado['Sector']!="")
+                                                        @if($resultado['Invernadero']!="")
                                                             <?php $i++;?>
                                                             <tr>
                                                                 <td style="width: 5%"><?php echo $i;?></td>
-                                                                <td >{{$resultado['Sector']}}</td>
+                                                                <td >{{$resultado['Invernadero']}}</td>
                                                                 <td >{{$resultado['Siembra']}}</td>
-                                                                <td >{{$resultado['Actividad']}}</td>
+                                                                <td >{{$resultado['Aplicación']}}</td>
                                                                 <td >{{$resultado['Tipo de aplicación']}}</td>
                                                                 <td >{{$resultado['Producto']}}</td>
                                                                 <td >{{$resultado['Cantidad']}}</td>
@@ -428,24 +416,24 @@ MAIN SIDEBAR MENU
                                                 <thead >
                                                 <tr>
                                                     <th><i ></i>#</th>
-                                                    <th><i ></i> Sector</th>
-                                                    <th><i ></i> Siembra</th>
-                                                    <th><i ></i> Fecha</th>
-                                                    <th><i></i> Descripción</th>
+                                                    <th><i ></i>Invernadero</th>
+                                                    <th><i ></i>Siembra</th>
+                                                    <th><i ></i>Fecha</th>
+                                                    <th><i></i>Comentario</th>
 
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 <?php $i=0;?>
                                                 @foreach ($arrays[5][0] as $resultado)
-                                                    @if($resultado['Sector']!="")
+                                                    @if($resultado['Invernadero']!="")
                                                         <?php $i++;?>
                                                         <tr>
                                                             <td style="width: 5%"><?php echo $i;?></td>
-                                                            <td >{{$resultado['Sector']}}</td>
+                                                            <td >{{$resultado['Invernadero']}}</td>
                                                             <td >{{$resultado['Siembra']}}</td>
                                                             <td >{{$resultado['Fecha']}}</td>
-                                                            <td >{{$resultado['Descripción']}}</td>
+                                                            <td >{{$resultado['Comentario']}}</td>
                                                         </tr>
                                                     @endif
                                                 @endforeach

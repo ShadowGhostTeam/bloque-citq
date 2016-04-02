@@ -12,6 +12,6 @@ class invernaderoSeeder extends Seeder
     public function run()
     {
         //
-        factory(App\invernadero::class,10)->create();
+        factory(App\invernadero::class,4)->create();
     }
 }
