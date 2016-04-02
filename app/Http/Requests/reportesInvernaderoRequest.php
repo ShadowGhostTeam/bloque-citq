@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class reportesSectorRequest extends Request
+class reportesInvernaderoRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class reportesSectorRequest extends Request
     public function rules()
     {
         return [
-            'sector'=>'exists:sector,id',
+            'invernadero'=>'exists:invernadero,id',
             'cultivo' => 'exists:cultivo,id',
             'fechaInicio' =>  'required|date_format:d/m/Y',
             'fechaFin' =>  'required|date_format:d/m/Y',

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\cultivo;
 use App\Http\Requests\preparacionSectorRequest;
 
+use App\Http\Requests\reportesInvernaderoRequest;
 use App\Http\Requests\reportesSectorRequest;
 use App\invernadero;
 use App\maquinaria;
@@ -47,7 +48,7 @@ class reportesInvernaderoController extends Controller
     /*
      * Devuelve la vista de crear con los valores de los combobox
      * */
-    public function generarReporte(reportesSectorRequest $request) {
+    public function generarReporte(reportesInvernaderoRequest $request) {
 
 
 
