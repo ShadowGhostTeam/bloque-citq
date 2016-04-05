@@ -44,6 +44,33 @@
         </div>
 
         <div class="form-group">
+            <label for="Contenedor" class="col-lg-2 control-label">
+                <strong>*</strong>Contenedor
+            </label>
+            <div class="col-lg-10" align="left">
+                @if( isset($siembraInvernaderoPlantula))
+                    @foreach($tipoContenedor as $tiposContenedor)
+                        @if($siembraInvernaderoPlantula->status == $tiposContenedor)
+                            <label class="radio-inline">
+                                {!!  Form::radio('status', $tiposContenedor, true) !!}{{ $tiposContenedor }}
+                            </label>
+                        @else
+                            <label class="radio-inline">
+                                {!! Form::radio('status', $tiposContenedor)  !!}{{ $tiposContenedor }}
+                            </label>
+                        @endif
+                    @endforeach
+                @else
+                    @foreach($tipoContenedor as $tiposCotenedor)
+                        <label class="radio-inline">
+                            {!! Form::radio('status', $tiposContenedor) !!}{{ $tiposContenedor }}
+                        </label>
+                    @endforeach
+                @endif
+            </div>
+        </div>
+
+        <div class="form-group">
             <label for="Cultivo" class="col-lg-2 control-label">
                 <strong>*</strong>Cultivo
             </label>
@@ -70,6 +97,60 @@
             </div>
         </div>
 
+        <div>
+            <label for="NumPlantas" class="col-lg-2 control-label">
+                Número de plantas
+            </label>
+            <div class="col-lg-10">
+                @if( isset($siembraInvernaderoPlantula))
+                    {!!Form::number('numPlantas', $siembraInvernaderoPlantula->numPlantas, ['class'=>'form-control','id'=>'numPlantas','placeholder'=>'0'])!!}
+                @else
+                    {!!Form::number('numPlantas' ,null,['class'=>'form-control','id'=>'numPlantas','placeholder'=>'0'])!!}
+                @endif
+            </div>
+        </div>
+
+        <div>
+            <label for="Sustrato" class="col-lg-2 control-label">
+                Sustrato
+            </label>
+            <div class="col-lg-10">
+                @if( isset($siembraInvernaderoPlantula))
+                    {!!Form::text('sustrato', $siembraInvernaderoPlantula->variedad, ['class'=>'form-control','id'=>'sustrato','placeholder'=>'Sustrato'])!!}
+                @else
+                    {!!Form::text('sustrato' ,null,['class'=>'form-control','id'=>'sustrato','placeholder'=>'Sustrato'])!!}
+                @endif
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Variedad" class="col-lg-2 control-label">Variedad</label>
+            <div class="col-lg-10">
+                @if( isset($siembraInvernaderoPlantula))
+                    {!!Form::text('variedad', $siembraInvernaderoPlantula->variedad, ['class'=>'form-control','id'=>'variedad','placeholder'=>'Variedad'])!!}
+                @else
+                    {!!Form::text('variedad' ,null,['class'=>'form-control','id'=>'variedad','placeholder'=>'Variedad'])!!}
+                @endif
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Destino" class="col-lg-2 control label">
+                <strong>*</strong>Destino
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label for="Comentario" class="col-lg-2 control-label">Comentarios</label>
+            <div class="col-lg-10">
+                @if( isset($siembraInvernaderoPlantula))
+                    {!!Form::textarea('comentario', $siembraInvernaderoPlantula->comentario, ['class'=>'form-control','id'=>'comentario','placeholder'=>'Comentarios'])!!}
+                @else
+                    {!!Form::textarea('comentario' ,null,['class'=>'form-control','id'=>'comentario','placeholder'=>'Comentarios'])!!}
+                @endif
+            </div>
+        </div>
+
         <div class="form-group">
             <label for="Fecha" class="col-lg-2 control-label">
                 <strong>*</strong>Fecha
@@ -85,17 +166,6 @@
                         {!!Form::text('fecha' ,null,['class'=>'form-control','id'=>'fecha','placeholder'=>'dd/mm/aaaa'])!!}
                     @endif
                 </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="Variedad" class="col-lg-2 control-label">Variedad</label>
-            <div class="col-lg-10">
-                @if( isset($siembraInvernaderoPlantula))
-                    {!!Form::text('variedad', $siembraInvernaderoPlantula->variedad, ['class'=>'form-control','id'=>'variedad','placeholder'=>'Variedad'])!!}
-                @else
-                    {!!Form::text('variedad' ,null,['class'=>'form-control','id'=>'variedad','placeholder'=>'Variedad'])!!}
-                @endif
             </div>
         </div>
 
@@ -141,18 +211,6 @@
                         {!!Form::text('fechaTerminacion' ,null,['class'=>'form-control','id'=>'fechaTerminacion','placeholder'=>'dd/mm/aaaa'])!!}
                     @endif
                 </div>
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <label for="comentario" class="col-lg-2 control-label">Comentarios</label>
-            <div class="col-lg-10">
-                @if( isset($siembraInvernaderoPlantula))
-                    {!!Form::textarea('comentario', $siembraInvernaderoPlantula->comentario, ['class'=>'form-control','id'=>'comentario','placeholder'=>'Comentarios'])!!}
-                @else
-                    {!!Form::textarea('comentario' ,null,['class'=>'form-control','id'=>'comentario','placeholder'=>'Comentarios'])!!}
-                @endif
             </div>
         </div>
 
