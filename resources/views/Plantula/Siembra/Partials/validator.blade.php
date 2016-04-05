@@ -16,7 +16,13 @@
                         }
                     }
                 },
-
+                contenedor:{
+                    validators: {
+                        notEmpty: {
+                            message: 'Seleccione una opción'
+                        }
+                    }
+                },
                 cultivo: {
                     validators: {
                         notEmpty: {
@@ -24,15 +30,31 @@
                         }
                     }
                 },
-
-                status: {
+                numPlantas: {
                     validators: {
                         notEmpty: {
-                            message: 'Seleccione una opción'
+                            message: 'Ingrese un número'
+                        },
+                        greaterThan:{
+                            value: -1,
+                            message: 'Ingrese número mayor o igual a 0'
+                        },
+                        stringLength: {
+                            max: 3,
+                            message: 'Ingrese número entre 0-999'
+                        },
+                        integer:{
+                            message: 'Ingrese número válido'
                         }
                     }
                 },
-
+                destino:{
+                    validators: {
+                        notEmpty: {
+                            message: "Seleccione una opción"
+                        }
+                    }
+                },
                 fecha:{
                     validators: {
                         notEmpty: {
@@ -45,7 +67,13 @@
                         }
                     }
                 },
-
+                status: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Seleccione una opción'
+                        }
+                    }
+                },
                 fechaTerminacion: {
                     validators: {
                         date: {
