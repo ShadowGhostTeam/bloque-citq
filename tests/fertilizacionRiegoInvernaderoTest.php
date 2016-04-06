@@ -40,9 +40,9 @@ class fertilizacionRiegoInvernaderoTest extends TestCase
     /**
      * @group fertilizacionRiegoBuscarInvernadero
      */
-    public function testBuscarSiembraTCorrecto(){
+    public function testBuscarEtapaCorrecto(){
         $this->visit('invernadero/fertilizacionRiego')
-            ->select(1,"siembraT")
+            ->select("Etapa1","etapaFenologica")
             ->press('Buscar')
             ->see("Se encontraron");
     }
@@ -76,19 +76,19 @@ class fertilizacionRiegoInvernaderoTest extends TestCase
         $this->visit('invernadero/fertilizacionRiego')
             ->type("29/02/2015","fechaInicio")
             ->type("29/02/2016","fechaFin")
-            ->select(1,"siembraT")
+            ->select("Etapa1","etapaFenologica")
             ->press('Buscar')
             ->see("Se encontraron");
     }
     /**
      * @group fertilizacionRiegoBuscarInvernadero
      */
-    public function testBuscarInvernaderoSiembraTFechaCorrecto(){
+    public function testBuscarInvernaderoetapaFenologicaFechaCorrecto(){
         $this->visit('invernadero/fertilizacionRiego')
             ->type("29/02/2015","fechaInicio")
             ->type("29/02/2016","fechaFin")
             ->select(1,"invernadero")
-            ->select(1,"siembraT")
+            ->select("Etapa1","etapaFenologica")
             ->press('Buscar')
             ->see("Se encontraron");
     }
@@ -97,7 +97,7 @@ class fertilizacionRiegoInvernaderoTest extends TestCase
      * @group fertilizacionRiegoBuscarInvernadero
      */
     public function testBuscarUnaFecha(){
-        $this->visit('invernadero/fertilizacionRiego/lista?invernadero=&siembraT=&fechaInicio=&fechaFin=29%2F02%2F2016')
+        $this->visit('invernadero/fertilizacionRiego/lista?invernadero=&etapaFenologica=&fechaInicio=&fechaFin=29%2F02%2F2016')
             ->see("No se encontraron resultados");
     }
 
@@ -105,42 +105,42 @@ class fertilizacionRiegoInvernaderoTest extends TestCase
      * @group fertilizacionRiegoBuscarInvernadero
      */
     public function testBuscarUnaFechaTexto(){
-        $this->visit('invernadero/fertilizacionRiego/lista?invernadero=&siembraT=&fechaInicio=sdfsdfsd&fechaFin=')
+        $this->visit('invernadero/fertilizacionRiego/lista?invernadero=&etapaFenologica=&fechaInicio=sdfsdfsd&fechaFin=')
             ->see("No se encontraron resultados");
     }
     /**
      * @group fertilizacionRiegoBuscarInvernadero
      */
     public function testBuscarFechasTexto(){
-        $this->visit('invernadero/fertilizacionRiego/lista?invernadero=&siembraT=&fechaInicio=sdfsdfsd&fechaFin=sdsdfd')
+        $this->visit('invernadero/fertilizacionRiego/lista?invernadero=&etapaFenologica=&fechaInicio=sdfsdfsd&fechaFin=sdsdfd')
             ->see("No se encontraron resultados");
     }
     /**
      * @group fertilizacionRiegoBuscarInvernadero
      */
     public function testBuscarInvernaderoTexto(){
-        $this->visit('invernadero/fertilizacionRiego/lista?invernadero=asdasd&siembraT=&fechaInicio=&fechaFin=')
+        $this->visit('invernadero/fertilizacionRiego/lista?invernadero=asdasd&etapaFenologica=&fechaInicio=&fechaFin=')
             ->see("No se encontraron resultados");
     }
     /**
      * @group fertilizacionRiegoBuscarInvernadero
      */
-    public function testBuscarSiembraTTexto(){
-        $this->visit('invernadero/fertilizacionRiego/lista?invernadero=&siembraT=zfzfdf&fechaInicio=&fechaFin=')
+    public function testBuscaretapaFenologicaTexto(){
+        $this->visit('invernadero/fertilizacionRiego/lista?invernadero=&etapaFenologica=zfzfdf&fechaInicio=&fechaFin=')
             ->see("No se encontraron resultados");
     }
     /**
      * @group fertilizacionRiegoBuscarInvernadero
      */
     public function testBuscarInvernaderoInexistente(){
-        $this->visit('invernadero/fertilizacionRiego/lista?invernadero=1000&siembraT=&fechaInicio=&fechaFin=')
+        $this->visit('invernadero/fertilizacionRiego/lista?invernadero=1000&etapaFenologica=&fechaInicio=&fechaFin=')
             ->see("No se encontraron resultados");
     }
     /**
      * @group fertilizacionRiegoBuscarInvernadero
      */
-    public function testBuscarSiembraTInexistente(){
-        $this->visit('invernadero/fertilizacionRiego/lista?invernadero=&siembraT=1000&fechaInicio=&fechaFin=')
+    public function testBuscaretapaFenologicaInexistente(){
+        $this->visit('invernadero/fertilizacionRiego/lista?invernadero=&etapaFenologica=1000&fechaInicio=&fechaFin=')
             ->see("No se encontraron resultados");
     }
 

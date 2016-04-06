@@ -20,20 +20,20 @@
 						</div>
 					@endif
 
-					@if (count($errors) > 0)
-						<div class="alert alert-danger">
-							<strong>Error! </strong>{{ trans('validation.attributes.errores')  }}<br><br>
-							<ul>
-								@foreach ($errors->all() as $error)
-									<li>{{ $error }}</li>
-								@endforeach
-							</ul>
-						</div>
-					@endif
-
                    <div>
                     <div style="width:40%; margin:0 auto; background:#221E1F; margin-top:25px">
                         <div class="headerIS"><h4>{{ trans('validation.attributes.recuperarContrasena')  }}</h4></div>
+                        <div style="width:98%; margin: auto; margin-top: 2%">
+                            @if (count($errors) > 0)
+                                <div class="alert alert-danger alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <strong>Error!</strong>{{ trans('validation.attributes.errores')  }}
+                                    @foreach ($errors->all() as $error)
+                                        <p>{{ $error }}</p>
+                                    @endforeach
+                                </div>
+                            @endif
+                        </div>
                         <div class="login">
 
                             <form class="form-horizontal"  role="form" method="POST" action="{{ url('/password/email') }}">
