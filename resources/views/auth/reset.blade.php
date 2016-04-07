@@ -57,7 +57,7 @@
                                     <button type="submit" class="btn" style="width:95%;">{{trans('validation.attributes.resetearContrasena')  }}</button>
                                 </li>
                             </ul>
-                            <li></li>
+
                         </form>
 
                     </div>

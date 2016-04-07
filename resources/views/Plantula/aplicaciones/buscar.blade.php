@@ -45,13 +45,13 @@
 MAIN SIDEBAR MENU
 *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Invernadero.fertilizacionRiego.aside')
+    @include('Plantula.aplicaciones.aside')
     <!--sidebar end-->
 
     <section id="container">
         <section id="main-content">
             <section class="wrapper site-min-height">
-                <h3 style="color:#078006"><i class="fa fa-angle-right"></i>Fertilización/Riego</h3>
+                <h3 style="color:#078006"><i class="fa fa-angle-right"></i>Aplicaciones</h3>
                 <div class="row mt">
 
 
@@ -62,7 +62,7 @@ MAIN SIDEBAR MENU
                             @include('Partials.Mensajes.mensajes')
 
                             <div class="form-group" align="right">
-                                <a href="{{route('invernadero/fertilizacionRiego/crear')}}"> <button class="btn agregar tooltips" data-placement="left" data-original-title="Agregar"><i class="fa fa-plus"></i></button></a>
+                                <a href="{{route('plantula/aplicaciones/crear')}}"> <button class="btn agregar tooltips" data-placement="left" data-original-title="Agregar"><i class="fa fa-plus"></i></button></a>
                             </div>
 
                             <div class="row">
@@ -70,13 +70,13 @@ MAIN SIDEBAR MENU
 
 
 
-                                    {!! Form::open(['route' => 'invernadero/fertilizacionRiego/lista' ,'method'=>'GET']) !!}
+                                    {!! Form::open(['route' => 'plantula/aplicaciones/lista' ,'method'=>'GET']) !!}
 
                                         <div class="form-group">
 
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-2">
                                                 <select  class="form-control" id="invernadero" name="invernadero">
-                                                    <option value="">Todos los invernaderos</option>
+                                                    <option value="">Invernadero Plántula</option>
                                                     @if( isset($invernaderos))
                                                         @foreach($invernaderos as $invernadero)
                                                             <option value="{{  $invernadero->id  }}" > {{ $invernadero->nombre}}  </option>
@@ -88,13 +88,28 @@ MAIN SIDEBAR MENU
 
                                         <div class="form-group">
 
-                                            <div class="col-lg-3">
-                                                <select  class="form-control" id="etapaFenologica" name="etapaFenologica">
-                                                    <option value="">Todas las etapas</option>
+                                            <div class="col-lg-2">
+                                                <select  class="form-control" id="aplicacion" name="aplicacion">
+                                                    <option value="">Aplicación</option>
 
-                                                    @if( isset($etapaFenologica))
-                                                        @foreach($etapaFenologica as $etapa)
-                                                            <option value="{{  $etapa  }}" > {{ $etapa }}  </option>
+                                                    @if( isset($aplicacion))
+                                                        @foreach($aplicacion as $aplicacion)
+                                                            <option value="{{  $aplicacion  }}" > {{ $aplicacion }}  </option>
+                                                        @endforeach
+                                                    @endif
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+
+                                            <div class="col-lg-2">
+                                                <select  class="form-control" id="tipoAplicacion" name="tipoAplicacion">
+                                                    <option value="">Tipo de aplicación</option>
+
+                                                    @if( isset($tipoAplicacion))
+                                                        @foreach($tipoAplicacion as $tipoAplicacion)
+                                                            <option value="{{  $tipoAplicacion  }}" > {{ $tipoAplicacion }}  </option>
                                                         @endforeach
                                                     @endif
                                                 </select>
@@ -145,38 +160,41 @@ MAIN SIDEBAR MENU
                                 <table class="table table-striped table-advance table-hover">
                                     <thead>
                                     <tr>
-                                        <th><i class="fa fa-thumb-tack"></i> Invernadero </th>
-                                        <th> <i class="fa fa-calendar-o"></i> Etapa Fenológica </th>
+                                        <th><i class="fa fa-thumb-tack"></i> Invernadero Plántula </th>
+                                        <th> <i class="fa fa-calendar-o"></i> Aplicación </th>
+                                        <th> <i class="fa fa-calendar-o"></i> Tipo de aplicación </th>
                                         <th><i class=" fa fa-edit"></i> Fecha </th>
                                         <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
 
-                                    @if ( isset( $fertilizacionesRiego) )
+                                    @if ( isset( $aplicaciones) )
 
-                                        @foreach( $fertilizacionesRiego as $fertilizacionRiego )
+                                        @foreach( $aplicaciones as $aplicaciones )
 
                                             <tr>
-                                                <td>{{ $fertilizacionRiego->invernadero->nombre }}</td>
-                                                <td>{{ $fertilizacionRiego->etapaFenologica }}</td>
-                                                <td>{{ $fertilizacionRiego->fecha }}</td>
+                                                <td>{{ $aplicaciones->invernadero->nombre }}</td>
+                                                <td>{{ $aplicaciones->aplicacion }}</td>
+                                                <td>{{ $aplicaciones->tipoAplicacion }}</td>
+                                                <td>{{ $aplicaciones->fecha }}</td>
 
 
                                                 <td style="width: 5px">
-                                                    <a href="{{ route('invernadero/fertilizacionRiego/consultar/item',$fertilizacionRiego->id) }}"><button class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar"><i class="fa fa-eye"></i></button></a>
+                                                    <a href="{{ route('plantula/aplicaciones/consultar/item',$aplicaciones->id) }}"><button class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar"><i class="fa fa-eye"></i></button></a>
                                                 </td>
 
                                                 <td style="width: 5px">
-                                                    <a href="{{ route('invernadero/fertilizacionRiego/modificar/item',$fertilizacionRiego->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
+                                                    <a href="{{ route('plantula/aplicaciones/modificar/item',$aplicaciones->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
                                                 </td>
 
                                                 <td style="width: 5px">
-                                                    {!! Form::open(['action'=>['fertilizacionRiegoInvernaderoController@eliminar'],'role'=>'form'] )  !!}
-                                                    <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la fertilización?")'><i class="fa fa-trash-o "></i></button>
-                                                    <input type="hidden" name="id" value={{$fertilizacionRiego->id}}>
+                                                    {!! Form::open(['action'=>['aplicacionesPlantulaController@eliminar'],'role'=>'form'] ) !!}
+                                                    <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar esta aplicación?")'><i class="fa fa-trash-o "></i></button>
+                                                    <input type="hidden" name="id" value={{$aplicaciones->id}}>
                                                     {!! Form::close() !!}
                                                 </td>
+
 
                                             </tr>
 
@@ -188,8 +206,8 @@ MAIN SIDEBAR MENU
                                     </tbody>
                                 </table>
                             </div>
-                            @if (isset($fertilizacionesRiego))
-                                {!! $fertilizacionesRiego->setPath('')->appends(Input::query())->render()!!}
+                            @if (isset($aplicaciones))
+                                {--!! $aplicaciones->setPath('')->appends(Input::query())->render()!!}
                             @endif
                         </div>
                     </div>
