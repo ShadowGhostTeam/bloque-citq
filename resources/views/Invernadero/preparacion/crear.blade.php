@@ -33,7 +33,7 @@
 
                             <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear Preparación</h4><br>
 
-                            @include('Invernadero.Preparacion.Partials.form')
+                            @include('Invernadero.preparacion.Partials.form')
 
                             {!! Form::close() !!}
                         </div>
