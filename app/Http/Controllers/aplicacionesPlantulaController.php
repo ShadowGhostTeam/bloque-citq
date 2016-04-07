@@ -20,9 +20,11 @@ class aplicacionesPlantulaController extends Controller
 {
     /**
      * Metodo para ver la pagina inicial de aplicaciones plantula
+     * Display a listing of the resource.
      *
-     *
+     * @return \Illuminate\Http\Response
      */
+
     public function index(){
         $now= Carbon::now()->format('Y/m/d');
         $now2 =Carbon::now()->subMonth(6)->format('Y/m/d');
@@ -111,11 +113,12 @@ class aplicacionesPlantulaController extends Controller
                 /*Hay cuatro posibles casos de busqueda con fechas, cada if se basa en un caso */
 
                 /*Solo con fechas*/
-                if ($request->invernadero == "" && $request->aplicacion == "" && $request->tipoAplicacion) {
-                    $aplicaciones = aplicacionesPlantula::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                if ($request->invernadero == "" && $request->aplicacion == "" && $request->tipoAplicacion == "") {
+                    $aplicaciones = aplicacionesPlantula::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);
+
                 }
                 /*Solo con fechas e invernadero*/
-                if ($request->invernadero != "" && $request->aplicacion == "" && $request->tipoAplicacion) {
+                if ($request->invernadero != "" && $request->aplicacion == "" && $request->tipoAplicacion == "") {
                     $aplicaciones = aplicacionesPlantula::where('id_invernaderoPlantula', $request->invernadero)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
                 }
                 /*Solo con fechas y aplicacion*/
