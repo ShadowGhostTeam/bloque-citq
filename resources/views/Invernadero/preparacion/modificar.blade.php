@@ -57,7 +57,7 @@
 
 
 
-                            @include('Invernadero.Preparacion.Partials.form')
+                            @include('Invernadero.preparacion.Partials.form')
                             <input type="hidden" name="id" value="{{$preparacionInvernadero->id}}">
                             {!! Form::close() !!}
                         </div>
@@ -68,9 +68,9 @@
         </section>
     </section>
 </section>
-    @include('Invernadero.Preparacion.Partials.validator')
+    @include('Invernadero.preparacion.Partials.validator')
 
-    @include('Invernadero.Preparacion.Partials.ajaxScript')
+    @include('Invernadero.preparacion.Partials.ajaxScript')
 
 
 
