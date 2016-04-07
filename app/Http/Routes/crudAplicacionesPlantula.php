@@ -34,6 +34,16 @@ Route::post('plantula/aplicaciones/crear/','aplicacionesPlantulaController@crear
     //
 }));
 
+//Modificar
+Route::get('plantula/aplicaciones/modificar/{id}',[
+    'uses' => 'aplicacionesPlantulaController@pagModificar',
+    'as' =>'plantula/aplicaciones/modificar/item'
 
+]);
+
+
+Route::post('plantula/aplicaciones/modificar/','aplicacionesPlantulaController@modificar',array('before' => 'csrf', function() {
+    //
+}));
 
 

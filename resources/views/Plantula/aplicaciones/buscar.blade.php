@@ -185,7 +185,7 @@ MAIN SIDEBAR MENU
                                                 </td>
 
                                                 <td style="width: 5px">
-                                                    <a href="#"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
+                                                    <a href="{{ route('plantula/aplicaciones/modificar/item',$aplicaciones->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
                                                 </td>
 
                                                 <td style="width: 5px">

@@ -252,22 +252,22 @@ class aplicacionesPlantulaTest extends TestCase
     }
 
     /////////////////////////////////////MODIFICAR//////////////////////////////////////////////////////////////
-    //para llamar a solo un grupo phpunit --group aplicacionModificarInvernadero
+    //para llamar a solo un grupo phpunit --group aplicacionModificarPlantula
 
     /*Unidad*/
     /**
-     * @group aplicacionModificarInvernadero
+     * @group aplicacionModificarPlantula
      */
     public function testRutaModificar(){
-        $response = $this->call('GET', 'invernadero/aplicaciones/modificar/1');
+        $response = $this->call('GET', 'plantula/aplicaciones/modificar/1');
         $this->assertEquals(200, $response->status());
     }
 
     /**
-     * @group aplicacionModificarInvernadero
+     * @group aplicacionModificarPlantula
      */
     public function testModificarIdIncorrecto(){
-        $response = $this->call('GET', 'invernadero/aplicaciones/modificar/120');
+        $response = $this->call('GET', 'plantula/aplicaciones/modificar/120');
         $this->assertEquals(404, $response->status());
     }
 

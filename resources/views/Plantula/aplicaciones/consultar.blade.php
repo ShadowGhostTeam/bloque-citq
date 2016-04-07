@@ -29,11 +29,11 @@
 
                             <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Consultar fertilización/riego</h4><br>
 
-                            @if( isset($fertilizacionesRiego))
+                            @if( isset($aplicaciones))
                                 <table align="right">
                                     <tr>
                                         <td>
-                                            <a href="#"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
+                                            <a href="{{ route('plantula/aplicaciones/modificar/item',$aplicaciones->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
                                             &nbsp
                                         </td>
 

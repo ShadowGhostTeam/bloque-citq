@@ -193,19 +193,20 @@ class aplicacionesPlantulaController extends Controller
      *
      * */
     public function pagModificar($id){
-        $fertilizacionesRiego= fertilizacionRiego::findOrFail($id);
-        $invernaderos= invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $etapaFenologica = ['Etapa1'];
-        $fechaSiembraSeleccionada=Carbon::createFromFormat('Y-m-d H:i:s', $fertilizacionesRiego->siembraTransplante->fecha);
+        $aplicaciones= aplicacionesPlantula::findOrFail($id);
+        $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $aplicacion = ['Fungicida','Herbicida','Insecticida','Podas'];
+        $tipoAplicacion = ['Sistema de riego','Al suelo','Al follaje'];
+        $fechaSiembraSeleccionada=Carbon::createFromFormat('Y-m-d H:i:s', $aplicaciones->siembra->fecha);
 
         $siembraSeleccionada = array(
-            'id_siembra'=>$fertilizacionesRiego->id_stInvernadero,
-            'variedad'=>$fertilizacionesRiego->siembraTransplante->variedad,
-            'nombre'=>$fertilizacionesRiego->siembraTransplante->cultivo->nombre,
+            'id_siembra'=>$aplicaciones->id_siembraPlantula,
+            'variedad'=>$aplicaciones->siembra->variedad,
+            'nombre'=>$aplicaciones->siembra->cultivo->nombre,
             'fecha'=>$fechaSiembraSeleccionada->format('d/m/Y')
         );
 
-        $siembras = siembraTransplanteInvernadero::where('id_invernadero',$fertilizacionesRiego->id_invernadero)->get();
+        $siembras = siembraPlantula::where('id_invernaderoPlantula',$aplicaciones->id_invernaderoPlantula)->get();
         $siembrasTodas=array();
         foreach ($siembras as $siembra) {
 
@@ -220,17 +221,18 @@ class aplicacionesPlantulaController extends Controller
             );
         }
 
-        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $fertilizacionesRiego->fecha);
-        $fertilizacionesRiego->fecha=$fecha->format('d/m/Y');
+        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $aplicaciones->fecha);
+        $aplicaciones->fecha=$fecha->format('d/m/Y');
 
 
 
-        return view('Invernadero/aplicaciones/modificar')->with([
+        return view('plantula/aplicaciones/modificar')->with([
             'invernaderos' => $invernaderos,
             'siembras' => $siembrasTodas,
-            'etapaFenologica'=>$etapaFenologica,
+            'aplicacion'=>$aplicacion,
+            'tipoAplicacion'=>$tipoAplicacion,
             'siembraSeleccionada' => $siembraSeleccionada,
-            'fertilizacionesRiego' => $fertilizacionesRiego,
+            'aplicaciones' => $aplicaciones,
         ]);
     }
 
@@ -246,11 +248,11 @@ class aplicacionesPlantulaController extends Controller
 
     /*Modificar registro*/
     public function modificar(aplicacionesPlantulaRequest $request){
-        $fertilizacionesRiego=$this->adaptarRequest($request);
-        $fertilizacionesRiego->save();
-        $fertilizacionesRiego->push();
-        Session::flash('message', 'La fertilizacion ha sido modificada');
-        return redirect('plantula/aplicaciones/modificar/'.$fertilizacionesRiego->id);
+        $aplicaciones=$this->adaptarRequest($request);
+        $aplicaciones->save();
+        $aplicaciones->push();
+        Session::flash('message', 'La aplicación ha sido modificada');
+        return redirect('plantula/aplicaciones/modificar/'.$aplicaciones->id);
     }
 
     /*
