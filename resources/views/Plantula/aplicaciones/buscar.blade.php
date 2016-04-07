@@ -105,7 +105,7 @@ MAIN SIDEBAR MENU
 
                                             <div class="col-lg-2">
                                                 <select  class="form-control" id="tipoAplicacion" name="tipoAplicacion">
-                                                    <option value="">Tipo de aplicacin</option>
+                                                    <option value="">Tipo de aplicación</option>
 
                                                     @if( isset($tipoAplicacion))
                                                         @foreach($tipoAplicacion as $tipoAplicacion)
@@ -189,8 +189,12 @@ MAIN SIDEBAR MENU
                                                 </td>
 
                                                 <td style="width: 5px">
-
+                                                    {!! Form::open(['action'=>['aplicacionesPlantulaController@eliminar'],'role'=>'form'] ) !!}
+                                                    <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar esta aplicación?")'><i class="fa fa-trash-o "></i></button>
+                                                    <input type="hidden" name="id" value={{$aplicaciones->id}}>
+                                                    {!! Form::close() !!}
                                                 </td>
+
 
                                             </tr>
 

@@ -47,3 +47,8 @@ Route::post('plantula/aplicaciones/modificar/','aplicacionesPlantulaController@m
 }));
 
 
+//Eliminar
+Route::post('plantula/aplicaciones/eliminar','aplicacionesPlantulaController@eliminar',array('before' => 'csrf', function() {
+
+}));
+

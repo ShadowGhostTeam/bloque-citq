@@ -27,7 +27,7 @@
                     <div class="col-lg-12">
                         <div class="form-panel">
 
-                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Consultar fertilización/riego</h4><br>
+                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Consultar aplicación</h4><br>
 
                             @if( isset($aplicaciones))
                                 <table align="right">
@@ -38,7 +38,12 @@
                                         </td>
 
                                         <td>
-                                            <!--eliminar-->
+
+                                            {!! Form::open(['action'=>['aplicacionesPlantulaController@eliminar'],'role'=>'form'] ) !!}
+                                            <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar esta aplicación?")'><i class="fa fa-trash-o "></i></button>
+                                            <input type="hidden" name="id" value={{$aplicaciones->id}}>
+                                            {!! Form::close() !!}
+
                                         </td>
                                     </tr>
                                 </table>

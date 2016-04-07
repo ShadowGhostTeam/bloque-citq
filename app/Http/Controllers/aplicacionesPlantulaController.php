@@ -298,10 +298,10 @@ class aplicacionesPlantulaController extends Controller
 
     /*Eliminar registro*/
     public function eliminar(Request $request){
-        $fertilizacionesRiego = fertilizacionRiego::findOrFail($request->id);
-        $fertilizacionesRiego->delete();
+        $aplicaciones = aplicacionesPlantula::findOrFail($request->id);
+        $aplicaciones->delete();
 
-        Session::flash('message','La fertilización ha sido eliminada');
+        Session::flash('message','La aplicación ha sido eliminada');
         return redirect('plantula/aplicaciones');
     }
 
