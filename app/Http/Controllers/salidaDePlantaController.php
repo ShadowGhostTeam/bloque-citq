@@ -29,7 +29,7 @@ class salidaDePlantaController extends Controller
         $this->adaptaFechas($salidas);
 
         $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        return view('InvernaderoPlantula/SalidaPlanta/buscar')->with([
+        return view('Plantula/SalidaPlanta/buscar')->with([
             'invernaderos' =>$invernaderos,
             'salidas'=>$salidas
 
@@ -42,7 +42,7 @@ class salidaDePlantaController extends Controller
     public function pagCrear() {
         $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
         $siembraPlantula = siembraPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        return view('InvernaderoPlantula/SalidaPlanta/crear')->with([
+        return view('Plantula/SalidaPlanta/crear')->with([
             'invernaderos' => $invernaderos,
             'siembraPlantula' => $siembraPlantula
 
@@ -59,7 +59,7 @@ class salidaDePlantaController extends Controller
         $salidaPlanta->fecha=$fecha->format('d/m/Y');
         $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
-        return view('InvernaderoPlantula/SalidaPlanta/modificar')->with([
+        return view('Plantula/SalidaPlanta/modificar')->with([
             'salidaPlanta'=>$salidaPlanta,
             'invernaderos' =>$invernaderos,
             'siembra' =>$siembra
@@ -76,7 +76,7 @@ class salidaDePlantaController extends Controller
         $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $salidaPlanta->fecha);
         $salidaPlanta->fecha=$fecha->format('d/m/Y');
 
-        return view('InvernaderoPlantula/SalidaPlanta/consultar')->with([
+        return view('Plantula/SalidaPlanta/consultar')->with([
             'salidaPlanta'=>$salidaPlanta
         ]);
     }
@@ -91,7 +91,7 @@ class salidaDePlantaController extends Controller
         $salidaPlanta=$this->adaptarRequest($request);
         $salidaPlanta->save();
         Session::flash('message', 'La salida de planta ha sido creada');
-        return redirect('InvernaderoPlantula/SalidaPlanta/crear');
+        return redirect('Plantula/SalidaPlanta/crear');
     }
 
 
@@ -103,7 +103,7 @@ class salidaDePlantaController extends Controller
         $salidaPlanta->save();
         $salidaPlanta->push();
         Session::flash('message', 'La salida de planta ha sido modificada');
-        return redirect('InvernaderoPlantula/SalidaPlanta/modificar'.$salidaPlanta->id);
+        return redirect('Plantula/SalidaPlanta/modificar'.$salidaPlanta->id);
     }
 
     /*
@@ -114,7 +114,7 @@ class salidaDePlantaController extends Controller
         $salidaPlanta->delete();
 
         Session::flash('message','La salida de planta ha sido eliminada');
-        return redirect('InvernaderoPlantula/SalidaPlanta');
+        return redirect('Plantula/SalidaPlanta');
     }
 
     /*

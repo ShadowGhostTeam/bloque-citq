@@ -42,7 +42,7 @@
                 </ul>
             </li>
             <li class="sub-menu">
-                <a href="#"  class="active">
+                <a href="#"  >
                     <i class="fa fa-th-large"></i>
                     <span>Invernadero&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <i class="fa fa-caret-down"></i>
@@ -54,7 +54,7 @@
                             <span>Preparación </span>
                         </a></li>
 
-                    <li><a href="{{route('invernadero/siembra')}}"  class="active">
+                    <li><a href="{{route('invernadero/siembra')}}"  >
                             <i class="fa fa-leaf"></i>
                             <span>Siembra </span>
                         </a></li>
@@ -79,7 +79,7 @@
                 </ul>
             </li>
             <li class="sub-menu">
-                <a href="#" >
+                <a href="#" class="active" >
                     <i class="fa fa-stop"></i>
                     <span>Inv. Plántula&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <i class="fa fa-caret-down"></i>
@@ -104,7 +104,7 @@
                             <i class="fa fa-tint"></i>
                             <span>Riego </span>
                         </a></li>
-                    <li><a href="#" >
+                    <li><a href="{{route('plantula/salidaplanta')}}" class="active" > <!--Ruta del index -->
                             <i class="fa fa-reply-all"></i>
                             <span>Salida planta</span>
                         </a></li>
