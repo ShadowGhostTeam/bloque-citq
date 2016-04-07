@@ -42,6 +42,6 @@ class aplicacionesPlantula extends Model
         return $this->belongsTo('App\siembraPlantula','id_siembraPlantula');
     }
     public  function invernadero(){
-        return $this->belongsTo('App\invernadero','id_invernaderoPlantula');
+        return $this->belongsTo('App\invernaderoPlantula','id_invernaderoPlantula');
     }
 }
