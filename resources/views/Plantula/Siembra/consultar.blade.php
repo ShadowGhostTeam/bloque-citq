@@ -76,10 +76,10 @@
                                         <dt>Número de plantas</dt><dd>{{ $siembra->numPlantas }}</dd>
                                         <dt>Sustrato</dt><dd>{{ $siembra->sustrato }}</dd>
                                         <dt>Destino</dt><dd>{{ $siembra->destino }}</dd>
+                                        <dt>Comentario</dt><dd>{{ $siembra->comentario}}</dd>
                                         <dt>Fecha</dt><dd>{{ $siembra->fecha }}</dd>
                                         <dt>Status</dt><dd>{{ $siembra->status}}</dd>
                                         <dt>Fecha de Terminación</dt><dd>{{ $siembra->fechaTerminacion}}</dd>
-                                        <dt>Comentario</dt><dd>{{ $siembra->comentario}}</dd>
                                     </dl>
                                 </div>
 

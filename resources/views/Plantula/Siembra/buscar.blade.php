@@ -44,7 +44,7 @@
 MAIN SIDEBAR MENU
 *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Invernadero.Siembra.aside')
+    @include('Plantula.Siembra.aside')
             <!--sidebar end-->
 
     <section id="container">
@@ -60,7 +60,7 @@ MAIN SIDEBAR MENU
                             @include('Partials.Mensajes.mensajes')
 
                             <div class="form-group" align="right">
-                                <a href="{{route('invernadero/siembra/crear')}}"> <button class="btn agregar tooltips" data-placement="left" data-original-title="Agregar"><i class="fa fa-plus"></i></i></button></a>
+                                <a href="{{route('plantula/siembra/crear')}}"> <button class="btn agregar tooltips" data-placement="left" data-original-title="Agregar"><i class="fa fa-plus"></i></i></button></a>
                             </div>
 
                             <div class="row">
@@ -68,13 +68,13 @@ MAIN SIDEBAR MENU
 
 
 
-                                    {!! Form::open(['route' => 'invernadero/siembra/lista' ,'method'=>'GET']) !!}
+                                    {!! Form::open(['route' => 'plantula/siembra/lista' ,'method'=>'GET']) !!}
 
                                     <div class="form-group">
 
                                         <div class="col-lg-2">
-                                            <select  class="form-control" id="invernadero" name="invernadero">
-                                                <option value="">Todos los invernaderos</option>
+                                            <select  class="form-control" id="invernaderoPlantula" name="invernaderoPlantula">
+                                                <option value="">Todos los invernaderos de plantula</option>
 
                                                 @if( isset($invernaderos))
                                                     @foreach($invernaderos as $invernadero)
@@ -151,7 +151,7 @@ MAIN SIDEBAR MENU
                                         <table class="table table-striped table-advance table-hover">
                                             <thead>
                                             <tr>
-                                                <th><i class="fa fa-thumb-tack"></i> Invernadero </th>
+                                                <th><i class="fa fa-thumb-tack"></i> Invernadero de plántula </th>
                                                 <th> <i class="fa fa-tree"></i> Cultivo </th>
                                                 <th><i class="fa fa-calendar-o"></i> Fecha </th>
                                                 <th><i class="fa fa-circle-thin"></i> Status </th>
@@ -176,15 +176,15 @@ MAIN SIDEBAR MENU
                                                         @endif
 
                                                         <td style="width: 5px">
-                                                            <a href="{{ route('invernadero/siembra/consultar/item',$siembra->id) }}"><button class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar"><i class="fa fa-eye"></i></button></a>
+                                                            <a href="{{ route('plantula/siembra/consultar/item',$siembra->id) }}"><button class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar"><i class="fa fa-eye"></i></button></a>
                                                         </td>
 
                                                         <td style="width: 5px">
-                                                            <a href="{{ route('invernadero/siembra/modificar/item',$siembra->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
+                                                            <a href="{{ route('plantula/siembra/modificar/item',$siembra->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
                                                         </td>
 
                                                         <td style="width: 5px">
-                                                            {!! Form::open(['action'=>['siembraTransplanteInvernaderoController@eliminar'],'role'=>'form'] )  !!}
+                                                            {!! Form::open(['action'=>['siembraTransplantePlantulaController@eliminar'],'role'=>'form'] )  !!}
                                                             <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la siembra?")'><i class="fa fa-trash-o "></i></button>
                                                             <input type="hidden" name="id" value={{$siembra->id}}>
                                                             {!! Form::close() !!}

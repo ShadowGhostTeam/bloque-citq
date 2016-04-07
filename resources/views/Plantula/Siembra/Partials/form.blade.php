@@ -50,7 +50,8 @@
             <div class="col-lg-10" align="left">
                 @if( isset($siembraInvernaderoPlantula))
                     @foreach($tipoContenedor as $tiposContenedor)
-                        @if($siembraInvernaderoPlantula->status == $tiposContenedor)
+                        @if($siembraInvernaderoPlantula->contenedor == $tiposContenedor)
+                            <option value="{{  $invernaderoPlantula->contenedor }}" selected > </option>
                             <label class="radio-inline">
                                 {!!  Form::radio('status', $tiposContenedor, true) !!}{{ $tiposContenedor }}
                             </label>
