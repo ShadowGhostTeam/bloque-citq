@@ -57,7 +57,7 @@
 
 
 
-                            @include('Invernadero.Preparacion.Partials.form')
+                            @include('Invernadero.preparacion.Partials.form')
                             <input type="hidden" name="id" value="{{$preparacionInvernadero->id}}">
                             {!! Form::close() !!}
                         </div>
