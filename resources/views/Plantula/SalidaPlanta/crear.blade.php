@@ -13,7 +13,7 @@
     MAIN SIDEBAR MENU
     *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Invernadero.Siembra.aside')
+    @include('Plantula.SalidaPlanta.aside')
     <!--sidebar end-->
 
     <section id="container">
@@ -21,7 +21,7 @@
         <section id="main-content">
             <section class="wrapper site-min-height">
                 <h3>
-                    <a href="{{ route('invernadero/siembra') }}">
+                    <a href="{{ route('plantula/salidaplanta') }}">
                         <button type="button" class="btn btn-primary">
                             <i class="glyphicon glyphicon-arrow-left"></i>
                             Búsqueda
@@ -36,11 +36,11 @@
 
                             @include('Partials.Mensajes.mensajes')
 
-                            {!! Form::open(['action'=>['siembraTransplanteInvernaderoController@crear'],'class'=>'form-horizontal','role'=>'form','id'=>'formulario'])!!}
+                            {!! Form::open(['action'=>['salidaDePlantaController@crear'],'class'=>'form-horizontal','role'=>'form','id'=>'formulario'])!!}
 
-                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear siembra</h4><br>
+                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear salida de planta</h4><br>
 
-                            @include('Invernadero.Siembra.Partials.form')
+                            @include('Plantula.SalidaPlanta.Partials.form')
 
                             {!! Form::close() !!}
                         </div>
@@ -52,6 +52,6 @@
     </section>
 </section>
 
-    @include('Invernadero.Siembra.Partials.validator')
-    @include('Invernadero.Siembra.Partials.Script')
+    @include('Plantula.SalidaPlanta.Partials.validator')
+    @include('Plantula.SalidaPlanta.Partials.ajaxScript')
     @include('Partials.ScriptsGenerales.scriptsPartialsAbajo')

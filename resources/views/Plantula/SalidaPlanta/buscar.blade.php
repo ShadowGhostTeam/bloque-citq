@@ -52,7 +52,6 @@ MAIN SIDEBAR MENU
             <section class="wrapper site-min-height">
                 <h3 style="color:#078006"><i class="fa fa-angle-right"></i>Salida de planta</h3>
                 <div class="row mt">
-
                     <!-- INICIO CONTENIDO -->
                     <div class="col-lg-12">
                         <div class="form-panel">
@@ -65,8 +64,6 @@ MAIN SIDEBAR MENU
 
                             <div class="row">
                                 <div class="col-xs-12">
-
-
 
                                     {!! Form::open(['route' => 'plantula/salidaplanta/lista' ,'method'=>'GET']) !!}
 

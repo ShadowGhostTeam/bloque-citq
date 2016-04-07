@@ -17,15 +17,8 @@
                     }
                 },
 
-                cultivo: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Seleccione una opción'
-                        }
-                    }
-                },
 
-                status: {
+                siembraPlantula:{
                     validators: {
                         notEmpty: {
                             message: 'Seleccione una opción'
@@ -46,14 +39,8 @@
                     }
                 },
 
-                fechaTerminacion: {
-                    validators: {
-                        date: {
-                            format: 'DD/MM/YYYY',
-                            message: 'Ingrese fecha en formato dd/mm/aaaa'
-                        }
-                    }
-                }
+
+
             }
         });
 
@@ -62,10 +49,7 @@
                     $('#formulario').data('bootstrapValidator').revalidateField('fecha');
                 });
 
-        $('#fechaTerminacion')
-                .on('dp.change dp.show', function(e) {
-                    $('#formulario').data('bootstrapValidator').revalidateField('fechaTerminacion');
-                });
+
 
 
     });
@@ -75,12 +59,13 @@
     $(function () {
         $('#fecha').datetimepicker({
             format:'DD/MM/YYYY'
-        });
-        $('#fechaTerminacion').datetimepicker({
-            format:'DD/MM/YYYY'
+
         });
 
-        $('#fecha').keypress(function(event) {event.preventDefault();});
-        $('#fechaTerminacion').keypress(function(event) {event.preventDefault();});
     });
+
+    $('#fecha').keypress(function(event) {event.preventDefault();});
+
+
+
 </script>

@@ -9,7 +9,8 @@
 namespace App\Http\Controllers;
 
 use App\invernadero;
-use App\Http\Requests\preparacionPlantulaRequest;
+
+use App\Http\Requests\salidaPlantaRequest;
 use App\invernaderoPlantula;
 use App\salidaPlanta;
 use App\siembraPlantula;
@@ -25,14 +26,13 @@ class salidaDePlantaController extends Controller
     public function index() {
         $now= Carbon::now()->format('Y/m/d');
         $now2 =Carbon::now()->subMonth(6)->format('Y/m/d');
-        $salidas = salidaPlanta::whereBetween('fecha', array($now2,$now))->orderBy('fecha', 'desc')->paginate(15);
+        $salidas = salidaPlanta::orderBy('fecha', 'des')->paginate(15);
         $this->adaptaFechas($salidas);
 
         $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        return view('Plantula/SalidaPlanta/buscar')->with([
+        return view('plantula/salidaplanta/buscar')->with([
             'invernaderos' =>$invernaderos,
             'salidas'=>$salidas
-
         ]);
     }
 
@@ -41,10 +41,10 @@ class salidaDePlantaController extends Controller
      * */
     public function pagCrear() {
         $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $siembraPlantula = siembraPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        return view('Plantula/SalidaPlanta/crear')->with([
-            'invernaderos' => $invernaderos,
-            'siembraPlantula' => $siembraPlantula
+
+
+        return view('plantula/salidaplanta/crear')->with([
+            'invernaderos' => $invernaderos
 
         ]);
     }
@@ -59,7 +59,7 @@ class salidaDePlantaController extends Controller
         $salidaPlanta->fecha=$fecha->format('d/m/Y');
         $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
-        return view('Plantula/SalidaPlanta/modificar')->with([
+        return view('plantula/salidaplanta/modificar')->with([
             'salidaPlanta'=>$salidaPlanta,
             'invernaderos' =>$invernaderos,
             'siembra' =>$siembra
@@ -76,7 +76,7 @@ class salidaDePlantaController extends Controller
         $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $salidaPlanta->fecha);
         $salidaPlanta->fecha=$fecha->format('d/m/Y');
 
-        return view('Plantula/SalidaPlanta/consultar')->with([
+        return view('plantula/salidaplanta/consultar')->with([
             'salidaPlanta'=>$salidaPlanta
         ]);
     }
@@ -88,22 +88,23 @@ class salidaDePlantaController extends Controller
      */
 
     public function crear(salidaPlantaRequest $request){
+        //dd('aqui');
         $salidaPlanta=$this->adaptarRequest($request);
         $salidaPlanta->save();
         Session::flash('message', 'La salida de planta ha sido creada');
-        return redirect('Plantula/SalidaPlanta/crear');
+        return redirect('plantula/salidaplanta/crear');
     }
 
 
     /*
      * Recibe la informacion del formulario de modificar y la actualiza en la base de datos
      */
-    public function modificar(salidaPlanta $request){
+    public function modificar(salidaPlantaRequest $request){
         $salidaPlanta=$this->adaptarRequest($request);
         $salidaPlanta->save();
         $salidaPlanta->push();
         Session::flash('message', 'La salida de planta ha sido modificada');
-        return redirect('Plantula/SalidaPlanta/modificar'.$salidaPlanta->id);
+        return redirect('plantula/salidaplanta/modificar'.$salidaPlanta->id);
     }
 
     /*
@@ -114,7 +115,7 @@ class salidaDePlantaController extends Controller
         $salidaPlanta->delete();
 
         Session::flash('message','La salida de planta ha sido eliminada');
-        return redirect('Plantula/SalidaPlanta');
+        return redirect('plantula/salidaplanta');
     }
 
     /*
@@ -125,13 +126,13 @@ class salidaDePlantaController extends Controller
         /*Listados de combobox*/
         $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
         /*Ahi se guardaran los resultados de la busqueda*/
-        $preparaciones=null;
+        $salidas=null;
 
 
         $validator = Validator::make($request->all(), [
             'fechaInicio' => 'date_format:d/m/Y',
             'fechaFin' => 'date_format:d/m/Y',
-            'invernadero' => 'exists:invernadero_plantula,id'
+            //'invernadero' => 'exists:invernadero_plantula,id'
         ]);
 
         /*Si validador no falla se pueden realizar busquedas*/
@@ -151,9 +152,9 @@ class salidaDePlantaController extends Controller
                 /*Hay cuatro posibles casos de busqueda con fechas, cada if se basa en un caso */
 
                 /*Solo con fechas*/
-                if ($request->invernadero == "") {
-                    $salidas = salidaPlanta::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
-                }
+
+                $salidas = salidaPlanta::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+
             }
         }
 
@@ -177,8 +178,8 @@ class salidaDePlantaController extends Controller
             Session::flash('message', 'Se encontraron '.$num.' resultados');
         }
         /*Regresa la vista*/
-        return view('Plantula/SalidaPlanta/buscar')->with([
-            'salidas'=>$salidas
+        return view('plantula/salidaplanta/buscar')->with([
+                'salidas'=>$salidas
         ]);
     }
 
@@ -197,7 +198,7 @@ class salidaDePlantaController extends Controller
         }
 
         $salidaPlanta->id_invernaderoPlantula= $request->invernadero;
-        $salidaPlanta->id_siembra = $request->siembra;
+        $salidaPlanta->id_siembraPlantula = $request->siembraPlantula;
         $salidaPlanta->fecha=Carbon::createFromFormat('d/m/Y', $request->fecha)->toDateTimeString();
         $salidaPlanta->comentario= $request->comentario;
 

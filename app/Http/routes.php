@@ -461,7 +461,7 @@ require __DIR__ . '/Routes/crudSalidaDePlanta.php';
 require __DIR__ . '/Routes/crudSiembraPlantula.php';
 require __DIR__ . '/Routes/crudRiegoPlantula.php';
 require __DIR__ . '/Routes/crudAplicacionesPlantula.php';
-require __DIR__ . '/Routes/crudSalidaPlantaPlantula.php';
+
 
 
 /////////////////////ADMINISTRACION/////////////////////
