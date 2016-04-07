@@ -45,8 +45,8 @@
     </section>
 </section>
 
-    @include('Invernadero.Preparacion.Partials.validator')
+    @include('Invernadero.preparacion.Partials.validator')
 
-@include('Invernadero.Preparacion.Partials.ajaxScript')
+@include('Invernadero.preparacion.Partials.ajaxScript')
 
     @include('Partials.ScriptsGenerales.scriptsPartialsAbajo')
