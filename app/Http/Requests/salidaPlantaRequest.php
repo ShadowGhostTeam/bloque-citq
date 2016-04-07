@@ -25,9 +25,9 @@ class preparacionPlantulaRequest extends Request
     {
         return [
             'invernadero'=>'required|exists:invernadero_plantula,id',
-            'sustrato' =>  'required',
-            'Charolas'=>'numeric|min:0',
-            'fecha' =>  'required |date_format:d/m/Y'
+            'siembraPlantula' => 'required|exist:siembra,id',
+            'fecha' =>  'required |date_format:d/m/Y',
+            'comentario' =>'required'
         ];
     }
 }
