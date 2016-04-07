@@ -18,7 +18,7 @@
                 },
 
 
-                siembraT:{
+               siembraPlantula:{
                     validators: {
                         notEmpty: {
                             message: 'Seleccione una opción'
@@ -39,11 +39,8 @@
                     }
                 },
 
-                tiempoRiego:{
+                cantidad:{
                     validators: {
-                        notEmpty: {
-                            message: 'Seleccione una opción'
-                        },
                         numeric: {
                             message: 'No es un número válido',
                             // The default separators
@@ -59,22 +56,6 @@
                     }
                 },
 
-                frecuencia:{
-                    validators: {
-                        numeric: {
-                            message: 'No es un número válido',
-                            // The default separators
-
-                            decimalSeparator: '.'
-
-
-                        },
-                        greaterThan: {
-                            value: 0,
-                            message: 'El número tiene que ser positivo'
-                        }
-                    }
-                }
             }
         });
 

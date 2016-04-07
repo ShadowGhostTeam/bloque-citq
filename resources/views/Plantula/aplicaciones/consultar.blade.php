@@ -55,7 +55,7 @@
 
                                     <dl class="dl-horizontal">
                                         <dt>Invernadero</dt><dd>{{ $aplicaciones->invernadero->nombre }}</dd>
-                                        <dt>Siembra plantula</dt><dd>{{ $siembras['nombre'] . ' '. $siembras['variedad']  }}</dd>
+                                        <dt>Siembra plántula</dt><dd>{{ $siembras['nombre'] . ' '. $siembras['variedad']  }}</dd>
                                         <dt>Fecha</dt><dd>{{ $aplicaciones->fecha }}</dd>
                                         @if( $aplicaciones->aplicacion != "")
                                             <dt>Aplicación</dt><dd>{{ $aplicaciones->aplicacion }}</dd>

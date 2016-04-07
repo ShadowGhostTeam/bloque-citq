@@ -179,9 +179,9 @@ class aplicacionesPlantulaController extends Controller
     /*Devuelve la vista de crear con los valores de los combobox*/
     public function pagCrear(){
         $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $aplicacion = ['Fungicida, Herbicida, Insecticida, Podas'];
-        $tipoAplicacion = ['Sistema de riego, Al suelo, Al follaje'];
-        return view('Invernadero/fertilizacionRiego/crear')->with([
+        $aplicacion = ['Fungicida','Herbicida','Insecticida','Podas'];
+        $tipoAplicacion = ['Sistema de riego','Al suelo','Al follaje'];
+        return view('plantula/aplicaciones/crear')->with([
             'invernaderos' => $invernaderos,
             'aplicacion'=>$aplicacion,
             'tipoAplicacion'=>$tipoAplicacion
@@ -225,7 +225,7 @@ class aplicacionesPlantulaController extends Controller
 
 
 
-        return view('Invernadero/fertilizacionRiego/modificar')->with([
+        return view('Invernadero/aplicaciones/modificar')->with([
             'invernaderos' => $invernaderos,
             'siembras' => $siembrasTodas,
             'etapaFenologica'=>$etapaFenologica,
@@ -250,7 +250,7 @@ class aplicacionesPlantulaController extends Controller
         $fertilizacionesRiego->save();
         $fertilizacionesRiego->push();
         Session::flash('message', 'La fertilizacion ha sido modificada');
-        return redirect('invernadero/fertilizacionRiego/modificar/'.$fertilizacionesRiego->id);
+        return redirect('plantula/aplicaciones/modificar/'.$fertilizacionesRiego->id);
     }
 
     /*
@@ -300,7 +300,7 @@ class aplicacionesPlantulaController extends Controller
         $fertilizacionesRiego->delete();
 
         Session::flash('message','La fertilización ha sido eliminada');
-        return redirect('invernadero/fertilizacionRiego');
+        return redirect('plantula/aplicaciones');
     }
 
     /*

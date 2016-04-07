@@ -219,14 +219,14 @@ class aplicacionesPlantulaTest extends TestCase
 
     ///////////////////////////////////////CREAR//////////////////////////////////////////////////////
 
-    //para llamar a solo un grupo phpunit --group aplicacionCrearInvernadero
+    //para llamar a solo un grupo phpunit --group aplicacionCrearPlantula
 
     /*Unidad*/
     /**
-     * @group aplicacionCrearInvernadero
+     * @group aplicacionCrearPlantula
      */
     public function testRutaCrear(){
-        $response = $this->call('GET', 'invernadero/aplicaciones/crear');
+        $response = $this->call('GET', 'plantula/aplicaciones/crear');
         $this->assertEquals(200, $response->status());
     }
 

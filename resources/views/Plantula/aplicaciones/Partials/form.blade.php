@@ -17,15 +17,15 @@
         <p align="left" class="help-block"> (*) Obligatorio </p><br>
 
         <div class="form-group">
-            <label for="Invernadero" class="col-lg-2 control-label"><strong>*</strong>Invernadero</label>
+            <label for="Invernadero" class="col-lg-2 control-label"><strong>*</strong>Invernadero Plántula</label>
             <div class="col-lg-10">
 
                 <select  class="form-control" id="invernadero" name="invernadero">
                     <option value="">Selecciona</option>
 
-                    @if( isset($fertilizacionesRiego))
+                    @if( isset($aplicaciones))
                         @foreach($invernaderos as $invernadero)
-                            @if($fertilizacionesRiego->id_invernadero == $invernadero->id)
+                            @if($aplicaciones->id_invernaderoPlantula == $invernadero->id)
                                 <option value="{{  $invernadero->id  }}" selected > {{ $invernadero->nombre}}  </option>
                             @else
                                 <option value="{{  $invernadero->id  }}" > {{ $invernadero->nombre}}  </option>
@@ -41,13 +41,13 @@
         </div>
 
         <div class="form-group">
-            <label for="Siembra" class="col-lg-2 control-label"><strong>*</strong>Siembra-Transplante</label>
+            <label for="Siembra" class="col-lg-2 control-label"><strong>*</strong>Siembra Plántula</label>
             <div class="col-lg-10">
 
-                <select  class="form-control" id="siembraT" name="siembraT">
+                <select  class="form-control" id="siembraPlantula" name="siembraPlantula">
                     <option value="">Selecciona</option>
 
-                    @if( isset($fertilizacionesRiego))
+                    @if( isset($aplicaciones))
 
                         @foreach($siembras as $siembra)
                             @if($siembraSeleccionada['id_siembra'] == $siembra['id_siembra'])
@@ -69,8 +69,8 @@
                                                  <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                   </span>
-                    @if( isset($fertilizacionesRiego))
-                        {!!Form::text('fecha' ,$fertilizacionesRiego->fecha,['class'=>'form-control','id'=>'fecha','placeholder'=>'dd/mm/aaaa'])!!}
+                    @if( isset($aplicaciones))
+                        {!!Form::text('fecha' ,$aplicaciones->fecha,['class'=>'form-control','id'=>'fecha','placeholder'=>'dd/mm/aaaa'])!!}
                     @else
                         {!!Form::text('fecha' ,null,['class'=>'form-control','id'=>'fecha','placeholder'=>'dd/mm/aaaa'])!!}
                     @endif
@@ -79,67 +79,94 @@
         </div>
 
         <div class="form-group">
-            <label for="tiempoRiego" class="col-lg-2 control-label"><strong>*</strong>Tiempo Riego</label>
-            <div class="col-lg-10">
-                @if( isset($fertilizacionesRiego))
-                    {!!Form::text('tiempoRiego' ,$fertilizacionesRiego->tiempoRiego,['class'=>'form-control','id'=>'tiempoRiego','placeholder'=>'Tiempo de riego'])!!}
-                @else
-                    {!!Form::text('tiempoRiego' ,null,['class'=>'form-control','id'=>'tiempoRiego','placeholder'=>'Tiempo de riego'])!!}
-                @endif
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="etapaFenologica" class="col-lg-2 control-label">Etapa Fenológica</label>
+            <label for="aplicacion" class="col-lg-2 control-label">Aplicación</label>
             <div class="col-lg-10">
 
-                <select  class="form-control" id="etapaFenologica" name="etapaFenologica">
+                <select  class="form-control" id="aplicacion" name="aplicacion">
                     <option value="">Selecciona</option>
 
-                    @if( isset($fertilizacionesRiego))
+                    @if( isset($aplicaciones))
 
-                        @foreach($etapaFenologica as $etapa)
-                            @if($fertilizacionesRiego->etapaFenologica == $etapa)
-                                <option value="{{  $etapa   }}" selected > {{ $etapa }}  </option>
+                        @foreach($aplicacion as $aplicacion)
+                            @if($aplicaciones->aplicacion == $aplicacion)
+                                <option value="{{  $aplicacion   }}" selected > {{ $aplicacion }}  </option>
                             @else
-                                <option value="{{  $etapa  }}" > {{ $etapa }}  </option>
+                                <option value="{{  $aplicacion  }}" > {{ $aplicacion }}  </option>
                             @endif
                         @endforeach
                     @else
-                        @foreach($etapaFenologica as $etapa)
-                            <option value="{{  $etapa  }}" > {{ $etapa }}  </option>
+                        @foreach($aplicacion as $aplicacion)
+                            <option value="{{  $aplicacion }}" > {{ $aplicacion }}  </option>
                         @endforeach
                     @endif
                 </select>
             </div>
         </div>
 
+
         <div class="form-group">
-            <label for="tiempoRiego" class="col-lg-2 control-label">Frecuencia</label>
+            <label for="TipoAplicacion" class="col-lg-2 control-label">Tipo de aplicación</label>
             <div class="col-lg-10">
-                @if( isset($fertilizacionesRiego))
-                    {!!Form::text('frecuencia' ,$fertilizacionesRiego->frecuencia,['class'=>'form-control','id'=>'frecuencia','placeholder'=>'Frecuencia'])!!}
+
+                <select  class="form-control" id="tipoAplicacion" name="tipoAplicacion">
+                    <option value="">Selecciona</option>
+
+                    @if( isset($aplicaciones))
+
+                        @foreach($tipoAplicacion as $tipo)
+                            @if($aplicaciones->tipoAplicacion == $tipo)
+                                <option value="{{  $tipo   }}" selected > {{ $tipo }}  </option>
+                            @else
+                                <option value="{{  $tipo  }}" > {{ $tipo }}  </option>
+                            @endif
+                        @endforeach
+                    @else
+                        @foreach($tipoAplicacion as $tipo)
+                            <option value="{{  $tipo }}" > {{ $tipo }}  </option>
+                        @endforeach
+                    @endif
+                </select>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="producto" class="col-lg-2 control-label">Producto</label>
+            <div class="col-lg-10">
+                @if( isset($aplicaciones))
+                    {!!Form::text('producto' ,$aplicaciones->producto,['class'=>'form-control','id'=>'producto','placeholder'=>'Producto'])!!}
                 @else
-                    {!!Form::text('frecuencia' ,null,['class'=>'form-control','id'=>'frecuencia','placeholder'=>'Frecuencia'])!!}
+                    {!!Form::text('producto' ,null,['class'=>'form-control','id'=>'producto','placeholder'=>'Producto'])!!}
                 @endif
             </div>
         </div>
 
         <div class="form-group">
-            <label for="Formulacion" class="col-lg-2 control-label">Formulación</label>
+            <label for="cantidad" class="col-lg-2 control-label">Cantidad</label>
             <div class="col-lg-10">
-                @if( isset($fertilizacionesRiego))
-                    {!!Form::textarea('formulacion' ,$fertilizacionesRiego->formulacion,['class'=>'form-control','id'=>'formulacion','placeholder'=>'Formulación'])!!}
+                @if( isset($aplicaciones))
+                    {!!Form::text('cantidad' ,$aplicaciones->cantidad,['class'=>'form-control','id'=>'cantidad','placeholder'=>'Cantidad'])!!}
                 @else
-                    {!!Form::textarea('formulacion' ,null,['class'=>'form-control','id'=>'formulacion','placeholder'=>'Formulación'])!!}
+                    {!!Form::text('cantidad' ,null,['class'=>'form-control','id'=>'cantidad','placeholder'=>'Cantidad'])!!}
+                @endif
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="comentario" class="col-lg-2 control-label">Comentarios</label>
+            <div class="col-lg-10">
+                @if( isset($aplicaciones))
+                    {!!Form::textarea('comentario' ,$aplicaciones->comentario,['class'=>'form-control','id'=>'comentario','placeholder'=>'Comentarios'])!!}
+                @else
+                    {!!Form::textarea('comentario' ,null,['class'=>'form-control','id'=>'comentario','placeholder'=>'Comentarios'])!!}
                 @endif
             </div>
         </div>
 
         <div class="form-group" align="center">
-            @if( isset($fertilizacionesRiego))
+            @if( isset($aplicaciones))
 
-                {!! Form::submit('Modificar',['class'=>'btn btn-success', 'onclick'=>"return confirm ('¿Seguro que desea modificar la fertilización?')"])!!}
+                {!! Form::submit('Modificar',['class'=>'btn btn-success', 'onclick'=>"return confirm ('¿Seguro que desea modificar esta aplicación?')"])!!}
             @else
                 {!! Form::submit('Crear',['class'=>'btn btn-success'])!!}
             @endif

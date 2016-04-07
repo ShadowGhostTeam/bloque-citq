@@ -13,14 +13,14 @@
     MAIN SIDEBAR MENU
     *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Invernadero.fertilizacionRiego.aside')
+    @include('Plantula.aplicaciones.aside')
             <!--sidebar end-->
 
     <section id="container">
 
         <section id="main-content">
             <section class="wrapper site-min-height">
-                <h3><a href="{{ route('invernadero/fertilizacionRiego') }}"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Búsqueda</button></a></h3>
+                <h3><a href="{{ route('plantula/aplicaciones') }}"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Búsqueda</button></a></h3>
                 <div class="row mt">
 
                     <!-- INICIO CONSULTAR FUNCIONES -->
@@ -29,11 +29,11 @@
 
                             @include('Partials.Mensajes.mensajes')
 
-                            {!! Form::open(['action'=>['fertilizacionRiegoInvernaderoController@crear'],'class'=>'form-horizontal','role'=>'form','id'=>'formulario'])!!}
+                            {!! Form::open(['action'=>['aplicacionesPlantulaController@crear'],'class'=>'form-horizontal','role'=>'form','id'=>'formulario'])!!}
 
-                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear fertilización/riego</h4><br>
+                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear aplicación</h4><br>
 
-                            @include('Invernadero.fertilizacionRiego.Partials.form')
+                            @include('Plantula.aplicaciones.Partials.form')
 
                             {!! Form::close() !!}
                         </div>
@@ -45,8 +45,8 @@
     </section>
 </section>
 
-@include('Invernadero.fertilizacionRiego.Partials.validator')
+@include('Plantula.aplicaciones.Partials.validator')
 
-@include('Invernadero.fertilizacionRiego.Partials.ajaxScript')
+@include('Plantula.aplicaciones.Partials.ajaxScript')
 
 @include('Partials.ScriptsGenerales.scriptsPartialsAbajo')

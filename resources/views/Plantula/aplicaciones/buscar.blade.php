@@ -62,7 +62,7 @@ MAIN SIDEBAR MENU
                             @include('Partials.Mensajes.mensajes')
 
                             <div class="form-group" align="right">
-                                <a href="{{route('invernadero/fertilizacionRiego/crear')}}"> <button class="btn agregar tooltips" data-placement="left" data-original-title="Agregar"><i class="fa fa-plus"></i></button></a>
+                                <a href="{{route('plantula/aplicaciones/crear')}}"> <button class="btn agregar tooltips" data-placement="left" data-original-title="Agregar"><i class="fa fa-plus"></i></button></a>
                             </div>
 
                             <div class="row">
@@ -76,7 +76,7 @@ MAIN SIDEBAR MENU
 
                                             <div class="col-lg-2">
                                                 <select  class="form-control" id="invernadero" name="invernadero">
-                                                    <option value="">Invernadero Plantula</option>
+                                                    <option value="">Invernadero Plántula</option>
                                                     @if( isset($invernaderos))
                                                         @foreach($invernaderos as $invernadero)
                                                             <option value="{{  $invernadero->id  }}" > {{ $invernadero->nombre}}  </option>

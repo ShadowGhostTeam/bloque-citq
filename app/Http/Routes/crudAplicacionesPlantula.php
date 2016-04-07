@@ -35,3 +35,5 @@ Route::post('plantula/aplicaciones/crear/','aplicacionesPlantulaController@crear
 }));
 
 
+
+
