@@ -23,9 +23,9 @@
                 <select  class="form-control" id="invernadero" name="invernadero">
                     <option value="">Selecciona</option>
 
-                    @if( isset($aplicaciones))
+                    @if( isset($salidaPlanta))
                         @foreach($invernaderos as $invernadero)
-                            @if($aplicaciones->id_invernaderoPlantula == $invernadero->id)
+                            @if($salidaPlanta->id_invernaderoPlantula == $invernadero->id)
                                 <option value="{{  $invernadero->id  }}" selected > {{ $invernadero->nombre}}  </option>
                             @else
                                 <option value="{{  $invernadero->id  }}" > {{ $invernadero->nombre}}  </option>
@@ -50,10 +50,10 @@
                     @if( isset($siembras))
 
                         @foreach($siembras as $siembra)
-                            @if($siembraSeleccionada['id_siembra'] == $siembra['id_siembra'])
-                                <option value="{{  $siembra['id_siembra']  }}" selected > {{ $siembra['nombre']."   ". $siembra['variedad'] . " - ". $siembra['fecha'] }}  </option>
+                            @if($siembras['id_siembraPlantula'] == $siembra['id_siembraPlantula'])
+                                <option value="{{  $siembra['id_siembraPlantula']  }}" selected > {{ $siembra['sustrato']."   ". $siembra['variedad'] . " - ". $siembra['fecha'] }}  </option>
                             @else
-                                <option value="{{  $siembra['id_siembra']  }}"  > {{ $siembra['nombre']."   ". $siembra['variedad'] ." - " . $siembra['fecha']  }}  </option>
+                                <option value="{{  $siembra['id_siembraPlantula']  }}"  > {{ $siembra['sustrato']."   ". $siembra['variedad'] ." - " . $siembra['fecha']  }}  </option>
                             @endif
                         @endforeach
 
@@ -69,8 +69,8 @@
                                                  <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                   </span>
-                    @if( isset($aplicaciones))
-                        {!!Form::text('fecha' ,$aplicaciones->fecha,['class'=>'form-control','id'=>'fecha','placeholder'=>'dd/mm/aaaa'])!!}
+                    @if( isset($salidaPlanta))
+                        {!!Form::text('fecha' ,$salidaPlanta->fecha,['class'=>'form-control','id'=>'fecha','placeholder'=>'dd/mm/aaaa'])!!}
                     @else
                         {!!Form::text('fecha' ,null,['class'=>'form-control','id'=>'fecha','placeholder'=>'dd/mm/aaaa'])!!}
                     @endif
@@ -82,8 +82,8 @@
         <div class="form-group">
             <label for="comentario" class="col-lg-2 control-label">Comentarios</label>
             <div class="col-lg-10">
-                @if( isset($aplicaciones))
-                    {!!Form::textarea('comentario' ,$aplicaciones->comentario,['class'=>'form-control','id'=>'comentario','placeholder'=>'Comentarios'])!!}
+                @if( isset($salidaPlanta))
+                    {!!Form::textarea('comentario' ,$salidaPlanta->comentario,['class'=>'form-control','id'=>'comentario','placeholder'=>'Comentarios'])!!}
                 @else
                     {!!Form::textarea('comentario' ,null,['class'=>'form-control','id'=>'comentario','placeholder'=>'Comentarios'])!!}
                 @endif
@@ -91,7 +91,7 @@
         </div>
 
         <div class="form-group" align="center">
-            @if( isset($aplicaciones))
+            @if( isset($salidaPlanta))
 
                 {!! Form::submit('Modificar',['class'=>'btn btn-success', 'onclick'=>"return confirm ('¿Seguro que desea modificar esta aplicación?')"])!!}
             @else

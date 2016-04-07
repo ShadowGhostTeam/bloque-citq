@@ -26,7 +26,7 @@ class salidaDePlantaController extends Controller
     public function index() {
         $now= Carbon::now()->format('Y/m/d');
         $now2 =Carbon::now()->subMonth(6)->format('Y/m/d');
-        $salidas = salidaPlanta::orderBy('fecha', 'des')->paginate(15);
+        $salidas = salidaPlanta::whereBetween('fecha', array($now2,$now))->orderBy('fecha', 'des')->paginate(15);
         $this->adaptaFechas($salidas);
 
         $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
@@ -54,7 +54,7 @@ class salidaDePlantaController extends Controller
      */
     public function pagModificar($id) {
         $salidaPlanta= salidaPlanta::findOrFail($id);
-        $siembra = siembraPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $siembras = siembraPlantula::select('id','sustrato')->orderBy('sustrato', 'asc')->get();
         $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $salidaPlanta->fecha);
         $salidaPlanta->fecha=$fecha->format('d/m/Y');
         $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
@@ -62,7 +62,7 @@ class salidaDePlantaController extends Controller
         return view('plantula/salidaplanta/modificar')->with([
             'salidaPlanta'=>$salidaPlanta,
             'invernaderos' =>$invernaderos,
-            'siembra' =>$siembra
+            'siembras' =>$siembras
 
         ]);
     }
