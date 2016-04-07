@@ -138,21 +138,6 @@ class salidaDePlantaController extends Controller
         if ($validator->fails()) {
         }
         else{
-
-            /*Busqueda sin parametros*/
-            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->invernadero == "") {
-                $preparaciones = preparacionPlantula::orderBy('fecha', 'desc')->paginate(15);;
-
-            }
-
-            /*Busqueda solo con invernadero*/
-            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->invernadero != "") {
-                $preparaciones = preparacionPlantula::where('id_invernaderoPlantula', $request->invernadero)->orderBy('fecha', 'desc')->paginate(15);;
-
-            }
-
-
-
             /*Pregunta si se mandaron fechas, para calcular busquedas con fechas*/
             if ( $request->fechaFin != "" && $request->fechaInicio !="") {
 
@@ -167,23 +152,18 @@ class salidaDePlantaController extends Controller
 
                 /*Solo con fechas*/
                 if ($request->invernadero == "") {
-                    $preparaciones = preparacionPlantula::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                    $salidas = salidaPlanta::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
                 }
-                /*Fechas e invernadero*/
-                if ($request->invernadero != "") {
-                    $preparaciones = preparacionPlantula::where('id_invernaderoPlantula', $request->invernadero)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
-                }
-
             }
         }
 
 
-        if($preparaciones!=null){
+        if($salidas!=null){
             /*Adapta el formato de fecha para poder imprimirlo en la vista adecuadamente*/
-            $this->adaptaFechas($preparaciones);
+            $this->adaptaFechas($salidas);
 
             /*Si no es nulo puede contar los resultados*/
-            $num = $preparaciones->total();
+            $num = $salidas->total();
         }
         else{
             $num=0;
@@ -197,9 +177,8 @@ class salidaDePlantaController extends Controller
             Session::flash('message', 'Se encontraron '.$num.' resultados');
         }
         /*Regresa la vista*/
-        return view('Plantula/preparacion/buscar')->with([
-            'preparaciones'=>$preparaciones,
-            'invernaderos' => $invernaderos
+        return view('Plantula/SalidaPlanta/buscar')->with([
+            'salidas'=>$salidas
         ]);
     }
 

@@ -1,49 +1,46 @@
 <?php
 
 
-/*
- * Rutas para Plantula-Labores Culturales
- */
-Route::get('plantula/preparacion',[
-    'uses' => 'preparacionPlantulaController@index',
-    'as' =>'plantula/preparacion'
+Route::get('plantula/salidaplanta',[
+    'uses' => 'salidaDePlantaController@index',
+    'as' =>'plantula/salidaplanta'
 
 ]);
 
 
-Route::get('plantula/preparacion/lista',[
-        'uses' =>'preparacionPlantulaController@buscar',
-        'as' =>'plantula/preparacion/lista']
+Route::get('plantula/salidaplanta/lista',[
+        'uses' =>'salidaDePlantaController@buscar',
+        'as' =>'plantula/salidaplanta/lista']
 
 );
 
-Route::get('plantula/preparacion/crear',[
-    'uses' => 'preparacionPlantulaController@pagCrear',
-    'as' =>'plantula/preparacion/crear'
+Route::get('plantula/salidaplanta/crear',[
+    'uses' => 'salidaDePlantaController@pagCrear',
+    'as' =>'plantula/salidaplanta/crear'
 
 ]);
 
-Route::post('plantula/preparacion/crear/','preparacionPlantulaController@crear',array('before' => 'csrf', function() {
+Route::post('plantula/salidaplanta/crear/','salidaDePlantaController@crear',array('before' => 'csrf', function() {
     //
 }));
 
-Route::get('plantula/preparacion/modificar/{id}',[
-    'uses' => 'preparacionPlantulaController@pagModificar',
-    'as' =>'plantula/preparacion/modificar/item'
+Route::get('plantula/salidaplanta/modificar/{id}',[
+    'uses' => 'salidaDePlantaController@pagModificar',
+    'as' =>'plantula/salidaplanta/modificar/item'
 
 ]);
 
 
-Route::post('plantula/preparacion/modificar','preparacionPlantulaController@modificar',array('before' => 'csrf', function() {
+Route::post('plantula/salidaplanta/modificar','salidaDePlantaController@modificar',array('before' => 'csrf', function() {
     //
 }));
 
-Route::post('plantula/preparacion/eliminar','preparacionPlantulaController@eliminar',array('before' => 'csrf', function() {
+Route::post('plantula/salidaplanta/eliminar','salidaDePlantaController@eliminar',array('before' => 'csrf', function() {
 
 }));
 
-Route::get('plantula/preparacion/consultar/{id}',[
-    'uses' => 'preparacionPlantulaController@pagConsultar',
-    'as' =>'plantula/preparacion/consultar/item'
+Route::get('plantula/salidaplanta/consultar/{id}',[
+    'uses' => 'salidaDePlantaController@pagConsultar',
+    'as' =>'plantula/salidaplanta/consultar/item'
 
 ]);

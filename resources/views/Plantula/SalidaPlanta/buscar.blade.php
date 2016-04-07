@@ -60,7 +60,7 @@ MAIN SIDEBAR MENU
                             @include('Partials.Mensajes.mensajes')
 
                             <div class="form-group" align="right">
-                                <a href="{{route('invernadero-plantula/salidaplanta/crear')}}"> <button class="btn agregar tooltips" data-placement="left" data-original-title="Agregar"><i class="fa fa-plus"></i></i></button></a>
+                                <a href="{{route('plantula/salidaplanta/crear')}}"> <button class="btn agregar tooltips" data-placement="left" data-original-title="Agregar"><i class="fa fa-plus"></i></i></button></a>
                             </div>
 
                             <div class="row">
@@ -68,7 +68,7 @@ MAIN SIDEBAR MENU
 
 
 
-                                    {!! Form::open(['route' => 'invernadero-plantula/salidaplanta/lista' ,'method'=>'GET']) !!}
+                                    {!! Form::open(['route' => 'plantula/salidaplanta/lista' ,'method'=>'GET']) !!}
 
 
 
@@ -133,16 +133,16 @@ MAIN SIDEBAR MENU
 
 
                                                         <td style="width: 5px">
-                                                            <a href="{{ route('invernadero/siembra/consultar/item',$salida->id) }}"><button class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar"><i class="fa fa-eye"></i></button></a>
+                                                            <a href="{{ route('plantula/salidaplanta/consultar/item',$salida->id) }}"><button class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar"><i class="fa fa-eye"></i></button></a>
                                                         </td>
 
                                                         <td style="width: 5px">
-                                                            <a href="{{ route('invernadero/siembra/modificar/item',$salida->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
+                                                            <a href="{{ route('plantula/salidaplanta/modificar/item',$salida->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
                                                         </td>
 
                                                         <td style="width: 5px">
-                                                            {!! Form::open(['action'=>['siembraTransplanteInvernaderoController@eliminar'],'role'=>'form'] )  !!}
-                                                            <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la siembra?")'><i class="fa fa-trash-o "></i></button>
+                                                            {!! Form::open(['action'=>['salidaDePlantaController@eliminar'],'role'=>'form'] )  !!}
+                                                            <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la salida de planta?")'><i class="fa fa-trash-o "></i></button>
                                                             <input type="hidden" name="id" value={{$salida->id}}>
                                                             {!! Form::close() !!}
                                                         </td>
