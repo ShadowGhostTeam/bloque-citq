@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 
-class preparacionPlantulaController extends Controller
+class preparaci extends Controller
 {
     public function index() {
         $now= Carbon::now()->format('Y/m/d');
