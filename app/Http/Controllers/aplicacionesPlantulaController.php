@@ -34,7 +34,7 @@ class aplicacionesPlantulaController extends Controller
         $aplicacion = ['Fungicida','Herbicida','Insecticida','Podas'];
         $tipoAplicacion = ['Sistema de riego','Al suelo','Al follaje'];
 
-        return view('plantula/aplicaciones/buscar')->with([
+        return view('Plantula/aplicaciones/buscar')->with([
             'invernaderos' => $invernaderos,
             'aplicaciones' => $aplicaciones,
             'aplicacion'=>$aplicacion,
@@ -169,7 +169,7 @@ class aplicacionesPlantulaController extends Controller
         $aplicacion = ['Fungicida','Herbicida','Insecticida', 'Podas'];
         $tipoAplicacion = ['Sistema de riego','Al suelo', 'Al follaje'];
         /*Regresa la vista*/
-        return view('plantula/aplicaciones//buscar')->with([
+        return view('Plantula/aplicaciones//buscar')->with([
             'aplicaciones'=>$aplicaciones,
             'invernaderos' => $invernaderos,
             'aplicacion'=>$aplicacion,
@@ -184,7 +184,7 @@ class aplicacionesPlantulaController extends Controller
         $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
         $aplicacion = ['Fungicida','Herbicida','Insecticida','Podas'];
         $tipoAplicacion = ['Sistema de riego','Al suelo','Al follaje'];
-        return view('plantula/aplicaciones/crear')->with([
+        return view('Plantula/aplicaciones/crear')->with([
             'invernaderos' => $invernaderos,
             'aplicacion'=>$aplicacion,
             'tipoAplicacion'=>$tipoAplicacion
@@ -229,7 +229,7 @@ class aplicacionesPlantulaController extends Controller
 
 
 
-        return view('plantula/aplicaciones/modificar')->with([
+        return view('Plantula/aplicaciones/modificar')->with([
             'invernaderos' => $invernaderos,
             'siembras' => $siembrasTodas,
             'aplicacion'=>$aplicacion,
@@ -273,7 +273,7 @@ class aplicacionesPlantulaController extends Controller
             'nombre'=>$aplicaciones->siembra->cultivo->nombre);
 
 
-        return view('plantula/aplicaciones/consultar')->with([
+        return view('Plantula/aplicaciones/consultar')->with([
             'aplicaciones'=>$aplicaciones,
             'siembras' => $siembras
         ]);
