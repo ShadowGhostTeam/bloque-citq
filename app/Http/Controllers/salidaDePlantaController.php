@@ -129,7 +129,7 @@ class salidaDePlantaController extends Controller
         $salidaPlanta->save();
         $salidaPlanta->push();
         Session::flash('message', 'La salida de planta ha sido modificada');
-        return redirect('plantula/salidaplanta/modificar'.$salidaPlanta->id);
+        return redirect('plantula/salidaplanta/modificar/'.$salidaPlanta->id);
     }
 
     /*
