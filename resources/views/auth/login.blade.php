@@ -25,8 +25,8 @@
                 @endif
 
                  <div>
-                    <div  style="text-align: center;">
-                        <img class="logo" src="{{ asset('assets/img/CITQ.png') }}" alt="CITQ"><br>
+                    <div  style="text-align: center;" >
+                        <img class="logo" src="{{ asset('assets/img/citq.png') }}" alt="CITQ"><br>
                     </div>
 
 
