@@ -47,13 +47,13 @@
                 <select  class="form-control" id="siembraPlantula" name="siembraPlantula">
                     <option value="">Selecciona</option>
 
-                    @if( isset($siembras))
+                    @if( isset($salidaPlanta))
 
                         @foreach($siembras as $siembra)
-                            @if($siembras['id_siembraPlantula'] == $siembra['id_siembraPlantula'])
-                                <option value="{{  $siembra['id_siembraPlantula']  }}" selected > {{ $siembra['sustrato']."   ". $siembra['variedad'] . " - ". $siembra['fecha'] }}  </option>
+                            @if($siembraSeleccionada['id_siembra'] == $siembra['id_siembra'])
+                                <option value="{{  $siembra['id_siembra']  }}" selected > {{ $siembra['nombre']."   ". $siembra['variedad'] . " - ". $siembra['fecha'] }}  </option>
                             @else
-                                <option value="{{  $siembra['id_siembraPlantula']  }}"  > {{ $siembra['sustrato']."   ". $siembra['variedad'] ." - " . $siembra['fecha']  }}  </option>
+                                <option value="{{  $siembra['id_siembra']  }}"  > {{ $siembra['nombre']."   ". $siembra['variedad'] ." - " . $siembra['fecha']  }}  </option>
                             @endif
                         @endforeach
 

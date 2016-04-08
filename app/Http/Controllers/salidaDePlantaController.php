@@ -54,16 +54,41 @@ class salidaDePlantaController extends Controller
      */
     public function pagModificar($id) {
         $salidaPlanta= salidaPlanta::findOrFail($id);
-        $siembras = siembraPlantula::select('id','sustrato')->orderBy('sustrato', 'asc')->get();
+        $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $fechaSiembraSeleccionada=Carbon::createFromFormat('Y-m-d H:i:s', $salidaPlanta->siembra->fecha);
+
+        $siembraSeleccionada = array(
+            'id_siembra'=>$salidaPlanta->id_siembraPlantula,
+            'variedad'=>$salidaPlanta->siembra->variedad,
+            'nombre'=>$salidaPlanta->siembra->cultivo->nombre,
+            'fecha'=>$fechaSiembraSeleccionada->format('d/m/Y')
+        );
+
+        $siembras = siembraPlantula::where('id_invernaderoPlantula',$salidaPlanta->id_invernaderoPlantula)->get();
+        $siembrasTodas=array();
+        foreach ($siembras as $siembra) {
+
+            $fechaSiembraToda=Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fecha);
+
+            array_push($siembrasTodas,array(
+                    'id_siembra' => $siembra->id,
+                    'variedad' => $siembra->variedad,
+                    'nombre' => $siembra->cultivo->nombre,
+                    'fecha' => $fechaSiembraToda->format('d/m/Y'))
+
+            );
+        }
+
         $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $salidaPlanta->fecha);
         $salidaPlanta->fecha=$fecha->format('d/m/Y');
-        $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
+
+
 
         return view('plantula/salidaplanta/modificar')->with([
-            'salidaPlanta'=>$salidaPlanta,
-            'invernaderos' =>$invernaderos,
-            'siembras' =>$siembras
-
+            'invernaderos' => $invernaderos,
+            'siembras' => $siembrasTodas,
+            'siembraSeleccionada' => $siembraSeleccionada,
+            'salidaPlanta' => $salidaPlanta,
         ]);
     }
 
