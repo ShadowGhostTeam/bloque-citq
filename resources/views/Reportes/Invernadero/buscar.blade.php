@@ -315,7 +315,7 @@ MAIN SIDEBAR MENU
                                                         <tr>
                                                             <td style="width: 5%"><?php echo $i;?></td>
                                                             <td >{{$resultado['Invernadero']}}</td>
-                                                            <td >{{$resultado['Siembra']}}</td>
+                                                            <td >{{$resultado['SalidaPlanta']}}</td>
                                                             <td >{{$resultado['Etapa fenológica']}}</td>
                                                             <td >{{$resultado['Tiempo de riego']}}</td>
                                                             <td >{{$resultado['Frecuencia']}}</td>

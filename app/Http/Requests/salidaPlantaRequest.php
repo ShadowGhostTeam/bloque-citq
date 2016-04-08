@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class preparacionPlantulaRequest extends Request
+class salidaPlantaRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,9 +25,8 @@ class preparacionPlantulaRequest extends Request
     {
         return [
             'invernadero'=>'required|exists:invernadero_plantula,id',
-            'sustrato' =>  'required',
-            'Charolas'=>'numeric|min:0',
-            'fecha' =>  'required |date_format:d/m/Y'
+            'siembraPlantula' => 'required|exists:siembra_plantula,id',
+            'fecha' =>  'required|date_format:d/m/Y'
         ];
     }
 }

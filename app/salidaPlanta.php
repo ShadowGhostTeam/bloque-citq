@@ -20,7 +20,7 @@ class salidaPlanta extends Model
      *
      * @var array
      */
-    protected $fillable = ['fecha','descripcion','id_invernaderoPlantula','id_siembraPlantula'];
+    protected $fillable = ['fecha','comentario','id_invernaderoPlantula','id_siembraPlantula'];
 
 
     /**
@@ -42,6 +42,6 @@ class salidaPlanta extends Model
         return $this->belongsTo('App\siembraPlantula','id_siembraPlantula');
     }
     public  function invernadero(){
-        return $this->belongsTo('App\invernadero','id_invernaderoPlantula');
+        return $this->belongsTo('App\invernaderoPlantula','id_invernaderoPlantula');
     }
 }

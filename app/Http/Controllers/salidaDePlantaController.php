@@ -9,9 +9,11 @@
 namespace App\Http\Controllers;
 
 use App\invernadero;
-use App\Http\Requests\preparacionPlantulaRequest;
+
+use App\Http\Requests\salidaPlantaRequest;
 use App\invernaderoPlantula;
-use App\preparacionPlantula;
+use App\salidaPlanta;
+use App\siembraPlantula;
 use Carbon\Carbon;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -19,19 +21,18 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 
-class preparacionPlantulaController extends Controller
+class salidaDePlantaController extends Controller
 {
     public function index() {
         $now= Carbon::now()->format('Y/m/d');
         $now2 =Carbon::now()->subMonth(6)->format('Y/m/d');
-        $preparaciones = preparacionPlantula::whereBetween('fecha', array($now2,$now))->orderBy('fecha', 'desc')->paginate(15);
-        $this->adaptaFechas($preparaciones);
+        $salidas = salidaPlanta::whereBetween('fecha', array($now2,$now))->orderBy('fecha', 'des')->paginate(15);
+        $this->adaptaFechas($salidas);
 
         $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        return view('Plantula/preparacion/buscar')->with([
-            'invernaderos' => $invernaderos,
-            'preparaciones'=>$preparaciones
-
+        return view('plantula/salidaplanta/buscar')->with([
+            'invernaderos' =>$invernaderos,
+            'salidas'=>$salidas
         ]);
     }
 
@@ -41,7 +42,8 @@ class preparacionPlantulaController extends Controller
     public function pagCrear() {
         $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
-        return view('Plantula/preparacion/crear')->with([
+
+        return view('plantula/salidaplanta/crear')->with([
             'invernaderos' => $invernaderos
 
         ]);
@@ -51,15 +53,42 @@ class preparacionPlantulaController extends Controller
      * Devuelve vista modificar con los valores del registro que se manda como parametro ($id)
      */
     public function pagModificar($id) {
-        $preparacionPlantula= preparacionPlantula::findOrFail($id);
-        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $preparacionPlantula->fecha);
-        $preparacionPlantula->fecha=$fecha->format('d/m/Y');
+        $salidaPlanta= salidaPlanta::findOrFail($id);
         $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $fechaSiembraSeleccionada=Carbon::createFromFormat('Y-m-d H:i:s', $salidaPlanta->siembra->fecha);
 
-        return view('Plantula/preparacion/modificar')->with([
-            'preparacionPlantula'=>$preparacionPlantula,
-            'invernaderos' => $invernaderos
+        $siembraSeleccionada = array(
+            'id_siembra'=>$salidaPlanta->id_siembraPlantula,
+            'variedad'=>$salidaPlanta->siembra->variedad,
+            'nombre'=>$salidaPlanta->siembra->cultivo->nombre,
+            'fecha'=>$fechaSiembraSeleccionada->format('d/m/Y')
+        );
 
+        $siembras = siembraPlantula::where('id_invernaderoPlantula',$salidaPlanta->id_invernaderoPlantula)->get();
+        $siembrasTodas=array();
+        foreach ($siembras as $siembra) {
+
+            $fechaSiembraToda=Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fecha);
+
+            array_push($siembrasTodas,array(
+                    'id_siembra' => $siembra->id,
+                    'variedad' => $siembra->variedad,
+                    'nombre' => $siembra->cultivo->nombre,
+                    'fecha' => $fechaSiembraToda->format('d/m/Y'))
+
+            );
+        }
+
+        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $salidaPlanta->fecha);
+        $salidaPlanta->fecha=$fecha->format('d/m/Y');
+
+
+
+        return view('plantula/salidaplanta/modificar')->with([
+            'invernaderos' => $invernaderos,
+            'siembras' => $siembrasTodas,
+            'siembraSeleccionada' => $siembraSeleccionada,
+            'salidaPlanta' => $salidaPlanta,
         ]);
     }
 
@@ -68,12 +97,12 @@ class preparacionPlantulaController extends Controller
      */
 
     public function pagConsultar($id) {
-        $preparacionPlantula= preparacionPlantula::findOrFail($id);
-        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $preparacionPlantula->fecha);
-        $preparacionPlantula->fecha=$fecha->format('d/m/Y');
+        $salidaPlanta= salidaPlanta::findOrFail($id);
+        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $salidaPlanta->fecha);
+        $salidaPlanta->fecha=$fecha->format('d/m/Y');
 
-        return view('Plantula/preparacion/consultar')->with([
-            'preparacionPlantula'=>$preparacionPlantula
+        return view('plantula/salidaplanta/consultar')->with([
+            'salidaPlanta'=>$salidaPlanta
         ]);
     }
 
@@ -83,34 +112,35 @@ class preparacionPlantulaController extends Controller
      * Recibe la informacion del formulario de crear y la almacena en la base de datos
      */
 
-    public function crear(preparacionPlantulaRequest $request){
-        $preparacion=$this->adaptarRequest($request);
-        $preparacion->save();
-        Session::flash('message', 'La preparacion ha sido agregada');
-        return redirect('invernadero/preparacion/crear');
+    public function crear(salidaPlantaRequest $request){
+        //dd('aqui');
+        $salidaPlanta=$this->adaptarRequest($request);
+        $salidaPlanta->save();
+        Session::flash('message', 'La salida de planta ha sido creada');
+        return redirect('plantula/salidaplanta/crear');
     }
 
 
     /*
      * Recibe la informacion del formulario de modificar y la actualiza en la base de datos
      */
-    public function modificar(preparacionPlantulaRequest $request){
-        $preparacion=$this->adaptarRequest($request);
-        $preparacion->save();
-        $preparacion->push();
-        Session::flash('message', 'La preparacion ha sido modificada');
-        return redirect('invernadero/preparacion/modificar/'.$preparacion->id);
+    public function modificar(salidaPlantaRequest $request){
+        $salidaPlanta=$this->adaptarRequest($request);
+        $salidaPlanta->save();
+        $salidaPlanta->push();
+        Session::flash('message', 'La salida de planta ha sido modificada');
+        return redirect('plantula/salidaplanta/modificar/'.$salidaPlanta->id);
     }
 
     /*
      * Elimina un registro de la base de datos
      */
     public function eliminar(Request $request){
-        $preparacion= preparacionPlantula::findOrFail($request->id);
-        $preparacion->delete();
+        $salidaPlanta= salidaPlanta::findOrFail($request->id);
+        $salidaPlanta->delete();
 
-        Session::flash('message','La preparacion ha sido eliminada');
-        return redirect('invernadero/preparacion');
+        Session::flash('message','La salida de planta ha sido eliminada');
+        return redirect('plantula/salidaplanta');
     }
 
     /*
@@ -121,34 +151,19 @@ class preparacionPlantulaController extends Controller
         /*Listados de combobox*/
         $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
         /*Ahi se guardaran los resultados de la busqueda*/
-        $preparaciones=null;
+        $salidas=null;
 
 
         $validator = Validator::make($request->all(), [
             'fechaInicio' => 'date_format:d/m/Y',
             'fechaFin' => 'date_format:d/m/Y',
-            'invernadero' => 'exists:invernadero_plantula,id'
+            //'invernadero' => 'exists:invernadero_plantula,id'
         ]);
 
         /*Si validador no falla se pueden realizar busquedas*/
         if ($validator->fails()) {
         }
         else{
-
-            /*Busqueda sin parametros*/
-            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->invernadero == "") {
-                $preparaciones = preparacionPlantula::orderBy('fecha', 'desc')->paginate(15);;
-
-            }
-
-            /*Busqueda solo con invernadero*/
-            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->invernadero != "") {
-                $preparaciones = preparacionPlantula::where('id_invernaderoPlantula', $request->invernadero)->orderBy('fecha', 'desc')->paginate(15);;
-
-            }
-
-
-
             /*Pregunta si se mandaron fechas, para calcular busquedas con fechas*/
             if ( $request->fechaFin != "" && $request->fechaInicio !="") {
 
@@ -162,24 +177,19 @@ class preparacionPlantulaController extends Controller
                 /*Hay cuatro posibles casos de busqueda con fechas, cada if se basa en un caso */
 
                 /*Solo con fechas*/
-                if ($request->invernadero == "") {
-                    $preparaciones = preparacionPlantula::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
-                }
-                /*Fechas e invernadero*/
-                if ($request->invernadero != "") {
-                    $preparaciones = preparacionPlantula::where('id_invernaderoPlantula', $request->invernadero)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
-                }
+
+                $salidas = salidaPlanta::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
 
             }
         }
 
 
-        if($preparaciones!=null){
+        if($salidas!=null){
             /*Adapta el formato de fecha para poder imprimirlo en la vista adecuadamente*/
-            $this->adaptaFechas($preparaciones);
+            $this->adaptaFechas($salidas);
 
             /*Si no es nulo puede contar los resultados*/
-            $num = $preparaciones->total();
+            $num = $salidas->total();
         }
         else{
             $num=0;
@@ -193,9 +203,8 @@ class preparacionPlantulaController extends Controller
             Session::flash('message', 'Se encontraron '.$num.' resultados');
         }
         /*Regresa la vista*/
-        return view('Plantula/preparacion/buscar')->with([
-            'preparaciones'=>$preparaciones,
-            'invernaderos' => $invernaderos
+        return view('plantula/salidaplanta/buscar')->with([
+                'salidas'=>$salidas
         ]);
     }
 
@@ -208,18 +217,18 @@ class preparacionPlantulaController extends Controller
      * Recibe la informacion del formulario de crear y la adapta a los campos del modelo
      */
     public function adaptarRequest($request){
-        $preparacion=new preparacionPlantula($request->all());
+        $salidaPlanta=new salidaPlanta($request->all());
         if(isset($request->id)) {
-            $preparacion = preparacionPlantula::findOrFail($request->id);
+            $salidaPlanta = salidaPlanta::findOrFail($request->id);
         }
 
-        $preparacion->id_invernaderoPlantula= $request->invernadero;
-        $preparacion->sustrato= $request->sustrato;
-        $preparacion->charolas= $request->charolas;
-        $preparacion->fecha=Carbon::createFromFormat('d/m/Y', $request->fecha)->toDateTimeString();
+        $salidaPlanta->id_invernaderoPlantula= $request->invernadero;
+        $salidaPlanta->id_siembraPlantula = $request->siembraPlantula;
+        $salidaPlanta->fecha=Carbon::createFromFormat('d/m/Y', $request->fecha)->toDateTimeString();
+        $salidaPlanta->comentario= $request->comentario;
 
 
-        return $preparacion;
+        return $salidaPlanta;
     }
     /*
      * Adapta fechas de resultado de busqueda a formato adecuado para imprimir en la vista de busqueda
