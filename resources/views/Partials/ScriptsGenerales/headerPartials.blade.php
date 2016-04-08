@@ -5,7 +5,7 @@
     </div>
 
     <!--logo start-->
-    <a href="#" class="logo"><img align="middle" style="width:180px;position:absolute" src="{{ asset('assets/img/citq.png') }}"></a>
+    <a href="#" class="logo"><img align="middle" style="width:170px;height:30px;position:absolute" src="{{ asset('assets/img/citq.png') }}"></a>
     <!--logo end-->
 
     <div class="nav notify-row" id="top_menu">

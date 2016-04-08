@@ -32,6 +32,7 @@
                             </div>
                         @endif
                     </div>
+<<<<<<< HEAD
                     <div class="login">
                         <form class="form" role="form" method="POST" action="{{ route('login') }}">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -52,6 +53,13 @@
                                         <span class="ch"> <a class="letras" href="{{ url('/password/email') }}">Olvidaste la contraseña </a></span></div></li>
                             </ul>
                         </form>
+=======
+                @endif
+
+                 <div>
+                    <div  style="text-align: center;" >
+                        <img class="logo" src="{{ asset('assets/img/citq.png') }}" alt="CITQ"><br>
+>>>>>>> crudAplicacionMantenimiento
                     </div>
                 </div>
             </div>
