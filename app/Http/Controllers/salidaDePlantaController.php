@@ -30,7 +30,7 @@ class salidaDePlantaController extends Controller
         $this->adaptaFechas($salidas);
 
         $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        return view('plantula/salidaplanta/buscar')->with([
+        return view('plantula/SalidaPlanta/buscar')->with([
             'invernaderos' =>$invernaderos,
             'salidas'=>$salidas
         ]);
@@ -43,7 +43,7 @@ class salidaDePlantaController extends Controller
         $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
 
-        return view('plantula/salidaplanta/crear')->with([
+        return view('plantula/SalidaPlanta/crear')->with([
             'invernaderos' => $invernaderos
 
         ]);
@@ -84,7 +84,7 @@ class salidaDePlantaController extends Controller
 
 
 
-        return view('plantula/salidaplanta/modificar')->with([
+        return view('plantula/SalidaPlanta/modificar')->with([
             'invernaderos' => $invernaderos,
             'siembras' => $siembrasTodas,
             'siembraSeleccionada' => $siembraSeleccionada,
@@ -101,7 +101,7 @@ class salidaDePlantaController extends Controller
         $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $salidaPlanta->fecha);
         $salidaPlanta->fecha=$fecha->format('d/m/Y');
 
-        return view('plantula/salidaplanta/consultar')->with([
+        return view('plantula/SalidaPlanta/consultar')->with([
             'salidaPlanta'=>$salidaPlanta
         ]);
     }
