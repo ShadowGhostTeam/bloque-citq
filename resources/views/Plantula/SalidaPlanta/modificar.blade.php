@@ -14,7 +14,7 @@
     MAIN SIDEBAR MENU
     *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Plantula.SalidaPlanta.aside')
+    @include('Plantula.salidaplanta.aside')
             <!--sidebar end-->
 
     <section id="container">
@@ -57,7 +57,7 @@
 
 
 
-                            @include('Plantula.SalidaPlanta.Partials.form')
+                            @include('Plantula.salidaplanta.Partials.form')
                             <input type="hidden" name="id" value="{{$salidaPlanta->id}}">
                             {!! Form::close() !!}
                         </div>
@@ -69,8 +69,8 @@
     </section>
 </section>
 
-@include('Plantula.SalidaPlanta.Partials.validator')
+@include('Plantula.salidaplanta.Partials.validator')
 
-@include('Plantula.SalidaPlanta.Partials.ajaxScript')
+@include('Plantula.salidaplanta.Partials.ajaxScript')
 
 @include('Partials.ScriptsGenerales.scriptsPartialsAbajo')

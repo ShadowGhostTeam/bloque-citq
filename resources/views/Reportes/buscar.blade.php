@@ -361,7 +361,7 @@ MAIN SIDEBAR MENU
                                                         <tr>
                                                             <td style="width: 5%"><?php echo $i;?></td>
                                                             <td >{{$resultado['Sector']}}</td>
-                                                            <td >{{$resultado['SalidaPlanta']}}</td>
+                                                            <td >{{$resultado['salidaplanta']}}</td>
                                                             <td >{{$resultado['Tiempo']}}</td>
                                                             <td >{{$resultado['Distancia entre líneas']}}</td>
                                                             <td >{{$resultado['Litros/Hectárea']}}</td>

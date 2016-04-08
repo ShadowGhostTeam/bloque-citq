@@ -14,7 +14,7 @@
     MAIN SIDEBAR MENU
     *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Plantula.SalidaPlanta.aside')
+    @include('Plantula.salidaplanta.aside')
             <!--sidebar end-->
 
     <section id="container">

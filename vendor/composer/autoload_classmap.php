@@ -2488,7 +2488,7 @@ return array(
     'Psy\\VarDumper\\PresenterAware' => $vendorDir . '/psy/psysh/src/Psy/VarDumper/PresenterAware.php',
     'Riego' => $baseDir . '/database/migrations/2016_02_12_183348_riego.php',
     'RiegoPlantula' => $baseDir . '/database/migrations/2016_03_05_034400_riegoPlantula.php',
-    'SalidaPlanta' => $baseDir . '/database/migrations/2016_02_14_155124_salidaPlanta.php',
+    'salidaplanta' => $baseDir . '/database/migrations/2016_02_14_155124_salidaPlanta.php',
     'SebastianBergmann\\Comparator\\ArrayComparator' => $vendorDir . '/sebastian/comparator/src/ArrayComparator.php',
     'SebastianBergmann\\Comparator\\Comparator' => $vendorDir . '/sebastian/comparator/src/Comparator.php',
     'SebastianBergmann\\Comparator\\ComparisonFailure' => $vendorDir . '/sebastian/comparator/src/ComparisonFailure.php',
