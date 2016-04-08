@@ -21,7 +21,10 @@
                 <strong>*</strong>Invernadero de Plántula
             </label>
             <div class="col-lg-10">
-                <select  class="form-control" id="invernadero" name="invernadero" disabled>
+                @if(isset($invernadero))
+                    <input type="hidden" value="{{$invernadero}}" name="invernadero"/>
+                @endif
+                <select  class="form-control" id="invernadero" name="invy" disabled>
                     @if( isset($siembra))
                         @if(isset($invernadero))
                             <option value="{{ $invernadero }}" selected> {{ $invernadero->nombre }} </option>
