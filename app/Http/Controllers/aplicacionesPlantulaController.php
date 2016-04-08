@@ -169,7 +169,7 @@ class aplicacionesPlantulaController extends Controller
         $aplicacion = ['Fungicida','Herbicida','Insecticida', 'Podas'];
         $tipoAplicacion = ['Sistema de riego','Al suelo', 'Al follaje'];
         /*Regresa la vista*/
-        return view('plantula/aplicaciones//buscar')->with([
+        return view('plantula/aplicaciones/buscar')->with([
             'aplicaciones'=>$aplicaciones,
             'invernaderos' => $invernaderos,
             'aplicacion'=>$aplicacion,
