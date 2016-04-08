@@ -21,7 +21,7 @@
         <section id="main-content">
             <section class="wrapper site-min-height">
                 <h3>
-                    <a href="{{ route('Plantula/siembra') }}">
+                    <a href="{{ route('plantula/siembra') }}">
                         <button type="button" class="btn btn-primary">
                             <i class="glyphicon glyphicon-arrow-left"></i>
                             Búsqueda
@@ -36,7 +36,7 @@
 
                             @include('Partials.Mensajes.mensajes')
 
-                            {!! Form::open(['action'=>['siembraTransplantePlantulaController@crear'],'class'=>'form-horizontal','role'=>'form','id'=>'formulario'])!!}
+                            {!! Form::open(['action'=>['siembraPlantulaController@crear'],'class'=>'form-horizontal','role'=>'form','id'=>'formulario'])!!}
 
                             <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear siembra</h4><br>
 

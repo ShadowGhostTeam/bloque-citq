@@ -53,7 +53,7 @@ class siembraPlantulaController extends Controller
         $validator = Validator::make($request->all(), [
             'fechaInicio' => 'date_format:d/m/Y',
             'fechaFin' => 'date_format:d/m/Y',
-            'invernadero' => 'exists:invernadero,id',
+            'invernadero' => 'exists:invernaderoPlantula,id',
             'cultivo' => 'exists:cultivo,id',
             'status'=>'in:Activo,Terminado',
         ]);
@@ -188,13 +188,19 @@ class siembraPlantulaController extends Controller
     /*Devuelve la vista de crear con los valores de los combobox*/
     public function pagCrear()
     {
-        $invernaderos= invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $invernadero = invernaderoPlantula::select('id', 'nombre')->first();
+        $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
         $cultivos = cultivo::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $contenedores = ['Tipo1', 'Tipo2'];
+        $destinos = ['Campo', 'Invernadero'];
         $tipoStatus = ['Activo', 'Terminado'];
 
         return view('Plantula/Siembra/crear')->with([
+            'invernadero' => $invernadero,
             'invernaderos' => $invernaderos,
+            'contenedores' => $contenedores,
             'cultivos' => $cultivos,
+            'destinos' => $destinos,
             'tipoStatus' => $tipoStatus
         ]);
     }
@@ -207,8 +213,16 @@ class siembraPlantulaController extends Controller
     {
         $siembra= siembraPlantula::findOrFail($id);
 
-        $invernaderos= invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $invernadero = $siembra->invernadero;
+        $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
         $cultivos = cultivo::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $contenedores = ['Tipo1','Tipo2'];
+        $contenedor = $siembra->contenedor;
+        $destinos = ['Campo', 'Invernadero'];
+        $destino = $siembra->destino;
+        $numPlantas = $siembra->numPlantas;
+        $sustrato = $siembra->sustrato;
+        $variedad = $siembra->variedad;
         $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $siembra->fecha);
         if ($siembra->fechaTerminacion == "0000-00-00 00:00:00"){
 
@@ -219,10 +233,18 @@ class siembraPlantulaController extends Controller
         $siembra->fecha=$fecha->format('d/m/Y');
         $tipoStatus = ['Activo', 'Terminado'];
 
-        return view('Invernadero/Siembra/modificar')->with([
+        return view('Plantula/Siembra/modificar')->with([
+            'invernadero' => $invernadero,
             'invernaderos' => $invernaderos,
             'cultivos' => $cultivos,
-            'siembraInvernadero' => $siembra,
+            'contenedores' => $contenedores,
+            'contenedor' => $contenedor,
+            'numPlantas' => $numPlantas,
+            'sustrato' => $sustrato,
+            'variedad' => $variedad,
+            'siembra' => $siembra,
+            'destinos' => $destinos,
+            'destino' => $destino,
             'tipoStatus' => $tipoStatus,
         ]);
     }
@@ -259,7 +281,7 @@ class siembraPlantulaController extends Controller
             $siembra = siembraPlantula::findOrFail($request->id);
         }
 
-        $siembra->id_invernadero = $request->invernadero;
+        $siembra->id_invernaderoPlantula = $request->invernadero;
         $siembra->id_cultivo = $request->cultivo;
         $siembra->fecha = Carbon::createFromFormat('d/m/Y', $request->fecha)->toDateTimeString();
 
@@ -268,7 +290,11 @@ class siembraPlantulaController extends Controller
         }
 
         $siembra->status = $request->status;
+        $siembra->contenedor = $request->contenedor;
+        $siembra->sustrato = $request->sustrato;
         $siembra->variedad = $request->variedad;
+        $siembra->numPlantas = $request->numPlantas;
+        $siembra->destino = $request->destino;
         $siembra->comentario = $request->comentario;
         return $siembra;
     }

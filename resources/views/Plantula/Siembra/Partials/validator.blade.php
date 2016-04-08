@@ -32,11 +32,8 @@
                 },
                 numPlantas: {
                     validators: {
-                        notEmpty: {
-                            message: 'Ingrese un número'
-                        },
                         greaterThan:{
-                            value: -1,
+                            value: 0,
                             message: 'Ingrese número mayor o igual a 0'
                         },
                         stringLength: {

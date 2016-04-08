@@ -25,9 +25,15 @@ class siembraPlantulaRequest extends Request
     {
         return [
             'invernadero'=>'required|exists:invernaderoPlantula,id',
+            'contenedor' => 'required|in:Tipo1,Tipo2',
             'cultivo' => 'required|exists:cultivo,id',
+            'numPlantas' => 'numeric|min:0',
+            'sustrato' => 'max:255',
+            'variedad' => 'max:255',
+            'destino' => 'required|in:Campo,Invernadero',
             'fecha' =>  'required|date_format:d/m/Y',
             'status'=>'required|in:Activo,Terminado',
+            'comentario'=>'max:65535'
         ];
     }
 }
