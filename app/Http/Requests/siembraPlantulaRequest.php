@@ -24,7 +24,7 @@ class siembraPlantulaRequest extends Request
     public function rules()
     {
         return [
-            'invernadero'=>'required|exists:invernadero,id',
+            'invernadero'=>'required|exists:invernaderoPlantula,id',
             'cultivo' => 'required|exists:cultivo,id',
             'fecha' =>  'required|date_format:d/m/Y',
             'status'=>'required|in:Activo,Terminado',

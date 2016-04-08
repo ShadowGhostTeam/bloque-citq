@@ -42,7 +42,7 @@
                 </ul>
             </li>
             <li class="sub-menu">
-                <a href="#"  class="active">
+                <a href="#">
                     <i class="fa fa-th-large"></i>
                     <span>Invernadero&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <i class="fa fa-caret-down"></i>
@@ -79,7 +79,7 @@
                 </ul>
             </li>
             <li class="sub-menu">
-                <a href="#" >
+                <a href="#" class="active">
                     <i class="fa fa-stop"></i>
                     <span>Inv. Plántula&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <i class="fa fa-caret-down"></i>
@@ -91,7 +91,7 @@
                             <span>Preparación </span>
                         </a></li>
 
-                    <li><a href="{{route('sector/siembra')}}">
+                    <li><a href="{{route('plantula/siembra')}}" class="active">
                             <i class="fa fa-leaf"></i>
                             <span>Siembra </span>
                         </a></li>

@@ -73,12 +73,17 @@ MAIN SIDEBAR MENU
                                     <div class="form-group">
 
                                         <div class="col-lg-2">
-                                            <select  class="form-control" id="invernaderoPlantula" name="invernaderoPlantula">
+                                            <select  class="form-control" id="invernaderoPlantula" name="invernaderoPlantula" disabled>
                                                 <option value="">Todos los invernaderos de plantula</option>
 
                                                 @if( isset($invernaderos))
                                                     @foreach($invernaderos as $invernadero)
-                                                        <option value="{{  $invernadero->id  }}" > {{ $invernadero->nombre}}  </option>
+                                                        @if($invernadero->id === 1)
+                                                            <option value="" selected> {{ $invernadero->nombre}}  </option>
+                                                        @else
+                                                            <option value="{{  $invernadero->id  }}" > {{ $invernadero->nombre}}  </option>
+                                                        @endif
+
                                                     @endforeach
                                                 @endif
                                             </select>
@@ -152,7 +157,10 @@ MAIN SIDEBAR MENU
                                             <thead>
                                             <tr>
                                                 <th><i class="fa fa-thumb-tack"></i> Invernadero de plántula </th>
+                                                <th><i class="fa fa-database"></i> Contenedor </th>
                                                 <th> <i class="fa fa-tree"></i> Cultivo </th>
+                                                <th> <i class="fa fa-hand-o-up"></i> Número de Plantas </th>
+                                                <th> <i class="fa fa-lemon-o"></i> Sustrato </th>
                                                 <th><i class="fa fa-calendar-o"></i> Fecha </th>
                                                 <th><i class="fa fa-circle-thin"></i> Status </th>
                                                 <th><i class="fa fa-calendar-o"></i> Fecha de Terminación </th>
@@ -166,7 +174,10 @@ MAIN SIDEBAR MENU
 
                                                     <tr>
                                                         <td>{{ $siembra->invernadero->nombre }}</td>
+                                                        <td>{{ $siembra->contenedor }}</td>
                                                         <td>{{ $siembra->cultivo->nombre }}</td>
+                                                        <td>{{ $siembra->numPlantas }}</td>
+                                                        <td>{{ $siembra->sustrato }}</td>
                                                         <td>{{ $siembra->fecha }}</td>
                                                         <td>{{ $siembra->status }}</td>
                                                         @if ( $siembra->fechaTerminacion == "30/11/-0001" )
@@ -184,7 +195,7 @@ MAIN SIDEBAR MENU
                                                         </td>
 
                                                         <td style="width: 5px">
-                                                            {!! Form::open(['action'=>['siembraTransplantePlantulaController@eliminar'],'role'=>'form'] )  !!}
+                                                            {!! Form::open(['action'=>['siembraPlantulaController@eliminar'],'role'=>'form'] )  !!}
                                                             <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la siembra?")'><i class="fa fa-trash-o "></i></button>
                                                             <input type="hidden" name="id" value={{$siembra->id}}>
                                                             {!! Form::close() !!}
