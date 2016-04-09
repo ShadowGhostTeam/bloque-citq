@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    $(document).ready(function ()
+    $(window).load(function ()
     {
 
 
@@ -7,7 +7,6 @@
 
 
             if (document.getElementsByName("invernadero").value == "") {
-                alert("hello");
                 $("#siembraPlantula").empty();
                 $("#siembraPlantula").append(
                         "<option value='' selected > Selecciona </option>");
