@@ -20,7 +20,7 @@
             <label for="Invernadero" class="col-lg-2 control-label"><strong>*</strong>Invernadero Plántula</label>
             <div class="col-lg-10">
 
-                <select  class="form-control" id="invernadero" name="invernadero">
+                <select  class="form-control" id="invernadero" name="invernadero" disabled>
                     <option value="">Selecciona</option>
 
                     @if( isset($aplicaciones))
@@ -33,10 +33,14 @@
                         @endforeach
                     @else
                         @foreach($invernaderos as $invernadero)
+                            @if($invernadero->id == 1)
+                                <option value="{{  $invernadero->id  }}" selected> {{ $invernadero->nombre}}  </option>
+                            @endif
                             <option value="{{  $invernadero->id  }}" > {{ $invernadero->nombre}}  </option>
                         @endforeach
                     @endif
                 </select>
+                <input type="hidden" id="id" name="invernadero" value="1"/>
             </div>
         </div>
 
@@ -51,9 +55,9 @@
 
                         @foreach($siembras as $siembra)
                             @if($siembraSeleccionada['id_siembra'] == $siembra['id_siembra'])
-                                <option value="{{  $siembra['id_siembra']  }}" selected > {{ $siembra['sustrato']."   ". $siembra['variedad'] . " - ". $siembra['fecha'] }}  </option>
+                                <option value="{{  $siembra['id_siembra']  }}" selected > {{ $siembra['nombre']."   ". $siembra['variedad'] . " - ". $siembra['fecha'] }}  </option>
                             @else
-                                <option value="{{  $siembra['id_siembra']  }}"  > {{ $siembra['sustrato']."   ". $siembra['variedad'] ." - " . $siembra['fecha']  }}  </option>
+                                <option value="{{  $siembra['id_siembra']  }}"  > {{ $siembra['nombre']."   ". $siembra['variedad'] ." - " . $siembra['fecha']  }}  </option>
                             @endif
                         @endforeach
 
@@ -87,16 +91,16 @@
 
                     @if( isset($aplicaciones))
 
-                        @foreach($aplicacion as $aplicacion)
-                            @if($aplicaciones->aplicacion == $aplicacion)
-                                <option value="{{  $aplicacion   }}" selected > {{ $aplicacion }}  </option>
+                        @foreach($aplicacion as $aplica)
+                            @if($aplicaciones->aplicacion == $aplica)
+                                <option value="{{  $aplica   }}" selected > {{ $aplica }}  </option>
                             @else
-                                <option value="{{  $aplicacion  }}" > {{ $aplicacion }}  </option>
+                                <option value="{{  $aplica  }}" > {{ $aplica }}  </option>
                             @endif
                         @endforeach
                     @else
-                        @foreach($aplicacion as $aplicacion)
-                            <option value="{{  $aplicacion }}" > {{ $aplicacion }}  </option>
+                        @foreach($aplicacion as $aplica)
+                            <option value="{{  $aplica }}" > {{ $aplica }}  </option>
                         @endforeach
                     @endif
                 </select>

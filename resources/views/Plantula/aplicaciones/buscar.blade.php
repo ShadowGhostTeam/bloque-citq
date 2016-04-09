@@ -75,14 +75,18 @@ MAIN SIDEBAR MENU
                                         <div class="form-group">
 
                                             <div class="col-lg-2">
-                                                <select  class="form-control" id="invernadero" name="invernadero">
+                                                <select  class="form-control" id="invernadero" name="invernadero" disabled>
                                                     <option value="">Invernadero Plántula</option>
                                                     @if( isset($invernaderos))
                                                         @foreach($invernaderos as $invernadero)
+                                                            @if($invernadero->id == 1)
+                                                                <option value="{{  $invernadero->id  }}" selected> {{ $invernadero->nombre}}  </option>
+                                                            @endif
                                                             <option value="{{  $invernadero->id  }}" > {{ $invernadero->nombre}}  </option>
                                                         @endforeach
                                                     @endif
                                                 </select>
+                                                <input type="hidden" name="invernadero" value="1"/>
                                             </div>
                                         </div>
 

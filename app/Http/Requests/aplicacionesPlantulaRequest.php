@@ -26,8 +26,8 @@ class aplicacionesPlantulaRequest extends Request
             'invernadero'=>'required|exists:invernadero,id',
             'siembraPlantula' => 'required|exists:siembra_plantula,id',
             'fecha' =>  'required|date_format:d/m/Y',
-            'aplicacion' => 'in:Fungicida, Herbicida, Insecticida, Podas',
-            'tipoAplicacion'=>'in:Sistema de riego, Al suelo, Al follaje'
+            'aplicacion' => 'in:Fungicida,Herbicida,Insecticida,Podas',
+            'tipoAplicacion'=>'in:Sistema de riego,Al suelo,Al follaje'
         ];
     }
 }

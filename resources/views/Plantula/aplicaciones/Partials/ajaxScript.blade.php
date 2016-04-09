@@ -3,16 +3,18 @@
     {
 
 
-        $("#invernadero").on('change', function (e) {
+        //$("#invernadero").on('change', function (e) {
 
 
-            if (document.getElementById("invernadero").value == "") {
+            if (document.getElementsByName("invernadero").value == "") {
+                alert("hello");
                 $("#siembraPlantula").empty();
                 $("#siembraPlantula").append(
                         "<option value='' selected > Selecciona </option>");
 
             } else {
-                var id= e.target.value;
+                //var id= e.target.value;
+                var id = document.getElementById("id").value;
                 $.ajax({
                             method: "GET",
                             url: "{{ URL::to('plantula/ajaxSiembraPlantula/carga?id=')  }}"+id,
@@ -36,7 +38,7 @@
 
             }
 
-        });
+        //});
     });
 </script>
 
