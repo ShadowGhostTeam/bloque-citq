@@ -561,7 +561,7 @@ class reportesPlantulaController extends Controller
         ///////////////////////////////Salida planta////////////////////////////////////////////////////
 
         if($filtros['cosechas']) {
-            $arrayCosechas[0]['Invernadero'] = "";
+            $arrayCosechas[0]['Invernadero plántula'] = "";
             $arrayCosechas[0]['Siembra'] = "";
             $arrayCosechas[0]['Fecha'] = "";
             $arrayCosechas[0]['Comentario'] = "";
