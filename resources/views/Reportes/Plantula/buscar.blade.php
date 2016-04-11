@@ -77,7 +77,7 @@ MAIN SIDEBAR MENU
 
                                                     @if( isset($invernaderos))
                                                         @foreach($invernaderos as $invernadero)
-                                                            <option value="{{  $invernadero->id  }}" > {{ $invernadero->nombre}}  </option>
+                                                            <option value="{{  $invernadero->id  }}" selected> {{ $invernadero->nombre}}  </option>
                                                         @endforeach
                                                     @endif
                                                 </select>
@@ -133,17 +133,17 @@ MAIN SIDEBAR MENU
                                             &nbsp;&nbsp;&nbsp;
                                             <label>
                                                 {!!Form::checkbox('filtros[]' ,'riegos',['class'=>'form-control','value'=>'Preparaciones','id'=>'chkPreparaciones'])!!}
-                                                Labores culturales
+                                                Riegos
                                             </label>
                                             &nbsp;&nbsp;&nbsp;
                                             <label>
                                                 {!!Form::checkbox('filtros[]' ,'aplicaciones',['class'=>'form-control','value'=>'Preparaciones','id'=>'chkPreparaciones'])!!}
-                                                Aplicaciones mantenimiento
+                                                Aplicaciones
                                             </label>
                                             &nbsp;&nbsp;&nbsp;
                                             <label>
                                                 {!!Form::checkbox('filtros[]' ,'cosechas',['class'=>'form-control','value'=>'Preparaciones','id'=>'chkPreparaciones'])!!}
-                                                Cosechas
+                                                Salidas de planta
                                             </label>
                                         </div>
                                     </div>
@@ -172,7 +172,7 @@ MAIN SIDEBAR MENU
 
                             <div>
                                 <div class="col-xs-12" align="right">
-                                    <a href="{{route('reportes/invernadero/excel',$string,$filtros)}}">
+                                    <a href="{{route('reportes/plantula/excel',$string,$filtros)}}">
 
                                         <button class="btn btn-success"> <i class="fa fa-download"></i>&nbsp;Exportar a excel</button>
                                     </a>
@@ -184,13 +184,13 @@ MAIN SIDEBAR MENU
                                     <li role="presentation"@if($active)class="active" <?php $active=false;?>@endif><a href="#siembras" aria-controls="siembras" role="tab" data-toggle="tab">Siembras</a></li>
                                     @endif
                                     @if($filtros['riegos'])
-                                    <li role="presentation"@if($active)class="active" <?php $active=false;?>@endif><a href="#riegos" aria-controls="riegos" role="tab" data-toggle="tab">Labores culturales</a></li>
+                                    <li role="presentation"@if($active)class="active" <?php $active=false;?>@endif><a href="#riegos" aria-controls="riegos" role="tab" data-toggle="tab">Riegos</a></li>
                                     @endif
                                      @if($filtros['aplicaciones'])
-                                    <li role="presentation"@if($active)class="active" <?php $active=false;?>@endif><a href="#mantenimientos" aria-controls="mantenimientos" role="tab" data-toggle="tab">Aplicaciones mantenimiento</a></li>
+                                    <li role="presentation"@if($active)class="active" <?php $active=false;?>@endif><a href="#mantenimientos" aria-controls="mantenimientos" role="tab" data-toggle="tab">Aplicaciones</a></li>
                                     @endif
                                     @if($filtros['cosechas'])
-                                    <li role="presentation"@if($active)class="active" <?php $active=false;?>@endif><a href="#cosechas" aria-controls="cosechas" role="tab" data-toggle="tab">Cosechas</a></li>
+                                    <li role="presentation"@if($active)class="active" <?php $active=false;?>@endif><a href="#cosechas" aria-controls="cosechas" role="tab" data-toggle="tab">Salidas de planta</a></li>
                                      @endif
 
 
@@ -209,9 +209,13 @@ MAIN SIDEBAR MENU
                                                 <thead >
                                                 <tr>
                                                     <th><i ></i>#</th>
-                                                    <th><i ></i> Invernadero</th>
+                                                    <th><i ></i> Invernadero plántula</th>
                                                     <th><i ></i> Cultivo </th>
                                                     <th><i ></i> Variedad</th>
+                                                    <th><i ></i> Contenedor</th>
+                                                    <th><i ></i> Sustrato</th>
+                                                    <th><i ></i> Número de plantas</th>
+                                                    <th><i ></i> Destino</th>
                                                     <th><i></i> Fecha de siembra</th>
                                                     <th><i></i>Status</th>
                                                     <th><i></i>Fecha terminación</th>
@@ -221,14 +225,18 @@ MAIN SIDEBAR MENU
                                                 </thead>
                                                 <tbody>
                                                 <?php $i=0;?>
-                                                @foreach ($arrays[1][0] as $resultado)
-                                                    @if($resultado['Invernadero']!="")
+                                                @foreach ($arrays[0][0] as $resultado)
+                                                    @if($resultado['Invernadero plántula']!="")
                                                         <?php $i++;?>
                                                         <tr>
                                                             <td style="width: 5%"><?php echo $i;?></td>
-                                                            <td >{{$resultado['Invernadero']}}</td>
+                                                            <td >{{$resultado['Invernadero plántula']}}</td>
                                                             <td>{{$resultado['Cultivo']}}</td>
                                                             <td >{{$resultado['Variedad']}}</td>
+                                                            <td >{{$resultado['Contenedor']}}</td>
+                                                            <td >{{$resultado['Sustrato']}}</td>
+                                                            <td >{{$resultado['Número de plantas']}}</td>
+                                                            <td >{{$resultado['Destino']}}</td>
                                                             <td >{{$resultado['Fecha de siembra']}}</td>
                                                             <td >{{$resultado['Status']}}</td>
                                                             <td >{{$resultado['Fecha de terminación']}}</td>
@@ -242,32 +250,36 @@ MAIN SIDEBAR MENU
                                     </div>
                                     @endif
 
-                                    
 
-                                    @if($filtros['labores'])
+
+                                    @if($filtros['riegos'])
                                     <div role="tabpanel" @if($active)class="tab-pane active" <?php $active=false;?>@else class="tab-pane"@endif  id="riegos">
                                         <div class="table-responsive">
                                             <table  class="table table-striped table-advance table-hover table_sort"  >
                                                 <thead >
                                                 <tr>
                                                     <th><i ></i>#</th>
-                                                    <th><i ></i>Invernadero</th>
+                                                    <th><i ></i>Invernadero plántula</th>
                                                     <th><i ></i>Siembra</th>
-                                                    <th><i ></i>Actividad</th>
+                                                    <th><i ></i>Tiempo riego</th>
+                                                    <th><i ></i>Frecuencia</th>
+                                                    <th><i ></i>Formulación</th>
                                                     <th><i></i>Fecha</th>
 
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 <?php $i=0;?>
-                                                @foreach ($arrays[3][0] as $resultado)
-                                                    @if($resultado['Invernadero']!="")
+                                                @foreach ($arrays[1][0] as $resultado)
+                                                    @if($resultado['Invernadero plántula']!="")
                                                         <?php $i++;?>
                                                         <tr>
                                                             <td style="width: 5%"><?php echo $i;?></td>
-                                                            <td >{{$resultado['Invernadero']}}</td>
+                                                            <td >{{$resultado['Invernadero plántula']}}</td>
                                                             <td >{{$resultado['Siembra']}}</td>
-                                                            <td >{{$resultado['Actividad']}}</td>
+                                                            <td >{{$resultado['Tiempo riego']}}</td>
+                                                            <td >{{$resultado['Frecuencia']}}</td>
+                                                            <td >{{$resultado['Formulación']}}</td>
                                                             <td >{{$resultado['Fecha']}}</td>
                                                         </tr>
                                                     @endif
@@ -278,7 +290,7 @@ MAIN SIDEBAR MENU
                                     </div>
                                     @endif
 
-                                    @if($filtros['mantenimientos'])
+                                    @if($filtros['aplicaciones'])
                                     <div role="tabpanel" @if($active)class="tab-pane active" <?php $active=false;?>@else class="tab-pane"@endif  id="mantenimientos">
                                         <div role="tabpanel" class="tab-pane" id="riegos">
                                             <div class="table-responsive">
@@ -286,7 +298,7 @@ MAIN SIDEBAR MENU
                                                     <thead >
                                                     <tr>
                                                         <th><i ></i>#</th>
-                                                        <th><i ></i>Invernadero</th>
+                                                        <th><i ></i>Invernadero plántula</th>
                                                         <th><i ></i>Siembra</th>
                                                         <th><i ></i>Aplicación</th>
                                                         <th><i></i>Tipo aplicación</th>
@@ -300,12 +312,12 @@ MAIN SIDEBAR MENU
                                                     </thead>
                                                     <tbody>
                                                     <?php $i=0;?>
-                                                    @foreach ($arrays[4][0] as $resultado)
-                                                        @if($resultado['Invernadero']!="")
+                                                    @foreach ($arrays[2][0] as $resultado)
+                                                        @if($resultado['Invernadero plántula']!="")
                                                             <?php $i++;?>
                                                             <tr>
                                                                 <td style="width: 5%"><?php echo $i;?></td>
-                                                                <td >{{$resultado['Invernadero']}}</td>
+                                                                <td >{{$resultado['Invernadero plántula']}}</td>
                                                                 <td >{{$resultado['Siembra']}}</td>
                                                                 <td >{{$resultado['Aplicación']}}</td>
                                                                 <td >{{$resultado['Tipo de aplicación']}}</td>
@@ -330,7 +342,7 @@ MAIN SIDEBAR MENU
                                                 <thead >
                                                 <tr>
                                                     <th><i ></i>#</th>
-                                                    <th><i ></i>Invernadero</th>
+                                                    <th><i ></i>Invernadero plántula</th>
                                                     <th><i ></i>Siembra</th>
                                                     <th><i ></i>Fecha</th>
                                                     <th><i></i>Comentario</th>
@@ -339,12 +351,12 @@ MAIN SIDEBAR MENU
                                                 </thead>
                                                 <tbody>
                                                 <?php $i=0;?>
-                                                @foreach ($arrays[5][0] as $resultado)
-                                                    @if($resultado['Invernadero']!="")
+                                                @foreach ($arrays[3][0] as $resultado)
+                                                    @if($resultado['Invernadero plántula']!="")
                                                         <?php $i++;?>
                                                         <tr>
                                                             <td style="width: 5%"><?php echo $i;?></td>
-                                                            <td >{{$resultado['Invernadero']}}</td>
+                                                            <td >{{$resultado['Invernadero plántula']}}</td>
                                                             <td >{{$resultado['Siembra']}}</td>
                                                             <td >{{$resultado['Fecha']}}</td>
                                                             <td >{{$resultado['Comentario']}}</td>

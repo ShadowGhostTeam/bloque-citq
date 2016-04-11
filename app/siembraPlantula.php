@@ -41,9 +41,16 @@ class siembraPlantula extends Model
 
     // 1 a N
 
+    public function riegos(){
+        return $this->hasMany('App\riegoPlantula', 'id_siembraPlantula', 'id');
+    }
+
+    public function aplicaciones(){
+        return $this->hasMany('App\aplicacionesPlantula', 'id_siembraPlantula', 'id');
+    }
 
     public function salidas(){
-        return $this->hasMany('App\salidaPlanta', 'id_siembraPlantula', 'id')->orderBy('fecha','asc');
+        return $this->hasMany('App\salidaPlanta', 'id_siembraPlantula', 'id');
     }
     public  function invernadero(){
         return $this->belongsTo('App\invernaderoPlantula','id_invernaderoPlantula');
