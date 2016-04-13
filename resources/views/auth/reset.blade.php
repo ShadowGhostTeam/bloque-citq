@@ -54,7 +54,9 @@
                                     </div>
                                 </li>
                                 <li style="text-align: center">
-                                    <button type="submit" class="btn" style="width:95%;">{{trans('validation.attributes.resetearContrasena')  }}</button><br><br>
+                                    <div class="col-md-12">
+                                    <button type="submit" class="btn" style="width:95%;">{{trans('validation.attributes.resetearContrasena')  }}</button>
+                                    </div>
                                 </li>
                             </ul>
 
