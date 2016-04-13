@@ -15,7 +15,7 @@
 <body>
 					@if (count($errors) > 0)
 						<div class="alert alert-danger" style="text-align: center">
-							<strong>Error!</strong> {{trans('validation.attributes.errores')  }} <br><br>
+							<strong>Error:</strong> {{trans('validation.attributes.errores')  }} <br><br>
 							<ul>
 								@foreach ($errors->all() as $error)
 									<li>{{ $error }}</li>
@@ -54,7 +54,7 @@
                                     </div>
                                 </li>
                                 <li style="text-align: center">
-                                    <button type="submit" class="btn" style="width:95%;">{{trans('validation.attributes.resetearContrasena')  }}</button>
+                                    <button type="submit" class="btn" style="width:95%;">{{trans('validation.attributes.resetearContrasena')  }}</button><br><br>
                                 </li>
                             </ul>
 

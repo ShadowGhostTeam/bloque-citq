@@ -62,7 +62,7 @@
                                     </div>
                                 </div>
 
-                                {!! Form::submit('Guardar',['class'=>'btn btn-success btn-xs tooltips','onclick'=>trans('validation.attributes.mensajeModificarContrasena')])!!}
+                                {!! Form::submit('Guardar',['class'=>'btn btn-success','onclick'=>trans('validation.attributes.mensajeModificarContrasena')])!!}
 
                                 {!! Form::close() !!}
                             </div>
