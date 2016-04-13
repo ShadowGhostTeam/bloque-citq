@@ -71,6 +71,7 @@
 
 @include('Plantula.aplicaciones.Partials.validator')
 
-@include('Plantula.aplicaciones.Partials.ajaxScript')
+<!ajax utilizado sólo cuando hay más de un invernadero plántula para cargar siembras-->
+@{{ include('Plantula.aplicaciones.Partials.ajaxScript') }}
 
  @include('Partials.ScriptsGenerales.scriptsPartialsAbajo')

@@ -75,14 +75,18 @@ MAIN SIDEBAR MENU
                                         <div class="form-group">
 
                                             <div class="col-lg-2">
-                                                <select  class="form-control" id="invernadero" name="invernadero">
+                                                <select  class="form-control" id="invernadero" name="invernadero" disabled>
                                                     <option value="">Invernadero Plántula</option>
                                                     @if( isset($invernaderos))
                                                         @foreach($invernaderos as $invernadero)
+                                                            @if($invernadero->id == 1)
+                                                                <option value="{{  $invernadero->id  }}" selected> {{ $invernadero->nombre}}  </option>
+                                                            @endif
                                                             <option value="{{  $invernadero->id  }}" > {{ $invernadero->nombre}}  </option>
                                                         @endforeach
                                                     @endif
                                                 </select>
+                                                <input type="hidden" name="invernadero" value="1"/>
                                             </div>
                                         </div>
 
@@ -171,27 +175,27 @@ MAIN SIDEBAR MENU
 
                                     @if ( isset( $aplicaciones) )
 
-                                        @foreach( $aplicaciones as $aplicaciones )
+                                        @foreach( $aplicaciones as $aplicacion )
 
                                             <tr>
-                                                <td>{{ $aplicaciones->invernadero->nombre }}</td>
-                                                <td>{{ $aplicaciones->aplicacion }}</td>
-                                                <td>{{ $aplicaciones->tipoAplicacion }}</td>
-                                                <td>{{ $aplicaciones->fecha }}</td>
+                                                <td>{{ $aplicacion->invernadero->nombre }}</td>
+                                                <td>{{ $aplicacion->aplicacion }}</td>
+                                                <td>{{ $aplicacion->tipoAplicacion }}</td>
+                                                <td>{{ $aplicacion->fecha }}</td>
 
 
                                                 <td style="width: 5px">
-                                                    <a href="{{ route('plantula/aplicaciones/consultar/item',$aplicaciones->id) }}"><button class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar"><i class="fa fa-eye"></i></button></a>
+                                                    <a href="{{ route('plantula/aplicaciones/consultar/item',$aplicacion->id) }}"><button class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar"><i class="fa fa-eye"></i></button></a>
                                                 </td>
 
                                                 <td style="width: 5px">
-                                                    <a href="{{ route('plantula/aplicaciones/modificar/item',$aplicaciones->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
+                                                    <a href="{{ route('plantula/aplicaciones/modificar/item',$aplicacion->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
                                                 </td>
 
                                                 <td style="width: 5px">
                                                     {!! Form::open(['action'=>['aplicacionesPlantulaController@eliminar'],'role'=>'form'] ) !!}
                                                     <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar esta aplicación?")'><i class="fa fa-trash-o "></i></button>
-                                                    <input type="hidden" name="id" value={{$aplicaciones->id}}>
+                                                    <input type="hidden" name="id" value={{$aplicacion->id}}>
                                                     {!! Form::close() !!}
                                                 </td>
 
@@ -207,7 +211,7 @@ MAIN SIDEBAR MENU
                                 </table>
                             </div>
                             @if (isset($aplicaciones))
-                                {--!! $aplicaciones->setPath('')->appends(Input::query())->render()!!}
+                                {!! $aplicaciones->setPath('')->appends(Input::query())->render()!!}
                             @endif
                         </div>
                     </div>
