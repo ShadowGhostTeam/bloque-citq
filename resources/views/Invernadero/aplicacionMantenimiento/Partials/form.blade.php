@@ -39,7 +39,27 @@
             </div>
         </div>
 
+        <div class="form-group">
+            <label for="Siembra" class="col-lg-2 control-label"><strong>*</strong>Transplante</label>
+            <div class="col-lg-10">
 
+                <select  class="form-control" id="siembraT" name="siembraT">
+                    <option value="">Selecciona</option>
+
+                    @if( isset($aplicacionesMantenimiento))
+
+                        @foreach($siembras as $siembra)
+                            @if($siembraSeleccionada['id_siembra'] == $siembra['id_siembra'])
+                                <option value="{{  $siembra['id_siembra']  }}" selected > {{ $siembra['nombre']."   ". $siembra['variedad'] . " - ". $siembra['fecha'] }}  </option>
+                            @else
+                                <option value="{{  $siembra['id_siembra']  }}"  > {{ $siembra['nombre']."   ". $siembra['variedad'] ." - " . $siembra['fecha']  }}  </option>
+                            @endif
+                        @endforeach
+
+                    @endif
+                </select>
+            </div>
+        </div>
 
         <div class="form-group">
             <label for="Aplicacion" class="col-lg-2 control-label"><strong>*</strong>Aplicación</label>
@@ -65,27 +85,7 @@
                 </select>
             </div>
         </div>
-        <div class="form-group">
-            <label for="Siembra" class="col-lg-2 control-label"><strong>*</strong>Siembra-Transplante</label>
-            <div class="col-lg-10">
 
-                <select  class="form-control" id="siembraT" name="siembraT">
-                    <option value="">Selecciona</option>
-
-                    @if( isset($aplicacionesMantenimiento))
-
-                        @foreach($siembras as $siembra)
-                            @if($siembraSeleccionada['id_siembra'] == $siembra['id_siembra'])
-                                <option value="{{  $siembra['id_siembra']  }}" selected > {{ $siembra['nombre']."   ". $siembra['variedad'] . " - ". $siembra['fecha'] }}  </option>
-                            @else
-                                <option value="{{  $siembra['id_siembra']  }}"  > {{ $siembra['nombre']."   ". $siembra['variedad'] ." - " . $siembra['fecha']  }}  </option>
-                            @endif
-                        @endforeach
-
-                    @endif
-                </select>
-            </div>
-        </div>
         <div class="form-group">
             <label for="TipoAplicacion" class="col-lg-2 control-label"><strong>*</strong>Tipo de aplicación</label>
             <div class="col-lg-10">
@@ -121,12 +121,12 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="Cantidad" class="col-lg-2 control-label"><strong>*</strong>Cantidad kg-l/ha</label>
+            <label for="Cantidad" class="col-lg-2 control-label"><strong>*</strong>Cantidad (kg-l/ha)</label>
             <div class="col-lg-10">
                 @if (isset($cantidad))
-                    <input class ="form-control" type="number" value ="{{ $cantidad  }}" id="cantidad" name="cantidad">
+                    {!!Form::text('cantidad' ,$cantidad,['class'=>'form-control','id'=>'cantidad','placeholder'=>'Cantidad'])!!}
                 @else
-                    <input class ="form-control" type="number" placeholder="Cantidad" value ="" id="cantidad" name="cantidad">
+                    {!!Form::text('cantidad' ,null,['class'=>'form-control','id'=>'cantidad','placeholder'=>'Cantidad'])!!}
                 @endif
             </div>
         </div>
@@ -149,7 +149,7 @@
             <label for="Comentario" class="col-lg-2 control-label">Comentario</label>
             <div class="col-lg-10">
                 @if (isset($comentario))
-                    <textarea  class ="form-control" type="text" cols="40"  rows="5"  value ="{{ $comentario  }}" id="comentario" name="comentario"></textarea>
+                    <textarea  class ="form-control" type="text" cols="40"  rows="5"  id="comentario" name="comentario"> {{ $comentario  }}</textarea>
                 @else
                     <textarea  class ="form-control" type="text" cols="40"  rows="5" placeholder="Comentario" value ="" id="comentario" name="comentario"></textarea>
                 @endif
@@ -162,7 +162,7 @@
         <div class="form-group" align="center">
             @if( isset($aplicacionesMantenimiento))
 
-            {!! Form::submit('Modificar',['class'=>'btn btn-success', 'onclick'=>"return confirm ('¿Seguro que desea modificar la labor cultural?')"])!!}
+            {!! Form::submit('Modificar',['class'=>'btn btn-success', 'onclick'=>"return confirm ('¿Seguro que desea modificar la  aplicación de mantenimiento?')"])!!}
             @else
                 {!! Form::submit('Crear',['class'=>'btn btn-success'])!!}
             @endif
