@@ -107,6 +107,7 @@ return [
 
     'attributes' => [
         'numPasadas'=>'número de pasadas',
+<<<<<<< HEAD
         'siembraT' => 'transplante',
 
         'resetearContrasena'=>'Resetear Contraseña',
@@ -125,6 +126,9 @@ return [
         'Configuracion' => 'Configuración',
         'contrasena_confirmation' => ' confirmar nueva contraseña'
 
+=======
+        'siembraT' => 'transplante'
+>>>>>>> correcionAle
     ],
 
 ];
