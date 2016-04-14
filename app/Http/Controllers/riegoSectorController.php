@@ -203,20 +203,29 @@ class riegoSectorController extends Controller
             $riego = riego::findOrFail($request->id);
         }
 
-        $riego->tiempo = $request->tiempo;
-        $riego->distanciaLineas = $request->distanciaLineas;
-
-        $litrosHectarea = $request->tiempo * (100/$request->distanciaLineas) * 500;
-        $lamina = $litrosHectarea / 10000;
-
-        $riego->litrosHectarea = $litrosHectarea;
-        $riego->lamina = $lamina;
-
         $riego->id_siembra = $request->siembra;
         $riego->id_sector= $request->sector;
         $riego->fecha = Carbon::createFromFormat('d/m/Y', $request->fecha)->toDateTimeString();
 
-        return $riego;
+        if($request->distanciaLineas == 0){
+            $riego->tiempo = $request->tiempo;
+            $riego->distanciaLineas = $request->distanciaLineas;
+            $riego->litrosHectarea = 0;
+            $riego->lamina = 0;
+
+            return $riego;
+        }else{
+            $riego->tiempo = $request->tiempo;
+            $riego->distanciaLineas = $request->distanciaLineas;
+
+            $litrosHectarea = $request->tiempo * (100/$request->distanciaLineas) * 500;
+            $lamina = $litrosHectarea / 10000;
+
+            $riego->litrosHectarea = $litrosHectarea;
+            $riego->lamina = $lamina;
+
+            return $riego;
+        }
     }
 
     /*
