@@ -58,7 +58,7 @@
 
                                     <dl class="dl-horizontal">
                                         <dt>Invernadero</dt><dd>{{ $fertilizacionesRiego->invernadero->nombre }}</dd>
-                                        <dt>Siembra-transplante</dt><dd>{{ $siembras['nombre'] . ' '. $siembras['variedad']  }}</dd>
+                                        <dt>Transplante</dt><dd>{{ $siembras['nombre'] . ' '. $siembras['variedad']  }}</dd>
                                         <dt>Fecha</dt><dd>{{ $fertilizacionesRiego->fecha }}</dd>
                                         <dt>Tiempo riego</dt><dd>{{ $fertilizacionesRiego->tiempoRiego }}</dd>
                                         @if( $fertilizacionesRiego->etapaFenologica != "")
