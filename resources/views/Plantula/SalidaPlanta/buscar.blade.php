@@ -66,8 +66,25 @@ MAIN SIDEBAR MENU
                                 <div class="col-xs-12">
 
                                     {!! Form::open(['route' => 'plantula/salidaplanta/lista' ,'method'=>'GET']) !!}
+                                    <div class="form-group">
 
+                                        <div class="col-lg-2">
+                                            <select  class="form-control" id="invernaderoPlantula" name="invernaderoPlantula" disabled>
+                                                <option value="">Todos los invernaderos de plantula</option>
 
+                                                @if( isset($invernaderos))
+                                                    @foreach($invernaderos as $invernadero)
+                                                        @if($invernadero->id === 1)
+                                                            <option value="" selected> {{ $invernadero->nombre}}  </option>
+                                                        @else
+                                                            <option value="{{  $invernadero->id  }}" > {{ $invernadero->nombre}}  </option>
+                                                        @endif
+
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                        </div>
+                                    </div>
 
 
                                     <div id="formulario">
