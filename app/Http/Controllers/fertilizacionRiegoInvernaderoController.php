@@ -26,7 +26,7 @@ class fertilizacionRiegoInvernaderoController extends Controller
         $fertilizacionesRiego = fertilizacionRiego::whereBetween('fecha', array($now2,$now))->orderBy('fecha', 'desc')->paginate(15);
         $this->adaptaFechas($fertilizacionesRiego);
         $invernaderos= invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $etapaFenologica = ['Etapa1'];
+        $etapaFenologica = ['Emergencia','Transplante','Crecimineto vegetativo','Fructificación','Senescencia'];
 
         return view('Invernadero/fertilizacionRiego/buscar')->with([
             'invernaderos' => $invernaderos,
@@ -50,7 +50,7 @@ class fertilizacionRiegoInvernaderoController extends Controller
             'fechaInicio' => 'date_format:d/m/Y',
             'fechaFin' => 'date_format:d/m/Y',
             'invernadero' => 'exists:invernadero,id',
-            'etapaFenologica' => 'in:Etapa1'
+            'etapaFenologica' => 'in:Emergencia,Transplante,Crecimineto vegetativo,Fructificación,Senescencia'
         ]);
 
         /*Si validador no falla se pueden realizar busquedas*/
@@ -131,7 +131,7 @@ class fertilizacionRiegoInvernaderoController extends Controller
             Session::flash('message', 'Se encontraron '.$num.' resultados');
         }
 
-        $etapaFenologica = ['Etapa1'];
+        $etapaFenologica = ['Emergencia','Transplante','Crecimineto vegetativo','Fructificación','Senescencia'];
         /*Regresa la vista*/
         return view('Invernadero/fertilizacionRiego/buscar')->with([
             'fertilizacionesRiego'=>$fertilizacionesRiego,
@@ -145,7 +145,7 @@ class fertilizacionRiegoInvernaderoController extends Controller
     /*Devuelve la vista de crear con los valores de los combobox*/
     public function pagCrear(){
         $invernaderos= invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $etapaFenologica = ['Etapa1'];
+        $etapaFenologica = ['Emergencia','Transplante','Crecimineto vegetativo','Fructificación','Senescencia'];
         return view('Invernadero/fertilizacionRiego/crear')->with([
             'invernaderos' => $invernaderos,
             'etapaFenologica' => $etapaFenologica
@@ -161,7 +161,7 @@ class fertilizacionRiegoInvernaderoController extends Controller
     public function pagModificar($id){
         $fertilizacionesRiego= fertilizacionRiego::findOrFail($id);
         $invernaderos= invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $etapaFenologica = ['Etapa1'];
+        $etapaFenologica = ['Emergencia','Transplante','Crecimineto vegetativo','Fructificación','Senescencia'];
         $fechaSiembraSeleccionada=Carbon::createFromFormat('Y-m-d H:i:s', $fertilizacionesRiego->siembraTransplante->fecha);
 
         $siembraSeleccionada = array(
