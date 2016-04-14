@@ -160,6 +160,7 @@ class siembraSectorController extends Controller
                 }
             }
         }
+    }
 
     /*Devuelve la vista de crear con los valores de los combobox*/
     public function pagCrear()
