@@ -40,7 +40,7 @@
 
                             <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear salida de planta</h4><br>
 
-                            @include('Plantula.salidaplanta.Partials.form')
+                            @include('Plantula.SalidaPlanta.Partials.form')
 
                             {!! Form::close() !!}
                         </div>
@@ -52,6 +52,6 @@
     </section>
 </section>
 
-    @include('Plantula.salidaplanta.Partials.validator')
-    @include('Plantula.salidaplanta.Partials.ajaxScript')
+    @include('Plantula.SalidaPlanta.Partials.validator')
+    @include('Plantula.SalidaPlanta.Partials.ajaxScript')
     @include('Partials.ScriptsGenerales.scriptsPartialsAbajo')

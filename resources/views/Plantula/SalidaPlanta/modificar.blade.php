@@ -57,7 +57,7 @@
 
 
 
-                            @include('Plantula.salidaplanta.Partials.form')
+                            @include('Plantula.SalidaPlanta.Partials.form')
                             <input type="hidden" name="id" value="{{$salidaPlanta->id}}">
                             {!! Form::close() !!}
                         </div>
@@ -69,8 +69,8 @@
     </section>
 </section>
 
-@include('Plantula.salidaplanta.Partials.validator')
+@include('Plantula.SalidaPlanta.Partials.validator')
 
-@include('Plantula.salidaplanta.Partials.ajaxScript')
+@include('Plantula.SalidaPlanta.Partials.ajaxScript')
 
 @include('Partials.ScriptsGenerales.scriptsPartialsAbajo')
