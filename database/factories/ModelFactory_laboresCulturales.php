@@ -20,7 +20,9 @@ $factory->define(App\laboresCulturales::class, function (Faker\Generator $faker)
 
     return [
 
-        'actividad'=> $faker->randomElement(['Deshojes', 'Despuntes','Brotes','Podas']),
+        'actividad'=> $faker->randomElement(['Colocacion de Clip','Poda de Hoja',
+            'Poda de Fruto','Bajada de Planta','Eliminacion de Brotes Laterales',
+            'Raleo de Flores','Tutoreo','Eliminacion de Plantas Virosas','Enrollado de Planta','Guia de Planta']),
         'fecha'=>$faker->dateTimeBetween($startDate = '-6 months', $endDate = 'now'),
 
         'id_stInvernadero' => $siembra,

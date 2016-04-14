@@ -42,7 +42,7 @@
 
                                         <td>
                                             {!! Form::open(['action'=>['invernaderoAplicacionesMantenimientoController@eliminar'],'role'=>'form'] )  !!}
-                                            <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar aplicación?")'><i class="fa fa-trash-o "></i></button>
+                                            <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la aplicación?")'><i class="fa fa-trash-o "></i></button>
                                             <input type="hidden" name="id" value={{$aplicacionesMantenimiento->id}}>
                                             {!! Form::close() !!}
 

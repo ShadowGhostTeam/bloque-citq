@@ -34,3 +34,21 @@ Route::get('reportes/invernadero/excel/{string}',[
     'uses' => 'reportesInvernaderoController@exportarExcel',
     'as' =>'reportes/invernadero/excel'
 ]);
+
+/*Reportes invernadero plantula*/
+
+Route::get('reportes/plantula',[
+    'uses' => 'reportesPlantulaController@index',
+    'as' =>'reportes/plantula'
+]);
+
+
+Route::get('reportes/plantula/generar',[
+    'uses' => 'reportesPlantulaController@generarReporte',
+    'as' =>'reportes/plantula/generar'
+]);
+
+Route::get('reportes/plantula/excel/{string}',[
+    'uses' => 'reportesPlantulaController@exportarExcel',
+    'as' =>'reportes/plantula/excel'
+]);

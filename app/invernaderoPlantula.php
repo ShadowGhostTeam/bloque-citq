@@ -37,15 +37,17 @@ class invernaderoPlantula extends Model
 
     // 1 a N
     public function siembras(){
-        return $this->hasMany('App\siembraPlantula', 'id_invernaderoPlantula', 'id')->orderBy('fecha','asc');
+        return $this->hasMany('App\siembraPlantula', 'id_invernaderoPlantula', 'id');
     }
 
-    public function preparaciones(){
-        return $this->hasMany('App\preparacionPlantula', 'id_invernaderoPlantula', 'id')->orderBy('fecha','asc');
+    public function aplicaciones(){
+        return $this->hasMany('App\aplicacionesPlantula', 'id_invernaderoPlantula', 'id');
     }
-
+    public function riegos(){
+        return $this->hasMany('App\riegoPlantula', 'id_invernaderoPlantula', 'id');
+    }
 
     public function salidas(){
-        return $this->hasMany('App\salidaPlanta', 'id_invernaderoPlantula', 'id')->orderBy('fecha','asc');
+        return $this->hasMany('App\salidaPlanta', 'id_invernaderoPlantula', 'id');
     }
 }

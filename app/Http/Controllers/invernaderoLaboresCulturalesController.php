@@ -22,10 +22,13 @@ class invernaderoLaboresCulturalesController extends Controller
     public function index(){
         //
         $now= Carbon::now()->format('Y/m/d');
+        $now = $now. " 23:59:59";
         $now2 =Carbon::now()->subMonth(6)->format('Y/m/d');
         $laboresCulturales = laboresCulturales::whereBetween('fecha', array($now2,$now))->orderBy('fecha', 'desc')->paginate(15);
         $this->adaptaFechas($laboresCulturales);
-        $actividades = ['Deshojes','Despuntes','Brotes','Podas'];
+        $actividades = [
+            'Colocacion de Clip','Poda de Hoja','Poda de Fruto','Bajada de Planta','Eliminacion de Brotes Laterales',
+            'Raleo de Flores','Tutoreo','Eliminacion de Plantas Virosas','Enrollado de Planta','Guia de Planta'];
         $invernaderos= invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
         return view('Invernadero/laboresCulturales/buscar')->with([
@@ -39,7 +42,9 @@ class invernaderoLaboresCulturalesController extends Controller
     /*Devuelve la vista de crear con los valores de los combobox*/
     public function pagCrear(){
         $invernaderos= invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $actividades = ['Deshojes','Despuntes','Brotes','Podas'];
+        $actividades = [
+            'Colocacion de Clip','Poda de Hoja','Poda de Fruto','Bajada de Planta','Eliminacion de Brotes Laterales',
+            'Raleo de Flores','Tutoreo','Eliminacion de Plantas Virosas','Enrollado de Planta','Guia de Planta'];
         return view('Invernadero/laboresCulturales/crear')->with([
             'invernaderos' => $invernaderos,
             'actividades' => $actividades
@@ -80,7 +85,9 @@ class invernaderoLaboresCulturalesController extends Controller
     public function pagModificar($id){
         $invernaderos= invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
         $laboresCulturales= laboresCulturales::findOrFail($id);
-        $actividades = ['Deshojes','Despuntes','Brotes','Podas'];
+        $actividades = [
+            'Colocacion de Clip','Poda de Hoja','Poda de Fruto','Bajada de Planta','Eliminacion de Brotes Laterales',
+            'Raleo de Flores','Tutoreo','Eliminacion de Plantas Virosas','Enrollado de Planta','Guia de Planta'];
         $fechaSiembraSeleccionada=Carbon::createFromFormat('Y-m-d H:i:s', $laboresCulturales->siembraTransplante->fecha);
 
         $siembraSeleccionada = array(
@@ -182,7 +189,8 @@ class invernaderoLaboresCulturalesController extends Controller
             'fechaInicio' => 'date_format:d/m/Y',
             'fechaFin' => 'date_format:d/m/Y',
             'invernadero' => 'exists:invernadero,id',
-            'actividad' => 'in:Deshojes,Despuntes,Brotes,Podas'
+            'actividad' => 'in:Colocacion de Clip,Poda de Hoja,Poda de Fruto,Bajada de Planta,Eliminacion de Brotes Laterales,
+Raleo de Flores,Tutoreo,Eliminacion de Plantas Virosas,Enrollado de Planta,Guia de Planta'
         ]);
 
         /*Si validador no falla se pueden realizar busquedas*/
@@ -255,7 +263,9 @@ class invernaderoLaboresCulturalesController extends Controller
         } else {
             Session::flash('message', 'Se encontraron ' . $num . ' resultados');
         }
-        $actividades = ['Deshojes','Despuntes','Brotes','Podas'];
+        $actividades = [
+            'Colocacion de Clip','Poda de Hoja','Poda de Fruto','Bajada de Planta','Eliminacion de Brotes Laterales',
+            'Raleo de Flores','Tutoreo','Eliminacion de Plantas Virosas','Enrollado de Planta','Guia de Planta'];
         /*Regresa la vista*/
 
         return view('Invernadero/laboresCulturales/buscar')->with([

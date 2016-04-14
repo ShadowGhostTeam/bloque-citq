@@ -48,5 +48,9 @@ class cultivo extends Model
         return $this->hasMany('App\siembraTransplanteInvernadero', 'id_cultivo', 'id');
     }
 
+    public function siembrasPlantula(){
+        return $this->hasMany('App\siembraPlantula', 'id_cultivo', 'id');
+    }
+
 
 }
