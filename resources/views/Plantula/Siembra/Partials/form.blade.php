@@ -22,7 +22,7 @@
             </label>
             <div class="col-lg-10">
                 @if(isset($invernadero))
-                    <input type="hidden" value="{{$invernadero}}" name="invernadero"/>
+                    <input type="hidden" value="1" name="invernadero"/>
                 @endif
                 <select  class="form-control" id="invernadero" name="invy" disabled>
                     @if( isset($siembra))

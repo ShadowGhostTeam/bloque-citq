@@ -18,7 +18,7 @@ class SiembraPlantula extends Migration
 
             $table->dateTime('fecha');
             $table->enum('status',['Activo','Terminado']);
-            $table->enum('contenedor',['Tipo1','Tipo2']);
+            $table->enum('contenedor',['Maceta (1L)', 'Maceta (0.5L)', 'Maceta (0.25L)', 'Charola - Plástico', 'Charola - Unicel']);
             $table->integer('numPlantas')->unsigned();
             $table->string('sustrato');
             $table->text('comentario');
