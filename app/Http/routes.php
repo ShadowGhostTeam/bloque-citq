@@ -34,9 +34,9 @@ Route::get('/', function () {
 /*
  * Ruta para mapa de inicio
  */
-Route::get('inicio',[
+Route::get('home',[
     'uses' => 'inicioController@index',
-    'as' => 'inicio'
+    'as' => 'home'
 
 ]);
 
