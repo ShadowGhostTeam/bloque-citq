@@ -203,7 +203,7 @@ class salidaDePlantaController extends Controller
             Session::flash('message', 'Se encontraron '.$num.' resultados');
         }
         /*Regresa la vista*/
-        return view('plantula/salidaplanta/buscar')->with([
+        return view('Plantula/SalidaPlanta/buscar')->with([
             'salidas'=>$salidas
         ]);
     }
