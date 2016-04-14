@@ -3,7 +3,6 @@
 <script type="text/javascript">
 
     $(function () {
-
         //previene lo del input
         $('#fechaFinDP').keypress(function(event) {event.preventDefault();});
         //previene lo del input
@@ -74,9 +73,9 @@ MAIN SIDEBAR MENU
 
                                     <div class="form-group">
 
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <select  class="form-control" id="sector" name="sector">
-                                                <option value="">Todos los sectores</option>
+                                                <option value="">Todos los sectors</option>
 
                                                 @if( isset($sectores))
                                                     @foreach($sectores as $sector)
@@ -88,7 +87,7 @@ MAIN SIDEBAR MENU
                                     </div>
                                     <div class="form-group">
 
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <select  class="form-control" id="cultivo" name="cultivo">
                                                 <option value="">Todos los cultivos</option>
 
@@ -100,6 +99,17 @@ MAIN SIDEBAR MENU
                                             </select>
                                         </div>
                                     </div>
+
+                                    <div class="form-group">
+                                        <div class="col-lg-2">
+                                            <select  class="form-control" id="status" name="status">
+                                                <option value="">Status</option>
+                                                <option value="Activo">Activo</option>
+                                                <option value="Terminado">Terminado</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
 
                                     <div id="formulario">
                                         <div class="form-group">
@@ -130,9 +140,6 @@ MAIN SIDEBAR MENU
                                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                                                 Buscar
                                             </button>
-
-
-
 
                                         </div>
                                         {!! Form::close() !!}
