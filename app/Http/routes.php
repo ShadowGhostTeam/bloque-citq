@@ -27,9 +27,18 @@ Route::filter('force.ssl', function() {
 /*'before' => 'force.ssl'  */
 
 Route::get('/', function () {
-    return redirect('login');;
+    return redirect('login');
 });
 
+/////////////////////////////////INICIO///////////////////////////////////////////////////////////////////////
+/*
+ * Ruta para mapa de inicio
+ */
+Route::get('home',[
+    'uses' => 'inicioController@index',
+    'as' => 'home'
+
+]);
 
 /////////////////////////////////SECTOR///////////////////////////////////////////////////////////////////////
 

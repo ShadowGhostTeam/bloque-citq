@@ -16,52 +16,13 @@
                         }
                     }
                 },
-                aplicacion:{
+
+
+                siembraPlantula:{
                     validators: {
                         notEmpty: {
                             message: 'Seleccione una opción'
                         }
-                    }
-                },
-
-                siembraT:{
-                    validators: {
-                        notEmpty: {
-                            message: 'Seleccione una opción'
-                        }
-                    }
-                },
-
-                tipoAplicacion:{
-                    validators: {
-                        notEmpty: {
-                            message: 'Seleccione una opción'
-                        }
-                    }
-                },
-                producto:{
-                    validators: {
-                        notEmpty: {
-                            message: 'Escribe un producto'
-                        }
-                    }
-                },
-                cantidad:{
-                    validators: {
-
-                        numeric: {
-                            message: 'No es un número válido',
-                            // The default separators
-
-                            decimalSeparator: '.'
-
-
-                        },
-                        greaterThan: {
-                            value: 0,
-                            message: 'El número tiene que ser positivo'
-                        }
-
                     }
                 },
 
@@ -76,7 +37,10 @@
                             message: 'Ingrese fecha en formato dd/mm/aaaa'
                         }
                     }
-                }
+                },
+
+
+
             }
         });
 

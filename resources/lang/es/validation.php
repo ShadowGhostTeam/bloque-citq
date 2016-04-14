@@ -123,8 +123,8 @@ return [
         'enviar' => 'Enviar',
         'errores' => 'Existen algunos problemas con los valores ingresados.',
         'Configuracion' => 'Configuración',
-        'contrasena_confirmation' => ' confirmar nueva contraseña'
-
+        'contrasena_confirmation' => ' confirmar nueva contraseña',
+        'siembraT' => 'transplante'
     ],
 
 ];

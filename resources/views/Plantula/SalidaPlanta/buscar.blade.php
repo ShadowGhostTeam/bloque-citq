@@ -44,16 +44,14 @@
 MAIN SIDEBAR MENU
 *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Sector.Siembra.aside')
+    @include('Plantula.SalidaPlanta.aside')
             <!--sidebar end-->
 
     <section id="container">
         <section id="main-content">
             <section class="wrapper site-min-height">
-                <h3 style="color:#078006"><i class="fa fa-angle-right"></i>Siembra</h3>
+                <h3 style="color:#078006"><i class="fa fa-angle-right"></i>Salida de planta</h3>
                 <div class="row mt">
-
-
                     <!-- INICIO CONTENIDO -->
                     <div class="col-lg-12">
                         <div class="form-panel">
@@ -61,54 +59,15 @@ MAIN SIDEBAR MENU
                             @include('Partials.Mensajes.mensajes')
 
                             <div class="form-group" align="right">
-                                <a href="{{route('sector/siembra/crear')}}"> <button class="btn agregar tooltips" data-placement="left" data-original-title="Agregar"><i class="fa fa-plus"></i></i></button></a>
+                                <a href="{{route('plantula/salidaplanta/crear')}}"> <button class="btn agregar tooltips" data-placement="left" data-original-title="Agregar"><i class="fa fa-plus"></i></i></button></a>
                             </div>
 
                             <div class="row">
                                 <div class="col-xs-12">
 
+                                    {!! Form::open(['route' => 'plantula/salidaplanta/lista' ,'method'=>'GET']) !!}
 
 
-                                    {!! Form::open(['route' => 'sector/siembra/lista' ,'method'=>'GET']) !!}
-
-                                    <div class="form-group">
-
-                                        <div class="col-lg-2">
-                                            <select  class="form-control" id="sector" name="sector">
-                                                <option value="">Todos los sectors</option>
-
-                                                @if( isset($sectores))
-                                                    @foreach($sectores as $sector)
-                                                        <option value="{{  $sector->id  }}" > {{ $sector->nombre}}  </option>
-                                                    @endforeach
-                                                @endif
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-
-                                        <div class="col-lg-2">
-                                            <select  class="form-control" id="cultivo" name="cultivo">
-                                                <option value="">Todos los cultivos</option>
-
-                                                @if( isset($cultivos))
-                                                    @foreach($cultivos as $cultivo)
-                                                        <option value="{{  $cultivo->id  }}" > {{ $cultivo->nombre}}  </option>
-                                                    @endforeach
-                                                @endif
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="col-lg-2">
-                                            <select  class="form-control" id="status" name="status">
-                                                <option value="">Status</option>
-                                                <option value="Activo">Activo</option>
-                                                <option value="Terminado">Terminado</option>
-                                            </select>
-                                        </div>
-                                    </div>
 
 
                                     <div id="formulario">
@@ -152,42 +111,36 @@ MAIN SIDEBAR MENU
                                         <table class="table table-striped table-advance table-hover">
                                             <thead>
                                             <tr>
-                                                <th><i class="fa fa-thumb-tack"></i> Sector </th>
-                                                <th> <i class="fa fa-tree"></i> Cultivo </th>
+                                                <th><i class="fa fa-thumb-tack"></i> Invernadero Plantúla </th>
+                                                <th> <i class="fa fa-tree"></i> Comentario</th>
                                                 <th><i class="fa fa-calendar-o"></i> Fecha </th>
-                                                <th><i class="fa fa-circle-thin"></i> Status </th>
-                                                <th><i class="fa fa-calendar-o"></i> Fecha de Terminación </th>
+
                                             </tr>
                                             </thead>
                                             <tbody>
 
-                                            @if ( isset( $siembras) )
+                                            @if ( isset( $salidas) )
 
-                                                @foreach( $siembras as $siembra )
+                                                @foreach( $salidas as $salida )
 
                                                     <tr>
-                                                        <td>{{ $siembra->sector->nombre }}</td>
-                                                        <td>{{ $siembra->cultivo->nombre }}</td>
-                                                        <td>{{ $siembra->fecha }}</td>
-                                                        <td>{{ $siembra->status }}</td>
-                                                        @if ( $siembra->fechaTerminacion == "30/11/-0001" )
-                                                            <td>{{ "No ha terminado" }}</td>
-                                                        @else
-                                                            <td>{{ $siembra->fechaTerminacion }}</td>
-                                                        @endif
+                                                        <td>{{ $salida->invernadero->nombre }}</td>
+                                                        <td>{{ $salida->comentario }}</td>
+                                                        <td>{{ $salida->fecha }}</td>
+
 
                                                         <td style="width: 5px">
-                                                            <a href="{{ route('sector/siembra/consultar/item',$siembra->id) }}"><button class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar"><i class="fa fa-eye"></i></button></a>
+                                                            <a href="{{ route('plantula/salidaplanta/consultar/item',$salida->id) }}"><button class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar"><i class="fa fa-eye"></i></button></a>
                                                         </td>
 
                                                         <td style="width: 5px">
-                                                            <a href="{{ route('sector/siembra/modificar/item',$siembra->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
+                                                            <a href="{{ route('plantula/salidaplanta/modificar/item',$salida->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
                                                         </td>
 
                                                         <td style="width: 5px">
-                                                            {!! Form::open(['action'=>['siembraSectorController@eliminar'],'role'=>'form'] )  !!}
-                                                            <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la siembra?")'><i class="fa fa-trash-o "></i></button>
-                                                            <input type="hidden" name="id" value={{$siembra->id}}>
+                                                            {!! Form::open(['action'=>['salidaDePlantaController@eliminar'],'role'=>'form'] )  !!}
+                                                            <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la salida de planta?")'><i class="fa fa-trash-o "></i></button>
+                                                            <input type="hidden" name="id" value={{$salida->id}}>
                                                             {!! Form::close() !!}
                                                         </td>
 
@@ -201,8 +154,8 @@ MAIN SIDEBAR MENU
                                             </tbody>
                                         </table>
                                     </div>
-                                    @if (isset($siembras))
-                                        {!! $siembras->setPath('')->appends(Input::query())->render()!!}
+                                    @if (isset($salidas))
+                                        {!! $salidas->setPath('')->appends(Input::query())->render()!!}
                                     @endif
                                 </div>
                             </div>
@@ -268,7 +221,6 @@ MAIN SIDEBAR MENU
                     $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaInicio',true);
                     $('#formulario').data('bootstrapValidator').enableFieldValidators('fechaFin',true);
                 }
-
 
 
             });

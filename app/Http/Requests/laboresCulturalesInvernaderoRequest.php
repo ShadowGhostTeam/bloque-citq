@@ -25,7 +25,7 @@ class laboresCulturalesInvernaderoRequest extends Request
             //
             'invernadero'=>'required|exists:invernadero,id',
             'siembraT' => 'required|exists:siembra_invernadero,id',
-            'actividad' => 'required|in:Deshojes,Despuntes,Brotes,Podas',
+            'actividad' => 'required|in:Colocacion de Clip,Poda de Hoja,Poda de Fruto,Bajada de Planta,Eliminacion de Brotes Laterales,Raleo de Flores,Tutoreo,Eliminacion de Plantas Virosas,Enrollado de Planta,Guia de Planta',
            'fecha' =>  'required|date_format:d/m/Y',
 
         ];

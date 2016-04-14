@@ -40,19 +40,24 @@
         $( "#tiempo" ).keyup(function() {
             a = isNaN(document.getElementById("tiempo").value);
             b = isNaN(document.getElementById("distanciaLineas").value);
-            if(document.getElementById("distanciaLineas").value == "" || document.getElementById("tiempo").value == ""){
-                document.getElementById("litrosHectarea").value = "Falta información para calcular este dato.";
-                document.getElementById("lamina").value = "Falta información para calcular este dato.";
+            if(document.getElementById("distanciaLineas").value == 0){
+                document.getElementById("litrosHectarea").value = "0 litros por hectárea.";
+                document.getElementById("lamina").value = "0 litros por hectárea.";
             }else{
-                if (a || b){
-                    document.getElementById("litrosHectarea").value = "Alguno de los valores no es válido.";
-                    document.getElementById("lamina").value = "Alguno de los valores no es válido.";
+                if(document.getElementById("distanciaLineas").value == "" || document.getElementById("tiempo").value == ""){
+                    document.getElementById("litrosHectarea").value = "Falta información para calcular este dato.";
+                    document.getElementById("lamina").value = "Falta información para calcular este dato.";
                 }else{
-                    x = document.getElementById("tiempo").value * (100/document.getElementById("distanciaLineas").value) * 500;
-                    document.getElementById("litrosHectarea").value = x + " litros por hectárea.";
+                    if (a || b){
+                        document.getElementById("litrosHectarea").value = "Alguno de los valores no es válido.";
+                        document.getElementById("lamina").value = "Alguno de los valores no es válido.";
+                    }else{
+                        x = document.getElementById("tiempo").value * (100/document.getElementById("distanciaLineas").value) * 500;
+                        document.getElementById("litrosHectarea").value = x + " litros por hectárea.";
 
-                    y = x / 10000;
-                    document.getElementById("lamina").value = y + " milimetros de agua.";
+                        y = x / 10000;
+                        document.getElementById("lamina").value = y + " milimetros de agua.";
+                    }
                 }
             }
         });
@@ -60,23 +65,27 @@
         $( "#distanciaLineas" ).keyup(function() {
             a = isNaN(document.getElementById("tiempo").value);
             b = isNaN(document.getElementById("distanciaLineas").value);
-            if(document.getElementById("tiempo").value == "" || document.getElementById("distanciaLineas").value == ""){
-                document.getElementById("litrosHectarea").value = "Falta información para calcular este dato.";
-                document.getElementById("lamina").value = "Falta información para calcular este dato.";
+            if(document.getElementById("distanciaLineas").value == 0){
+                document.getElementById("litrosHectarea").value = "0 litros por hectárea.";
+                document.getElementById("lamina").value = "0 litros por hectárea.";
             }else{
-                if (a || b){
-                    document.getElementById("litrosHectarea").value = "Alguno de los valores no es válido.";
-                    document.getElementById("lamina").value = "Alguno de los valores no es válido.";
+                if(document.getElementById("tiempo").value == "" || document.getElementById("distanciaLineas").value == ""){
+                    document.getElementById("litrosHectarea").value = "Falta información para calcular este dato.";
+                    document.getElementById("lamina").value = "Falta información para calcular este dato.";
                 }else{
-                    x = document.getElementById("tiempo").value * (100/document.getElementById("distanciaLineas").value) * 500;
-                    document.getElementById("litrosHectarea").value = x + " litros por hectárea.";
+                    if (a || b){
+                        document.getElementById("litrosHectarea").value = "Alguno de los valores no es válido.";
+                        document.getElementById("lamina").value = "Alguno de los valores no es válido.";
+                    }else{
+                        x = document.getElementById("tiempo").value * (100/document.getElementById("distanciaLineas").value) * 500;
+                        document.getElementById("litrosHectarea").value = x + " litros por hectárea.";
 
-                    y = x / 10000;
-                    document.getElementById("lamina").value = y + " milimetros de agua.";
+                        y = x / 10000;
+                        document.getElementById("lamina").value = y + " milimetros de agua.";
+                    }
                 }
             }
         });
-
     });
 </script>
 

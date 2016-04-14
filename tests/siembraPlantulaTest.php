@@ -4,55 +4,55 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class siembraSectorTest extends TestCase
+class siembraPlantulaTest extends TestCase
 {
     //////////////////////////////BUSCAR//////////////////////////////////
-    //para llamar a solo un grupo phpunit --group siembraBuscarSector
+    //para llamar a solo un grupo phpunit --group siembraBuscarPlantula
 
     /*Unidad*/
     /**
-     * @group siembraBuscarSector
+     * @group siembraBuscarPlantula
      */
     public function testRutaBuscar(){
-        $response = $this->call('GET', 'sector/siembra');
+        $response = $this->call('GET', 'plantula/siembra');
         $this->assertEquals(200, $response->status());
     }
     /*Integración*/
 
     /**
-     * @group siembraBuscarSector
+     * @group siembraBuscarPlantula
      */
     public function testBuscarNoParametros(){
-        $this->visit('sector/siembra')
+        $this->visit('plantula/siembra')
             ->press('Buscar')
             ->see("Se encontraron");
     }
 
     /**
-     * @group siembraBuscarSector
+     * @group siembraBuscarPlantula
      */
-    public function testBuscarSectorCorrecto(){
-        $this->visit('sector/siembra')
-            ->select(1,"sector")
+    public function testBuscarPlantulaCorrecto(){
+        $this->visit('plantula/siembra')
+            ->select(1,"plantula")
             ->press('Buscar')
             ->see("Se encontraron");
     }
 
     /**
-     * @group siembraBuscarSector
+     * @group siembraBuscarPlantula
      */
     public function testBuscarCultivoCorrecto(){
-        $this->visit('sector/siembra')
+        $this->visit('plantula/siembra')
             ->select(1,"cultivo")
             ->press('Buscar')
             ->see("Se encontraron");
     }
 
     /**
-     * @group siembraBuscarSector
+     * @group siembraBuscarPlantula
      */
     public function testBuscarFechaCorrecto(){
-        $this->visit('sector/siembra')
+        $this->visit('plantula/siembra')
             ->type("29/02/2015","fechaInicio")
             ->type("29/02/2016","fechaFin")
             ->press('Buscar')
@@ -60,21 +60,21 @@ class siembraSectorTest extends TestCase
     }
 
     /**
-     * @group siembraBuscarSector
+     * @group siembraBuscar
      */
-    public function testBuscarSectorFechaCorrecto(){
-        $this->visit('sector/siembra')
+    public function testBuscarPlantulaFechaCorrecto(){
+        $this->visit('plantula/siembra')
             ->type("29/02/2015","fechaInicio")
             ->type("29/02/2016","fechaFin")
-            ->select(1,"sector")
+            ->select(1,"plantula")
             ->press('Buscar')
             ->see("Se encontraron");
     }
     /**
-     * @group siembraBuscarSector
+     * @group siembraBuscarPlantula
      */
     public function testBuscarCultivoFechaCorrecto(){
-        $this->visit('sector/siembra')
+        $this->visit('plantula/siembra')
             ->type("29/02/2015","fechaInicio")
             ->type("29/02/2016","fechaFin")
             ->select(1,"cultivo")
@@ -82,206 +82,195 @@ class siembraSectorTest extends TestCase
             ->see("Se encontraron");
     }
     /**
-     * @group siembraBuscarSector
+     * @group siembraBuscarPlantula
      */
-    public function testBuscarSectorCultivoFechaCorrecto(){
-        $this->visit('sector/siembra')
+    public function testBuscarPlantulaCultivoFechaCorrecto(){
+        $this->visit('plantula/siembra')
             ->type("29/02/2015","fechaInicio")
             ->type("29/02/2016","fechaFin")
-            ->select(1,"sector")
+            ->select(1,"plantula")
             ->select(1,"cultivo")
             ->press('Buscar')
             ->see("Se encontraron");
     }
 
     /**
-     * @group siembraBuscarSector
+     * @group siembraBuscarPlantula
      */
     public function testBuscarUnaFecha(){
-        $this->visit('sector/siembra/lista?sector=&cultivo=&fechaInicio=&fechaFin=29%2F02%2F2016')
+        $this->visit('plantula/siembra/lista?plantula=&cultivo=&fechaInicio=&fechaFin=29%2F02%2F2016')
             ->see("No se encontraron resultados");
     }
 
     /**
-     * @group siembraBuscarSector
+     * @group siembraBuscarPlantula
      */
     public function testBuscarUnaFechaTexto(){
-        $this->visit('sector/siembra/lista?sector=&cultivo=&fechaInicio=sdfsdfsd&fechaFin=')
+        $this->visit('plantula/siembra/lista?plantula=&cultivo=&fechaInicio=sdfsdfsd&fechaFin=')
             ->see("No se encontraron resultados");
     }
     /**
-     * @group siembraBuscarSector
+     * @group siembraBuscarPlantula
      */
     public function testBuscarFechasTexto(){
-        $this->visit('sector/siembra/lista?sector=&cultivo=&fechaInicio=sdfsdfsd&fechaFin=sdsdfd')
+        $this->visit('plantula/siembra/lista?plantula=&cultivo=&fechaInicio=sdfsdfsd&fechaFin=sdsdfd')
             ->see("No se encontraron resultados");
     }
     /**
-     * @group siembraBuscarSector
+     * @group siembraBuscarPlantula
      */
-    public function testBuscarSectorTexto(){
-        $this->visit('sector/siembra/lista?sector=asdasd&cultivo=&fechaInicio=&fechaFin=')
+    public function testBuscarPlantulaTexto(){
+        $this->visit('plantula/siembra/lista?plantula=asdasd&cultivo=&fechaInicio=&fechaFin=')
             ->see("No se encontraron resultados");
     }
     /**
-     * @group siembraBuscarSector
+     * @group siembraBuscarPlantula
      */
     public function testBuscarCultivoTexto(){
-        $this->visit('sector/siembra/lista?sector=&cultivo=zfzfdf&fechaInicio=&fechaFin=')
+        $this->visit('plantula/siembra/lista?plantula=&cultivo=zfzfdf&fechaInicio=&fechaFin=')
             ->see("No se encontraron resultados");
     }
     /**
-     * @group siembraBuscarSector
+     * @group siembraBuscarPlantula
      */
-    public function testBuscarSectorInexistente(){
-        $this->visit('sector/siembra/lista?sector=1000&cultivo=&fechaInicio=&fechaFin=')
+    public function testBuscarPlantulaInexistente(){
+        $this->visit('plantula/siembra/lista?plantula=1000&cultivo=&fechaInicio=&fechaFin=')
             ->see("No se encontraron resultados");
     }
-
     /**
-     * @group siembraBuscarSector
+     * @group siembraBuscarPlantula
      */
     public function testBuscarCultivoInexistente(){
-        $this->visit('sector/siembra/lista?sector=&cultivo=1000&fechaInicio=&fechaFin=')
+        $this->visit('plantula/siembra/lista?plantula=&cultivo=1000&fechaInicio=&fechaFin=')
             ->see("No se encontraron resultados");
     }
 
     ////////////////////////////////////////////////CONSULTAR/////////////////////////////////////////////////////////
 
-    //para llamar a solo un grupo "phpunit --group siembraConsultarSector"
+    //para llamar a solo un grupo "phpunit --group siembraConsultarPlantula"
 
     /*Unidad*/
     /**
-     * @group siembraConsultarSector
+     * @group siembraConsultarPlantula
      */
     public function testRutaConsultar(){
-        $response = $this->call('GET', 'sector/siembra/consultar/12');
+        $response = $this->call('GET', 'plantula/siembra/consultar/12');
         $this->assertEquals(200, $response->status());
     }
 
     /**
-     * @group siembraConsultarSector
+     * @group siembraConsultarPlantula
      */
     public function testConsultarIdIncorrecto(){
-        $response = $this->call('GET', 'sector/siembra/consultar/120');
+        $response = $this->call('GET', 'plantula/siembra/consultar/120');
         $this->assertEquals(404, $response->status());
     }
 
     ////////////////////////////////////////////////MODIFICAR/////////////////////////////////////////////////////////////////
 
-    //para llamar a solo un grupo "phpunit --group siembraModificarSector"
+    //para llamar a solo un grupo "phpunit --group siembraModificarPlantula"
 
     /*Unidad*/
     /**
-     * @group siembraModificarSector
+     * @group siembraModificarPlantula
      */
     public function testRutaModificar(){
-        $response = $this->call('GET', 'sector/siembra/modificar/12');
+        $response = $this->call('GET', 'plantula/siembra/modificar/12');
         $this->assertEquals(200, $response->status());
     }
     /**
-     * @group siembraModificarSector
+     * @group siembraModificarPlantula
      */
     public function testModificarIdIncorrecto(){
-        $response = $this->call('GET', 'sector/siembra/modificar/120');
+        $response = $this->call('GET', 'plantula/siembra/modificar/120');
         $this->assertEquals(404, $response->status());
     }
 
     /**
-     * @group siembraModificarSector
+     * @group siembraModificarPlantula
      */
     public function testModificarCorrecto(){
-        $this->visit('sector/siembra/modificar/12')
-            ->select(1,"sector")
+        $this->visit('plantula/siembra/modificar/12')
+            ->select(1,"plantula")
             ->select(1,"cultivo")
             ->type("18/02/2016","fecha")
             ->type("Activo","status")
-            ->type("Maquinaria", "tipoSiembra")
             ->type("lalala", "variedad")
             ->type("hola", "comentario")
-            ->type("Primavera-Verano", "temporada")
             ->press('Modificar')
             ->see("ha sido modificada");
     }
     /**
-     * @group siembraModificarSector
+     * @group siembraModificarPlantula
      */
 
-    public function testModificarNoSector(){
-        $this->visit('sector/siembra/modificar/12')
-            ->select("","sector")
+    public function testModificarNoPlantula(){
+        $this->visit('plantula/siembra/modificar/12')
+            ->select("","plantula")
             ->select(1,"cultivo")
             ->type("18/02/2016","fecha")
             ->type("Activo","status")
-            ->type("Maquinaria", "tipoSiembra")
             ->type("lalala", "variedad")
             ->type("hola", "comentario")
-            ->type("Primavera-Verano", "temporada")
             ->press('Modificar')
-            ->see("El campo sector es obligatorio");
+            ->see("El campo plantula es obligatorio");
     }
     /**
-     * @group siembraModificarSector
+     * @group siembraModificarPlantula
      */
     public function testModificarNoCultivo(){
-        $this->visit('sector/siembra/modificar/12')
-            ->select(1,"sector")
+        $this->visit('plantula/siembra/modificar/12')
+            ->select(1,"plantula")
             ->select("","cultivo")
             ->type("18/02/2016","fecha")
             ->type("Activo","status")
-            ->type("Maquinaria", "tipoSiembra")
             ->type("lalala", "variedad")
             ->type("hola", "comentario")
-            ->type("Primavera-Verano", "temporada")
             ->press('Modificar')
             ->see("El campo cultivo es obligatorio");
     }
 
     /**
-     * @group siembraModificarSector
+     * @group siembraModificarPlantula
      */
 
     public function testModificarNoFecha(){
-        $this->visit('sector/siembra/modificar/12')
-            ->select(1,"sector")
+        $this->visit('plantula/siembra/modificar/12')
+            ->select(1,"plantula")
             ->select(1,"cultivo")
             ->type("","fecha")
             ->type("Activo","status")
-            ->type("Maquinaria", "tipoSiembra")
             ->type("lalala", "variedad")
             ->type("hola", "comentario")
-            ->type("Primavera-Verano", "temporada")
             ->press('Modificar')
             ->see("El campo fecha es obligatorio");
     }
 
     /**
-     * @group siembraModificarSector
+     * @group siembraModificarPlantula
      */
     public function testModificarFechaIncorrecta(){
-        $this->visit('sector/siembra/modificar/12')
-            ->select(1,"sector")
+        $this->visit('plantula/siembra/modificar/12')
+            ->select(1,"plantula")
             ->select(1,"cultivo")
             ->type("asdas","fecha")
             ->type("Activo","status")
-            ->type("Maquinaria", "tipoSiembra")
             ->type("lalala", "variedad")
             ->type("hola", "comentario")
-            ->type("Primavera-Verano", "temporada")
             ->press('Modificar')
             ->see("fecha no corresponde al formato d/m/Y");
     }
 
     ///////////////////////////////////////CREAR//////////////////////////////////////////////////////
 
-    //para llamar a solo un grupo phpunit --group siembraCrearSector
+    //para llamar a solo un grupo phpunit --group siembraCrearPlantula
 
     /*Unidad*/
     /**
-     * @group siembraCrearSector
+     * @group siembraCrearPlantula
      */
     public function testRutaCrear(){
-        $response = $this->call('GET', 'sector/siembra/crear');
+        $response = $this->call('GET', 'plantula/siembra/crear');
         $this->assertEquals(200, $response->status());
     }
 
@@ -289,90 +278,79 @@ class siembraSectorTest extends TestCase
     /*Integración*/
 
     /**
-     * @group siembraCrearSector
+     * @group siembraCrearPlantula
      */
     public function testCrearCorrecto(){
-        $this->visit('sector/siembra/crear')
-            ->select(1,"sector")
+        $this->visit('plantula/siembra/crear')
+            ->select(1,"plantula")
             ->select(1,"cultivo")
             ->type("18/02/2016","fecha")
             ->type("Activo","status")
-            ->type("Maquinaria", "tipoSiembra")
             ->type("lalala", "variedad")
             ->type("hola", "comentario")
-            ->type("Primavera-Verano", "temporada")
             ->press('Crear')
             ->see("La siembra ha sido agregada");
     }
 
     /**
-     * @group siembraCrearSector
+     * @group siembraCrearPlantula
      */
-    public function testCrearNoSector(){
-        $this->visit('sector/siembra/crear')
+    public function testCrearNoPlantula(){
+        $this->visit('plantula/siembra/crear')
             ->select(1,"cultivo")
             ->type("18/02/2016","fecha")
             ->type("Activo","status")
-            ->type("Maquinaria", "tipoSiembra")
             ->type("lalala", "variedad")
             ->type("hola", "comentario")
-            ->type("Primavera-Verano", "temporada")
             ->press('Crear')
-            ->see("El campo sector es obligatorio");
+            ->see("El campo plantula es obligatorio");
     }
 
 
     /**
-     * @group siembraCrearSector
+     * @group siembraCrearPlantula
      */
     public function testCrearNoCultivo(){
-        $this->visit('sector/siembra/crear')
-            ->select(1,"sector")
+        $this->visit('plantula/siembra/crear')
+            ->select(1,"plantula")
             ->type("18/02/2016","fecha")
             ->type("Activo","status")
-            ->type("Maquinaria", "tipoSiembra")
             ->type("lalala", "variedad")
             ->type("hola", "comentario")
-            ->type("Primavera-Verano", "temporada")
             ->press('Crear')
             ->see("El campo cultivo es obligatorio");
     }
 
     /**
-     * @group siembraCrearSector
+     * @group siembraCrearPlantula
      */
     public function testCrearNoFecha(){
-        $this->visit('sector/siembra/crear')
-            ->select(1,"sector")
+        $this->visit('plantula/siembra/crear')
+            ->select(1,"plantula")
             ->select(1,"cultivo")
             ->type("Activo","status")
-            ->type("Maquinaria", "tipoSiembra")
             ->type("lalala", "variedad")
             ->type("hola", "comentario")
-            ->type("Primavera-Verano", "temporada")
             ->press('Crear')
             ->see("El campo fecha es obligatorio");
     }
 
     /**
-     * @group siembraCrearSector
+     * @group siembraCrearPlantula
      */
     public function testCrearFechaIncorrecta(){
-        $this->visit('sector/siembra/crear')
-            ->select(1,"sector")
+        $this->visit('plantula/siembra/crear')
+            ->select(1,"plantula")
             ->select(1,"cultivo")
             ->type("asdas","fecha")
             ->type("Activo","status")
-            ->type("Maquinaria", "tipoSiembra")
             ->type("lalala", "variedad")
             ->type("hola", "comentario")
-            ->type("Primavera-Verano", "temporada")
             ->press('Crear')
             ->see("fecha no corresponde al formato d/m/Y");
     }
 
 }
-
 
 
 

@@ -16,61 +16,63 @@
                         }
                     }
                 },
-                aplicacion:{
+                contenedor:{
                     validators: {
                         notEmpty: {
                             message: 'Seleccione una opción'
                         }
                     }
                 },
-
-                siembraT:{
+                cultivo: {
                     validators: {
                         notEmpty: {
                             message: 'Seleccione una opción'
                         }
                     }
                 },
-
-                tipoAplicacion:{
+                numPlantas: {
                     validators: {
-                        notEmpty: {
-                            message: 'Seleccione una opción'
-                        }
-                    }
-                },
-                producto:{
-                    validators: {
-                        notEmpty: {
-                            message: 'Escribe un producto'
-                        }
-                    }
-                },
-                cantidad:{
-                    validators: {
-
-                        numeric: {
-                            message: 'No es un número válido',
-                            // The default separators
-
-                            decimalSeparator: '.'
-
-
-                        },
-                        greaterThan: {
+                        greaterThan:{
                             value: 0,
-                            message: 'El número tiene que ser positivo'
+                            message: 'Ingrese número mayor o igual a 0'
+                        },
+                        stringLength: {
+                            max: 3,
+                            message: 'Ingrese número entre 0-999'
+                        },
+                        integer:{
+                            message: 'Ingrese número válido'
                         }
-
                     }
                 },
-
+                destino:{
+                    validators: {
+                        notEmpty: {
+                            message: "Seleccione una opción"
+                        }
+                    }
+                },
                 fecha:{
                     validators: {
                         notEmpty: {
                             message: 'Seleccione una opción'
                         },
 
+                        date: {
+                            format: 'DD/MM/YYYY',
+                            message: 'Ingrese fecha en formato dd/mm/aaaa'
+                        }
+                    }
+                },
+                status: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Seleccione una opción'
+                        }
+                    }
+                },
+                fechaTerminacion: {
+                    validators: {
                         date: {
                             format: 'DD/MM/YYYY',
                             message: 'Ingrese fecha en formato dd/mm/aaaa'
@@ -85,7 +87,10 @@
                     $('#formulario').data('bootstrapValidator').revalidateField('fecha');
                 });
 
-
+        $('#fechaTerminacion')
+                .on('dp.change dp.show', function(e) {
+                    $('#formulario').data('bootstrapValidator').revalidateField('fechaTerminacion');
+                });
 
 
     });
@@ -95,13 +100,12 @@
     $(function () {
         $('#fecha').datetimepicker({
             format:'DD/MM/YYYY'
-
+        });
+        $('#fechaTerminacion').datetimepicker({
+            format:'DD/MM/YYYY'
         });
 
+        $('#fecha').keypress(function(event) {event.preventDefault();});
+        $('#fechaTerminacion').keypress(function(event) {event.preventDefault();});
     });
-
-    $('#fecha').keypress(function(event) {event.preventDefault();});
-
-
-
 </script>

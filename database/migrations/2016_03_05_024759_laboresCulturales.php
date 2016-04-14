@@ -15,7 +15,8 @@ class LaboresCulturales extends Migration
         Schema::create('labores_culturales', function (Blueprint $table) {
             $table->increments('id');
             $table->dateTime('fecha');
-            $table->enum('actividad',['Deshojes','Despuntes','Brotes','Podas']);
+            $table->enum('actividad',['Colocacion de Clip','Poda de Hoja','Poda de Fruto','Bajada de Planta','Eliminacion de Brotes Laterales',
+                'Raleo de Flores','Tutoreo','Eliminacion de Plantas Virosas','Enrollado de Planta','Guia de Planta']);
 
             //Se abrevio siembraTransplante a st porque el nombre era muy largo y sql no lo aceptaba
             $table->integer('id_stInvernadero')->unsigned();
