@@ -192,7 +192,7 @@ class siembraPlantulaController extends Controller
         $invernadero = invernaderoPlantula::select('id', 'nombre')->first();
         $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
         $cultivos = cultivo::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $contenedores = ['Tipo1', 'Tipo2'];
+        $contenedores = ['Maceta (1L)', 'Maceta (0.5L)', 'Maceta (0.25L)', 'Charola - Plástico', 'Charola - Unicel'];
         $destinos = ['Campo', 'Invernadero'];
         $tipoStatus = ['Activo', 'Terminado'];
 
@@ -217,7 +217,7 @@ class siembraPlantulaController extends Controller
         $invernadero = $siembra->invernadero;
         $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
         $cultivos = cultivo::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $contenedores = ['Tipo1','Tipo2'];
+        $contenedores = ['Maceta (1L)', 'Maceta (0.5L)', 'Maceta (0.25L)', 'Charola - Plástico', 'Charola - Unicel'];
         $contenedor = $siembra->contenedor;
         $destinos = ['Campo', 'Invernadero'];
         $destino = $siembra->destino;
