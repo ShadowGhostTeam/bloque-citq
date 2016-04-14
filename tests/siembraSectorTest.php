@@ -137,6 +137,7 @@ class siembraSectorTest extends TestCase
         $this->visit('sector/siembra/lista?sector=1000&cultivo=&fechaInicio=&fechaFin=')
             ->see("No se encontraron resultados");
     }
+    
     /**
      * @group siembraBuscarSector
      */
