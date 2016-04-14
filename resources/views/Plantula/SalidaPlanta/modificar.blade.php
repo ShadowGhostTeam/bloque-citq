@@ -71,6 +71,4 @@
 
 @include('Plantula.SalidaPlanta.Partials.validator')
 
-@include('Plantula.SalidaPlanta.Partials.ajaxScript')
-
 @include('Partials.ScriptsGenerales.scriptsPartialsAbajo')
