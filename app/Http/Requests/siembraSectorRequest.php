@@ -27,9 +27,6 @@ class siembraSectorRequest extends Request
             'sector'=>'required|exists:sector,id',
             'cultivo' => 'required|exists:cultivo,id',
             'fecha' =>  'required|date_format:d/m/Y',
-            'fechaTerminacion' => 'date_format:d/m/Y',
-            'tipoSiembra'=>'in:Maquinaria,A mano',
-            'temporada'=>'in:Primavera-Verano,Otoño-Invierno',
             'status'=>'required|in:Activo,Terminado',
         ];
     }
