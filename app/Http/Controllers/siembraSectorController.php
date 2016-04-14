@@ -160,6 +160,31 @@ class siembraSectorController extends Controller
                 }
             }
         }
+
+        if($siembras!=null){
+            /*Adapta el formato de fecha para poder imprimirlo en la vista adecuadamente*/
+            $this->adaptaFechas($siembras);
+
+            /*Si no es nulo puede contar los resultados*/
+            $num = $siembras->total();
+        }
+        else{
+            $num=0;
+        }
+
+        if ($num <= 0) {
+            Session::flash('error', 'No se encontraron resultados');
+
+        } else {
+            Session::flash('message', 'Se encontraron ' . $num . ' resultados');
+        }
+
+        /*Regresa la vista*/
+        return view('Sector/Siembra/buscar')->with([
+            'sectores' => $sectores,
+            'cultivos' => $cultivos,
+            'siembras'=> $siembras,
+        ]);
     }
 
     /*Devuelve la vista de crear con los valores de los combobox*/
