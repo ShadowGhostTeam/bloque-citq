@@ -153,9 +153,10 @@ MAIN SIDEBAR MENU
                                             <thead>
                                             <tr>
                                                 <th><i class="fa fa-thumb-tack"></i> Sector </th>
-                                                <th> <i class="fa fa-calendar-o"></i> Cultivo </th>
-                                                <th><i class=" fa fa-edit"></i>Fecha</th>
-                                                <th></th>
+                                                <th> <i class="fa fa-tree"></i> Cultivo </th>
+                                                <th><i class="fa fa-calendar-o"></i> Fecha </th>
+                                                <th><i class="fa fa-circle-thin"></i> Status </th>
+                                                <th><i class="fa fa-calendar-o"></i> Fecha de Terminación </th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -168,7 +169,12 @@ MAIN SIDEBAR MENU
                                                         <td>{{ $siembra->sector->nombre }}</td>
                                                         <td>{{ $siembra->cultivo->nombre }}</td>
                                                         <td>{{ $siembra->fecha }}</td>
-
+                                                        <td>{{ $siembra->status }}</td>
+                                                        @if ( $siembra->fechaTerminacion == "30/11/-0001" )
+                                                            <td>{{ "No ha terminado" }}</td>
+                                                        @else
+                                                            <td>{{ $siembra->fechaTerminacion }}</td>
+                                                        @endif
 
                                                         <td style="width: 5px">
                                                             <a href="{{ route('sector/siembra/consultar/item',$siembra->id) }}"><button class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar"><i class="fa fa-eye"></i></button></a>
