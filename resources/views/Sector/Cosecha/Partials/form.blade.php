@@ -70,17 +70,6 @@
         </div>
 
         <div class="form-group">
-            <label for="Descripción" class="col-lg-2 control-label">Descripción</label>
-            <div class="col-lg-10">
-                @if( isset($cosechaSector))
-                    {!!Form::textArea('descripcion' ,$cosechaSector->descripcion,['class'=>'form-control','id'=>'descripcion','placeholder'=>'Aquí puedes incluir una descripción.'])!!}
-                @else
-                    {!!Form::textArea('descripcion' ,null,['class'=>'form-control','id'=>'descripcion','placeholder'=>'Aquí puedes incluir una descripción.'])!!}
-                @endif
-            </div>
-        </div>
-
-        <div class="form-group">
             <label for="Fecha" class="col-lg-2 control-label"><strong>*</strong>Fecha</label>
             <div class="col-lg-10">
                 <div class="input-group date" id="fechaDP">
@@ -93,6 +82,17 @@
                         {!!Form::text('fecha' ,null,['class'=>'form-control','id'=>'fecha','placeholder'=>'dd/mm/aaaa'])!!}
                     @endif
                 </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Descripción" class="col-lg-2 control-label">Descripción</label>
+            <div class="col-lg-10">
+                @if( isset($cosechaSector))
+                    {!!Form::textArea('descripcion' ,$cosechaSector->descripcion,['class'=>'form-control','id'=>'descripcion','placeholder'=>'Aquí puedes incluir una descripción.'])!!}
+                @else
+                    {!!Form::textArea('descripcion' ,null,['class'=>'form-control','id'=>'descripcion','placeholder'=>'Aquí puedes incluir una descripción.'])!!}
+                @endif
             </div>
         </div>
 
