@@ -89,7 +89,6 @@ class salidaDePlantaController extends Controller
         $salidaPlanta->fecha=$fecha->format('d/m/Y');
 
 
-
         return view('Plantula/SalidaPlanta/modificar')->with([
             'invernadero' => $invernadero,
             'siembras' => $siembrasTodas,

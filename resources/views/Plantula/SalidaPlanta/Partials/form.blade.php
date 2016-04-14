@@ -45,10 +45,10 @@
                     @if( isset($salidaPlanta))
 
                         @foreach($siembras as $siembra)
-                            @if($siembraSeleccionada['id'] == $siembra['id'])
-                                <option value="{{  $siembra['id']  }}" selected > {{ $siembra['variedad'] . " - ". $siembra['fecha'] }}  </option>
+                            @if($siembraSeleccionada['id_siembra'] == $siembra['id_siembra'])
+                                <option value="{{  $siembra['id_siembra']  }}" selected > {{ $siembra['variedad'] . " - ". $siembra['fecha'] }}  </option>
                             @else
-                                <option value="{{  $siembra['id']  }}"  > {{ $siembra['variedad'] ." - " . $siembra['fecha']  }}  </option>
+                                <option value="{{  $siembra['id_siembra']  }}"  > {{ $siembra['variedad'] ." - " . $siembra['fecha']  }}  </option>
                             @endif
                         @endforeach
 
