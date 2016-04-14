@@ -202,7 +202,7 @@ class cosechaInvernaderoController extends Controller
 
                 /*Solo con fechas*/
                 if ($request->invernadero == "") {
-                    $cosechas = Invernadero::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                    $cosechas = cosechaInvernadero::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
                 }
                 /*Solo con fechas y ivnernadero*/
                 if ($request->invernadero != "") {
