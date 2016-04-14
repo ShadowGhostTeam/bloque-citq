@@ -65,7 +65,7 @@ class AuthController extends Controller{
     }
     ///SI ES EXITOSO EL LOGIN ENTONCES
     public  function redirectPath(){
-        return route('sector/preparacion');
+        return route('home');
     }
     protected function getFailedLoginMessage(){
         return 'Usuario o Contrasena equivocados.';
