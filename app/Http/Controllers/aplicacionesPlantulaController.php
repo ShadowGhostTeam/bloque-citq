@@ -27,6 +27,7 @@ class aplicacionesPlantulaController extends Controller
 
     public function index(){
         $now= Carbon::now()->format('Y/m/d');
+        $now = $now. " 23:59:59";
         $now2 =Carbon::now()->subMonth(6)->format('Y/m/d');
         $aplicaciones = aplicacionesPlantula::whereBetween('fecha', array($now2,$now))->orderBy('fecha', 'desc')->paginate(15);
         $this->adaptaFechas($aplicaciones);
