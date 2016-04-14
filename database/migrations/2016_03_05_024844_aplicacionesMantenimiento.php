@@ -15,8 +15,8 @@ class AplicacionesMantenimiento extends Migration
         Schema::create('aplicaciones_mantenimiento', function (Blueprint $table) {
             $table->increments('id');
             $table->dateTime('fecha');
-            $table->enum('aplicacion',['Fungicida','Herbicida','Insecticida']);
-            $table->enum('tipoAplicacion',['Sistema de riego','Al suelo', 'Al follaje']);
+            $table->enum('aplicacion',['Fungicida','Herbicida','Insecticida','Hormonas','Estimulantes']);
+            $table->enum('tipoAplicacion',['Sistema de riego','Al suelo', 'Al follaje','Botellas españolas']);
 
             $table->string('producto');
             $table->double('cantidad')->unsigned();

@@ -16,7 +16,7 @@ class AplicacionesPlantula extends Migration
             $table->increments('id');
 
             $table->dateTime('fecha');
-            $table->enum('aplicacion',['Fungicida','Herbicida','Insecticida','Podas']);
+            $table->enum('aplicacion',['Fungicida','Herbicida','Insecticida']);
             $table->enum('tipoAplicacion',['Sistema de riego','Al suelo', 'Al follaje']);
 
             $table->string('producto');
