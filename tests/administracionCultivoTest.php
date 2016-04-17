@@ -31,6 +31,13 @@ class administracionCultivoTest extends TestCase
             ->see("Se encontraron");
     }
 
+    public function testBuscarNombre(){
+        $this->visit('administracion/cultivos')
+            ->select(8,"cultivo")
+            ->press('Buscar')
+            ->see("Se encontraron");
+    }
+
     ///////////////////////////////////////CREAR//////////////////////////////////////////////////////
 
     //para llamar a solo un grupo phpunit --group administracionCultivoCrear
