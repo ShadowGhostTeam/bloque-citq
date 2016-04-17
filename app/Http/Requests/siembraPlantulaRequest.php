@@ -24,8 +24,8 @@ class siembraPlantulaRequest extends Request
     public function rules()
     {
         return [
-            'invernadero'=>'required|exists:invernaderoPlantula,id',
-            'contenedor' => 'required|in:Tipo1,Tipo2',
+            'invernadero'=>'required|exists:invernadero_plantula,id',
+            'contenedor' => 'required|in:Maceta (1L),Maceta (0.5L),Maceta (0.25L),Charola - Plástico,Charola - Unicel',
             'cultivo' => 'required|exists:cultivo,id',
             'numPlantas' => 'numeric|min:0',
             'sustrato' => 'max:255',

@@ -17,7 +17,7 @@ $factory->define(App\siembraPlantula::class, function (Faker\Generator $faker) {
     return [
 
         'destino'=> $faker->randomElement(['Campo','Invernadero']),
-        'contenedor'=> $faker->randomElement(['Tipo1','Tipo2']),
+        'contenedor'=> $faker->randomElement(['Maceta (1L)', 'Maceta (0.5L)', 'Maceta (0.25L)', 'Charola - Plástico', 'Charola - Unicel']),
         'numPlantas'=>$faker->randomDigit(),
 
         'fecha'=>$faker->dateTimeBetween($startDate = '-6 months', $endDate = 'now'),

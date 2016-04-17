@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\invernaderoPlantula;
 
 class invernaderoPlantulaSeeder extends Seeder
 {
@@ -12,6 +13,8 @@ class invernaderoPlantulaSeeder extends Seeder
     public function run()
     {
         //
-        factory(App\invernaderoPlantula::class,1)->create();
+       // factory(App\invernaderoPlantula::class,1)->create();
+
+        invernaderoPlantula::create(['nombre'=>'Invernadero plántula 1']);
     }
 }

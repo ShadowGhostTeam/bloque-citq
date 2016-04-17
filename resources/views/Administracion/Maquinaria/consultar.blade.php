@@ -14,38 +14,42 @@
     MAIN SIDEBAR MENU
     *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Invernadero.fertilizacionRiego.aside')
+    @include('Administracion.Maquinaria.aside')
     <!--sidebar end-->
 
     <section id="container">
         <section id="main-content">
             <section class="wrapper site-min-height">
-                <h3><a href="{{ route('invernadero/fertilizacionRiego') }}"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Búsqueda</button></a></h3>
+                <h3><a href="{{ route('administracion/maquinaria') }}"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Búsqueda</button></a></h3>
                 <div class="row mt">
 
                     <!-- INICIO CONSULTAR FUNCIONES -->
                     <div class="col-lg-12">
                         <div class="form-panel">
 
-                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Consultar fertilización/riego</h4><br>
+                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Consultar máquina</h4><br>
 
-                            @if( isset($fertilizacionesRiego))
+                            @if( isset($resultado))
+
+
                                 <table align="right">
                                     <tr>
                                         <td>
-                                            <a href="{{ route('invernadero/fertilizacionRiego/modificar/item',$fertilizacionesRiego->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
+                                            <a href="{{ route('administracion/maquinaria/modificar/item',$resultado->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
                                             &nbsp
                                         </td>
 
                                         <td>
-                                            {!! Form::open(['action'=>['fertilizacionRiegoInvernaderoController@eliminar'],'role'=>'form'] )  !!}
-                                            <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la fertilización?")'><i class="fa fa-trash-o "></i></button>
-                                            <input type="hidden" name="id" value={{$fertilizacionesRiego->id}}>
+                                            {!! Form::open(['action'=>['maquinariaController@eliminar'],'role'=>'form'] )  !!}
+                                            <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la máquina?")'><i class="fa fa-trash-o "></i></button>
+                                            <input type="hidden" name="id" value={{$resultado->id}}>
                                             {!! Form::close() !!}
+
                                         </td>
                                     </tr>
                                 </table>
                                 <br><br>
+
                             @endif
                             <div class="row">
                                 <br>
@@ -57,19 +61,8 @@
                                 <div class="col-md-7">
 
                                     <dl class="dl-horizontal">
-                                        <dt>Invernadero</dt><dd>{{ $fertilizacionesRiego->invernadero->nombre }}</dd>
-                                        <dt>Transplante</dt><dd>{{ $siembras['nombre'] . ' '. $siembras['variedad']  }}</dd>
-                                        <dt>Fecha</dt><dd>{{ $fertilizacionesRiego->fecha }}</dd>
-                                        <dt>Tiempo riego</dt><dd>{{ $fertilizacionesRiego->tiempoRiego }}</dd>
-                                        @if( $fertilizacionesRiego->etapaFenologica != "")
-                                            <dt>Etapa Fenológica</dt><dd>{{ $fertilizacionesRiego->etapaFenologica }}</dd>
-                                        @endif
-                                        @if( $fertilizacionesRiego->frecuencia != "")
-                                            <dt>Frecuencia</dt><dd>{{ $fertilizacionesRiego->frecuencia }}</dd>
-                                        @endif
-                                        @if( $fertilizacionesRiego->formulación != "")
-                                            <dt>Formulación</dt><dd>{{ $fertilizacionesRiego->formulacion }}</dd>
-                                        @endif
+                                        <dt>Nombre</dt><dd>{{ $resultado->nombre }}</dd>
+                                        <dt>Descripción</dt><dd>{{ $resultado->descripcion }}</dd>
                                     </dl>
                                 </div>
 
@@ -85,7 +78,6 @@
             </section>
         </section>
     </section>
-</section>
 
 
 

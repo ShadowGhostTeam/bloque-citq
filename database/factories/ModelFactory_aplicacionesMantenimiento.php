@@ -20,8 +20,8 @@ $factory->define(App\aplicacionesMantenimiento::class, function (Faker\Generator
 
     return [
         'fecha'=>$faker->dateTimeBetween($startDate = '-6 months', $endDate = 'now'),
-        'aplicacion'=> $faker->randomElement(['Fungicida','Herbicida','Insecticida']),
-        'tipoAplicacion'=> $faker->randomElement(['Sistema de riego','Al suelo', 'Al follaje']),
+        'aplicacion'=> $faker->randomElement(['Fungicida','Herbicida','Insecticida','Hormonas','Estimulantes']),
+        'tipoAplicacion'=> $faker->randomElement(['Sistema de riego','Al suelo', 'Al follaje','Botellas españolas']),
         'producto' => $faker->name,
         'cantidad' => $faker->randomDigit,
         'comentario' => $faker->address,

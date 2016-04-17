@@ -27,6 +27,7 @@ class cosechaInvernaderoController extends Controller
      */
     public function index() {
         $now= Carbon::now()->format('Y/m/d');
+        $now = $now. " 23:59:59";
         $now2 =Carbon::now()->subMonth(6)->format('Y/m/d');
         $cosechas = cosechaInvernadero::whereBetween('fecha', array($now2,$now))->orderBy('fecha', 'desc')->paginate(15);
         $this->adaptaFechas($cosechas);
@@ -201,7 +202,7 @@ class cosechaInvernaderoController extends Controller
 
                 /*Solo con fechas*/
                 if ($request->invernadero == "") {
-                    $cosechas = Invernadero::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                    $cosechas = cosechaInvernadero::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
                 }
                 /*Solo con fechas y ivnernadero*/
                 if ($request->invernadero != "") {
