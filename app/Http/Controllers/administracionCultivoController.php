@@ -24,10 +24,11 @@ class administracionCultivoController extends Controller
         $now= Carbon::now()->format('Y/m/d');
         $now = $now. " 23:59:59";
         $now2 =Carbon::now()->subMonth(6)->format('Y/m/d');
-
+        $cultivosB= cultivo::select('id','nombre')->orderBy('nombre', 'asc')->get();
         $cultivos = cultivo::select('id','nombre', 'descripcion')->orderBy('nombre', 'asc')->paginate(15);
         return view('Administracion/Cultivo/buscar')->with([
-            'cultivos' => $cultivos
+            'cultivosB'=> $cultivosB,
+            'cultivos'=> $cultivos
         ]);
     }
 
@@ -106,18 +107,20 @@ class administracionCultivoController extends Controller
      */
 
     public function buscar(Request $request){
+        /*Listados de combobox*/
+        $cultivosB= cultivo::select('id','nombre')->orderBy('nombre', 'asc')->get();
         /*Ahi se guardaran los resultados de la busqueda*/
         $cultivos = null;
 
             /*Busqueda sin parametros*/
-            if ($request->nombre == "") {
-                $cultivos = cultivo::orderBy('nombre', 'desc')->paginate(15);;
+            if ($request->cultivo == "") {
+                $cultivos = cultivo::orderBy('id', 'desc')->paginate(15);;
 
             }
 
             /*Busqueda solo con invernadero*/
-            if ($request->nombre != "") {
-                $cultivos = cultivo::where('nombre', $request->nombre)->orderBy('nombre', 'desc')->paginate(15);;
+            if ($request->cultivo != "") {
+                $cultivos = cultivo::where('id', $request->cultivo)->orderBy('nombre', 'desc')->paginate(15);;
 
             }
 
@@ -137,6 +140,7 @@ class administracionCultivoController extends Controller
 
         /*Regresa la vista*/
         return view('Administracion/Cultivo/buscar')->with([
+            'cultivosB'=> $cultivosB,
             'cultivos'=> $cultivos
         ]);
     }
