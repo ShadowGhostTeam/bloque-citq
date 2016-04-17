@@ -70,17 +70,6 @@
         </div>
 
         <div class="form-group">
-            <label for="Comentario" class="col-lg-2 control-label">Comentario</label>
-            <div class="col-lg-10">
-                @if( isset($cosechaInvernadero))
-                    {!!Form::textArea('comentario' ,$cosechaInvernadero->comentario,['class'=>'form-control','id'=>'comentario','placeholder'=>'Aquí puedes incluir un comentario.'])!!}
-                @else
-                    {!!Form::textArea('comentario' ,null,['class'=>'form-control','id'=>'comentario','placeholder'=>'Aquí puedes incluir un comentario.'])!!}
-                @endif
-            </div>
-        </div>
-
-        <div class="form-group">
             <label for="Fecha" class="col-lg-2 control-label"><strong>*</strong>Fecha</label>
             <div class="col-lg-10">
                 <div class="input-group date" id="fechaDP">
@@ -93,6 +82,17 @@
                         {!!Form::text('fecha' ,null,['class'=>'form-control','id'=>'fecha','placeholder'=>'dd/mm/aaaa'])!!}
                     @endif
                 </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Comentario" class="col-lg-2 control-label">Comentario</label>
+            <div class="col-lg-10">
+                @if( isset($cosechaInvernadero))
+                    {!!Form::textArea('comentario' ,$cosechaInvernadero->comentario,['class'=>'form-control','id'=>'comentario','placeholder'=>'Aquí puedes incluir un comentario.'])!!}
+                @else
+                    {!!Form::textArea('comentario' ,null,['class'=>'form-control','id'=>'comentario','placeholder'=>'Aquí puedes incluir un comentario.'])!!}
+                @endif
             </div>
         </div>
 

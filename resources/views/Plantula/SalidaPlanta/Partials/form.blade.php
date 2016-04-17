@@ -19,23 +19,18 @@
         <div class="form-group">
             <label for="Invernadero" class="col-lg-2 control-label"><strong>*</strong>Invernadero Plántula</label>
             <div class="col-lg-10">
-
-                <select  class="form-control" id="invernadero" name="invernadero">
+                @if(isset($invernadero))
+                    <input type="hidden" value="1" name="invernadero"/>
+                @endif
+                <select  class="form-control" id="invernadero" name="invy" disabled>
                     <option value="">Selecciona</option>
-
-                    @if( isset($salidaPlanta))
-                        @foreach($invernaderos as $invernadero)
-                            @if($salidaPlanta->id_invernaderoPlantula == $invernadero->id)
-                                <option value="{{  $invernadero->id  }}" selected > {{ $invernadero->nombre}}  </option>
-                            @else
-                                <option value="{{  $invernadero->id  }}" > {{ $invernadero->nombre}}  </option>
+                        @if( isset($salidaplanta))
+                            @if(isset($invernadero))
+                                <option value="{{ $invernadero }}" selected> {{ $invernadero->nombre }} </option>
                             @endif
-                        @endforeach
-                    @else
-                        @foreach($invernaderos as $invernadero)
-                            <option value="{{  $invernadero->id  }}" > {{ $invernadero->nombre}}  </option>
-                        @endforeach
-                    @endif
+                        @else
+                            <option value="{{ $invernadero }}" selected> {{ $invernadero->nombre }} </option>
+                        @endif
                 </select>
             </div>
         </div>
@@ -51,12 +46,16 @@
 
                         @foreach($siembras as $siembra)
                             @if($siembraSeleccionada['id_siembra'] == $siembra['id_siembra'])
-                                <option value="{{  $siembra['id_siembra']  }}" selected > {{ $siembra['nombre']."   ". $siembra['variedad'] . " - ". $siembra['fecha'] }}  </option>
+                                <option value="{{  $siembra['id_siembra']  }}" selected > {{ $siembra['variedad'] . " - ". $siembra['fecha'] }}  </option>
                             @else
-                                <option value="{{  $siembra['id_siembra']  }}"  > {{ $siembra['nombre']."   ". $siembra['variedad'] ." - " . $siembra['fecha']  }}  </option>
+                                <option value="{{  $siembra['id_siembra']  }}"  > {{ $siembra['variedad'] ." - " . $siembra['fecha']  }}  </option>
                             @endif
                         @endforeach
 
+                    @else
+                        @foreach($siembras as $siembra)
+                            <option value="{{  $siembra['id']  }}"  > {{ $siembra['variedad'] ." - " . $siembra['fecha']  }}  </option>
+                        @endforeach
                     @endif
                 </select>
             </div>

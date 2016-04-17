@@ -38,6 +38,6 @@ class rolesSeeder extends Seeder
         $user2->attachRole($rol->id);
         $user3->attachRole($rol2->id);
         $user4->attachRole($rol2->id);
-        $user5->attachRole($rol3->id);
+        $user5->attachRole($rol2->id);
     }
 }

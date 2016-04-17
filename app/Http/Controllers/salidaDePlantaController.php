@@ -25,6 +25,7 @@ class salidaDePlantaController extends Controller
 {
     public function index() {
         $now= Carbon::now()->format('Y/m/d');
+        $now= $now. " 23:59:59";
         $now2 =Carbon::now()->subMonth(6)->format('Y/m/d');
         $salidas = salidaPlanta::whereBetween('fecha', array($now2,$now))->orderBy('fecha', 'des')->paginate(15);
         $this->adaptaFechas($salidas);
@@ -40,11 +41,15 @@ class salidaDePlantaController extends Controller
      * Devuelve la vista de crear con los valores de los combobox
      * */
     public function pagCrear() {
+        $invernadero = invernaderoPlantula::select('id', 'nombre')->first();
         $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $siembras= siembraPlantula::select('id','variedad','fecha')->orderBy('variedad', 'asc')->get();
 
 
         return view('Plantula/SalidaPlanta/crear')->with([
-            'invernaderos' => $invernaderos
+            'invernaderos' => $invernaderos,
+            'invernadero' => $invernadero,
+            'siembras' => $siembras
 
         ]);
     }
@@ -54,6 +59,7 @@ class salidaDePlantaController extends Controller
      */
     public function pagModificar($id) {
         $salidaPlanta= salidaPlanta::findOrFail($id);
+        $invernadero= $salidaPlanta->invernadero;
         $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
         $fechaSiembraSeleccionada=Carbon::createFromFormat('Y-m-d H:i:s', $salidaPlanta->siembra->fecha);
 
@@ -83,9 +89,8 @@ class salidaDePlantaController extends Controller
         $salidaPlanta->fecha=$fecha->format('d/m/Y');
 
 
-
         return view('Plantula/SalidaPlanta/modificar')->with([
-            'invernaderos' => $invernaderos,
+            'invernadero' => $invernadero,
             'siembras' => $siembrasTodas,
             'siembraSeleccionada' => $siembraSeleccionada,
             'salidaPlanta' => $salidaPlanta,

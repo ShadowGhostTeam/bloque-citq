@@ -41,7 +41,7 @@
         </div>
 
         <div class="form-group">
-            <label for="Siembra" class="col-lg-2 control-label"><strong>*</strong>Siembra-Transplante</label>
+            <label for="Siembra" class="col-lg-2 control-label"><strong>*</strong>Transplante</label>
             <div class="col-lg-10">
 
                 <select  class="form-control" id="siembraT" name="siembraT">

@@ -144,8 +144,8 @@ MAIN SIDEBAR MENU
                                     <thead>
                                     <tr>
                                         <th><i class="fa fa-thumb-tack"></i> Sector </th>
-                                        <th> <i class="fa fa-calendar-o"></i> Tipo </th>
-                                        <th><i class=" fa fa-edit"></i>Fecha</th>
+                                        <th> <i class="fa fa-list-ul"></i> Tipo </th>
+                                        <th><i class="fa fa-calendar"></i> Fecha</th>
                                         <th></th>
                                     </tr>
                                     </thead>

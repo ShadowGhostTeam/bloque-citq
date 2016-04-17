@@ -13,21 +13,14 @@
     MAIN SIDEBAR MENU
     *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Plantula.SalidaPlanta.aside')
+    @include('Administracion.Maquinaria.aside')
     <!--sidebar end-->
 
     <section id="container">
 
         <section id="main-content">
             <section class="wrapper site-min-height">
-                <h3>
-                    <a href="{{ route('plantula/salidaplanta') }}">
-                        <button type="button" class="btn btn-primary">
-                            <i class="glyphicon glyphicon-arrow-left"></i>
-                            Búsqueda
-                        </button>
-                    </a>
-                </h3>
+                <h3><a href="{{ route('administracion/maquinaria') }}"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Búsqueda</button></a></h3>
                 <div class="row mt">
 
                     <!-- INICIO CONSULTAR FUNCIONES -->
@@ -36,11 +29,11 @@
 
                             @include('Partials.Mensajes.mensajes')
 
-                            {!! Form::open(['action'=>['salidaDePlantaController@crear'],'class'=>'form-horizontal','role'=>'form','id'=>'formulario'])!!}
+                            {!! Form::open(['action'=>['maquinariaController@crear'],'class'=>'form-horizontal','role'=>'form','id'=>'formulario'])!!}
 
-                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear salida de planta</h4><br>
+                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear máquina</h4><br>
 
-                            @include('Plantula.SalidaPlanta.Partials.form')
+                            @include('Administracion.Maquinaria.Partials.form')
 
                             {!! Form::close() !!}
                         </div>
@@ -52,5 +45,6 @@
     </section>
 </section>
 
-    @include('Plantula.SalidaPlanta.Partials.validator')
+    @include('Administracion.Maquinaria.Partials.validator')
+
     @include('Partials.ScriptsGenerales.scriptsPartialsAbajo')
