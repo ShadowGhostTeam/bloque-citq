@@ -32,7 +32,7 @@ class inicioController extends Controller
      * Devuelve el inicio con la información de los sectores, invernaderos e invernadero de plántula
      */
     public function index() {
-        return View('Inicio/inicio');
+        return View('Home/inicio');
 
     }
 
