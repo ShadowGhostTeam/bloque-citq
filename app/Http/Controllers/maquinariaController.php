@@ -26,7 +26,7 @@ class maquinariaController extends Controller
 
         $maquinaria= maquinaria::orderBy('nombre','asc')->paginate(15);
 
-        return view('administracion/maquinaria/buscar')->with([
+        return view('Administracion/Maquinaria/buscar')->with([
             'maquinaria' => $maquinaria,
             'combo'=>$maquinaria,
         ]);
@@ -66,7 +66,7 @@ class maquinariaController extends Controller
             Session::flash('message', 'Se encontraron ' . $num . ' resultados');
         }
 
-        return view('administracion/maquinaria/buscar')->with([
+        return view('Administracion/Maquinaria/buscar')->with([
             'maquinaria' => $maquinariaResults,
             'combo'=>$maquinaria,
         ]);
@@ -93,7 +93,7 @@ class maquinariaController extends Controller
         $maquinaria= maquinaria::orderBy('nombre','asc')->paginate(15);
         $resultado= maquinaria::findOrFail($id);
 
-        return view('administracion/maquinaria/consultar')->with([
+        return view('Administracion/Maquinaria/consultar')->with([
             'maquinaria'=>$maquinaria,
             'resultado'=>$resultado,
 
@@ -101,7 +101,7 @@ class maquinariaController extends Controller
     }
 
     public function getCrear(){
-        return view('administracion/maquinaria/crear');
+        return view('Administracion/Maquinaria/crear');
     }
     public function crear(maquinariaRequest $request){
 
@@ -133,7 +133,7 @@ class maquinariaController extends Controller
         $maquina= maquinaria::findOrFail($id);
 
 
-        return view('administracion/maquinaria/modificar')->with([
+        return view('Administracion/Maquinaria/modificar')->with([
             'maquina' => $maquina,
 
         ]);
