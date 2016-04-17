@@ -13,14 +13,14 @@
     MAIN SIDEBAR MENU
     *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Invernadero.preparacion.aside')
+    @include('Administracion.Cultivo.aside')
     <!--sidebar end-->
 
     <section id="container">
 
         <section id="main-content">
             <section class="wrapper site-min-height">
-                <h3><a href="{{ route('invernadero/preparacion') }}"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Búsqueda</button></a></h3>
+                <h3><a href="{{ route('administracion/cultivos') }}"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Búsqueda</button></a></h3>
                 <div class="row mt">
 
                     <!-- INICIO CONSULTAR FUNCIONES -->
@@ -29,11 +29,11 @@
 
                             @include('Partials.Mensajes.mensajes')
 
-                            {!! Form::open(['action'=>['preparacionInvernaderoController@crear'],'class'=>'form-horizontal','role'=>'form','id'=>'formulario'])!!}
+                            {!! Form::open(['action'=>['administracionCultivoController@crear'],'class'=>'form-horizontal','role'=>'form','id'=>'formulario'])!!}
 
-                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear Preparación</h4><br>
+                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear cultivo</h4><br>
 
-                            @include('Invernadero.preparacion.Partials.form')
+                            @include('Administracion.Cultivo.Partials.form')
 
                             {!! Form::close() !!}
                         </div>
@@ -43,10 +43,8 @@
             </section>
         </section>
     </section>
-</section>
 
-    @include('Invernadero.preparacion.Partials.validator')
 
-@include('Invernadero.preparacion.Partials.ajaxScript')
+    @include('Administracion.Cultivo.Partials.validator')
 
     @include('Partials.ScriptsGenerales.scriptsPartialsAbajo')

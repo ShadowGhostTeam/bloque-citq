@@ -45,13 +45,13 @@
 MAIN SIDEBAR MENU
 *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Invernadero.preparacion.aside')
+    @include('Administracion.Cultivo.aside')
     <!--sidebar end-->
 
     <section id="container">
         <section id="main-content">
             <section class="wrapper site-min-height">
-                <h3 style="color:#078006"><i class="fa fa-angle-right"></i>Preparación</h3>
+                <h3 style="color:#078006"><i class="fa fa-angle-right"></i>Cultivos</h3>
                 <div class="row mt">
 
 
@@ -62,7 +62,7 @@ MAIN SIDEBAR MENU
                             @include('Partials.Mensajes.mensajes')
 
                             <div class="form-group" align="right">
-                                <a href="{{route('invernadero/preparacion/crear')}}"> <button class="btn agregar tooltips" data-placement="left" data-original-title="Agregar"><i class="fa fa-plus"></i></i></button></a>
+                                <a href="{{route('administracion/cultivos/crear')}}"> <button class="btn agregar tooltips" data-placement="left" data-original-title="Agregar"><i class="fa fa-plus"></i></button></a>
                             </div>
 
                             <div class="row">
@@ -70,60 +70,22 @@ MAIN SIDEBAR MENU
 
 
 
-                                    {!! Form::open(['route' => 'invernadero/preparacion/lista' ,'method'=>'GET']) !!}
-
-                                        <div class="form-group">
-
-                                            <div class="col-lg-3">
-                                                <select  class="form-control" id="invernadero" name="invernadero">
-                                                    <option value="">Todos los invernaderos</option>
-
-                                                    @if( isset($invernaderos))
-                                                        @foreach($invernaderos as $invernadero)
-                                                            <option value="{{  $invernadero->id  }}" > {{ $invernadero->nombre}}  </option>
-                                                        @endforeach
-                                                    @endif
-                                                </select>
-                                            </div>
-                                        </div>
+                                    {!! Form::open(['route' => 'administracion/cultivos/lista' ,'method'=>'GET']) !!}
 
                                     <div class="form-group">
 
                                         <div class="col-lg-3">
-                                            <select  class="form-control" id="tipoSiembra" name="tipoSiembra">
-                                                <option value="">Todos los tipos de siembra</option>
+                                            <select  class="form-control" id="cultivo" name="cultivo">
+                                                <option value="">Todos los cultivos</option>
 
-                                                @if( isset($tipoSiembras))
-                                                    @foreach($tipoSiembras as $tipoSiembra)
-                                                        <option value="{{  $tipoSiembra  }}" > {{ $tipoSiembra}}  </option>
+                                                @if( isset($cultivosB))
+                                                    @foreach($cultivosB as $cultivoB)
+                                                        <option value="{{  $cultivoB->id  }}" > {{ $cultivoB->nombre}}  </option>
                                                     @endforeach
                                                 @endif
                                             </select>
                                         </div>
                                     </div>
-
-                                    <div id="formulario">
-                                        <div class="form-group">
-                                            <div class="col-lg-2">
-                                                <div class="input-group date" id="fechaDP">
-                                                 <span class="input-group-addon">
-                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                  </span>
-                                                        {!!Form::text('fechaInicio' ,null,['class'=>'form-control','id'=>'fechaInicioDP','placeholder'=>'Fecha inicial'])!!}
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <div class="col-lg-2">
-                                                <div class="input-group date" id="fechaDP">
-                                                 <span class="input-group-addon">
-                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                  </span>
-                                                    {!!Form::text('fechaFin' ,null,['class'=>'form-control','id'=>'fechaFinDP','placeholder'=>'Fecha final'])!!}
-                                                </div>
-                                            </div>
-                                        </div>
 
 
                                         <div class="form-group">
@@ -137,7 +99,7 @@ MAIN SIDEBAR MENU
 
                                         </div>
                                         {!! Form::close() !!}
-                                    </div>
+
 
 
 
@@ -146,36 +108,34 @@ MAIN SIDEBAR MENU
                                 <table class="table table-striped table-advance table-hover">
                                     <thead>
                                     <tr>
-                                        <th><i class="fa fa-thumb-tack"></i> Invernadero </th>
-                                        <th><i class="fa fa-thumb-tack"></i> Tipo de siembra </th>
-                                        <th> <i class="fa fa-calendar-o"></i> Fecha </th>
+                                        <th><i class="fa fa-thumb-tack"></i>  Nombre </th>
+                                        <th><i class=" fa fa-edit"></i>Descripción</th>
                                         <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
 
-                                    @if ( isset( $preparaciones) )
+                                    @if ( isset( $cultivos) )
 
-                                        @foreach( $preparaciones as $preparacion )
+                                        @foreach( $cultivos as $cultivo )
 
                                             <tr>
-                                                <td>{{ $preparacion->invernadero->nombre }}</td>
-                                                <td>{{ $preparacion->tipoSiembra }}</td>
-                                                <td>{{ $preparacion->fecha }}</td>
+                                                <td>{{ $cultivo->nombre }}</td>
+                                                <td>{{ $cultivo->descripcion }}</td>
 
 
                                                 <td style="width: 5px">
-                                                    <a href="{{ route('invernadero/preparacion/consultar/item',$preparacion->id) }}"><button class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar"><i class="fa fa-eye"></i></button></a>
+                                                    <a href="{{ route('administracion/cultivos/consultar/item',$cultivo->id) }}"><button class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar"><i class="fa fa-eye"></i></button></a>
                                                 </td>
 
                                                 <td style="width: 5px">
-                                                    <a href="{{ route('invernadero/preparacion/modificar/item',$preparacion->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
+                                                    <a href="{{ route('administracion/cultivos/modificar/item',$cultivo->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
                                                 </td>
 
                                                 <td style="width: 5px">
-                                                    {!! Form::open(['action'=>['preparacionInvernaderoController@eliminar'],'role'=>'form'] )  !!}
-                                                    <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la preparación?")'><i class="fa fa-trash-o "></i></button>
-                                                    <input type="hidden" name="id" value={{$preparacion->id}}>
+                                                    {!! Form::open(['action'=>['administracionCultivoController@eliminar'],'role'=>'form'] )  !!}
+                                                    <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar el cultivo?")'><i class="fa fa-trash-o "></i></button>
+                                                    <input type="hidden" name="id" value={{$cultivo->id}}>
                                                     {!! Form::close() !!}
                                                 </td>
 
@@ -189,8 +149,8 @@ MAIN SIDEBAR MENU
                                     </tbody>
                                 </table>
                             </div>
-                            @if (isset($preparaciones))
-                                {!! $preparaciones->setPath('')->appends(Input::query())->render()!!}
+                            @if (isset($cultivos))
+                                {!! $cultivos->setPath('')->appends(Input::query())->render()!!}
                             @endif
                         </div>
                     </div>
