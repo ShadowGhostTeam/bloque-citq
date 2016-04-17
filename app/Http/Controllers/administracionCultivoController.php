@@ -25,7 +25,7 @@ class administracionCultivoController extends Controller
         $now = $now. " 23:59:59";
         $now2 =Carbon::now()->subMonth(6)->format('Y/m/d');
 
-        $cultivos = cultivo::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        $cultivos = cultivo::select('id','nombre', 'descripcion')->orderBy('nombre', 'asc')->paginate(15);
         return view('Administracion/Cultivo/buscar')->with([
             'cultivos' => $cultivos
         ]);
@@ -69,7 +69,7 @@ class administracionCultivoController extends Controller
         $cultivo=$this->adaptarRequest($request);
         $cultivo->save();
         Session::flash('message', 'El cultivo ha sido agregado');
-        //return redirect('invernadero/preparacion/crear');
+        return redirect('administracion/cultivos/crear');
     }
 
 
@@ -81,7 +81,7 @@ class administracionCultivoController extends Controller
         $cultivo->save();
         $cultivo->push();
         Session::flash('message', 'El cultivo ha sido modificada');
-        //return redirect('invernadero/preparacion/modificar/'.$preparacion->id);
+        return redirect('administracion/cultivos/modificar/'.$cultivo->id);
     }
 
     /*
@@ -106,29 +106,18 @@ class administracionCultivoController extends Controller
      */
 
     public function buscar(Request $request){
-        /*Listados de combobox*/
-        $cultivo = cultivo::select('id', 'nombre')->orderBy('nombre', 'asc')->get();
         /*Ahi se guardaran los resultados de la busqueda*/
         $cultivos = null;
 
-
-        $validator = Validator::make($request->all(), [
-            'cultivo' => 'exists:cultivo,id'
-        ]);
-
-        /*Si validador no falla se pueden realizar busquedas*/
-        if ($validator->fails()) {
-        } else {
-
             /*Busqueda sin parametros*/
-            if ($request->cultivo == "") {
-                $cultivos = Cultivo::orderBy('nombre', 'desc')->paginate(15);;
+            if ($request->nombre == "") {
+                $cultivos = cultivo::orderBy('nombre', 'desc')->paginate(15);;
 
             }
 
             /*Busqueda solo con invernadero*/
-            if ($request->cultivo != "") {
-                $cultivos = Cultivo::where('id_cultivo', $request->cultivo)->orderBy('nombre', 'desc')->paginate(15);;
+            if ($request->nombre != "") {
+                $cultivos = cultivo::where('nombre', $request->nombre)->orderBy('nombre', 'desc')->paginate(15);;
 
             }
 
@@ -138,7 +127,6 @@ class administracionCultivoController extends Controller
             } else {
                 $num = 0;
             }
-        }
 
         if ($num <= 0) {
             Session::flash('error', 'No se encontraron resultados');
@@ -149,7 +137,7 @@ class administracionCultivoController extends Controller
 
         /*Regresa la vista*/
         return view('Administracion/Cultivo/buscar')->with([
-            'cultivo' => $cultivo
+            'cultivos'=> $cultivos
         ]);
     }
 
@@ -161,7 +149,7 @@ class administracionCultivoController extends Controller
      * Recibe la informacion del formulario de crear y la adapta a los campos del modelo
      */
     public function adaptarRequest($request){
-        $cultivo=new administracionCultivoRequest($request->all());
+        $cultivo=new cultivo($request->all());
         if(isset($request->id)) {
             $cultivo = cultivo::findOrFail($request->id);
         }

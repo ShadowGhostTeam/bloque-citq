@@ -62,7 +62,7 @@
 
                                     <dl class="dl-horizontal">
                                         <dt>Nombre</dt><dd>{{ $cultivo->nombre }}</dd>
-                                        <dt>Nombre</dt><dd>{{ $cultivo->descripcion }}</dd>
+                                        <dt>Descripción</dt><dd>{{ $cultivo->descripcion }}</dd>
 
                                     </dl>
                                 </div>
