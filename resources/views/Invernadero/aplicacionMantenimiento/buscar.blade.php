@@ -203,7 +203,9 @@ MAIN SIDEBAR MENU
             </section>
         </section>
     </section>
+    </section>
 
+@include('Partials.ScriptsGenerales.scriptsPartialsAbajo')
 
     <script type="text/javascript">
 
@@ -285,5 +287,3 @@ MAIN SIDEBAR MENU
     </script>
 
 
-
-@include('Partials.ScriptsGenerales.scriptsPartialsAbajo')

@@ -28,10 +28,11 @@ class invernaderoAplicacionesMantenimientoController extends Controller
     public function index()
     {
         $now= Carbon::now()->format('Y/m/d');
+        $now = $now. " 23:59:59";
         $now2 =Carbon::now()->subMonth(6)->format('Y/m/d');
-        $aplicacionesMantenimiento = aplicacionesMantenimiento::whereBetween('fecha', array($now2,$now))->orderBy('fecha', 'desc')->paginate(15);
+        $aplicacionesMantenimiento = aplicacionesMantenimiento::orderBy('fecha', 'desc')->paginate(15);;//aplicacionesMantenimiento::whereBetween('fecha', array($now2,$now))->orderBy('fecha', 'desc')->paginate(15);
         $this->adaptaFechas($aplicacionesMantenimiento);
-        $aplicacion = ['Insecticida','Herbicida','Fungicida'];
+        $aplicacion = ['Insecticida','Herbicida','Fungicida','Hormonas','Estimulantes'];
         $invernaderos= invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
 
         return view('Invernadero/aplicacionMantenimiento/buscar')->with([
@@ -43,8 +44,8 @@ class invernaderoAplicacionesMantenimientoController extends Controller
     public function getModificar($id){
         $invernaderos= invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
         $aplicacionesMantenimiento= aplicacionesMantenimiento::findOrFail($id);
-        $aplicacion = ['Insecticida','Herbicida','Fungicida'];
-        $tipoAplicacion = ['Sistema de riego','Al suelo','Al follaje'];
+        $aplicacion = ['Insecticida','Herbicida','Fungicida','Hormonas','Estimulantes'];
+        $tipoAplicacion = ['Sistema de riego','Al suelo','Al follaje','Botellas Españolas'];
         $producto = $aplicacionesMantenimiento->producto;
         $cantidad = $aplicacionesMantenimiento->cantidad;
         $comentario = $aplicacionesMantenimiento->comentario;
@@ -138,8 +139,8 @@ class invernaderoAplicacionesMantenimientoController extends Controller
     }
     public function getCrear(){
         $invernaderos= invernadero::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $aplicacion = ['Insecticida','Herbicida','Fungicida'];
-        $tipoAplicacion = ['Sistema de riego','Al suelo','Al follaje'];
+        $aplicacion = ['Insecticida','Herbicida','Fungicida','Hormonas','Estimulantes'];
+        $tipoAplicacion = ['Sistema de riego','Al suelo','Al follaje','Botellas Españolas'];
 
         return view('Invernadero/aplicacionMantenimiento/crear')->with([
             'invernaderos' => $invernaderos,
@@ -182,7 +183,7 @@ class invernaderoAplicacionesMantenimientoController extends Controller
             'fechaInicio' => 'date_format:d/m/Y',
             'fechaFin' => 'date_format:d/m/Y',
             'invernadero' => 'exists:invernadero,id',
-            'aplicacion' => 'in:Insecticida,Herbicida,Fungicida'
+            'aplicacion' => 'in:Insecticida,Herbicida,Fungicida,Hormonas,Estimulantes'
         ]);
 
         /*Si validador no falla se pueden realizar busquedas*/
@@ -262,7 +263,7 @@ class invernaderoAplicacionesMantenimientoController extends Controller
         } else {
             Session::flash('message', 'Se encontraron ' . $num . ' resultados');
         }
-        $aplicacion = ['Insecticida','Herbicida','Fungicida'];
+        $aplicacion = ['Insecticida','Herbicida','Fungicida','Hormonas','Estimulantes'];
         /*Regresa la vista*/
 
         return view('Invernadero/aplicacionMantenimiento/buscar')->with([

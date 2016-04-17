@@ -28,8 +28,8 @@ class aplicacionesMantenimientoInvernaderoRequest extends Request
             'invernadero'=>'required|exists:invernadero,id',
             //'aplicacionMantenimiento' => 'required|exists:aplicaciones_mantenimiento,id',
             'siembraT' => 'required|exists:siembra_invernadero,id',
-            'aplicacion' => 'required|in:Insecticida,Herbicida,Fungicida',
-            'tipoAplicacion' => 'required|in:Sistema de riego,Al suelo,Al follaje',
+            'aplicacion' => 'required|in:Insecticida,Herbicida,Fungicida,Hormonas,Estimulantes',
+            'tipoAplicacion' => 'required|in:Sistema de riego,Al suelo,Al follaje,Botellas Españolas',
             'fecha' =>  'required|date_format:d/m/Y',
         ];
     }
