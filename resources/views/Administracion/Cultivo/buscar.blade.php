@@ -75,8 +75,15 @@ MAIN SIDEBAR MENU
                                     <div class="form-group">
 
                                         <div class="col-lg-3">
-                                            {!!Form::text('nombre' ,null,['class'=>'form-control','id'=>'nombre','placeholder'=>'Nombre'])!!}
+                                            <select  class="form-control" id="cultivo" name="cultivo">
+                                                <option value="">Todos los cultivos</option>
 
+                                                @if( isset($cultivosB))
+                                                    @foreach($cultivosB as $cultivoB)
+                                                        <option value="{{  $cultivoB->id  }}" > {{ $cultivoB->nombre}}  </option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
                                         </div>
                                     </div>
 
