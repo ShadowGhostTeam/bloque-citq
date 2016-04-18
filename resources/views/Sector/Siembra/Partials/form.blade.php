@@ -115,7 +115,7 @@
             </div>
         </div>
 
-        <div class="form-group" id="Terminacion" style="display:none">
+        <div class="form-group" id="Terminacion" ><!--style="display:none" para ocultar campos en status activo-->
             <label for="FechaTerminacion" class="col-lg-2 control-label">
                 Fecha Terminacion
             </label>
