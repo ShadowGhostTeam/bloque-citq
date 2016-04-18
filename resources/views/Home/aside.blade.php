@@ -100,11 +100,6 @@
                 </a>
 
                 <ul class="sub">
-                    <li><a href="{{route('plantula/preparacion')}}" >
-                            <i class="glyphicon glyphicon-tree-deciduous"></i>
-                            <span>Preparación </span>
-                        </a></li>
-
                     <li><a href="{{route('plantula/siembra')}}">
                             <i class="fa fa-leaf"></i>
                             <span>Siembra </span>
