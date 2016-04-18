@@ -28,7 +28,7 @@
                         <div class="form-panel">
                             @include('Partials.Mensajes.mensajes')
                             <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Modificar Cultivo</h4><br>
-                            @if( isset($usuario))
+                            @if( isset($cultivo))
 
 
                                 <table align="right">
