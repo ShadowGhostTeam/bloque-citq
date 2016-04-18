@@ -114,13 +114,13 @@ class administracionCultivoController extends Controller
 
             /*Busqueda sin parametros*/
             if ($request->cultivo == "") {
-                $cultivos = cultivo::orderBy('id', 'desc')->paginate(15);;
+                $cultivos = cultivo::orderBy('nombre', 'asc')->paginate(15);;
 
             }
 
             /*Busqueda solo con invernadero*/
             if ($request->cultivo != "") {
-                $cultivos = cultivo::where('id', $request->cultivo)->orderBy('nombre', 'desc')->paginate(15);;
+                $cultivos = cultivo::where('id', $request->cultivo)->orderBy('nombre', 'asc')->paginate(15);;
 
             }
 
