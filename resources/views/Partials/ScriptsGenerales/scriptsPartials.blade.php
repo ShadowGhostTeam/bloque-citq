@@ -27,8 +27,8 @@
 
 
     <!-- STYLES -->
-    <link rel="stylesheet" href=" {{ secure_asset('assets/css/style.css') }}">
-    <link rel="stylesheet" href=" {{ secure_asset('assets/css/style-responsive.css') }}">
+    <link rel="stylesheet" href=" {{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href=" {{ asset('assets/css/style-responsive.css') }}">
 
     <!-- MULTISELECT -->
     <script type="text/javascript" src="{{ asset('assets/dist/js/bootstrap-multiselect.js') }}"></script>
