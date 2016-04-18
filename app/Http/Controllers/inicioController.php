@@ -23,6 +23,24 @@ use Illuminate\Support\Facades\Validator;
 
 class inicioController extends Controller
 {
+    public function  __construct()
+    {
+        //se valida que no este logueado
+        if(!Auth::check() ){
+            $this->middleware('auth');
+        }
+        else {
+            //Si esta logueado entonces se revisa el permiso
+            if (Auth::user()->can('sector'))
+            {
+            }
+            else {
+                //Si no tiene el permiso entonces cierra la sesion y manda un error 404
+                //Auth::logout();
+                abort('404');
+            }
+        }
+    }
     /**
      * Display a listing of the resource.
      *
