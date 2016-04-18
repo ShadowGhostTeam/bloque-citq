@@ -3,6 +3,7 @@
     <div id="sidebar"  class="nav-collapse ">
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
+            @permission('sector')
             <li class="sub-menu">
                 <a href="{{route('home')}}">
                     <i class="fa fa-home"></i>
@@ -47,6 +48,9 @@
 
                 </ul>
             </li>
+            @endpermission
+
+            @permission('invernadero')
             <li class="sub-menu">
                 <a href="#">
                     <i class="fa fa-th-large"></i>
@@ -84,6 +88,10 @@
 
                 </ul>
             </li>
+            @endpermission
+
+
+            @permission('invernaderoplantula')
             <li class="sub-menu">
                 <a href="#">
                     <i class="fa fa-stop"></i>
@@ -117,7 +125,9 @@
 
                 </ul>
             </li>
+            @endpermission
 
+            @permission('reportes')
             <li class="sub-menu">
                 <a href="#">
                     <i class="fa fa-bar-chart-o"></i>
@@ -145,7 +155,10 @@
 
                 </ul>
             </li>
+            @endpermission
 
+
+            @permission('administracion')
             <li class="sub-menu">
                 <a href="#"  >
                     <i class="fa fa-cogs" ></i>
@@ -154,10 +167,12 @@
                 </a>
 
                 <ul class="sub">
+                    @permission('gestionarusuarios')
                     <li><a href="{{route('administracion/usuarios')}}" >
                             <i class="fa fa-users"></i>
                             <span>Usuarios</span>
                         </a></li>
+                    @endpermission
 
                     <li><a href="{{route('administracion/cultivos')}}" >
                             <i class="fa fa-leaf"></i>
@@ -173,6 +188,7 @@
 
                 </ul>
             </li>
+            @endpermission
 
 
             <li class="sub-menu">
