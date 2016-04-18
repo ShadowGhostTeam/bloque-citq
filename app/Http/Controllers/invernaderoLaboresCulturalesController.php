@@ -9,6 +9,7 @@ use App\siembraTransplanteInvernadero;
 use Carbon\Carbon;
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
