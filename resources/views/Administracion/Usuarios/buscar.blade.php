@@ -121,8 +121,8 @@ MAIN SIDEBAR MENU
                                     <thead>
                                     <tr>
                                         <th><i class="fa fa-thumb-tack"></i>  Nombre </th>
-                                        <th> <i class="fa fa-calendar-o"></i> Correo </th>
-                                        <th><i class=" fa fa-edit"></i>Tipo de usuario</th>
+                                        <th> <i class="fa fa-envelope"></i> Correo </th>
+                                        <th><i class="fa fa-list-ul" ></i> Tipo de usuario</th>
                                         <th></th>
                                     </tr>
                                     </thead>

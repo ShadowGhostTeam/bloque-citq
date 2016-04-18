@@ -5,7 +5,7 @@
         <ul class="sidebar-menu" id="nav-accordion">
             @permission('sector')
             <li class="sub-menu">
-                <a href="{{route('home')}}">
+                <a href="{{route('home')}}" >
                     <i class="fa fa-home"></i>
                     <span>Inicio</span>
                 </a>
@@ -100,11 +100,6 @@
                 </a>
 
                 <ul class="sub">
-                    <li><a href="{{route('plantula/preparacion')}}" >
-                            <i class="glyphicon glyphicon-tree-deciduous"></i>
-                            <span>Preparación </span>
-                        </a></li>
-
                     <li><a href="{{route('plantula/siembra')}}">
                             <i class="fa fa-leaf"></i>
                             <span>Siembra </span>
