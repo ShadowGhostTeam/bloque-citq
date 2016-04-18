@@ -27,7 +27,7 @@ class aplicacionesPlantulaController extends Controller
         }
         else {
             //Si esta logueado entonces se revisa el permiso
-            if (Auth::user()->can('invernaderoPlantula'))
+            if (Auth::user()->can('invernaderoplantula'))
             {
             }
             else {
