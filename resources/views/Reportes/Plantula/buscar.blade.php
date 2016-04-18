@@ -72,7 +72,7 @@ MAIN SIDEBAR MENU
                                         <div class="form-group">
 
                                             <div class="col-lg-3">
-                                                <select  class="form-control" id="invernadero" name="invernadero" readonly>
+                                                <select  class="form-control" id="invernadero" name="invernadero" disabled>
                                                     <option value="">Todos los invernaderos</option>
 
                                                     @if( isset($invernaderos))
