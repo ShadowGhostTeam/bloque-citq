@@ -79,6 +79,6 @@
 </section>
     @include('Sector.Siembra.Partials.validator')
 
-    @include('Sector.Siembra.Partials.Script')
+    <!--@include('Sector.Siembra.Partials.Script') <!--Javascript para ocultar fechaTerminacion si el status es activo-->
 
     @include('Partials.ScriptsGenerales.scriptsPartialsAbajo')
