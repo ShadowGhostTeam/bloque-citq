@@ -2269,17 +2269,14 @@ label {
 }
 
 .tabla-inicio #invernadero{
-    background-color: #ddd;
     height: 120px !important;
 }
 
 .tabla-inicio #sector{
-    background-color: #ddd;
     height: 120px !important;
 }
 
 .tabla-inicio #invernadero-plantula{
-    background-color: #ddd;
     height: 120px !important;
 }
 
@@ -2287,7 +2284,7 @@ label {
     padding: 7px;
     text-align: center;
     font-size: 11pt;
-    font-weight: normal;
+    font-weight: bold;
     width: 10%;
 }
 
@@ -2295,7 +2292,8 @@ label {
     padding: 10px;
     font-weight: bolder;
     text-align: center;
-    font-size: 12pt;
+    font-size: 13pt;
+    background-color: #ddd;
 }
 
 .elemento-mapa{

@@ -23,118 +23,151 @@ MAIN SIDEBAR MENU
                             </th>
                         </tr>
                         <tr>
-                            <td id="sector">
-                                @if($siembras_sector1 == "[]")
+                            @if($siembras_sector1 == "[]")
+                                <td bgcolor='#FF6666' id='sector'>
                                     {{ "Sin siembras" }}
-                                @else
+                                </td>
+                            @else
+                                <td bgcolor='#66FF66' id='sector'>
                                     @foreach($siembras_sector1 as $siembra)
                                         {{ $siembra->cultivo->nombre }} - {{ $siembra->variedad }} </br>
                                     @endforeach
-                                @endif
-                            </td>
-                            <td id="sector">
-                                @if($siembras_sector2 == "[]")
+                                </td>
+                            @endif
+
+                            @if($siembras_sector2 == "[]")
+                                <td bgcolor='#FF6666' id='sector'>
                                     {{ "Sin siembras" }}
-                                @else
+                                </td>
+                            @else
+                                <td bgcolor='#66FF66' id='sector'>
                                     @foreach($siembras_sector2 as $siembra)
                                         {{ $siembra->cultivo->nombre }} - {{ $siembra->variedad }} </br>
                                     @endforeach
-                                @endif
-                            </td>
-                            <td id="sector">
-                                @if($siembras_sector3 == "[]")
+                                </td>
+                            @endif
+
+                            @if($siembras_sector3 == "[]")
+                                <td bgcolor='#FF6666' id='sector'>
                                     {{ "Sin siembras" }}
-                                @else
+                                </td>
+                            @else
+                                <td bgcolor='#66FF66' id='sector'>
                                     @foreach($siembras_sector3 as $siembra)
                                         {{ $siembra->cultivo->nombre }} - {{ $siembra->variedad }} </br>
                                     @endforeach
-                                @endif
-                            </td>
-                            <td id="sector">
-                                @if($siembras_sector4 == "[]")
+                                </td>
+                            @endif
+
+                            @if($siembras_sector4 == "[]")
+                                <td bgcolor='#FF6666' id='sector'>
                                     {{ "Sin siembras" }}
-                                @else
+                                </td>
+                            @else
+                                <td bgcolor='#66FF66' id='sector'>
                                     @foreach($siembras_sector4 as $siembra)
                                         {{ $siembra->cultivo->nombre }} - {{ $siembra->variedad }} </br>
                                     @endforeach
-                                @endif
-                            </td>
+                                </td>
+                            @endif
                         </tr>
                         <tr>
-                            <td id="sector">
-                                @if($siembras_sector5 == "[]")
+                            @if($siembras_sector5 == "[]")
+                                <td bgcolor='#FF6666' id='sector'>
                                     {{ "Sin siembras" }}
-                                @else
+                                </td>
+                            @else
+                                <td bgcolor='#66FF66' id='sector'>
                                     @foreach($siembras_sector5 as $siembra)
                                         {{ $siembra->cultivo->nombre }} - {{ $siembra->variedad }} </br>
                                     @endforeach
-                                @endif
-                            </td>
-                            <td id="sector">
-                                @if($siembras_sector6 == "[]")
+                                </td>
+                            @endif
+
+                            @if($siembras_sector6 == "[]")
+                                <td bgcolor='#FF6666' id='sector'>
                                     {{ "Sin siembras" }}
-                                @else
+                                </td>
+                            @else
+                                <td bgcolor='#66FF66' id='sector'>
                                     @foreach($siembras_sector6 as $siembra)
                                         {{ $siembra->cultivo->nombre }} - {{ $siembra->variedad }} </br>
                                     @endforeach
-                                @endif
-                            </td>
-                            <td id="sector">
-                                @if($siembras_sector7 == "[]")
+                                </td>
+                            @endif
+
+                            @if($siembras_sector7 == "[]")
+                                <td bgcolor='#FF6666' id='sector'>
                                     {{ "Sin siembras" }}
-                                @else
+                                </td>
+                            @else
+                                <td bgcolor='#66FF66' id='sector'>
                                     @foreach($siembras_sector7 as $siembra)
                                         {{ $siembra->cultivo->nombre }} - {{ $siembra->variedad }} </br>
                                     @endforeach
-                                @endif
-                            </td>
-                            <td id="sector">
-                                @if($siembras_sector8 == "[]")
+                                </td>
+                            @endif
+
+                            @if($siembras_sector8 == "[]")
+                                <td bgcolor='#FF6666' id='sector'>
                                     {{ "Sin siembras" }}
-                                @else
+                                </td>
+                            @else
+                                <td bgcolor='#66FF66' id='sector'>
                                     @foreach($siembras_sector8 as $siembra)
                                         {{ $siembra->cultivo->nombre }} - {{ $siembra->variedad }} </br>
                                     @endforeach
-                                @endif
-                            </td>
+                                </td>
+                            @endif
                         </tr>
                         <tr>
-                            <td id="sector">
-                                @if($siembras_sector9 == "[]")
+                            @if($siembras_sector9 == "[]")
+                                <td bgcolor='#FF6666' id='sector'>
                                     {{ "Sin siembras" }}
-                                @else
+                                </td>
+                            @else
+                                <td bgcolor='#66FF66' id='sector'>
                                     @foreach($siembras_sector9 as $siembra)
                                         {{ $siembra->cultivo->nombre }} - {{ $siembra->variedad }} </br>
                                     @endforeach
-                                @endif
-                            </td>
-                            <td id="sector">
-                                @if($siembras_sector10 == "[]")
+                                </td>
+                            @endif
+
+                            @if($siembras_sector10 == "[]")
+                                <td bgcolor='#FF6666' id='sector'>
                                     {{ "Sin siembras" }}
-                                @else
+                                </td>
+                            @else
+                                <td bgcolor='#66FF66' id='sector'>
                                     @foreach($siembras_sector10 as $siembra)
                                         {{ $siembra->cultivo->nombre }} - {{ $siembra->variedad }} </br>
                                     @endforeach
-                                @endif
-                            </td>
-                            <td id="sector">
-                                @if($siembras_sector11 == "[]")
+                                </td>
+                            @endif
+
+                            @if($siembras_sector11 == "[]")
+                                <td bgcolor='#FF6666' id='sector'>
                                     {{ "Sin siembras" }}
-                                @else
+                                </td>
+                            @else
+                                <td bgcolor='#66FF66' id='sector'>
                                     @foreach($siembras_sector11 as $siembra)
                                         {{ $siembra->cultivo->nombre }} - {{ $siembra->variedad }} </br>
                                     @endforeach
-                                @endif
-                            </td>
-                            <td id="sector">
-                                @if($siembras_sector12 == "[]")
+                                </td>
+                            @endif
+
+                            @if($siembras_sector12 == "[]")
+                                <td bgcolor='#FF6666' id='sector'>
                                     {{ "Sin siembras" }}
-                                @else
+                                </td>
+                            @else
+                                <td bgcolor='#66FF66' id='sector'>
                                     @foreach($siembras_sector12 as $siembra)
                                         {{ $siembra->cultivo->nombre }} - {{ $siembra->variedad }} </br>
                                     @endforeach
-                                @endif
-                            </td>
+                                </td>
+                            @endif
                         </tr>
                     </table>
                 </div>
@@ -147,44 +180,54 @@ MAIN SIDEBAR MENU
                             </th>
                         </tr>
                         <tr>
-                            <td id="invernadero">
-                                @if($siembras_invernadero1 == "[]")
+                            @if($siembras_invernadero1 == "[]")
+                                <td bgcolor='#FF6666' id='invernadero'>
                                     {{ "Sin siembras" }}
-                                @else
+                                </td>
+                            @else
+                                <td bgcolor='#66FF66' id='invernadero'>
                                     @foreach($siembras_invernadero1 as $siembra)
                                         {{ $siembra->cultivo->nombre }} - {{ $siembra->variedad }} </br>
                                     @endforeach
-                                @endif
-                            </td>
-                            <td id="invernadero">
-                                @if($siembras_invernadero2 == "[]")
+                                </td>
+                            @endif
+
+                            @if($siembras_invernadero2 == "[]")
+                                <td bgcolor='#FF6666' id='invernadero'>
                                     {{ "Sin siembras" }}
-                                @else
+                                </td>
+                            @else
+                                <td bgcolor='#66FF66' id='invernadero'>
                                     @foreach($siembras_invernadero2 as $siembra)
                                         {{ $siembra->cultivo->nombre }} - {{ $siembra->variedad }} </br>
                                     @endforeach
-                                @endif
-                            </td>
+                                </td>
+                            @endif
                         </tr>
                         <tr>
-                            <td id="invernadero">
-                                @if($siembras_invernadero3 == "[]")
+                            @if($siembras_invernadero3 == "[]")
+                                <td bgcolor='#FF6666' id='invernadero'>
                                     {{ "Sin siembras" }}
-                                @else
+                                </td>
+                            @else
+                                <td bgcolor='#66FF66' id='invernadero'>
                                     @foreach($siembras_invernadero3 as $siembra)
                                         {{ $siembra->cultivo->nombre }} - {{ $siembra->variedad }} </br>
                                     @endforeach
-                                @endif
-                            </td>
-                            <td id="invernadero">
-                                @if($siembras_invernadero4 == "[]")
+                                </td>
+                            @endif
+
+                            @if($siembras_invernadero4 == "[]")
+                                <td bgcolor='#FF6666' id='invernadero'>
                                     {{ "Sin siembras" }}
-                                @else
+                                </td>
+                            @else
+                                <td bgcolor='#66FF66' id='invernadero'>
                                     @foreach($siembras_invernadero4 as $siembra)
                                         {{ $siembra->cultivo->nombre }} - {{ $siembra->variedad }} </br>
                                     @endforeach
-                                @endif
-                            </td>
+                                </td>
+                            @endif
                         </tr>
                     </table>
                 </div>
@@ -197,15 +240,17 @@ MAIN SIDEBAR MENU
                             </th>
                         </tr>
                         <tr>
-                            <td id="invernadero-plantula">
-                                @if($siembras_invernaderoPlantula1 == "[]")
+                            @if($siembras_invernaderoPlantula1 == "[]")
+                                <td bgcolor='#FF6666' id='invernadero-plantula'>
                                     {{ "Sin siembras" }}
-                                @else
+                                </td>
+                            @else
+                                <td bgcolor='#66FF66' id='invernadero-plantula'>
                                     @foreach($siembras_invernaderoPlantula1 as $siembra)
                                         {{ $siembra->cultivo->nombre }} - {{ $siembra->variedad }} </br>
                                     @endforeach
-                                @endif
-                            </td>
+                                </td>
+                            @endif
                         </tr>
                     </table>
                 </div>
