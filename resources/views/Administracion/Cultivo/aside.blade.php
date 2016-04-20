@@ -4,7 +4,7 @@
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
             <li class="sub-menu">
-                <a href="{{route('home')}}">
+                <a href="{{route('home')}}" class="active">
                     <i class="fa fa-home"></i>
                     <span>Inicio</span>
                 </a>
@@ -147,8 +147,8 @@
             </li>
 
             <li class="sub-menu">
-                <a href="#" class="active" >
-                    <i class="fa fa-cogs" ></i>
+                <a href="#"   class="active">
+                    <i class="fa fa-cogs"></i>
                     <span>Administración&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <i class="fa fa-caret-down"></i>
                 </a>
@@ -159,7 +159,7 @@
                             <span>Usuarios</span>
                         </a></li>
 
-                    <li><a href="{{route('administracion/cultivos')}}" class="active">
+                    <li><a href="{{route('administracion/cultivos')}}"  class="active">
                             <i class="fa fa-leaf"></i>
                             <span>Cultivo</span>
                         </a></li>
