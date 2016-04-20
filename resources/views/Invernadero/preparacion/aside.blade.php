@@ -4,7 +4,7 @@
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
             <li class="sub-menu">
-                <a href="{{route('home')}}">
+                <a href="{{route('home')}}" class="active">
                     <i class="fa fa-home"></i>
                     <span>Inicio</span>
                 </a>
@@ -48,14 +48,14 @@
                 </ul>
             </li>
             <li class="sub-menu">
-                <a href="#" class="active">
+                <a href="#"  class="active">
                     <i class="fa fa-th-large"></i>
                     <span>Invernadero&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <i class="fa fa-caret-down"></i>
                 </a>
 
                 <ul class="sub">
-                    <li><a href="{{route('invernadero/preparacion')}}" class="active">
+                    <li><a href="{{route('invernadero/preparacion')}}"  class="active">
                             <i class="glyphicon glyphicon-tree-deciduous"></i>
                             <span>Preparación </span>
                         </a></li>
@@ -65,7 +65,7 @@
                             <span>Siembra </span>
                         </a></li>
 
-                    <li><a href="{{route('invernadero/laboresCulturales')}}"  >
+                    <li><a href="{{route('invernadero/laboresCulturales')}}" >
                             <i class="fa fa-tasks"></i>
                             <span>Labores culturales</span>
                         </a></li>
@@ -147,8 +147,8 @@
             </li>
 
             <li class="sub-menu">
-                <a href="#"  >
-                    <i class="fa fa-cogs" ></i>
+                <a href="#">
+                    <i class="fa fa-cogs"></i>
                     <span>Administración&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <i class="fa fa-caret-down"></i>
                 </a>
@@ -159,12 +159,12 @@
                             <span>Usuarios</span>
                         </a></li>
 
-                    <li><a href="{{route('administracion/cultivos')}}" >
+                    <li><a href="{{route('administracion/cultivos')}}">
                             <i class="fa fa-leaf"></i>
                             <span>Cultivo</span>
                         </a></li>
 
-                    <li><a href="{{route('administracion/maquinaria')}}" >
+                    <li><a href="{{route('administracion/maquinaria')}}">
                             <i class="fa fa-truck"></i>
                             <span>Maquinaria</span>
                         </a></li>
