@@ -79,19 +79,19 @@ class riegoPlantulaController extends Controller
      * Devuelve vista modificar con los valores del registro que se manda como parametro ($id)
      */
     public function pagModificar($id) {
-        $salidaPlanta= salidaPlanta::findOrFail($id);
-        $invernadero= $salidaPlanta->invernadero;
+        $riego= riegoPlantula::findOrFail($id);
+        $invernadero= $riego->invernadero;
         $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $fechaSiembraSeleccionada=Carbon::createFromFormat('Y-m-d H:i:s', $salidaPlanta->siembra->fecha);
+        $fechaSiembraSeleccionada=Carbon::createFromFormat('Y-m-d H:i:s', $riego->siembra->fecha);
 
         $siembraSeleccionada = array(
-            'id_siembra'=>$salidaPlanta->id_siembraPlantula,
-            'variedad'=>$salidaPlanta->siembra->variedad,
-            'nombre'=>$salidaPlanta->siembra->cultivo->nombre,
+            'id_siembra'=>$riego->id_siembraPlantula,
+            'variedad'=>$riego->siembra->variedad,
+            'nombre'=>$riego->siembra->cultivo->nombre,
             'fecha'=>$fechaSiembraSeleccionada->format('d/m/Y')
         );
 
-        $siembras = siembraPlantula::where('id_invernaderoPlantula',$salidaPlanta->id_invernaderoPlantula)->get();
+        $siembras = siembraPlantula::where('id_invernaderoPlantula',$riego->id_invernaderoPlantula)->get();
         $siembrasTodas=array();
         foreach ($siembras as $siembra) {
 
@@ -106,15 +106,15 @@ class riegoPlantulaController extends Controller
             );
         }
 
-        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $salidaPlanta->fecha);
-        $salidaPlanta->fecha=$fecha->format('d/m/Y');
+        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $riego->fecha);
+        $riego->fecha=$fecha->format('d/m/Y');
 
 
-        return view('Plantula/SalidaPlanta/modificar')->with([
+        return view('Plantula/riego/modificar')->with([
             'invernadero' => $invernadero,
             'siembras' => $siembrasTodas,
             'siembraSeleccionada' => $siembraSeleccionada,
-            'salidaPlanta' => $salidaPlanta,
+            'riego' => $riego,
         ]);
     }
 
@@ -123,12 +123,12 @@ class riegoPlantulaController extends Controller
      */
 
     public function pagConsultar($id) {
-        $salidaPlanta= salidaPlanta::findOrFail($id);
-        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $salidaPlanta->fecha);
-        $salidaPlanta->fecha=$fecha->format('d/m/Y');
+        $riego= riegoPlantula::findOrFail($id);
+        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $riego->fecha);
+        $riego->fecha=$fecha->format('d/m/Y');
 
-        return view('Plantula/SalidaPlanta/consultar')->with([
-            'salidaPlanta'=>$salidaPlanta
+        return view('Plantula/riego/consultar')->with([
+            'riego'=>$riego
         ]);
     }
 
@@ -150,12 +150,12 @@ class riegoPlantulaController extends Controller
     /*
      * Recibe la informacion del formulario de modificar y la actualiza en la base de datos
      */
-    public function modificar(salidaPlantaRequest $request){
-        $salidaPlanta=$this->adaptarRequest($request);
-        $salidaPlanta->save();
-        $salidaPlanta->push();
-        Session::flash('message', 'La salida de planta ha sido modificada');
-        return redirect('plantula/salidaplanta/modificar/'.$salidaPlanta->id);
+    public function modificar(riegoPlantulaRequest $request){
+        $riego=$this->adaptarRequest($request);
+        $riego->save();
+        $riego->push();
+        Session::flash('message', 'El riego ha sido modificado');
+        return redirect('plantula/riego/modificar/'.$riego->id);
     }
 
     /*
