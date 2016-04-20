@@ -106,11 +106,11 @@
                             <i class="fa fa-tasks"></i>
                             <span>Aplicaciones</span>
                         </a></li>
-                    <li><a href="#" >
+                    <li><a href="{{route('plantula/riego')}}" class="active">
                             &nbsp;<i class="fa fa-tint"></i>
                             <span>&nbsp;Riego </span>
                         </a></li>
-                    <li><a href="{{route('plantula/salidaplanta')}}" class="active">
+                    <li><a href="{{route('plantula/salidaplanta')}}">
                             <i class="fa fa-reply-all"></i>
                             <span>Salida planta</span>
                         </a></li>

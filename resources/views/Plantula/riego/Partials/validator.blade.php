@@ -26,6 +26,22 @@
                     }
                 },
 
+                tiempoRiego:{
+                    validators: {
+                        notEmpty: {
+                            message: 'Ingrese un valor'
+                        }
+                    }
+                },
+
+                frecuancia:{
+                    validators: {
+                        notEmpty: {
+                            message: 'Ingrese un valor'
+                        }
+                    }
+                },
+
                 fecha:{
                     validators: {
                         notEmpty: {

@@ -10,7 +10,7 @@ namespace App\Http\Controllers;
 
 use App\invernadero;
 
-use App\Http\Requests\salidaPlantaRequest;
+use App\Http\Requests\riegoPlantulaRequest;
 use App\invernaderoPlantula;
 use App\riegoPlantula;
 use App\salidaPlanta;
@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 
-class salidaDePlantaController extends Controller
+class riegoPlantulaController extends Controller
 {
     public function  __construct()
     {
@@ -138,12 +138,12 @@ class salidaDePlantaController extends Controller
      * Recibe la informacion del formulario de crear y la almacena en la base de datos
      */
 
-    public function crear(salidaPlantaRequest $request){
+    public function crear(riegoPlantulaRequest $request){
         //dd('aqui');
-        $salidaPlanta=$this->adaptarRequest($request);
-        $salidaPlanta->save();
-        Session::flash('message', 'La salida de planta ha sido creada');
-        return redirect('plantula/salidaplanta/crear');
+        $riego=$this->adaptarRequest($request);
+        $riego->save();
+        Session::flash('message', 'El riego ha sido creado');
+        return redirect('plantula/riego/crear');
     }
 
 
@@ -243,18 +243,20 @@ class salidaDePlantaController extends Controller
      * Recibe la informacion del formulario de crear y la adapta a los campos del modelo
      */
     public function adaptarRequest($request){
-        $salidaPlanta=new salidaPlanta($request->all());
+        $riego=new riegoPlantula($request->all());
         if(isset($request->id)) {
-            $salidaPlanta = salidaPlanta::findOrFail($request->id);
+            $riego = riegoPlantula::findOrFail($request->id);
         }
 
-        $salidaPlanta->id_invernaderoPlantula= $request->invernadero;
-        $salidaPlanta->id_siembraPlantula = $request->siembraPlantula;
-        $salidaPlanta->fecha=Carbon::createFromFormat('d/m/Y', $request->fecha)->toDateTimeString();
-        $salidaPlanta->comentario= $request->comentario;
+        $riego->id_invernaderoPlantula= $request->invernadero;
+        $riego->id_siembraPlantula = $request->siembraPlantula;
+        $riego->fecha=Carbon::createFromFormat('d/m/Y', $request->fecha)->toDateTimeString();
+        $riego->tiempoRiego = $request->tiempoRiego;
+        $riego->frecuencia = $request->frecuencia;
+        $riego->formulacion= $request->formulacion;
 
 
-        return $salidaPlanta;
+        return $riego;
     }
     /*
      * Adapta fechas de resultado de busqueda a formato adecuado para imprimir en la vista de busqueda
