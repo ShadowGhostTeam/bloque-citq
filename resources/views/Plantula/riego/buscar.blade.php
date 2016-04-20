@@ -44,7 +44,7 @@
 MAIN SIDEBAR MENU
 *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Plantula.SalidaPlanta.aside')
+    @include('Plantula.riego.aside')
             <!--sidebar end-->
 
     <section id="container">
@@ -59,13 +59,13 @@ MAIN SIDEBAR MENU
                             @include('Partials.Mensajes.mensajes')
 
                             <div class="form-group" align="right">
-                                <a href="{{route('plantula/salidaplanta/crear')}}"> <button class="btn agregar tooltips" data-placement="left" data-original-title="Agregar"><i class="fa fa-plus"></i></i></button></a>
+                                <a href="{{route('plantula/riego/crear')}}"> <button class="btn agregar tooltips" data-placement="left" data-original-title="Agregar"><i class="fa fa-plus"></i></i></button></a>
                             </div>
 
                             <div class="row">
                                 <div class="col-xs-12">
 
-                                    {!! Form::open(['route' => 'plantula/salidaplanta/lista' ,'method'=>'GET']) !!}
+                                    {!! Form::open(['route' => 'plantula/riego/lista' ,'method'=>'GET']) !!}
                                     <div class="form-group">
 
                                         <div class="col-lg-2">
@@ -147,11 +147,11 @@ MAIN SIDEBAR MENU
 
 
                                                         <td style="width: 5px">
-                                                            <a href="{{ route('plantula/salidaplanta/consultar/item',$salida->id) }}"><button class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar"><i class="fa fa-eye"></i></button></a>
+                                                            <a href="{{ route('plantula/riego/consultar/item',$salida->id) }}"><button class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar"><i class="fa fa-eye"></i></button></a>
                                                         </td>
 
                                                         <td style="width: 5px">
-                                                            <a href="{{ route('plantula/salidaplanta/modificar/item',$salida->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
+                                                            <a href="{{ route('plantula/riego/modificar/item',$salida->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
                                                         </td>
 
                                                         <td style="width: 5px">
