@@ -50,7 +50,7 @@ MAIN SIDEBAR MENU
     <section id="container">
         <section id="main-content">
             <section class="wrapper site-min-height">
-                <h3 style="color:#078006"><i class="fa fa-angle-right"></i>Salida de planta</h3>
+                <h3 style="color:#078006"><i class="fa fa-angle-right"></i>Riego Plantula</h3>
                 <div class="row mt">
                     <!-- INICIO CONTENIDO -->
                     <div class="col-lg-12">
@@ -129,20 +129,24 @@ MAIN SIDEBAR MENU
                                             <thead>
                                             <tr>
                                                 <th><i class="fa fa-thumb-tack"></i> Invernadero Plantúla </th>
-                                                <th> <i class="fa fa-tree"></i> Comentario</th>
-                                                <th><i class="fa fa-calendar-o"></i> Fecha </th>
+                                                <th><i class="fa fa-clock-o"></i> Tiempo riego </th>
+                                                <th><i class="fa fa-clock-o"></i> Frecuencia </th>
+                                                <th><i class="fa fa-pencil-square-o"></i> Formulación</th>
+                                                <th><i class="fa fa-calendar" ></i> Fecha </th>
 
                                             </tr>
                                             </thead>
                                             <tbody>
 
-                                            @if ( isset( $salidas) )
+                                            @if ( isset( $riegos) )
 
-                                                @foreach( $salidas as $salida )
+                                                @foreach( $riegos as $salida )
 
                                                     <tr>
                                                         <td>{{ $salida->invernadero->nombre }}</td>
-                                                        <td>{{ $salida->comentario }}</td>
+                                                        <td>{{ $salida->tiempoRiego }}</td>
+                                                        <td>{{ $salida->frecuencia }}</td>
+                                                        <td>{{ $salida->formulacion }}</td>
                                                         <td>{{ $salida->fecha }}</td>
 
 
@@ -155,8 +159,8 @@ MAIN SIDEBAR MENU
                                                         </td>
 
                                                         <td style="width: 5px">
-                                                            {!! Form::open(['action'=>['salidaDePlantaController@eliminar'],'role'=>'form'] )  !!}
-                                                            <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la salida de planta?")'><i class="fa fa-trash-o "></i></button>
+                                                            {!! Form::open(['action'=>['riegoPlantulaController@eliminar'],'role'=>'form'] )  !!}
+                                                            <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar el riego?")'><i class="fa fa-trash-o "></i></button>
                                                             <input type="hidden" name="id" value={{$salida->id}}>
                                                             {!! Form::close() !!}
                                                         </td>
@@ -171,8 +175,8 @@ MAIN SIDEBAR MENU
                                             </tbody>
                                         </table>
                                     </div>
-                                    @if (isset($salidas))
-                                        {!! $salidas->setPath('')->appends(Input::query())->render()!!}
+                                    @if (isset($riegos))
+                                        {!! $riegos->setPath('')->appends(Input::query())->render()!!}
                                     @endif
                                 </div>
                             </div>

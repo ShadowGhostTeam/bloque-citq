@@ -162,11 +162,11 @@ class riegoPlantulaController extends Controller
      * Elimina un registro de la base de datos
      */
     public function eliminar(Request $request){
-        $salidaPlanta= salidaPlanta::findOrFail($request->id);
-        $salidaPlanta->delete();
+        $riego= riegoPlantula::findOrFail($request->id);
+        $riego->delete();
 
-        Session::flash('message','La salida de planta ha sido eliminada');
-        return redirect('plantula/salidaplanta');
+        Session::flash('message','El riego ha sido eliminado');
+        return redirect('plantula/riego');
     }
 
     /*
@@ -175,9 +175,9 @@ class riegoPlantulaController extends Controller
 
     public function buscar(Request $request){
         /*Listados de combobox*/
-        $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        //$invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
         /*Ahi se guardaran los resultados de la busqueda*/
-        $salidas=null;
+        $riegos=null;
 
 
         $validator = Validator::make($request->all(), [
@@ -204,18 +204,18 @@ class riegoPlantulaController extends Controller
 
                 /*Solo con fechas*/
 
-                $salidas = salidaPlanta::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                $riegos = riegoPlantula::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
 
             }
         }
 
 
-        if($salidas!=null){
+        if($riegos!=null){
             /*Adapta el formato de fecha para poder imprimirlo en la vista adecuadamente*/
-            $this->adaptaFechas($salidas);
+            $this->adaptaFechas($riegos);
 
             /*Si no es nulo puede contar los resultados*/
-            $num = $salidas->total();
+            $num = $riegos->total();
         }
         else{
             $num=0;
@@ -229,8 +229,8 @@ class riegoPlantulaController extends Controller
             Session::flash('message', 'Se encontraron '.$num.' resultados');
         }
         /*Regresa la vista*/
-        return view('Plantula/SalidaPlanta/buscar')->with([
-            'salidas'=>$salidas
+        return view('Plantula/riego/buscar')->with([
+            'riegos'=>$riegos
         ]);
     }
 
