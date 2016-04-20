@@ -147,7 +147,7 @@ MAIN SIDEBAR MENU
                                     <thead>
                                     <tr>
                                         <th><i class="fa fa-thumb-tack"></i> Invernadero </th>
-                                        <th><i class="fa fa-thumb-tack"></i> Tipo de siembra </th>
+                                        <th><i class="fa fa-list-ul"></i> Tipo de siembra </th>
                                         <th> <i class="fa fa-calendar-o"></i> Fecha </th>
                                         <th></th>
                                     </tr>
