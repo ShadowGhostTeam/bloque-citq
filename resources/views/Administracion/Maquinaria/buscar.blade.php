@@ -37,7 +37,8 @@ MAIN SIDEBAR MENU
 
                                         <div class="col-lg-3">
                                             <select  class="form-control" id="nombre" name="nombre">
-                                                <option value="">Todas las máquinas</option>
+                                                <option value="">Todas las maquinarias
+                                                </option>
                                                 @if( isset($combo))
                                                     @foreach($combo as $maquina)
                                                         <option value="{{  $maquina->id  }}" > {{ $maquina->nombre}}  </option>
@@ -65,7 +66,7 @@ MAIN SIDEBAR MENU
                                     <thead>
                                     <tr>
                                         <th><i class="fa fa-thumb-tack"></i>  Nombre </th>
-                                        <th> <i class="fa fa-calendar-o"></i> Descripción </th>
+                                        <th> <i class="fa fa-pencil-square-o"></i> Descripción </th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -82,7 +83,7 @@ MAIN SIDEBAR MENU
                                                 </td>
                                                 <td style="width: 5px">
                                                     {!! Form::open(['action'=>['maquinariaController@eliminar'],'role'=>'form'] )  !!}
-                                                    <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar esta máquina?")'><i class="fa fa-trash-o "></i></button>
+                                                    <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar esta maquinaria?")'><i class="fa fa-trash-o "></i></button>
                                                     <input type="hidden" name="id" value={{$maquina->id}}>
                                                     {!! Form::close() !!}
                                                 </td>
