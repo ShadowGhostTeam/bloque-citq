@@ -114,7 +114,7 @@
         <div class="form-group" align="center">
             @if( isset($riego))
 
-                {!! Form::submit('Modificar',['class'=>'btn btn-success', 'onclick'=>"return confirm ('¿Seguro que desea modificar esta aplicación?')"])!!}
+                {!! Form::submit('Modificar',['class'=>'btn btn-success', 'onclick'=>"return confirm ('¿Seguro que desea modificar este riego?')"])!!}
             @else
                 {!! Form::submit('Crear',['class'=>'btn btn-success'])!!}
             @endif
