@@ -50,7 +50,7 @@ MAIN SIDEBAR MENU
     <section id="container">
         <section id="main-content">
             <section class="wrapper site-min-height">
-                <h3 style="color:#078006"><i class="fa fa-angle-right"></i>Riego Plantula</h3>
+                <h3 style="color:#078006"><i class="fa fa-angle-right"></i>Riego Plántula</h3>
                 <div class="row mt">
                     <!-- INICIO CONTENIDO -->
                     <div class="col-lg-12">
@@ -128,7 +128,7 @@ MAIN SIDEBAR MENU
                                         <table class="table table-striped table-advance table-hover">
                                             <thead>
                                             <tr>
-                                                <th><i class="fa fa-thumb-tack"></i> Invernadero Plantúla </th>
+                                                <th><i class="fa fa-thumb-tack"></i> Invernadero Plántula </th>
                                                 <th><i class="fa fa-clock-o"></i> Tiempo riego </th>
                                                 <th><i class="fa fa-clock-o"></i> Frecuencia </th>
                                                 <th><i class="fa fa-pencil-square-o"></i> Formulación</th>
