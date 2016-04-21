@@ -183,13 +183,18 @@ class riegoPlantulaController extends Controller
         $validator = Validator::make($request->all(), [
             'fechaInicio' => 'date_format:d/m/Y',
             'fechaFin' => 'date_format:d/m/Y',
-            //'invernadero' => 'exists:invernadero_plantula,id'
+            'invernadero' => 'exists:invernadero_plantula,id'
         ]);
 
         /*Si validador no falla se pueden realizar busquedas*/
         if ($validator->fails()) {
         }
         else{
+            /*Busqueda sin parametros*/
+            if ($request->fechaFin == "" && $request->fechaInicio == "" && $request->invernadero == "") {
+                $riegos  = riegoPlantula::orderBy('fecha', 'desc')->paginate(15);;
+
+            }
             /*Pregunta si se mandaron fechas, para calcular busquedas con fechas*/
             if ( $request->fechaFin != "" && $request->fechaInicio !="") {
 

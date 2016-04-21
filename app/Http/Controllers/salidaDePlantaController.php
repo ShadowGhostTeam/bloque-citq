@@ -189,6 +189,11 @@ class salidaDePlantaController extends Controller
         if ($validator->fails()) {
         }
         else{
+            /*Busqueda sin parametros*/
+            if ($request->fechaFin == "" && $request->fechaInicio == "" && $request->invernadero == "") {
+                $salidas  = salidaPlanta::orderBy('fecha', 'desc')->paginate(15);;
+
+            }
             /*Pregunta si se mandaron fechas, para calcular busquedas con fechas*/
             if ( $request->fechaFin != "" && $request->fechaInicio !="") {
 
