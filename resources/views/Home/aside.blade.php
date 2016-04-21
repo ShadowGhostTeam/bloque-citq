@@ -109,7 +109,7 @@
                             <i class="fa fa-tasks"></i>
                             <span>Aplicaciones</span>
                         </a></li>
-                    <li><a href="#" >
+                    <li><a href="plantula/riego" >
                             &nbsp;<i class="fa fa-tint"></i>
                             <span>&nbsp;Riego </span>
                         </a></li>
