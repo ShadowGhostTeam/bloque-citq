@@ -2299,6 +2299,16 @@ label {
     color: #fff;
 }
 
+.titulos-menu{
+    background-color: #f2f2f2 !important;
+}
+
+.tabla-inicio .titulos-menu td{
+    font-size: 10pt !important;
+    font-weight: bolder;
+    color: rgb(77, 137, 66);
+}
+
 .tabla-inicio tr th{
     padding: 10px;
     font-weight: bolder;
@@ -2309,5 +2319,5 @@ label {
 }
 
 .table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td{
-    border: 4px solid white !important;
+    border: 3px solid white !important;
 }

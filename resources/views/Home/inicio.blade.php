@@ -22,6 +22,12 @@ MAIN SIDEBAR MENU
                                 > Siembras en los Sectores
                             </th>
                         </tr>
+                        <tr class="titulos-menu">
+                            <td>Sector 1</td>
+                            <td>Sector 2</td>
+                            <td>Sector 3</td>
+                            <td>Sector 4</td>
+                        </tr>
                         <tr>
                             @if($siembras_sector1 == "[]")
                                 <td bgcolor='#986b28' id='sector'>
@@ -71,6 +77,12 @@ MAIN SIDEBAR MENU
                                 </td>
                             @endif
                         </tr>
+                        <tr class="titulos-menu">
+                            <td>Sector 5</td>
+                            <td>Sector 6</td>
+                            <td>Sector 7</td>
+                            <td>Sector 8</td>
+                        </tr>
                         <tr>
                             @if($siembras_sector5 == "[]")
                                 <td bgcolor='#986b28' id='sector'>
@@ -119,6 +131,12 @@ MAIN SIDEBAR MENU
                                     @endforeach
                                 </td>
                             @endif
+                        </tr>
+                        <tr class="titulos-menu">
+                            <td>Sector 9</td>
+                            <td>Sector 10</td>
+                            <td>Sector 11</td>
+                            <td>Sector 12</td>
                         </tr>
                         <tr>
                             @if($siembras_sector9 == "[]")
@@ -179,6 +197,10 @@ MAIN SIDEBAR MENU
                                 > Siembras en los Invernaderos
                             </th>
                         </tr>
+                        <tr class="titulos-menu">
+                            <td>Invernadero 1</td>
+                            <td>Invernadero 2</td>
+                        </tr>
                         <tr>
                             @if($siembras_invernadero1 == "[]")
                                 <td bgcolor='#986b28' id='invernadero'>
@@ -203,6 +225,10 @@ MAIN SIDEBAR MENU
                                     @endforeach
                                 </td>
                             @endif
+                        </tr>
+                        <tr class="titulos-menu">
+                            <td>Invernadero 3</td>
+                            <td>Invernadero 4</td>
                         </tr>
                         <tr>
                             @if($siembras_invernadero3 == "[]")
@@ -238,6 +264,9 @@ MAIN SIDEBAR MENU
                             <th>
                                 > Siembras en el Invernadero de Plántula
                             </th>
+                        </tr>
+                        <tr class="titulos-menu">
+                            <td>Invernadero de Plántula 1</td>
                         </tr>
                         <tr>
                             @if($siembras_invernaderoPlantula1 == "[]")
