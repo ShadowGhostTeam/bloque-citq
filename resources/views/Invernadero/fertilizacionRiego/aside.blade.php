@@ -112,6 +112,10 @@
                             &nbsp;<i class="fa fa-tint"></i>
                             <span>&nbsp;Riego </span>
                         </a></li>
+                    <li><a href="{{route('plantula/riego')}}" >
+                            <i class="fa fa-tint"></i>
+                            <span>Riego</span>
+                        </a></li>
                     <li><a href="{{route('plantula/salidaplanta')}}" >
                             <i class="fa fa-reply-all"></i>
                             <span>Salida planta</span>
