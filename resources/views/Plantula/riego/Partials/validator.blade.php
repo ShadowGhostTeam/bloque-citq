@@ -30,14 +30,28 @@
                     validators: {
                         notEmpty: {
                             message: 'Ingrese un valor'
+                        },
+                        numeric: {
+                            message: 'No es un número válido'
+                        },
+                        greaterThan: {
+                            value: 0,
+                            message: 'El número tiene que ser positivo'
                         }
                     }
                 },
 
-                frecuancia:{
+                frecuencia:{
                     validators: {
                         notEmpty: {
                             message: 'Ingrese un valor'
+                        },
+                        numeric: {
+                            message: 'No es un número válido'
+                        },
+                        greaterThan: {
+                            value: 0,
+                            message: 'El número tiene que ser positivo'
                         }
                     }
                 },
