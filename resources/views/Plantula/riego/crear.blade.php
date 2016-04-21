@@ -13,7 +13,7 @@
     MAIN SIDEBAR MENU
     *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Plantula.SalidaPlanta.aside')
+    @include('Plantula.riego.aside')
     <!--sidebar end-->
 
     <section id="container">
@@ -21,7 +21,7 @@
         <section id="main-content">
             <section class="wrapper site-min-height">
                 <h3>
-                    <a href="{{ route('plantula/salidaplanta') }}">
+                    <a href="{{ route('plantula/riego') }}">
                         <button type="button" class="btn btn-primary">
                             <i class="glyphicon glyphicon-arrow-left"></i>
                             Búsqueda
@@ -36,11 +36,11 @@
 
                             @include('Partials.Mensajes.mensajes')
 
-                            {!! Form::open(['action'=>['salidaDePlantaController@crear'],'class'=>'form-horizontal','role'=>'form','id'=>'formulario'])!!}
+                            {!! Form::open(['action'=>['riegoPlantulaController@crear'],'class'=>'form-horizontal','role'=>'form','id'=>'formulario'])!!}
 
-                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear salida de planta</h4><br>
+                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear riego plantula</h4><br>
 
-                            @include('Plantula.SalidaPlanta.Partials.form')
+                            @include('Plantula.riego.Partials.form')
 
                             {!! Form::close() !!}
                         </div>
@@ -52,5 +52,5 @@
     </section>
 </section>
 
-    @include('Plantula.SalidaPlanta.Partials.validator')
+    @include('Plantula.riego.Partials.validator')
     @include('Partials.ScriptsGenerales.scriptsPartialsAbajo')

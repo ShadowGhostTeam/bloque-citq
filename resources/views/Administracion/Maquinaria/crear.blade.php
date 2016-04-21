@@ -31,7 +31,7 @@
 
                             {!! Form::open(['action'=>['maquinariaController@crear'],'class'=>'form-horizontal','role'=>'form','id'=>'formulario'])!!}
 
-                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear máquina</h4><br>
+                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear Maquinaria</h4><br>
 
                             @include('Administracion.Maquinaria.Partials.form')
 

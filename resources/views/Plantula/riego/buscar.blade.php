@@ -44,13 +44,13 @@
 MAIN SIDEBAR MENU
 *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
-    @include('Plantula.SalidaPlanta.aside')
+    @include('Plantula.riego.aside')
             <!--sidebar end-->
 
     <section id="container">
         <section id="main-content">
             <section class="wrapper site-min-height">
-                <h3 style="color:#078006"><i class="fa fa-angle-right"></i>Salida de planta</h3>
+                <h3 style="color:#078006"><i class="fa fa-angle-right"></i>Riego Plantula</h3>
                 <div class="row mt">
                     <!-- INICIO CONTENIDO -->
                     <div class="col-lg-12">
@@ -59,18 +59,18 @@ MAIN SIDEBAR MENU
                             @include('Partials.Mensajes.mensajes')
 
                             <div class="form-group" align="right">
-                                <a href="{{route('plantula/salidaplanta/crear')}}"> <button class="btn agregar tooltips" data-placement="left" data-original-title="Agregar"><i class="fa fa-plus"></i></i></button></a>
+                                <a href="{{route('plantula/riego/crear')}}"> <button class="btn agregar tooltips" data-placement="left" data-original-title="Agregar"><i class="fa fa-plus"></i></i></button></a>
                             </div>
 
                             <div class="row">
                                 <div class="col-xs-12">
 
-                                    {!! Form::open(['route' => 'plantula/salidaplanta/lista' ,'method'=>'GET']) !!}
+                                    {!! Form::open(['route' => 'plantula/riego/lista' ,'method'=>'GET']) !!}
                                     <div class="form-group">
 
                                         <div class="col-lg-2">
                                             <select  class="form-control" id="invernaderoPlantula" name="invernaderoPlantula" disabled>
-                                               <!-- <option value="">Todos los invernaderos de plantula</option> -->
+                                              <option value="">Invernadero plántula 1</option>
 
                                                 @if( isset($invernaderos))
                                                     @foreach($invernaderos as $invernadero)
@@ -129,34 +129,38 @@ MAIN SIDEBAR MENU
                                             <thead>
                                             <tr>
                                                 <th><i class="fa fa-thumb-tack"></i> Invernadero Plantúla </th>
-                                                <th> <i class="fa fa-tree"></i> Comentario</th>
-                                                <th><i class="fa fa-calendar-o"></i> Fecha </th>
+                                                <th><i class="fa fa-clock-o"></i> Tiempo riego </th>
+                                                <th><i class="fa fa-clock-o"></i> Frecuencia </th>
+                                                <th><i class="fa fa-pencil-square-o"></i> Formulación</th>
+                                                <th><i class="fa fa-calendar" ></i> Fecha </th>
 
                                             </tr>
                                             </thead>
                                             <tbody>
 
-                                            @if ( isset( $salidas) )
+                                            @if ( isset( $riegos) )
 
-                                                @foreach( $salidas as $salida )
+                                                @foreach( $riegos as $salida )
 
                                                     <tr>
                                                         <td>{{ $salida->invernadero->nombre }}</td>
-                                                        <td>{{ $salida->comentario }}</td>
+                                                        <td>{{ $salida->tiempoRiego }}</td>
+                                                        <td>{{ $salida->frecuencia }}</td>
+                                                        <td>{{ $salida->formulacion }}</td>
                                                         <td>{{ $salida->fecha }}</td>
 
 
                                                         <td style="width: 5px">
-                                                            <a href="{{ route('plantula/salidaplanta/consultar/item',$salida->id) }}"><button class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar"><i class="fa fa-eye"></i></button></a>
+                                                            <a href="{{ route('plantula/riego/consultar/item',$salida->id) }}"><button class="btn btn-success btn-xs tooltips" data-placement="top" data-original-title="Consultar"><i class="fa fa-eye"></i></button></a>
                                                         </td>
 
                                                         <td style="width: 5px">
-                                                            <a href="{{ route('plantula/salidaplanta/modificar/item',$salida->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
+                                                            <a href="{{ route('plantula/riego/modificar/item',$salida->id) }}"><button class="btn btn-primary btn-xs tooltips" data-placement="top" data-original-title="Modificar"><i class="fa fa-pencil"></i></button></a>
                                                         </td>
 
                                                         <td style="width: 5px">
-                                                            {!! Form::open(['action'=>['salidaDePlantaController@eliminar'],'role'=>'form'] )  !!}
-                                                            <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la salida de planta?")'><i class="fa fa-trash-o "></i></button>
+                                                            {!! Form::open(['action'=>['riegoPlantulaController@eliminar'],'role'=>'form'] )  !!}
+                                                            <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar el riego?")'><i class="fa fa-trash-o "></i></button>
                                                             <input type="hidden" name="id" value={{$salida->id}}>
                                                             {!! Form::close() !!}
                                                         </td>
@@ -171,8 +175,8 @@ MAIN SIDEBAR MENU
                                             </tbody>
                                         </table>
                                     </div>
-                                    @if (isset($salidas))
-                                        {!! $salidas->setPath('')->appends(Input::query())->render()!!}
+                                    @if (isset($riegos))
+                                        {!! $riegos->setPath('')->appends(Input::query())->render()!!}
                                     @endif
                                 </div>
                             </div>

@@ -27,7 +27,7 @@
                     <div class="col-lg-12">
                         <div class="form-panel">
 
-                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Consultar máquina</h4><br>
+                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Consultar maquinaria</h4><br>
 
                             @if( isset($resultado))
 
@@ -41,7 +41,7 @@
 
                                         <td>
                                             {!! Form::open(['action'=>['maquinariaController@eliminar'],'role'=>'form'] )  !!}
-                                            <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la máquina?")'><i class="fa fa-trash-o "></i></button>
+                                            <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la maquinaria?")'><i class="fa fa-trash-o "></i></button>
                                             <input type="hidden" name="id" value={{$resultado->id}}>
                                             {!! Form::close() !!}
 
