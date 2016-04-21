@@ -109,8 +109,8 @@
                             <i class="fa fa-tasks"></i>
                             <span>Aplicaciones</span>
                         </a></li>
-                    <li><a href="plantula/riego" >
-                            &nbsp;<i class="fa fa-tint" class="active"></i>
+                    <li><a href="plantula/riego" class="active" >
+                            &nbsp;<i class="fa fa-tint" ></i>
                             <span>&nbsp;Riego </span>
                         </a></li>
                     <li><a href="{{route('plantula/salidaplanta')}}" >

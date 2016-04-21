@@ -1,3 +1,4 @@
+
 <aside>
     <div id="sidebar"  class="nav-collapse ">
         <!-- sidebar menu start-->
@@ -11,7 +12,7 @@
             </li>
 
             <li class="sub-menu">
-                <a href="#" >
+                <a href="#">
                     <i class="fa fa-th"></i>
                     <span>Sector&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <i class="fa fa-caret-down"></i>
@@ -23,7 +24,7 @@
                             <span>Preparación </span>
                         </a></li>
 
-                    <li><a href="{{route('sector/siembra')}}">
+                    <li><a href="{{route('sector/siembra')}}" >
                             <i class="fa fa-leaf"></i>
                             <span>Siembra </span>
                         </a></li>
@@ -32,7 +33,7 @@
                             <i class="fa fa-tasks"></i>
                             <span>Fertilización </span>
                         </a></li>
-                    <li><a href="{{route('sector/riego')}}" >
+                    <li><a href="{{route('sector/riego')}}">
                             &nbsp;<i class="fa fa-tint"></i>
                             <span>&nbsp;Riego </span>
                         </a></li>
@@ -51,7 +52,7 @@
 
             @permission('invernadero')
             <li class="sub-menu">
-                <a href="#" class="active">
+                <a href="#" class="active" >
                     <i class="fa fa-th-large"></i>
                     <span>Invernadero&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <i class="fa fa-caret-down"></i>
@@ -68,7 +69,7 @@
                             <span>Siembra </span>
                         </a></li>
 
-                    <li><a href="{{route('invernadero/laboresCulturales')}}" >
+                    <li><a href="{{route('invernadero/laboresCulturales')}}"  >
                             <i class="fa fa-tasks"></i>
                             <span>Labores culturales</span>
                         </a></li>
@@ -108,13 +109,9 @@
                             <i class="fa fa-tasks"></i>
                             <span>Aplicaciones</span>
                         </a></li>
-                    <li><a href="#" >
+                    <li><a href="{{route('plantula/riego')}}">
                             &nbsp;<i class="fa fa-tint"></i>
                             <span>&nbsp;Riego </span>
-                        </a></li>
-                    <li><a href="{{route('plantula/riego')}}" >
-                            <i class="fa fa-tint"></i>
-                            <span>Riego</span>
                         </a></li>
                     <li><a href="{{route('plantula/salidaplanta')}}" >
                             <i class="fa fa-reply-all"></i>

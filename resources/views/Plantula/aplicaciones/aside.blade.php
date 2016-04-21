@@ -1,3 +1,4 @@
+
 <aside>
     <div id="sidebar"  class="nav-collapse ">
         <!-- sidebar menu start-->
@@ -11,7 +12,7 @@
             </li>
 
             <li class="sub-menu">
-                <a href="#" >
+                <a href="#">
                     <i class="fa fa-th"></i>
                     <span>Sector&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <i class="fa fa-caret-down"></i>
@@ -23,7 +24,7 @@
                             <span>Preparación </span>
                         </a></li>
 
-                    <li><a href="{{route('sector/siembra')}}">
+                    <li><a href="{{route('sector/siembra')}}" >
                             <i class="fa fa-leaf"></i>
                             <span>Siembra </span>
                         </a></li>
@@ -32,7 +33,7 @@
                             <i class="fa fa-tasks"></i>
                             <span>Fertilización </span>
                         </a></li>
-                    <li><a href="{{route('sector/riego')}}" >
+                    <li><a href="{{route('sector/riego')}}">
                             &nbsp;<i class="fa fa-tint"></i>
                             <span>&nbsp;Riego </span>
                         </a></li>
@@ -68,11 +69,11 @@
                             <span>Siembra </span>
                         </a></li>
 
-                    <li><a href="{{route('invernadero/laboresCulturales')}}">
+                    <li><a href="{{route('invernadero/laboresCulturales')}}"  >
                             <i class="fa fa-tasks"></i>
                             <span>Labores culturales</span>
                         </a></li>
-                    <li><a href="{{route('invernadero/fertilizacionRiego')}}" >
+                    <li><a href="{{route('invernadero/fertilizacionRiego')}}">
                             &nbsp;<i class="fa fa-tint"></i>
                             <span>&nbsp;Fertilización/Riego </span>
                         </a></li>
@@ -104,13 +105,13 @@
                             <span>Siembra </span>
                         </a></li>
 
-                    <li><a href="{{route('plantula/aplicaciones')}}" class="active" >
+                    <li><a href="{{route('plantula/aplicaciones')}}" class="active">
                             <i class="fa fa-tasks"></i>
                             <span>Aplicaciones</span>
                         </a></li>
-                    <li><a href="{{route('plantula/riego')}}" >
-                            <i class="fa fa-tint"></i>
-                            <span>Riego</span>
+                    <li><a href="{{route('plantula/riego')}}">
+                            &nbsp;<i class="fa fa-tint"></i>
+                            <span>&nbsp;Riego </span>
                         </a></li>
                     <li><a href="{{route('plantula/salidaplanta')}}" >
                             <i class="fa fa-reply-all"></i>
@@ -185,6 +186,16 @@
             @endpermission
 
 
+            <li class="sub-menu">
+                <a href="{{route('configuracion')}}" >
+                    <i class="fa fa-cog"></i>
+                    <span>Configuración </span>
+                </a>
+            </li>
+        </ul>
+        <!-- sidebar menu end-->
+    </div>
+</aside>
             <li class="sub-menu">
                 <a href="{{route('configuracion')}}" >
                     <i class="fa fa-cog"></i>
