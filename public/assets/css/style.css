@@ -7,7 +7,7 @@ Premium: http://www.gridgum.com
 */
 
 /* Import fonts */
-@import url(http://fonts.googleapis.com/css?family=Ruda:400,700,900);
+@import url(https://fonts.googleapis.com/css?family=Ruda:400,700,900);
 
 /* BASIC THEME CONFIGURATION */
 body {
@@ -2260,4 +2260,54 @@ label {
     min-height: 900px;
 }
 
+.espacio{
+    height: 20px;
+}
 
+.container-tabla{
+    padding: 30px 70px;
+}
+
+.tabla-inicio{
+    border: 30px solid white;
+    border-collapse: separate;
+    background-color: white;
+}
+
+.tabla-inicio #invernadero{
+    height: 120px !important;
+}
+
+.tabla-inicio #sector{
+    height: 120px !important;
+}
+
+.tabla-inicio #invernadero-plantula{
+    height: 120px !important;
+}
+
+.tabla-inicio tr td{
+    padding: 7px;
+    text-align: center;
+    font-size: 12pt;
+    font-weight: normal;
+    width: 10%;
+    color: #fff;
+}
+
+.tabla-inicio tr td a{
+    color: #fff;
+}
+
+.tabla-inicio tr th{
+    padding: 10px;
+    font-weight: bolder;
+    text-align: left;
+    font-size: 17pt;
+    background-color: #fff;
+    color:rgb(77, 137, 66);
+}
+
+.table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td{
+    border: 4px solid white !important;
+}

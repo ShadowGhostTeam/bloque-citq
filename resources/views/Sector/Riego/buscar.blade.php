@@ -134,7 +134,7 @@ MAIN SIDEBAR MENU
                                         <th> <i class="fa fa-arrows-h"></i> Distancia entre líneas de Riego </th>
                                         <th> <i class="fa fa-square-o"></i> Litros por Hectárea </th>
                                         <th> <i class="fa fa-cloud"></i> Lámina de Riego </th>
-                                        <th><i class=" fa fa-edit"></i> Fecha </th>
+                                        <th><i class=" fa fa fa-calendar"></i> Fecha </th>
                                     </tr>
                                     </thead>
                                     <tbody>

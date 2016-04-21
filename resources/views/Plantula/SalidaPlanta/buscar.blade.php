@@ -70,6 +70,7 @@ MAIN SIDEBAR MENU
 
                                         <div class="col-lg-2">
                                             <select  class="form-control" id="invernaderoPlantula" name="invernaderoPlantula" disabled>
+                                                <option value="">Invernadero plántula 1</option>
                                                 @if( isset($invernaderos))
                                                     @foreach($invernaderos as $invernadero)
                                                         @if($invernadero->id === 1)
@@ -127,8 +128,8 @@ MAIN SIDEBAR MENU
                                             <thead>
                                             <tr>
                                                 <th><i class="fa fa-thumb-tack"></i> Invernadero Plantúla </th>
-                                                <th> <i class="fa fa-tree"></i> Comentario</th>
-                                                <th><i class="fa fa-calendar-o"></i> Fecha </th>
+                                                <th> <i class="fa fa-pencil-square-o"></i> Comentario</th>
+                                                <th><i class="fa fa-calendar" ></i> Fecha </th>
 
                                             </tr>
                                             </thead>

@@ -26,6 +26,36 @@
                     }
                 },
 
+                tiempoRiego:{
+                    validators: {
+                        notEmpty: {
+                            message: 'Ingrese un valor'
+                        },
+                        numeric: {
+                            message: 'No es un número válido'
+                        },
+                        greaterThan: {
+                            value: 0,
+                            message: 'El número tiene que ser positivo'
+                        }
+                    }
+                },
+
+                frecuencia:{
+                    validators: {
+                        notEmpty: {
+                            message: 'Ingrese un valor'
+                        },
+                        numeric: {
+                            message: 'No es un número válido'
+                        },
+                        greaterThan: {
+                            value: 0,
+                            message: 'El número tiene que ser positivo'
+                        }
+                    }
+                },
+
                 fecha:{
                     validators: {
                         notEmpty: {

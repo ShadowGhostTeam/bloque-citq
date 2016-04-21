@@ -109,7 +109,7 @@ MAIN SIDEBAR MENU
                                     <thead>
                                     <tr>
                                         <th><i class="fa fa-thumb-tack"></i>  Nombre </th>
-                                        <th><i class=" fa fa-edit"></i>Descripción</th>
+                                        <th><i class="fa fa-pencil-square-o"></i>Descripción</th>
                                         <th></th>
                                     </tr>
                                     </thead>

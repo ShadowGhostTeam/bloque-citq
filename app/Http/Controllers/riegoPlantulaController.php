@@ -10,8 +10,9 @@ namespace App\Http\Controllers;
 
 use App\invernadero;
 
-use App\Http\Requests\salidaPlantaRequest;
+use App\Http\Requests\riegoPlantulaRequest;
 use App\invernaderoPlantula;
+use App\riegoPlantula;
 use App\salidaPlanta;
 use App\siembraPlantula;
 use Carbon\Carbon;
@@ -22,7 +23,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 
-class salidaDePlantaController extends Controller
+class riegoPlantulaController extends Controller
 {
     public function  __construct()
     {
@@ -47,13 +48,13 @@ class salidaDePlantaController extends Controller
         $now= Carbon::now()->format('Y/m/d');
         $now= $now. " 23:59:59";
         $now2 =Carbon::now()->subMonth(6)->format('Y/m/d');
-        $salidas = salidaPlanta::whereBetween('fecha', array($now2,$now))->orderBy('fecha', 'des')->paginate(15);
-        $this->adaptaFechas($salidas);
+        $riegos = riegoPlantula::whereBetween('fecha', array($now2,$now))->orderBy('fecha', 'des')->paginate(15);
+        $this->adaptaFechas($riegos);
 
         $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        return view('Plantula/SalidaPlanta/buscar')->with([
+        return view('Plantula/riego/buscar')->with([
             'invernaderos' =>$invernaderos,
-            'salidas'=>$salidas
+            'riegos'=>$riegos
         ]);
     }
 
@@ -66,7 +67,7 @@ class salidaDePlantaController extends Controller
         $siembras= siembraPlantula::select('id','variedad','fecha')->orderBy('variedad', 'asc')->get();
 
 
-        return view('Plantula/SalidaPlanta/crear')->with([
+        return view('Plantula/riego/crear')->with([
             'invernaderos' => $invernaderos,
             'invernadero' => $invernadero,
             'siembras' => $siembras
@@ -78,19 +79,19 @@ class salidaDePlantaController extends Controller
      * Devuelve vista modificar con los valores del registro que se manda como parametro ($id)
      */
     public function pagModificar($id) {
-        $salidaPlanta= salidaPlanta::findOrFail($id);
-        $invernadero= $salidaPlanta->invernadero;
+        $riego= riegoPlantula::findOrFail($id);
+        $invernadero= $riego->invernadero;
         $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $fechaSiembraSeleccionada=Carbon::createFromFormat('Y-m-d H:i:s', $salidaPlanta->siembra->fecha);
+        $fechaSiembraSeleccionada=Carbon::createFromFormat('Y-m-d H:i:s', $riego->siembra->fecha);
 
         $siembraSeleccionada = array(
-            'id_siembra'=>$salidaPlanta->id_siembraPlantula,
-            'variedad'=>$salidaPlanta->siembra->variedad,
-            'nombre'=>$salidaPlanta->siembra->cultivo->nombre,
+            'id_siembra'=>$riego->id_siembraPlantula,
+            'variedad'=>$riego->siembra->variedad,
+            'nombre'=>$riego->siembra->cultivo->nombre,
             'fecha'=>$fechaSiembraSeleccionada->format('d/m/Y')
         );
 
-        $siembras = siembraPlantula::where('id_invernaderoPlantula',$salidaPlanta->id_invernaderoPlantula)->get();
+        $siembras = siembraPlantula::where('id_invernaderoPlantula',$riego->id_invernaderoPlantula)->get();
         $siembrasTodas=array();
         foreach ($siembras as $siembra) {
 
@@ -105,15 +106,15 @@ class salidaDePlantaController extends Controller
             );
         }
 
-        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $salidaPlanta->fecha);
-        $salidaPlanta->fecha=$fecha->format('d/m/Y');
+        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $riego->fecha);
+        $riego->fecha=$fecha->format('d/m/Y');
 
 
-        return view('Plantula/SalidaPlanta/modificar')->with([
+        return view('Plantula/riego/modificar')->with([
             'invernadero' => $invernadero,
             'siembras' => $siembrasTodas,
             'siembraSeleccionada' => $siembraSeleccionada,
-            'salidaPlanta' => $salidaPlanta,
+            'riego' => $riego,
         ]);
     }
 
@@ -122,12 +123,12 @@ class salidaDePlantaController extends Controller
      */
 
     public function pagConsultar($id) {
-        $salidaPlanta= salidaPlanta::findOrFail($id);
-        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $salidaPlanta->fecha);
-        $salidaPlanta->fecha=$fecha->format('d/m/Y');
+        $riego= riegoPlantula::findOrFail($id);
+        $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $riego->fecha);
+        $riego->fecha=$fecha->format('d/m/Y');
 
-        return view('Plantula/SalidaPlanta/consultar')->with([
-            'salidaPlanta'=>$salidaPlanta
+        return view('Plantula/riego/consultar')->with([
+            'riego'=>$riego
         ]);
     }
 
@@ -137,35 +138,35 @@ class salidaDePlantaController extends Controller
      * Recibe la informacion del formulario de crear y la almacena en la base de datos
      */
 
-    public function crear(salidaPlantaRequest $request){
+    public function crear(riegoPlantulaRequest $request){
         //dd('aqui');
-        $salidaPlanta=$this->adaptarRequest($request);
-        $salidaPlanta->save();
-        Session::flash('message', 'La salida de planta ha sido creada');
-        return redirect('plantula/salidaplanta/crear');
+        $riego=$this->adaptarRequest($request);
+        $riego->save();
+        Session::flash('message', 'El riego ha sido creado');
+        return redirect('plantula/riego/crear');
     }
 
 
     /*
      * Recibe la informacion del formulario de modificar y la actualiza en la base de datos
      */
-    public function modificar(salidaPlantaRequest $request){
-        $salidaPlanta=$this->adaptarRequest($request);
-        $salidaPlanta->save();
-        $salidaPlanta->push();
-        Session::flash('message', 'La salida de planta ha sido modificada');
-        return redirect('plantula/salidaplanta/modificar/'.$salidaPlanta->id);
+    public function modificar(riegoPlantulaRequest $request){
+        $riego=$this->adaptarRequest($request);
+        $riego->save();
+        $riego->push();
+        Session::flash('message', 'El riego ha sido modificado');
+        return redirect('plantula/riego/modificar/'.$riego->id);
     }
 
     /*
      * Elimina un registro de la base de datos
      */
     public function eliminar(Request $request){
-        $salidaPlanta= salidaPlanta::findOrFail($request->id);
-        $salidaPlanta->delete();
+        $riego= riegoPlantula::findOrFail($request->id);
+        $riego->delete();
 
-        Session::flash('message','La salida de planta ha sido eliminada');
-        return redirect('plantula/salidaplanta');
+        Session::flash('message','El riego ha sido eliminado');
+        return redirect('plantula/riego');
     }
 
     /*
@@ -174,15 +175,15 @@ class salidaDePlantaController extends Controller
 
     public function buscar(Request $request){
         /*Listados de combobox*/
-        $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
+        //$invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
         /*Ahi se guardaran los resultados de la busqueda*/
-        $salidas=null;
+        $riegos=null;
 
 
         $validator = Validator::make($request->all(), [
             'fechaInicio' => 'date_format:d/m/Y',
             'fechaFin' => 'date_format:d/m/Y',
-            //'invernadero' => 'exists:invernadero_plantula,id'
+            'invernadero' => 'exists:invernadero_plantula,id'
         ]);
 
         /*Si validador no falla se pueden realizar busquedas*/
@@ -191,7 +192,7 @@ class salidaDePlantaController extends Controller
         else{
             /*Busqueda sin parametros*/
             if ($request->fechaFin == "" && $request->fechaInicio == "" && $request->invernadero == "") {
-                $salidas  = salidaPlanta::orderBy('fecha', 'desc')->paginate(15);;
+                $riegos  = riegoPlantula::orderBy('fecha', 'desc')->paginate(15);;
 
             }
             /*Pregunta si se mandaron fechas, para calcular busquedas con fechas*/
@@ -208,18 +209,18 @@ class salidaDePlantaController extends Controller
 
                 /*Solo con fechas*/
 
-                $salidas = salidaPlanta::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                $riegos = riegoPlantula::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
 
             }
         }
 
 
-        if($salidas!=null){
+        if($riegos!=null){
             /*Adapta el formato de fecha para poder imprimirlo en la vista adecuadamente*/
-            $this->adaptaFechas($salidas);
+            $this->adaptaFechas($riegos);
 
             /*Si no es nulo puede contar los resultados*/
-            $num = $salidas->total();
+            $num = $riegos->total();
         }
         else{
             $num=0;
@@ -233,8 +234,8 @@ class salidaDePlantaController extends Controller
             Session::flash('message', 'Se encontraron '.$num.' resultados');
         }
         /*Regresa la vista*/
-        return view('Plantula/SalidaPlanta/buscar')->with([
-            'salidas'=>$salidas
+        return view('Plantula/riego/buscar')->with([
+            'riegos'=>$riegos
         ]);
     }
 
@@ -247,18 +248,20 @@ class salidaDePlantaController extends Controller
      * Recibe la informacion del formulario de crear y la adapta a los campos del modelo
      */
     public function adaptarRequest($request){
-        $salidaPlanta=new salidaPlanta($request->all());
+        $riego=new riegoPlantula($request->all());
         if(isset($request->id)) {
-            $salidaPlanta = salidaPlanta::findOrFail($request->id);
+            $riego = riegoPlantula::findOrFail($request->id);
         }
 
-        $salidaPlanta->id_invernaderoPlantula= $request->invernadero;
-        $salidaPlanta->id_siembraPlantula = $request->siembraPlantula;
-        $salidaPlanta->fecha=Carbon::createFromFormat('d/m/Y', $request->fecha)->toDateTimeString();
-        $salidaPlanta->comentario= $request->comentario;
+        $riego->id_invernaderoPlantula= $request->invernadero;
+        $riego->id_siembraPlantula = $request->siembraPlantula;
+        $riego->fecha=Carbon::createFromFormat('d/m/Y', $request->fecha)->toDateTimeString();
+        $riego->tiempoRiego = $request->tiempoRiego;
+        $riego->frecuencia = $request->frecuencia;
+        $riego->formulacion= $request->formulacion;
 
 
-        return $salidaPlanta;
+        return $riego;
     }
     /*
      * Adapta fechas de resultado de busqueda a formato adecuado para imprimir en la vista de busqueda

@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use App\User;
 
 class fertilizacionRiegoInvernaderoTest extends TestCase
 {
@@ -14,8 +15,10 @@ class fertilizacionRiegoInvernaderoTest extends TestCase
      * @group fertilizacionRiegoBuscarInvernadero
      */
     public function testRutaBuscar(){
-        $response = $this->call('GET', 'invernadero/fertilizacionRiego');
-        $this->assertEquals(200, $response->status());
+        $user=User::find(1);
+        $this->actingAs($user)
+            ->visit('invernadero/fertilizacionRiego')
+            ->seePageIs('invernadero/fertilizacionRiego');
     }
 
     /*Integración*/
@@ -24,7 +27,9 @@ class fertilizacionRiegoInvernaderoTest extends TestCase
      * @group fertilizacionRiegoBuscarInvernadero
      */
     public function testBuscarNoParametros(){
-        $this->visit('invernadero/fertilizacionRiego')
+        $user=User::find(1);
+        $this->actingAs($user)
+            ->visit('invernadero/fertilizacionRiego')
             ->press('Buscar')
             ->see("Se encontraron");
     }
@@ -32,7 +37,9 @@ class fertilizacionRiegoInvernaderoTest extends TestCase
      * @group fertilizacionRiegoBuscarInvernadero
      */
     public function testBuscarInvernaderoCorrecto(){
-        $this->visit('invernadero/fertilizacionRiego')
+        $user=User::find(1);
+        $this->actingAs($user)
+            ->visit('invernadero/fertilizacionRiego')
             ->select(1,"invernadero")
             ->press('Buscar')
             ->see("Se encontraron");
@@ -41,8 +48,10 @@ class fertilizacionRiegoInvernaderoTest extends TestCase
      * @group fertilizacionRiegoBuscarInvernadero
      */
     public function testBuscarEtapaCorrecto(){
-        $this->visit('invernadero/fertilizacionRiego')
-            ->select("Etapa1","etapaFenologica")
+        $user=User::find(1);
+        $this->actingAs($user)
+            ->visit('invernadero/fertilizacionRiego')
+            ->select("Emergencia","etapaFenologica")
             ->press('Buscar')
             ->see("Se encontraron");
     }
@@ -51,7 +60,9 @@ class fertilizacionRiegoInvernaderoTest extends TestCase
      * @group fertilizacionRiegoBuscarInvernadero
      */
     public function testBuscarFechaCorrecto(){
-        $this->visit('invernadero/fertilizacionRiego')
+        $user=User::find(1);
+        $this->actingAs($user)
+            ->visit('invernadero/fertilizacionRiego')
             ->type("29/02/2015","fechaInicio")
             ->type("29/02/2016","fechaFin")
             ->press('Buscar')
@@ -62,7 +73,9 @@ class fertilizacionRiegoInvernaderoTest extends TestCase
      * @group fertilizacionRiegoBuscarInvernadero
      */
     public function testBuscarInvernaderoFechaCorrecto(){
-        $this->visit('invernadero/fertilizacionRiego')
+        $user=User::find(1);
+        $this->actingAs($user)
+            ->visit('invernadero/fertilizacionRiego')
             ->type("29/02/2015","fechaInicio")
             ->type("29/02/2016","fechaFin")
             ->select(1,"invernadero")
@@ -73,10 +86,12 @@ class fertilizacionRiegoInvernaderoTest extends TestCase
      * @group fertilizacionRiegoBuscarInvernadero
      */
     public function testBuscarFuenteFechaCorrecto(){
-        $this->visit('invernadero/fertilizacionRiego')
+        $user=User::find(1);
+        $this->actingAs($user)
+            ->visit('invernadero/fertilizacionRiego')
             ->type("29/02/2015","fechaInicio")
             ->type("29/02/2016","fechaFin")
-            ->select("Etapa1","etapaFenologica")
+            ->select("Emergencia","etapaFenologica")
             ->press('Buscar')
             ->see("Se encontraron");
     }
@@ -84,11 +99,13 @@ class fertilizacionRiegoInvernaderoTest extends TestCase
      * @group fertilizacionRiegoBuscarInvernadero
      */
     public function testBuscarInvernaderoetapaFenologicaFechaCorrecto(){
-        $this->visit('invernadero/fertilizacionRiego')
+        $user=User::find(1);
+        $this->actingAs($user)
+            ->visit('invernadero/fertilizacionRiego')
             ->type("29/02/2015","fechaInicio")
             ->type("29/02/2016","fechaFin")
             ->select(1,"invernadero")
-            ->select("Etapa1","etapaFenologica")
+            ->select("Emergencia","etapaFenologica")
             ->press('Buscar')
             ->see("Se encontraron");
     }
@@ -97,7 +114,9 @@ class fertilizacionRiegoInvernaderoTest extends TestCase
      * @group fertilizacionRiegoBuscarInvernadero
      */
     public function testBuscarUnaFecha(){
-        $this->visit('invernadero/fertilizacionRiego/lista?invernadero=&etapaFenologica=&fechaInicio=&fechaFin=29%2F02%2F2016')
+        $user=User::find(1);
+        $this->actingAs($user)
+            ->visit('invernadero/fertilizacionRiego/lista?invernadero=&etapaFenologica=&fechaInicio=&fechaFin=29%2F02%2F2016')
             ->see("No se encontraron resultados");
     }
 
@@ -105,42 +124,54 @@ class fertilizacionRiegoInvernaderoTest extends TestCase
      * @group fertilizacionRiegoBuscarInvernadero
      */
     public function testBuscarUnaFechaTexto(){
-        $this->visit('invernadero/fertilizacionRiego/lista?invernadero=&etapaFenologica=&fechaInicio=sdfsdfsd&fechaFin=')
+        $user=User::find(1);
+        $this->actingAs($user)
+            ->visit('invernadero/fertilizacionRiego/lista?invernadero=&etapaFenologica=&fechaInicio=sdfsdfsd&fechaFin=')
             ->see("No se encontraron resultados");
     }
     /**
      * @group fertilizacionRiegoBuscarInvernadero
      */
     public function testBuscarFechasTexto(){
-        $this->visit('invernadero/fertilizacionRiego/lista?invernadero=&etapaFenologica=&fechaInicio=sdfsdfsd&fechaFin=sdsdfd')
+        $user=User::find(1);
+        $this->actingAs($user)
+            ->visit('invernadero/fertilizacionRiego/lista?invernadero=&etapaFenologica=&fechaInicio=sdfsdfsd&fechaFin=sdsdfd')
             ->see("No se encontraron resultados");
     }
     /**
      * @group fertilizacionRiegoBuscarInvernadero
      */
     public function testBuscarInvernaderoTexto(){
-        $this->visit('invernadero/fertilizacionRiego/lista?invernadero=asdasd&etapaFenologica=&fechaInicio=&fechaFin=')
+        $user=User::find(1);
+        $this->actingAs($user)
+            ->visit('invernadero/fertilizacionRiego/lista?invernadero=asdasd&etapaFenologica=&fechaInicio=&fechaFin=')
             ->see("No se encontraron resultados");
     }
     /**
      * @group fertilizacionRiegoBuscarInvernadero
      */
     public function testBuscaretapaFenologicaTexto(){
-        $this->visit('invernadero/fertilizacionRiego/lista?invernadero=&etapaFenologica=zfzfdf&fechaInicio=&fechaFin=')
+        $user=User::find(1);
+        $this->actingAs($user)
+            ->visit('invernadero/fertilizacionRiego/lista?invernadero=&etapaFenologica=zfzfdf&fechaInicio=&fechaFin=')
             ->see("No se encontraron resultados");
     }
     /**
      * @group fertilizacionRiegoBuscarInvernadero
      */
     public function testBuscarInvernaderoInexistente(){
-        $this->visit('invernadero/fertilizacionRiego/lista?invernadero=1000&etapaFenologica=&fechaInicio=&fechaFin=')
+        $user=User::find(1);
+        $this->actingAs($user)
+            ->visit('invernadero/fertilizacionRiego/lista?invernadero=1000&etapaFenologica=&fechaInicio=&fechaFin=')
             ->see("No se encontraron resultados");
     }
     /**
      * @group fertilizacionRiegoBuscarInvernadero
      */
     public function testBuscaretapaFenologicaInexistente(){
-        $this->visit('invernadero/fertilizacionRiego/lista?invernadero=&etapaFenologica=1000&fechaInicio=&fechaFin=')
+        $user=User::find(1);
+        $this->actingAs($user)
+            ->visit('invernadero/fertilizacionRiego/lista?invernadero=&etapaFenologica=1000&fechaInicio=&fechaFin=')
             ->see("No se encontraron resultados");
     }
 
@@ -154,8 +185,10 @@ class fertilizacionRiegoInvernaderoTest extends TestCase
      * @group fertilizacionRiegoCrearInvernadero
      */
     public function testRutaCrear(){
-        $response = $this->call('GET', 'invernadero/fertilizacionRiego/crear');
-        $this->assertEquals(200, $response->status());
+        $user=User::find(1);
+        $this->actingAs($user)
+            ->visit('invernadero/fertilizacionRiego/crear')
+            ->seePageIs('invernadero/fertilizacionRiego/crear');
     }
 
     ///////////////////////////////////////CONSULTAR///////////////////////////////////////////////////////
@@ -166,18 +199,12 @@ class fertilizacionRiegoInvernaderoTest extends TestCase
      * @group fertilizacionRiegoConsultarInvernadero
      */
     public function testRutaConsultar(){
-        $response = $this->call('GET', 'invernadero/fertilizacionRiego/consultar/1');
-        $this->assertEquals(200, $response->status());
+        $user=User::find(1);
+        $this->actingAs($user)
+            ->visit('invernadero/fertilizacionRiego/consultar/1')
+            ->seePageIs('invernadero/fertilizacionRiego/consultar/1');
     }
 
-    /*Unidad*/
-    /**
-     * @group fertilizacionRiegoConsultarInvernadero
-     */
-    public function testRutaConsultarIdIncorrecto(){
-        $response = $this->call('GET', 'invernadero/fertilizacionRiego/consultar/120');
-        $this->assertEquals(404, $response->status());
-    }
 
     /////////////////////////////////////MODIFICAR//////////////////////////////////////////////////////////////
     //para llamar a solo un grupo phpunit --group fertilizacionRiegoModificarInvernadero
@@ -187,16 +214,10 @@ class fertilizacionRiegoInvernaderoTest extends TestCase
      * @group fertilizacionRiegoModificarInvernadero
      */
     public function testRutaModificar(){
-        $response = $this->call('GET', 'invernadero/fertilizacionRiego/modificar/1');
-        $this->assertEquals(200, $response->status());
-    }
-
-    /**
-     * @group fertilizacionRiegoModificarInvernadero
-     */
-    public function testModificarIdIncorrecto(){
-        $response = $this->call('GET', 'invernadero/fertilizacionRiego/modificar/120');
-        $this->assertEquals(404, $response->status());
+        $user=User::find(1);
+        $this->actingAs($user)
+            ->visit('invernadero/fertilizacionRiego/modificar/1')
+            ->seePageIs('invernadero/fertilizacionRiego/modificar/1');
     }
 
 }
