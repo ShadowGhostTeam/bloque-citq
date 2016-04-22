@@ -109,7 +109,7 @@
                             <i class="fa fa-tasks"></i>
                             <span>Aplicaciones</span>
                         </a></li>
-                    <li><a href="plantula/riego" class="active" >
+                    <li><a href="{{route('plantula/riego')}}" class="active" >
                             &nbsp;<i class="fa fa-tint" ></i>
                             <span>&nbsp;Riego </span>
                         </a></li>
