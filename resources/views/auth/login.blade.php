@@ -18,7 +18,7 @@
                     <img class="logo" src="{{ asset('assets/img/CITQ.png') }}" alt="CITQ"><br>
                 </div>
 
-                <div style="width:400px; margin:auto; background:#221E1F; margin-top:25px; opacity: 0.9; filter: alpha(opacity=90);">
+                <div style="width:400px; margin:auto; background:#221E1F; margin-top:25px;">
                     <div  class="headerIS" ><h4>Iniciar Sesión</h4></div>
                     <div style="width:98%; margin: auto; margin-top: 2%">
                         @if (count($errors) > 0)
