@@ -38,7 +38,7 @@
 
                             {!! Form::open(['action'=>['riegoPlantulaController@crear'],'class'=>'form-horizontal','role'=>'form','id'=>'formulario'])!!}
 
-                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear riego plantula</h4><br>
+                            <h4 style="color:#078006"><i class="fa fa-angle-right"></i>Crear riego plántula</h4><br>
 
                             @include('Plantula.riego.Partials.form')
 

@@ -68,7 +68,7 @@ MAIN SIDEBAR MENU
                                     {!! Form::open(['route' => 'plantula/riego/lista' ,'method'=>'GET']) !!}
                                     <div class="form-group">
 
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-3">
                                             <select  class="form-control" id="invernaderoPlantula" name="invernaderoPlantula" disabled>
                                               <option value="">Invernadero plántula 1</option>
 
