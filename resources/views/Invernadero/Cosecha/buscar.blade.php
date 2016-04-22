@@ -147,7 +147,7 @@ MAIN SIDEBAR MENU
                                     <thead>
                                     <tr>
                                         <th><i class="fa fa-thumb-tack"></i> Invernadero </th>
-                                        <th> <i class="fa fa-info"></i> Comentario </th>
+                                        <th><i class="fa fa-pencil-square-o"></i> Comentario </th>
                                         <th><i class=" fa fa-calendar-o"></i>Fecha</th>
                                         <th></th>
                                     </tr>

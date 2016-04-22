@@ -157,10 +157,10 @@ MAIN SIDEBAR MENU
                                             <thead>
                                             <tr>
                                                 <th><i class="fa fa-thumb-tack"></i> Invernadero de plántula </th>
-                                                <th><i class="fa fa-database"></i> Contenedor </th>
-                                                <th> <i class="fa fa-tree"></i> Cultivo </th>
-                                                <th> <i class="fa fa-hand-o-up"></i> Número de Plantas </th>
-                                                <th> <i class="fa fa-lemon-o"></i> Sustrato </th>
+                                                <th><i class="fa fa-list-ul" ></i> Contenedor </th>
+                                                <th><i class="fa fa-list-ul" ></i> Cultivo </th>
+                                                <th><i class="fa fa-hand-o-up"></i> Número de Plantas </th>
+                                                <th><i class="fa fa-pencil-square-o"></i> Sustrato </th>
                                                 <th><i class="fa fa-calendar-o"></i> Fecha </th>
                                                 <th><i class="fa fa-circle-thin"></i> Status </th>
                                                 <th><i class="fa fa-calendar-o"></i> Fecha de Terminación </th>
