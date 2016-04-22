@@ -1,5 +1,6 @@
 
 <header class="header black-bg">
+    <link href='{{ asset('assets/img/icon.ico') }}' rel='shortcut icon'>
     <div class="sidebar-toggle-box">
         <div style="color: #078006" class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
     </div>
