@@ -68,20 +68,6 @@
             </div>
         </div>
 
-
-        <div class="form-group">
-            <label for="fuente" class="col-lg-2 control-label">Fuente</label>
-            <div class="col-lg-10">
-                @if( isset($fertilizacionSector))
-                    {!!Form::text('fuente' ,$fertilizacionSector->fuente,['class'=>'form-control','id'=>'fuente','placeholder'=>'Fuente'])!!}
-                @else
-                    {!!Form::text('fuente' ,null,['class'=>'form-control','id'=>'fuente','placeholder'=>'Fuente'])!!}
-                @endif
-            </div>
-        </div>
-
-
-
         <div class="form-group">
             <label for="Fecha" class="col-lg-2 control-label"><strong>*</strong>Fecha</label>
             <div class="col-lg-10">
@@ -97,6 +83,21 @@
                 </div>
             </div>
         </div>
+
+
+        <div class="form-group">
+            <label for="fuente" class="col-lg-2 control-label">Fuente</label>
+            <div class="col-lg-10">
+                @if( isset($fertilizacionSector))
+                    {!!Form::text('fuente' ,$fertilizacionSector->fuente,['class'=>'form-control','id'=>'fuente','placeholder'=>'Fuente'])!!}
+                @else
+                    {!!Form::text('fuente' ,null,['class'=>'form-control','id'=>'fuente','placeholder'=>'Fuente'])!!}
+                @endif
+            </div>
+        </div>
+
+
+
 
         <div class="form-group">
             <label for="TipoFertilizacion" class="col-lg-2 control-label">Tipo de fertilización</label>
