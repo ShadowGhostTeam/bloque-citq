@@ -15,7 +15,7 @@
         <body>
             <div style="width:400px; margin:auto; background:#221E1F; margin-top:25px; opacity: 0.9; filter: alpha(opacity=90);">
                  <div  style="text-align: center;">
-                    <img class="logo" src="{{ asset('assets/img/CITQ.png') }}" alt="CITQ"><br>
+                    <img class="logo" src="{{ asset('assets/img/citq.png') }}" alt="CITQ"><br>
                 </div>
 
                 <div style="width:400px; margin:auto; background:#221E1F; margin-top:25px;">
