@@ -12,7 +12,7 @@ body{background:#f2f2f2; font-family: 'Source Sans Pro', sans-serif;background:u
 ul li{height:40px; margin:15px 0; list-style:none}
 .letras:hover{color:#4D8942}
 .span{display:table; width:100%; font-size:14px;}
-.ch{display:inline-block; width:50%; color:#CCC}
+.ch{display:inline-block; width:48%; color:#CCC}
 .ch a{color:#CCC; text-decoration:none}
 .ch:nth-child(2){text-align:right}
 .sign{width:90%; padding:0 5%; height:50px; display:table}
