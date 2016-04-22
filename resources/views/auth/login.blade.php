@@ -13,12 +13,12 @@
         </head>
 
         <body>
-            <div>
-                <div  style="text-align: center;">
+            <div style="width:400px; margin:auto; background:#221E1F; margin-top:25px; opacity: 0.9; filter: alpha(opacity=90);">
+                 <div  style="text-align: center;">
                     <img class="logo" src="{{ asset('assets/img/CITQ.png') }}" alt="CITQ"><br>
                 </div>
 
-                <div style="width:400px; margin:auto; background:#221E1F; margin-top:25px;">
+                <div style="width:400px; margin:auto; background:#221E1F; margin-top:25px; opacity: 0.9; filter: alpha(opacity=90);">
                     <div  class="headerIS" ><h4>Iniciar Sesión</h4></div>
                     <div style="width:98%; margin: auto; margin-top: 2%">
                         @if (count($errors) > 0)
@@ -48,7 +48,8 @@
                                     <input type="submit" style="width:100%;" class="btn" value="Ingresar">
                                 </li>
 
-                                <li><div class="span"><span class="ch"><input type="checkbox" name="remember" id="r">Recuérdame <label for="r"></label></span>
+                                <li>
+                                    <div class="span"><span class="ch"><input type="checkbox" name="remember" id="r">Recuérdame <label for="r"></label></span>
                                         <span class="ch"> <a class="letras" href="{{ url('/password/email') }}">¿Olvidaste la contraseña?</a></span></div></li>
                             </ul>
                         </form>
