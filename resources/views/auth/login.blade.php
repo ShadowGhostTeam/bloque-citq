@@ -7,6 +7,7 @@
         <head>
             <title>Iniciar Sesión | CITQ</title>
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link href='{{ asset('assets/img/icon.ico') }}' rel='shortcut icon'>
             <!-- BOOTSTRAP -->
             <link rel="stylesheet" href=" {{ asset('assets/css/login.css') }}">
             <link rel="stylesheet" href=" {{ asset('assets/font-awesome/css/font-awesome.css') }}">
