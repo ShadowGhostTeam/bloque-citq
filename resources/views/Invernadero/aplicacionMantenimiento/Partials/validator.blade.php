@@ -43,8 +43,13 @@
                     validators: {
                         notEmpty: {
                             message: 'Escribe un producto'
+                        },
+                        stringLength: {
+                            max: 255,
+                            message: 'Debe ser menor de 255 caracteres'
                         }
                     }
+
                 },
                 cantidad:{
                     validators: {
