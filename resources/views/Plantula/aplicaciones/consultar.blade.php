@@ -63,7 +63,7 @@
                                         <dt>Siembra plántula</dt><dd>{{ $siembras['nombre'] . ' '. $siembras['variedad']  }}</dd>
                                         <dt>Fecha</dt><dd>{{ $aplicaciones->fecha }}</dd>
                                         <dt>Aplicación</dt><dd>{{ $aplicaciones->aplicacion }}</dd>
-                                       |<dt>Tipo de aplicación</dt><dd>{{ $aplicaciones->tipoAplicacion }}</dd>
+                                        <dt>Tipo de aplicación</dt><dd>{{ $aplicaciones->tipoAplicacion }}</dd>
                                         <dt>Producto</dt><dd>{{ $aplicaciones->producto }}</dd>
                                         <dt>Cantidad</dt><dd>{{ $aplicaciones->cantidad }}</dd>
                                         <dt>Comentarios</dt><dd>{{ $aplicaciones->comentario }}</dd>
