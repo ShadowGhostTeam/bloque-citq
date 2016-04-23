@@ -21,7 +21,7 @@
 					@endif
 
                    <div>
-                    <div style="width:40%; margin:0 auto; background:#221E1F; margin-top:25px; opacity: .9;filter: alpha(opacity=90);">
+                    <div class="bg-login">
                         <div class="headerIS"><h4>{{ trans('validation.attributes.recuperarContrasena')  }}</h4></div>
                         <div style="width:98%; margin: auto; margin-top: 2%">
                             @if (count($errors) > 0)
