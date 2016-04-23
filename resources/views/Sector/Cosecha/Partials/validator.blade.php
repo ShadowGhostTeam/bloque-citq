@@ -16,23 +16,11 @@
                         }
                     }
                 },
-
-
                 siembra:{
                     validators: {
                         notEmpty: {
                             message: 'Seleccione una opción'
                         }
-                    }
-                },
-
-
-                descripcion:{
-                    validators: {
-                        stringLength: {
-                            max: 300,
-                            message: 'La descripción deben contener menos de 180 caracteres.'
-                        },
                     }
                 },
                 fecha:{
