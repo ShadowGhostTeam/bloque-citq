@@ -42,7 +42,7 @@
                 tiempoRiego:{
                     validators: {
                         notEmpty: {
-                            message: 'Seleccione una opción'
+                            message: 'Ingrese un número'
                         },
                         numeric: {
                             message: 'No es un número válido',
