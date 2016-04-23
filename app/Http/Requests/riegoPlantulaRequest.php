@@ -26,8 +26,8 @@ class riegoPlantulaRequest extends Request
         return [
             'invernadero'=>'required|exists:invernadero_plantula,id',
             'siembraPlantula' => 'required|exists:siembra_plantula,id',
-            'tiempoRiego' => 'required|numeric|min:0',
-            'frecuencia'=>'required|numeric|min:0',
+            'tiempoRiego' => 'required|numeric|min:0|integer',
+            'frecuencia'=>'required|numeric|min:0|integer',
             'fecha' =>  'required|date_format:d/m/Y',
         ];
     }

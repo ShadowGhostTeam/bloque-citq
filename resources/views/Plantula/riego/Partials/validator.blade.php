@@ -41,10 +41,6 @@
                         integer:{
                             message: 'Ingrese número entero'
                         },
-                        stringLength: {
-                            max: 3,
-                            message: 'Ingrese número entre 0-999'
-                        },
                     }
                 },
 
@@ -63,10 +59,6 @@
                         integer:{
                             message: 'Ingrese número entero'
                         },
-                        stringLength: {
-                            max: 3,
-                            message: 'Ingrese número entre 0-999'
-                        }
                     }
                 },
 
@@ -86,7 +78,7 @@
                     validators: {
                         stringLength: {
                             max: 255,
-                            message: 'Exceso de texto'
+                            message: 'Debe ser menor de 255 carácteres'
                         }
                     }
                 },
