@@ -7,15 +7,16 @@
         <head>
             <title>Iniciar Sesión | CITQ</title>
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link href='{{ asset('assets/img/icon.ico') }}' rel='shortcut icon'>
             <!-- BOOTSTRAP -->
             <link rel="stylesheet" href=" {{ asset('assets/css/login.css') }}">
             <link rel="stylesheet" href=" {{ asset('assets/font-awesome/css/font-awesome.css') }}">
         </head>
 
         <body>
-            <div>
-                <div  style="text-align: center;">
-                    <img class="logo" src="{{ asset('assets/img/CITQ.png') }}" alt="CITQ"><br>
+            <div style="width:400px; margin:auto; background:#221E1F; margin-top:25px; opacity: 0.9; filter: alpha(opacity=90);">
+                 <div  style="text-align: center;">
+                    <img class="logo" src="{{ asset('assets/img/citq.png') }}" alt="CITQ"><br>
                 </div>
 
                 <div style="width:400px; margin:auto; background:#221E1F; margin-top:25px;">
@@ -48,8 +49,12 @@
                                     <input type="submit" style="width:100%;" class="btn" value="Ingresar">
                                 </li>
 
-                                <li><div class="span"><span class="ch"><input type="checkbox" name="remember" id="r">Recuérdame <label for="r"></label></span>
-                                        <span class="ch"> <a class="letras" href="{{ url('/password/email') }}">¿Olvidaste la contraseña?</a></span></div></li>
+                                <li>
+                                    <div class="span">
+                                        <span class="ch"><input type="checkbox" name="remember" id="r">Recuérdame <label for="r"></label></span>
+                                        <span class="ch"> <a class="letras" href="{{ url('/password/email') }}">¿Olvidaste la contraseña?</a></span>
+                                    </div>
+                                </li>
                             </ul>
                         </form>
                     </div>

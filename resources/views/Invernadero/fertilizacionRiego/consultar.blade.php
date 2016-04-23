@@ -61,15 +61,9 @@
                                         <dt>Transplante</dt><dd>{{ $siembras['nombre'] . ' '. $siembras['variedad']  }}</dd>
                                         <dt>Fecha</dt><dd>{{ $fertilizacionesRiego->fecha }}</dd>
                                         <dt>Tiempo riego</dt><dd>{{ $fertilizacionesRiego->tiempoRiego }}</dd>
-                                        @if( $fertilizacionesRiego->etapaFenologica != "")
-                                            <dt>Etapa Fenológica</dt><dd>{{ $fertilizacionesRiego->etapaFenologica }}</dd>
-                                        @endif
-                                        @if( $fertilizacionesRiego->frecuencia != "")
-                                            <dt>Frecuencia</dt><dd>{{ $fertilizacionesRiego->frecuencia }}</dd>
-                                        @endif
-                                        @if( $fertilizacionesRiego->formulación != "")
-                                            <dt>Formulación</dt><dd>{{ $fertilizacionesRiego->formulacion }}</dd>
-                                        @endif
+                                        <dt>Etapa Fenológica</dt><dd>{{ $fertilizacionesRiego->etapaFenologica }}</dd>
+                                        <dt>Frecuencia</dt><dd>{{ $fertilizacionesRiego->frecuencia }}</dd>
+                                        <dt>Formulación</dt><dd>{{ $fertilizacionesRiego->formulacion }}</dd>
                                     </dl>
                                 </div>
 

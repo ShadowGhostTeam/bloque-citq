@@ -29,8 +29,8 @@
                 fuente:{
                     validators: {
                         stringLength: {
-                            max: 200,
-                            message: 'Debe ser menor de 200 carácteres'
+                            max: 255,
+                            message: 'Debe ser menor de 255 carácteres'
                         }
                     }
                 },
@@ -60,8 +60,8 @@
                     validators: {
 
                         stringLength: {
-                            max: 200,
-                            message: 'Debe ser menor de 200 carácteres'
+                            max: 255,
+                            message: 'Debe ser menor de 255 carácteres'
                         }
 
                     }

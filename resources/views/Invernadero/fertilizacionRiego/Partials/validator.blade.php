@@ -72,6 +72,10 @@
                         greaterThan: {
                             value: 0,
                             message: 'El número tiene que ser positivo'
+                        },
+                        lessThan: {
+                            value: 999,
+                            message: 'El número debe ser menor a 999'
                         }
                     }
                 }
