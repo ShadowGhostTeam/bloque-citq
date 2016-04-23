@@ -1,7 +1,8 @@
 
 *{margin:0; padding:0}
-body{background:#f2f2f2; font-family: 'Source Sans Pro', sans-serif;background:url(../img/fondoLogin.jpg) no-repeat center center;}
+body{background:#f2f2f2; font-family: 'Source Sans Pro', sans-serif;background:url(../img/fondoLogin.jpg) no-repeat center center;background-size:cover;height: 1030px;}
 .headerIS{height:44px; background:#32292A;}
+.bg-login{width:400px; margin:auto; background:#221E1F; margin-top:25px; opacity: 0.9; filter: alpha(opacity=90);}
 .headerIS h4{height:14px; line-height:44px; color:#fff; text-align:center}
 .login{padding:0 20px; }
 .login span.un{width:10%; text-align:center; color:#858685; border-radius:3px 0 0 3px}
@@ -19,7 +20,9 @@ ul li{height:40px; margin:15px 0; list-style:none}
 .sign div{display:inline-block; width:50%; line-height:50px; color:#ccc; font-size:14px}
 .up{text-align:right}
 @media(max-width:480px){ .form{width:100%}}
-
+@media screen and (max-width: 320px) {
+    .bg-login, .bg-login2 { width: 100%; }
+}
 .logo{
     position:relative;
     height: 150px;

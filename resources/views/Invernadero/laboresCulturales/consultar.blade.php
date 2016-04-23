@@ -62,7 +62,7 @@
 
                                     <dl class="dl-horizontal">
                                         <dt>Invernadero</dt><dd>{{ $laboresCulturales->invernadero->nombre }}</dd>
-                                        <dt>Siembra-Transplante</dt><dd>{{ $siembras['nombre'] . ' '. $siembras['variedad']  }}</dd>
+                                        <dt>Transplante</dt><dd>{{ $siembras['nombre'] . ' '. $siembras['variedad']  }}</dd>
                                         <dt>Actividad</dt><dd>{{ $laboresCulturales->actividad }}</dd>
                                         <dt>Fecha</dt><dd>{{ $laboresCulturales->fecha }}</dd>
                                     </dl>
