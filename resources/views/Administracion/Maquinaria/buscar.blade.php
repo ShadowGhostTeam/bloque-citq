@@ -34,17 +34,8 @@ MAIN SIDEBAR MENU
                                 <div class="col-xs-12">
                                     {!! Form::open(['route' => 'administracion/maquinaria/lista' ,'method'=>'GET']) !!}
                                     <div class="form-group">
-
                                         <div class="col-lg-3">
-                                            <select  class="form-control" id="nombre" name="nombre">
-                                                <option value="">Todas las maquinarias
-                                                </option>
-                                                @if( isset($combo))
-                                                    @foreach($combo as $maquina)
-                                                        <option value="{{  $maquina->id  }}" > {{ $maquina->nombre}}  </option>
-                                                    @endforeach
-                                                @endif
-                                            </select>
+                                            {!!Form::text('nombre',null,['class'=>'form-control','id'=>'nombre','placeholder'=>'Nombre'])!!}
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -52,10 +43,6 @@ MAIN SIDEBAR MENU
                                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                                                 Buscar
                                             </button>
-
-
-
-
                                         </div>
                                     {!! Form::close() !!}
                                     <hr>

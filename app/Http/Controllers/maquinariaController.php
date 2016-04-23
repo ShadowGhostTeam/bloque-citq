@@ -63,7 +63,7 @@ class maquinariaController extends Controller
             if ($request->nombre == "") {
                 $maquinariaResults  = maquinaria::orderBy('nombre', 'asc')->paginate(15);
             }else{
-                $maquinariaResults  = maquinaria::where('id', $request->nombre)->paginate(15);
+                $maquinariaResults  = maquinaria::where('nombre','LIKE', '%'.$request->nombre.'%')->orderBy('nombre','asc')->paginate(15);
             }
 
 
