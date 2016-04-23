@@ -48,20 +48,18 @@
                 },
                 cantidad:{
                     validators: {
-
+                        notEmpty: {
+                            message: 'Escribe una cantidad'
+                        },
                         numeric: {
                             message: 'No es un número válido',
                             // The default separators
-
                             decimalSeparator: '.'
-
-
                         },
                         greaterThan: {
                             value: 0,
                             message: 'El número tiene que ser positivo'
                         }
-
                     }
                 },
 
