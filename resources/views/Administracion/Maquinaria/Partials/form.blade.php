@@ -34,16 +34,14 @@
             <div class="form-group">
                 <label for="Descripcion" class="col-lg-2 control-label">Descripción</label>
                 <div class="col-lg-10">
-                    {!!Form::text('descripcion' ,$maquina->descripcion,['class'=>'form-control','id'=>'descripcion','placeholder'=>'Descripción'])!!}
-
+                    <textarea  class ="form-control" type="text" cols="40"  rows="5"  id="descripcion" name="descripcion"> {{ $maquina->descripcion }}</textarea>
                 </div>
             </div>
         @else
         <div class="form-group">
             <label for="Descripcion" class="col-lg-2 control-label">Descripción</label>
             <div class="col-lg-10">
-                    {!!Form::text('descripcion' ,null,['class'=>'form-control','id'=>'descripcion','placeholder'=>'Descripción'])!!}
-
+                <textarea class ="form-control" type="text" cols="40"  rows="5"  id="descripcion" name="descripcion" placeholder="Descripción"></textarea>
             </div>
         </div>
         @endif

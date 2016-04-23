@@ -62,12 +62,14 @@
 
                                     <dl class="dl-horizontal">
                                         <dt>Invernadero</dt><dd>{{ $aplicacionesMantenimiento->invernadero->nombre }}</dd>
+                                        <dt>Transplante</dt><dd>{{ $siembra }}</dd>
                                         <dt>Aplicación</dt><dd>{{ $aplicacionesMantenimiento->aplicacion }}</dd>
                                         <dt>Tipo de aplicación</dt><dd>{{ $aplicacionesMantenimiento->tipoAplicacion }}</dd>
                                         <dt>Producto</dt><dd>{{ $aplicacionesMantenimiento->producto }}</dd>
                                         <dt>Cantidad</dt><dd>{{ $aplicacionesMantenimiento->cantidad }}</dd>
-                                        <dt>Comentario</dt><dd>{{ $aplicacionesMantenimiento->comentario }}</dd>
                                         <dt>Fecha</dt><dd>{{ $aplicacionesMantenimiento->fecha }}</dd>
+                                        <dt>Comentario</dt><dd>{{ $aplicacionesMantenimiento->comentario }}</dd>
+
                                     </dl>
                                 </div>
 
