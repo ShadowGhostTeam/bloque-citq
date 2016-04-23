@@ -342,7 +342,9 @@ class siembraSectorController extends Controller
 
         foreach($resultados as $resultado  ){
             $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $resultado->fecha);
+            $fechaTerminacion=Carbon::createFromFormat('Y-m-d H:i:s', $resultado->fechaTerminacion);
             $resultado->fecha=$fecha->format('d/m/Y');
+            $resultado->fechaTerminacion=$fechaTerminacion->format('d/m/Y');
         }
 
     }
