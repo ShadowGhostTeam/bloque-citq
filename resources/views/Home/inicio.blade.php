@@ -18,11 +18,12 @@ MAIN SIDEBAR MENU
             padding: 5px;
             background-color:#3a6732 ;
         }
+
         #sector{
 
             border-radius: 5px;
             color: white;
-            height:150px;
+            min-height: 150px;
         }
         #link{
             color: white;
