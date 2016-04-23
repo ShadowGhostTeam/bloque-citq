@@ -468,8 +468,10 @@ MAIN SIDEBAR MENU
                             @endif
                         </div>
                     </div>
+                    <br>
                 </div>
             </section>
         </section>
     </section>
+</section>
 @include('Partials.ScriptsGenerales.scriptsPartialsAbajo')
