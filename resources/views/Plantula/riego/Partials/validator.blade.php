@@ -29,14 +29,14 @@
                 tiempoRiego:{
                     validators: {
                         notEmpty: {
-                            message: 'Ingrese un valor'
+                            message: 'Ingrese un número'
                         },
                         numeric: {
                             message: 'No es un número válido'
                         },
                         greaterThan: {
                             value: 0,
-                            message: 'El número tiene que ser mayor a cero'
+                            message: 'El número tiene que ser positivo'
                         },
                         integer:{
                             message: 'Ingrese número entero'
@@ -47,14 +47,14 @@
                 frecuencia:{
                     validators: {
                         notEmpty: {
-                            message: 'Ingrese un valor'
+                            message: 'Ingrese un número'
                         },
                         numeric: {
                             message: 'No es un número válido'
                         },
                         greaterThan: {
                             value: 0,
-                            message: 'El número tiene que ser mayor a cero'
+                            message: 'El número tiene que ser positivo'
                         },
                         integer:{
                             message: 'Ingrese número entero'

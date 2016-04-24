@@ -62,7 +62,7 @@
         </div>
 
         <div class="form-group">
-            <label for="tiempo" class="col-lg-2 control-label"><strong>*</strong>Tiempo (min.)</label>
+            <label for="tiempo" class="col-lg-2 control-label"><strong>*</strong>Tiempo de Riego (min.)</label>
             <div class="col-lg-10">
                 @if( isset($riego))
                     {!!Form::text('tiempoRiego' ,$riego->tiempoRiego,['class'=>'form-control','id'=>'tiempoRiego','placeholder'=>'Tiempo en minutos'])!!}
@@ -104,9 +104,9 @@
             <label for="formulacion" class="col-lg-2 control-label">Formulación</label>
             <div class="col-lg-10">
                 @if( isset($riego))
-                    {!!Form::textarea('formulacion' ,$riego->formulacion,['class'=>'form-control','id'=>'formulacion','placeholder'=>'Formulación'])!!}
+                    {!!Form::text('formulacion' ,$riego->formulacion,['class'=>'form-control','id'=>'formulacion','placeholder'=>'Formulación'])!!}
                 @else
-                    {!!Form::textarea('formulacion' ,null,['class'=>'form-control','id'=>'formulacion','placeholder'=>'Formulación'])!!}
+                    {!!Form::text('formulacion' ,null,['class'=>'form-control','id'=>'formulacion','placeholder'=>'Formulación'])!!}
                 @endif
             </div>
         </div>

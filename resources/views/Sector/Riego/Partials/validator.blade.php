@@ -29,7 +29,7 @@
                 tiempo:{
                     validators: {
                         notEmpty: {
-                            message: 'Este campo es obligatorio'
+                            message: 'Ingrese un número'
                         },
 
                         numeric: {
@@ -48,7 +48,7 @@
                 distanciaLineas:{
                     validators: {
                         notEmpty: {
-                            message: 'Este campo es obligatorio'
+                            message: 'Ingrese un número'
                         },
 
                         numeric: {
@@ -67,7 +67,7 @@
                 litrosHectarea:{
                     validators: {
                         notEmpty: {
-                            message: 'Este campo es obligatorio'
+                            message: 'Ingrese un número'
                         },
 
                         numeric: {
@@ -86,7 +86,7 @@
                 lamina:{
                     validators: {
                         notEmpty: {
-                            message: 'Este campo es obligatorio'
+                            message: 'Ingrese un número'
                         },
 
                         numeric: {
