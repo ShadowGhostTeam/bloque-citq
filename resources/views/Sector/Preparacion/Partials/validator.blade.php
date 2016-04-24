@@ -34,7 +34,7 @@
                             message: 'Ingrese un número'
                         },
                         integer:{
-                            message: 'No es un número válido'
+                            message: 'Ingrese número entero'
                         },
                         greaterThan:{
                             value: 0,
