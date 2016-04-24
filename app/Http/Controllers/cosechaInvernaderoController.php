@@ -126,7 +126,6 @@ class cosechaInvernaderoController extends Controller
         $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $cosechaInvernadero->fecha);
         $cosechaInvernadero->fecha=$fecha->format('d/m/Y');
 
-
         return view('Invernadero/Cosecha/consultar')->with([
             'cosechaInvernadero'=>$cosechaInvernadero
         ]);
