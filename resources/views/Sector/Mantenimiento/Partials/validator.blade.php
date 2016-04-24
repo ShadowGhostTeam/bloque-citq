@@ -56,7 +56,7 @@
                         },
                         greaterThan:{
                             value: 0,
-                            message: 'Ingrese número mayor o igual a 0'
+                            message: 'El número tiene que ser positivo'
                         }
 
                     }

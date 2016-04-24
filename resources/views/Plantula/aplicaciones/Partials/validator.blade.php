@@ -26,6 +26,15 @@
                     }
                 },
 
+                producto:{
+                    validators: {
+                        stringLength: {
+                            max: 255,
+                            message: 'Debe ser menor de 255 carácteres'
+                        }
+                    }
+                },
+
                 fecha:{
                     validators: {
                         notEmpty: {

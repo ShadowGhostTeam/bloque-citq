@@ -43,10 +43,10 @@
 
         <div class="form-group">
 
-            <label for="Siembra" class="col-lg-2 control-label"><strong>*</strong>Siembra</label>
+            <label for="Siembra" class="col-lg-2 control-label"><strong>*</strong>Transplante</label>
             <div class="col-lg-10">
 
-                <select  class="form-control" id="siembraT" name="siembraT">
+                <select  class="form-control" id="siembra" name="siembra">
                     <option value="">Selecciona</option>
 
                     @if( isset($siembraSeleccionada))
@@ -89,9 +89,9 @@
             <label for="Comentario" class="col-lg-2 control-label">Comentario</label>
             <div class="col-lg-10">
                 @if( isset($cosechaInvernadero))
-                    {!!Form::textArea('comentario' ,$cosechaInvernadero->comentario,['class'=>'form-control','id'=>'comentario','placeholder'=>'Aquí puedes incluir un comentario.'])!!}
+                    {!!Form::textArea('comentario' ,$cosechaInvernadero->comentario,['class'=>'form-control','id'=>'comentario','placeholder'=>'Comentario.'])!!}
                 @else
-                    {!!Form::textArea('comentario' ,null,['class'=>'form-control','id'=>'comentario','placeholder'=>'Aquí puedes incluir un comentario.'])!!}
+                    {!!Form::textArea('comentario' ,null,['class'=>'form-control','id'=>'comentario','placeholder'=>'Comentario.'])!!}
                 @endif
             </div>
         </div>

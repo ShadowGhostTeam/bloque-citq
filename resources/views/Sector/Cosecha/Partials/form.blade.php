@@ -89,9 +89,9 @@
             <label for="Descripción" class="col-lg-2 control-label">Descripción</label>
             <div class="col-lg-10">
                 @if( isset($cosechaSector))
-                    {!!Form::textArea('descripcion' ,$cosechaSector->descripcion,['class'=>'form-control','id'=>'descripcion','placeholder'=>'Aquí puedes incluir una descripción.'])!!}
+                    {!!Form::textArea('descripcion' ,$cosechaSector->descripcion,['class'=>'form-control','id'=>'descripcion','placeholder'=>'Descripción.'])!!}
                 @else
-                    {!!Form::textArea('descripcion' ,null,['class'=>'form-control','id'=>'descripcion','placeholder'=>'Aquí puedes incluir una descripción.'])!!}
+                    {!!Form::textArea('descripcion' ,null,['class'=>'form-control','id'=>'descripcion','placeholder'=>'Descripción.'])!!}
                 @endif
             </div>
         </div>

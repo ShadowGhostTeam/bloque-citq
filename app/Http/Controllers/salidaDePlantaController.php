@@ -63,8 +63,8 @@ class salidaDePlantaController extends Controller
     public function pagCrear() {
         $invernadero = invernaderoPlantula::select('id', 'nombre')->first();
         $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $siembras= siembraPlantula::select('id','variedad','fecha')->orderBy('variedad', 'asc')->get();
-
+        $siembras= siembraPlantula::select()->orderBy('fecha', 'desc')->get();
+        $this->adaptaFechas($siembras);
 
         return view('Plantula/SalidaPlanta/crear')->with([
             'invernaderos' => $invernaderos,
@@ -90,7 +90,7 @@ class salidaDePlantaController extends Controller
             'fecha'=>$fechaSiembraSeleccionada->format('d/m/Y')
         );
 
-        $siembras = siembraPlantula::where('id_invernaderoPlantula',$salidaPlanta->id_invernaderoPlantula)->get();
+        $siembras = siembraPlantula::where('id_invernaderoPlantula',$salidaPlanta->id_invernaderoPlantula)->orderBy('fecha','desc')->get();
         $siembrasTodas=array();
         foreach ($siembras as $siembra) {
 

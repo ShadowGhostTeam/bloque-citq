@@ -147,8 +147,8 @@ MAIN SIDEBAR MENU
                                     <thead>
                                     <tr>
                                         <th><i class="fa fa-thumb-tack"></i> Sector </th>
-                                        <th><i class="fa fa-pencil-square-o"></i> descripcion </th>
-                                        <th><i class=" fa fa-calendar-o"></i>Fecha</th>
+                                        <th><i class="fa fa-pencil-square-o"></i> Descripción </th>
+                                        <th><i class="fa fa-calendar" ></i> Fecha </th>
                                         <th></th>
                                     </tr>
                                     </thead>

@@ -59,11 +59,12 @@
 
                                     <dl class="dl-horizontal">
                                         <dt>Invernadero</dt><dd>{{ $salidaPlanta->invernadero->nombre }}</dd>
+                                        <dt>Siembra</dt><dd>{{ $salidaPlanta->siembra->cultivo->nombre ." ". $salidaPlanta->siembra->variedad }}</dd>
 
                                         <dt>Fecha</dt><dd>{{ $salidaPlanta->fecha }}</dd>
-                                        @if( $salidaPlanta->comentario != "")
-                                            <dt>Comentarios</dt><dd>{{ $salidaPlanta->comentario }}</dd>
-                                        @endif
+
+                                        <dt>Comentarios</dt><dd>{{ $salidaPlanta->comentario }}</dd>
+
 
                                     </dl>
                                 </div>
