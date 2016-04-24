@@ -153,7 +153,7 @@ MAIN SIDEBAR MENU
                                             <thead>
                                             <tr>
                                                 <th><i class="fa fa-thumb-tack"></i> Sector </th>
-                                                <th> <i class="fa fa-list-ul"></i> Cultivo </th>
+                                                <th> <i class="fa fa-tree"></i> Cultivo </th>
                                                 <th><i class="fa fa-circle-thin"></i> Status </th>
                                                 <th><i class="fa fa-calendar"></i> Fecha </th>
                                                 <th><i class="fa fa-calendar"></i> Fecha de Terminación </th>

@@ -116,6 +116,11 @@ class aplicacionesPlantulaController extends Controller
                 $aplicaciones = aplicacionesPlantula::where('id_invernaderoPlantula', $request->invernadero)->where('tipoAplicacion', $request->tipoAplicacion)->orderBy('fecha', 'desc')->paginate(15);
             }
 
+            /*Busqueda sin fechas y los tres tipos*/
+            if($request->fechaFin == "" && $request->fechaInicio =="" && $request->invernadero != "" && $request->aplicacion != "" && $request->tipoAplicacion != "") {
+                $aplicaciones = aplicacionesPlantula::where('id_invernaderoPlantula', $request->invernadero)->where('tipoAplicacion', $request->tipoAplicacion)->where('aplicacion', $request->aplicacion)->orderBy('fecha', 'desc')->paginate(15);
+            }
+
             /*Busqueda solo con aplicacion y tipo de aplicacion*/
             if($request->fechaFin == "" && $request->fechaInicio =="" && $request->invernadero == "" && $request->aplicacion != "" && $request->tipoAplicacion != "") {
                 $aplicaciones = aplicacionesPlantula::where('aplicacion', $request->aplicacion)->where('tipoAplicacion', $request->tipoAplicacion)->orderBy('fecha', 'desc')->paginate(15);
@@ -164,7 +169,7 @@ class aplicacionesPlantulaController extends Controller
                 }
                 /*Fechas, invernadero, aplicacion, tipo de aplicacion, los cuatro parametros de filtro*/
                 if ($request->invernadero != "" && $request->aplicacion != "" && $request->tipoAplicacion != "") {
-                    $aplicaciones = aplicacionesPlantula::where('id_invernaderoPlantula', $request->invernadero)->where('aplicacion', $request->aplicacion)->where('aplicacion', $request->aplicacion)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                    $aplicaciones = aplicacionesPlantula::where('id_invernaderoPlantula', $request->invernadero)->where('aplicacion', $request->aplicacion)->where('aplicacion', $request->aplicacion)->where('tipoAplicacion', $request->tipoAplicacion)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
                 }
             }
         }

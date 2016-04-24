@@ -101,10 +101,10 @@ class maquinariaController extends Controller
 
         if ($num == 0) {
             $maquinaria->delete();
-            Session::flash('message', 'La máquina ha sido eliminada');
+            Session::flash('message', 'La maquinaria ha sido eliminada');
         }
         else{
-            Session::flash('error', 'No se puede eliminar esta máquina porque otros registros dependen de ella');
+            Session::flash('error', 'No se puede eliminar esta maquinaria porque otros registros dependen de ella');
         }
         return redirect('administracion/maquinaria');
     }
@@ -128,7 +128,7 @@ class maquinariaController extends Controller
         $maquinaria=$this->adaptarRequest($request);
         $maquinaria->save();
 
-        Session::flash('message', 'La máquina ha sido agregada');
+        Session::flash('message', 'La maquinaria ha sido agregada');
         return redirect('administracion/maquinaria/crear');
     }
     public function adaptarRequest($request){
@@ -145,7 +145,7 @@ class maquinariaController extends Controller
         $maquinaria=$this->adaptarRequest($request);
         $maquinaria->save();
         $maquinaria->push();
-        Session::flash('message', 'La máquina ha sido modificada');
+        Session::flash('message', 'La maquinaria ha sido modificada');
         return redirect('administracion/maquinaria/modificar/'.$maquinaria->id);
     }
     public function getModificar($id){
