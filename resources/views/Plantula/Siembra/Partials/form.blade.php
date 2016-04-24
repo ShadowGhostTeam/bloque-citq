@@ -17,22 +17,30 @@
         <p align="left" class="help-block"> (*) Obligatorio </p><br>
 
         <div class="form-group">
-            <label for="Invernadero" class="col-lg-2 control-label">
-                <strong>*</strong>Invernadero de Plántula
-            </label>
+            <label for="Invernadero" class="col-lg-2 control-label"><strong>*</strong>Invernadero Plántula</label>
             <div class="col-lg-10">
-                @if(isset($invernadero))
-                    <input type="hidden" value="1" name="invernadero"/>
-                @endif
-                <select  class="form-control" id="invernadero" name="invy" disabled>
+
+                <select  class="form-control" id="invernadero" name="invernadero" disabled>
+                    <option value="">Selecciona</option>
+
                     @if( isset($siembra))
-                        @if(isset($invernadero))
-                            <option value="{{ $invernadero }}" selected> {{ $invernadero->nombre }} </option>
-                        @endif
+                        @foreach($invernaderos as $invernadero)
+                            @if($siembra->id_invernaderoPlantula == $invernadero->id)
+                                <option value="{{  $invernadero->id  }}" selected > {{ $invernadero->nombre}}  </option>
+                            @else
+                                <option value="{{$invernadero->id}}" > {{$invernadero->nombre}}  </option>
+                            @endif
+                        @endforeach
                     @else
-                        <option value="{{ $invernadero }}" selected> {{ $invernadero->nombre }} </option>
+                        @foreach($invernaderos as $invernadero)
+                            @if($invernadero->id == 1)
+                                <option value="{{  $invernadero->id  }}" selected> {{ $invernadero->nombre}}  </option>
+                            @endif
+                            <option value="{{  $invernadero->id  }}" > {{ $invernadero->nombre}}  </option>
+                        @endforeach
                     @endif
                 </select>
+                <input type="hidden" id="id" name="invernadero" value="1"/>
             </div>
         </div>
 
