@@ -62,6 +62,7 @@
 
                                     <dl class="dl-horizontal">
                                         <dt>Invernadero</dt><dd>{{ $cosechaInvernadero->invernadero->nombre }}</dd>
+                                        <dt>Siembra</dt><dd>{{ $cosechaInvernadero->siembraTransplante->variedad }}, {{ $cosechaInvernadero->siembraTransplante->cultivo->nombre }}</dd>
                                         <dt>Comentario</dt><dd>{{ $cosechaInvernadero->comentario }}</dd>
                                         <dt>Fecha</dt><dd>{{ $cosechaInvernadero->fecha }}</dd>
                                     </dl>
