@@ -35,9 +35,9 @@
             <label for="Descripcion" class="col-lg-2 control-label">Descripción</label>
             <div class="col-lg-10">
                 @if( isset($cultivo))
-                    {!!Form::text('descripcion' ,$cultivo->descripcion,['class'=>'form-control','id'=>'descripcion','placeholder'=>'Aquí puedes incluir una descripción.'])!!}
+                    {!!Form::textArea('descripcion' ,$cultivo->descripcion,['class'=>'form-control','id'=>'descripcion','placeholder'=>'Descripción'])!!}
                 @else
-                    {!!Form::text('descripcion' ,null,['class'=>'form-control','id'=>'comentario','placeholder'=>'Aquí puedes incluir una descripción.'])!!}
+                    {!!Form::textArea('descripcion' ,null,['class'=>'form-control','id'=>'comentario','placeholder'=>'Descripción'])!!}
                 @endif
             </div>
         </div>

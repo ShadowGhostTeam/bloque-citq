@@ -100,7 +100,7 @@ class administracionCultivoController extends Controller
         $cultivo=$this->adaptarRequest($request);
         $cultivo->save();
         $cultivo->push();
-        Session::flash('message', 'El cultivo ha sido modificada');
+        Session::flash('message', 'El cultivo ha sido modificado');
         return redirect('administracion/cultivos/modificar/'.$cultivo->id);
     }
 
@@ -115,7 +115,7 @@ class administracionCultivoController extends Controller
             Session::flash('message','El cultivo ha sido eliminado');
         }
         catch(\Exception $ex) {
-            Session::flash('error','No puedes eliminar este cultivo porque otros registros dependen de el');
+            Session::flash('error','No se puede eliminar este cultivo porque otros registros dependen de él');
         }
         return redirect('administracion/cultivos');
         //return redirect('invernadero/preparacion');
@@ -126,41 +126,42 @@ class administracionCultivoController extends Controller
      */
 
     public function buscar(Request $request){
-        /*Listados de combobox*/
-        $cultivosB= cultivo::select('id','nombre')->orderBy('nombre', 'asc')->get();
+
         /*Ahi se guardaran los resultados de la busqueda*/
-        $cultivos = null;
+        $cultivos =null;
 
-            /*Busqueda sin parametros*/
-            if ($request->cultivo == "") {
-                $cultivos = cultivo::orderBy('nombre', 'asc')->paginate(15);;
 
-            }
 
-            /*Busqueda solo con invernadero*/
-            if ($request->cultivo != "") {
-                $cultivos = cultivo::where('id', $request->cultivo)->orderBy('nombre', 'asc')->paginate(15);;
+        /*Busqueda sin parametros*/
+        if ($request->nombre == "") {
+            $cultivos  = cultivo::orderBy('nombre', 'asc')->paginate(15);
+        }else{
+            $cultivos  = cultivo::where('nombre','LIKE', '%'.$request->nombre.'%')->orderBy('nombre','asc')->paginate(15);
+        }
 
-            }
 
-            if ($cultivos != null) {
-                /*Si no es nulo puede contar los resultados*/
-                $num = $cultivos->total();
-            } else {
-                $num = 0;
-            }
+
+        if($cultivos!=null){
+            /*Adapta el formato de fecha para poder imprimirlo en la vista adecuadamente*/
+
+
+            /*Si no es nulo puede contar los resultados*/
+            $num = $cultivos->total();
+        }
+        else{
+            $num=0;
+        }
 
         if ($num <= 0) {
             Session::flash('error', 'No se encontraron resultados');
+
         } else {
             Session::flash('message', 'Se encontraron ' . $num . ' resultados');
         }
 
-
-        /*Regresa la vista*/
         return view('Administracion/Cultivo/buscar')->with([
-            'cultivosB'=> $cultivosB,
-            'cultivos'=> $cultivos
+            'cultivos' => $cultivos,
+
         ]);
     }
 
