@@ -34,14 +34,10 @@
                     validators: {
                         greaterThan:{
                             value: 0,
-                            message: 'Ingrese número mayor o igual a 0'
-                        },
-                        stringLength: {
-                            max: 3,
-                            message: 'Ingrese número entre 0-999'
+                            message: 'El número tiene que ser positivo'
                         },
                         integer:{
-                            message: 'Ingrese número válido'
+                            message: 'Ingrese numero entero'
                         }
                     }
                 },
@@ -49,6 +45,22 @@
                     validators: {
                         notEmpty: {
                             message: "Seleccione una opción"
+                        }
+                    }
+                },
+                sustrato:{
+                    validators: {
+                        stringLength: {
+                            max: 255,
+                            message: 'Debe ser menor de 255 carácteres'
+                        }
+                    }
+                },
+                variedad:{
+                    validators: {
+                        stringLength: {
+                            max: 255,
+                            message: 'Debe ser menor de 255 carácteres'
                         }
                     }
                 },
