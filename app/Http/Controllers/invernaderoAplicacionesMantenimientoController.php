@@ -6,14 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
-
+use App\siembraTransplanteInvernadero;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use App\aplicacionesMantenimiento;
 use App\invernadero;
 use App\Http\Requests\aplicacionesMantenimientoInvernaderoRequest;
-use App\siembraTransplanteInvernadero;
 
 
 
@@ -151,9 +150,10 @@ class invernaderoAplicacionesMantenimientoController extends Controller
         $aplicacionesMantenimiento= aplicacionesMantenimiento::findOrFail($id);
         $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $aplicacionesMantenimiento->fecha);
         $aplicacionesMantenimiento->fecha=$fecha->format('d/m/Y');
-
+        $siembra = siembraTransplanteInvernadero::where('id',$aplicacionesMantenimiento->id_stInvernadero)->get();
         return view('Invernadero/aplicacionMantenimiento/consultar')->with([
             'aplicacionesMantenimiento'=>$aplicacionesMantenimiento,
+            'siembra' => $siembra[0]->variedad,
 
         ]);
     }

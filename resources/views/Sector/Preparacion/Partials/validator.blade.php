@@ -33,16 +33,12 @@
                         notEmpty: {
                             message: 'Ingrese un número'
                         },
-                        greaterThan:{
-                            value: -1,
-                            message: 'Ingrese número mayor o igual a 0'
-                        },
-                        stringLength: {
-                            max: 3,
-                            message: 'Ingrese número entre 0-999'
-                        },
                         integer:{
-                            message: 'Ingrese número válido'
+                            message: 'No es un número válido'
+                        },
+                        greaterThan:{
+                            value: 0,
+                            message: 'El número tiene que ser positivo'
                         }
                     }
                 },
