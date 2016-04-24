@@ -42,7 +42,7 @@
                             <span>Mantenimiento </span>
                         </a></li>
                     <li><a href="{{route('sector/cosecha')}}" >
-                            <i class="fa fa-reply-all"></i>
+                            <i class="fa fa-star"></i>
                             <span>Cosecha </span>
                         </a></li>
 
@@ -82,7 +82,7 @@
                             <span>Aplicaciones Mant.</span>
                         </a></li>
                     <li><a href="{{route('invernadero/cosecha')}}" class="active" >
-                            <i class="fa fa-reply-all"></i>
+                            <i class="fa fa-star"></i>
                             <span>Cosecha </span>
                         </a></li>
 
@@ -156,7 +156,7 @@
             @permission('administracion')
             <li class="sub-menu">
                 <a href="#"  >
-                    <i class="fa fa-cogs" ></i>
+                    <i class="fa fa-male" ></i>
                     <span>Administración&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <i class="fa fa-caret-down"></i>
                 </a>
@@ -170,7 +170,7 @@
                     @endpermission
 
                     <li><a href="{{route('administracion/cultivos')}}" >
-                            <i class="fa fa-leaf"></i>
+                            <i class="fa fa-tree"></i>
                             <span>Cultivo</span>
                         </a></li>
 
