@@ -79,7 +79,7 @@
         </div>
 
         <div class="form-group">
-            <label for="tiempoRiego" class="col-lg-2 control-label"><strong>*</strong>Tiempo Riego</label>
+            <label for="tiempoRiego" class="col-lg-2 control-label"><strong>*</strong>Tiempo (hrs.)</label>
             <div class="col-lg-10">
                 @if( isset($fertilizacionesRiego))
                     {!!Form::text('tiempoRiego' ,$fertilizacionesRiego->tiempoRiego,['class'=>'form-control','id'=>'tiempoRiego','placeholder'=>'Tiempo de riego'])!!}
