@@ -38,14 +38,6 @@
                         }
                     }
                 },
-                comentario:{
-                    validators: {
-                        stringLength: {
-                            max: 255,
-                            message: 'Exceso de texto'
-                        }
-                    }
-                },
             }
         });
 

@@ -129,7 +129,7 @@ MAIN SIDEBAR MENU
                                             <thead>
                                             <tr>
                                                 <th><i class="fa fa-thumb-tack"></i> Invernadero Plántula </th>
-                                                <th><i class="fa fa-clock-o"></i> Tiempo riego </th>
+                                                <th><i class="fa fa-clock-o"></i> Tiempo de riego </th>
                                                 <th><i class="fa fa-clock-o"></i> Frecuencia </th>
                                                 <th><i class="fa fa-pencil-square-o"></i> Formulación</th>
                                                 <th><i class="fa fa-calendar" ></i> Fecha </th>
