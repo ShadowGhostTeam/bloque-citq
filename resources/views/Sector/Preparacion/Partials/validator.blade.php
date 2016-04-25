@@ -45,7 +45,7 @@
                 fecha:{
                     validators: {
                         notEmpty: {
-                            message: 'Ingrese fecha'
+                            message: 'Seleccione una opción'
                         },
                         date: {
                             format: 'DD/MM/YYYY',

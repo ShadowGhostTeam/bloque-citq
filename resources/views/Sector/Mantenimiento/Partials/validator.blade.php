@@ -66,8 +66,8 @@
                     validators: {
 
                         stringLength: {
-                            max: 254,
-                            message: 'Debe ser menor de 254 caracteres'
+                            max: 255,
+                            message: 'Debe ser menor de 255 caracteres'
                         }
 
                     }
@@ -86,7 +86,7 @@
                 fecha:{
                     validators: {
                         notEmpty: {
-                            message: 'Ingrese fecha'
+                            message: 'Seleccione una opción'
                         },
 
                         date: {
