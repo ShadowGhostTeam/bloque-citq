@@ -90,7 +90,7 @@ MAIN SIDEBAR MENU
 
                                             <div class="col-lg-3">
                                                 <select  class="form-control" id="tipoFertilizacion" name="tipoFertilizacion">
-                                                    <option value="">Todas los tipos</option>
+                                                    <option value="">Todos los tipos</option>
 
                                                     @if( isset($tipos))
                                                         @foreach($tipos as $tipo)

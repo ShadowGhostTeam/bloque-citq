@@ -33,6 +33,15 @@
                             message: 'Ingrese fecha en formato dd/mm/aaaa'
                         }
                     }
+                },
+
+                descripcion:{
+                    validators:{
+                        stringLength: {
+                            max: 255,
+                            message: 'La descripción debe ser de menos de 255 caracteres.'
+                        }
+                    }
                 }
             }
         });

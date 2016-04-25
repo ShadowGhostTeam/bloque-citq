@@ -25,7 +25,7 @@ class preparacionInvernaderoRequest extends Request
     {
         return [
             'invernadero'=>'required|exists:invernadero,id',
-            'tipoSiembra' =>  'required|exists:siembra_invernadero,id',
+            'tipoSiembra' =>  'required',
             'fecha' =>  'required |date_format:d/m/Y'
         ];
     }
