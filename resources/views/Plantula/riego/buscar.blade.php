@@ -70,7 +70,7 @@ MAIN SIDEBAR MENU
 
                                         <div class="col-lg-2">
                                             <select  class="form-control" id="invernaderoPlantula" name="invernaderoPlantula" disabled>
-                                              <option value="">plántula 1</option>
+                                              <option value="">Plántula 1</option>
 
                                                 @if( isset($invernaderos))
                                                     @foreach($invernaderos as $invernadero)
