@@ -149,9 +149,10 @@
             <label for="Comentario" class="col-lg-2 control-label">Comentario</label>
             <div class="col-lg-10">
                 @if (isset($comentario))
-                    <textarea  class ="form-control" type="text" cols="40"  rows="5"  id="comentario" name="comentario"> {{ $comentario  }}</textarea>
+                    {!!Form::textArea('comentario' ,$comentario,['class'=>'form-control','id'=>'comentario','placeholder'=>'Comentario'])!!}
+
                 @else
-                    <textarea  class ="form-control" type="text" cols="40"  rows="5" placeholder="Comentario" value ="" id="comentario" name="comentario"></textarea>
+                    {!!Form::textArea('comentario' ,null,['class'=>'form-control','id'=>'comentario','placeholder'=>'Comentario'])!!}
                 @endif
             </div>
         </div>
