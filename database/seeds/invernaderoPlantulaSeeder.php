@@ -15,6 +15,6 @@ class invernaderoPlantulaSeeder extends Seeder
         //
        // factory(App\invernaderoPlantula::class,1)->create();
 
-        invernaderoPlantula::create(['nombre'=>'Invernadero plántula 1']);
+        invernaderoPlantula::create(['nombre'=>'Plántula 1']);
     }
 }

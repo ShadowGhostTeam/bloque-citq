@@ -241,8 +241,13 @@ class siembraSectorController extends Controller
         $temporadas = ['Primavera-Verano', 'Otoño-Invierno'];
         $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $siembraSector->fecha);
         $siembraSector->fecha=$fecha->format('d/m/Y');
-        $fechaTerminacion=Carbon::createFromFormat('Y-m-d H:i:s', $siembraSector->fechaTerminacion);
-        $siembraSector->fechaTerminacion=$fechaTerminacion->format('d/m/Y');
+        if ($siembraSector->fechaTerminacion == "0000-00-00 00:00:00"){
+
+        }else{
+            $fechaTerminacion=Carbon::createFromFormat('Y-m-d H:i:s', $siembraSector->fechaTerminacion);
+            $siembraSector->fechaTerminacion=$fechaTerminacion->format('d/m/Y');
+        }
+
         $tipoStatus = ['Activo', 'Terminado'];
 
         return view('Sector/Siembra/modificar')->with([

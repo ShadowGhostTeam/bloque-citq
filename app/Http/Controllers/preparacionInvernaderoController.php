@@ -185,7 +185,6 @@ class preparacionInvernaderoController extends Controller
                 $preparaciones  = preparacionInvernadero::where('id_invernadero', $request->invernadero)->where('tipoSiembra', $request->tipoSiembra )->orderBy('fecha', 'desc')->paginate(15);
             }
 
-
             /*Pregunta si se mandaron fechas, para calcular busquedas con fechas*/
             if ( $request->fechaFin != "" && $request->fechaInicio !="") {
 
@@ -199,20 +198,23 @@ class preparacionInvernaderoController extends Controller
                 /*Hay cuatro posibles casos de busqueda con fechas, cada if se basa en un caso */
 
                 /*Solo con fechas*/
-                if ($request->invernadero == "" && $request->tipoSector == "") {
-                    $preparaciones = preparacionInvernadero::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                if ($request->invernadero == "" && $request->tipoSiembra == "") {
+                    $preparaciones = preparacionInvernadero::whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);
                 }
                 /*Solo con fechas e invernadero*/
-                if ($request->invernadero != "" && $request->tipoSector == "") {
-                    $preparaciones = preparacionInvernadero::where('id_invernadero', $request->invernadero)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                if ($request->invernadero != "" && $request->tipoSiembra == "") {
+
+                    $preparaciones = preparacionInvernadero::where('id_invernadero', $request->invernadero)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);
                 }
                 /*Solo con fechas y tipoSiembra*/
-                if ($request->invernadero == "" &&$request->tipoSiembra != "") {
-                    $preparaciones = preparacionInvernadero::where('tipoSiembra', $request->tipoSiembra)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                if ($request->invernadero == "" && $request->tipoSiembra != "") {
+
+                    $preparaciones = preparacionInvernadero::where('tipoSiembra', $request->tipoSiembra)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);
                 }
                 /*los tres*/
-                if ($request->invernadero != "" && $request->tipoSector != "") {
-                    $preparaciones = preparacionInvernadero::where('id_invernadero', $request->invernadero)->where('tipoSiembra', $request->tipoSiembra)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);;
+                if ($request->invernadero != "" && $request->tipoSiembra != "") {
+
+                    $preparaciones = preparacionInvernadero::where('id_invernadero', $request->invernadero)->where('tipoSiembra', $request->tipoSiembra)->whereBetween('fecha', array($fechaInf, $fechaSup))->orderBy('fecha', 'desc')->paginate(15);
                 }
 
             }

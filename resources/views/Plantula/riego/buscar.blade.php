@@ -68,9 +68,9 @@ MAIN SIDEBAR MENU
                                     {!! Form::open(['route' => 'plantula/riego/lista' ,'method'=>'GET']) !!}
                                     <div class="form-group">
 
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <select  class="form-control" id="invernaderoPlantula" name="invernaderoPlantula" disabled>
-                                              <option value="">Invernadero plántula 1</option>
+                                              <option value="">Plántula 1</option>
 
                                                 @if( isset($invernaderos))
                                                     @foreach($invernaderos as $invernadero)
@@ -129,7 +129,7 @@ MAIN SIDEBAR MENU
                                             <thead>
                                             <tr>
                                                 <th><i class="fa fa-thumb-tack"></i> Invernadero Plántula </th>
-                                                <th><i class="fa fa-clock-o"></i> Tiempo riego </th>
+                                                <th><i class="fa fa-clock-o"></i> Tiempo de riego </th>
                                                 <th><i class="fa fa-clock-o"></i> Frecuencia </th>
                                                 <th><i class="fa fa-pencil-square-o"></i> Formulación</th>
                                                 <th><i class="fa fa-calendar" ></i> Fecha </th>

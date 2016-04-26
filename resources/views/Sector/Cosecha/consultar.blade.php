@@ -62,6 +62,7 @@
 
                                     <dl class="dl-horizontal">
                                         <dt>Sector</dt><dd>{{ $cosecha->sector->nombre }}</dd>
+                                        <dt>Siembra</dt><dd>{{ $cosecha->siembra->variedad }}</dd>
                                         <dt>Descripcion</dt><dd>{{ $cosecha->descripcion }}</dd>
                                         <dt>Fecha</dt><dd>{{ $cosecha->fecha }}</dd>
                                     </dl>

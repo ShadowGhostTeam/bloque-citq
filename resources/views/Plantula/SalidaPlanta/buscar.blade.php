@@ -68,9 +68,9 @@ MAIN SIDEBAR MENU
                                     {!! Form::open(['route' => 'plantula/salidaplanta/lista' ,'method'=>'GET']) !!}
                                     <div class="form-group">
 
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <select  class="form-control" id="invernaderoPlantula" name="invernaderoPlantula" disabled>
-                                                <option value="">Invernadero plántula 1</option>
+                                                <option value="">Plántula 1</option>
                                                 @if( isset($invernaderos))
                                                     @foreach($invernaderos as $invernadero)
                                                         @if($invernadero->id === 1)

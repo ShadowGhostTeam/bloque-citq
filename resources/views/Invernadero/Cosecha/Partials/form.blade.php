@@ -86,12 +86,12 @@
         </div>
 
         <div class="form-group">
-            <label for="Comentario" class="col-lg-2 control-label">Comentario</label>
+            <label for="Comentario" class="col-lg-2 control-label">Comentarios</label>
             <div class="col-lg-10">
                 @if( isset($cosechaInvernadero))
-                    {!!Form::textArea('comentario' ,$cosechaInvernadero->comentario,['class'=>'form-control','id'=>'comentario','placeholder'=>'Comentario.'])!!}
+                    {!!Form::textArea('comentario' ,$cosechaInvernadero->comentario,['class'=>'form-control','id'=>'comentario','placeholder'=>'Comentarios.'])!!}
                 @else
-                    {!!Form::textArea('comentario' ,null,['class'=>'form-control','id'=>'comentario','placeholder'=>'Comentario.'])!!}
+                    {!!Form::textArea('comentario' ,null,['class'=>'form-control','id'=>'comentario','placeholder'=>'Comentarios.'])!!}
                 @endif
             </div>
         </div>
