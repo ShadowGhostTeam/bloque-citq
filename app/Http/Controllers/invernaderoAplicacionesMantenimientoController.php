@@ -150,10 +150,13 @@ class invernaderoAplicacionesMantenimientoController extends Controller
         $aplicacionesMantenimiento= aplicacionesMantenimiento::findOrFail($id);
         $fecha=Carbon::createFromFormat('Y-m-d H:i:s', $aplicacionesMantenimiento->fecha);
         $aplicacionesMantenimiento->fecha=$fecha->format('d/m/Y');
-        $siembra = siembraTransplanteInvernadero::where('id',$aplicacionesMantenimiento->id_stInvernadero)->get();
+        $siembras = array(
+            'id_siembra'=>$aplicacionesMantenimiento->id_siembra,
+            'variedad'=>$aplicacionesMantenimiento->siembraTransplante->variedad,
+            'nombre'=>$aplicacionesMantenimiento->siembraTransplante->cultivo->nombre);
         return view('Invernadero/aplicacionMantenimiento/consultar')->with([
             'aplicacionesMantenimiento'=>$aplicacionesMantenimiento,
-            'siembra' => $siembra[0]->variedad,
+            'siembras' => $siembras,
 
         ]);
     }

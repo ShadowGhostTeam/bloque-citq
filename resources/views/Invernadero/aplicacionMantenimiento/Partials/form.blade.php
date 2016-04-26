@@ -96,7 +96,7 @@
                     @if( isset($aplicacionesMantenimiento))
 
                         @foreach($tipoAplicacion as $tipo)
-                            @if($aplicacionesMantenimiento->tipoAplicacion == $tipo)
+                            @if($aplicacionesMantenimiento->tipoAplicacion == $tipo || substr_compare('Botellas Españolas', $aplicacionesMantenimiento->tipoAplicacion, 0, 8, true) == 0)
                                 <option value="{{  $tipo  }}" selected > {{ $tipo}}  </option>
                             @else
                                 <option value="{{  $tipo }}"  > {{ $tipo }}</option>

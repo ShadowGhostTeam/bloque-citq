@@ -54,7 +54,7 @@
                 cantidad:{
                     validators: {
                         notEmpty: {
-                            message: 'Escribe una cantidad'
+                            message: 'Escribe un número'
                         },
                         numeric: {
                             message: 'No es un número válido',
