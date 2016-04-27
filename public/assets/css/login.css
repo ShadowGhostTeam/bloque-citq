@@ -20,7 +20,7 @@ ul li{height:40px; margin:15px 0; list-style:none}
 .sign div{display:inline-block; width:50%; line-height:50px; color:#ccc; font-size:14px}
 .up{text-align:right}
 @media(max-width:480px){ .form{width:100%}}
-@media screen and (max-width: 320px) {
+@media screen and (min-width: 320px) and (max-width: 767px){
     .bg-login, .bg-login2 { width: 100%; }
 }
 .logo{
