@@ -63,7 +63,7 @@
                                         <dt>Tiempo riego</dt><dd>{{ $riego->tiempoRiego }} minutos</dd>
                                         <dt>Frecuencia</dt><dd>{{ $riego->frecuencia }} minutos</dd>
                                         <dt>Fecha</dt><dd>{{ $riego->fecha }}</dd>
-                                        <dt>Formulacion</dt><dd>{{ $riego->formulacion }}</dd>
+                                        <dt>Formulación</dt><dd>{{ $riego->formulacion }}</dd>
 
 
                                     </dl>
