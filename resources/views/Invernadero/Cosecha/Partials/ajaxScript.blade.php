@@ -21,16 +21,16 @@
                         })
                         .done(function( data ) {
 
-                            $("#siembraT").empty();
-                            $("#siembraT").append(
+                            $("#siembra").empty();
+                            $("#siembra").append(
                                     "<option value='' selected > Selecciona </option>");
 
                             $.each(data,function(index,siembras){
 
-                                $("#siembraT").append(
+                                $("#siembra").append(
                                         '<option value="'+siembras.id_siembra+'">'+siembras.nombre+'  '+siembras.variedad+" - "+ siembras.fecha +"</option>");
                             });
-                            $('#formulario').data('bootstrapValidator').revalidateField('siembraT');
+                            $('#formulario').data('bootstrapValidator').revalidateField('siembra');
 
                         });
 
