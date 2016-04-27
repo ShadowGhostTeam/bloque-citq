@@ -27,7 +27,7 @@ class fertilizacionRiegoInvernaderoRequest extends Request
             'siembraT' => 'required|exists:siembra_invernadero,id',
             'fecha' =>  'required|date_format:d/m/Y',
             'tiempoRiego' =>  'required|numeric|min:0',
-            'etapaFenologica' => 'in:Emergencia,Transplante,Crecimineto vegetativo,Fructificación,Senescencia',
+            'etapaFenologica' => 'in:Emergencia,Transplante,Crecimiento vegetativo,Fructificación,Senescencia',
             'frecuencia'=>'numeric|max:999|min:0'
 
         ];

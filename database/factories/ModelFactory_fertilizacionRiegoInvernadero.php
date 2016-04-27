@@ -19,7 +19,7 @@ $factory->define(App\fertilizacionRiego::class, function (Faker\Generator $faker
 
     return [
         'fecha'=>$faker->dateTimeBetween($startDate = '-6 months', $endDate = 'now'),
-        'etapaFenologica' => $faker->randomElement(['Emergencia','Transplante','Crecimineto vegetativo','Fructificación','Senescencia']),
+        'etapaFenologica' => $faker->randomElement(['Emergencia','Transplante','Crecimiento vegetativo','Fructificación','Senescencia']),
         'tiempoRiego' => $faker->randomDigit,
         'frecuencia' => $faker->randomDigit,
         'formulacion' => $faker->address,
