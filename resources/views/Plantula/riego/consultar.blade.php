@@ -59,12 +59,12 @@
 
                                     <dl class="dl-horizontal">
                                         <dt>Invernadero</dt><dd>{{ $riego->invernadero->nombre }}</dd>
+                                        <dt>Siembra</dt><dd>{{ $riego->siembra->cultivo->nombre ." ". $riego->siembra->variedad }}</dd>
                                         <dt>Tiempo riego</dt><dd>{{ $riego->tiempoRiego }} minutos</dd>
                                         <dt>Frecuencia</dt><dd>{{ $riego->frecuencia }} minutos</dd>
                                         <dt>Fecha</dt><dd>{{ $riego->fecha }}</dd>
-                                        @if( $riego->formulacion != "")
-                                            <dt>Formulacion</dt><dd>{{ $riego->formulacion }}</dd>
-                                        @endif
+                                        <dt>Formulacion</dt><dd>{{ $riego->formulacion }}</dd>
+
 
                                     </dl>
                                 </div>
