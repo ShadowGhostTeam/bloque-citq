@@ -121,7 +121,7 @@ class preparacionSectorController extends Controller
         $preparacion=$this->adaptarRequest($request);
         $preparacion->save();
 
-        Session::flash('message', 'La preparacion ha sido agregada');
+        Session::flash('message', 'La preparación ha sido agregada');
         return redirect('sector/preparacion/crear');
     }
 
@@ -133,7 +133,7 @@ class preparacionSectorController extends Controller
         $preparacion=$this->adaptarRequest($request);
         $preparacion->save();
         $preparacion->push();
-        Session::flash('message', 'La preparacion ha sido modificada');
+        Session::flash('message', 'La preparación ha sido modificada');
         return redirect('sector/preparacion/modificar/'.$preparacion->id);
     }
 
@@ -144,7 +144,7 @@ class preparacionSectorController extends Controller
         $preparacion= preparacionSector::findOrFail($request->id);
         $preparacion->delete();
 
-        Session::flash('message','La preparacion ha sido eliminada');
+        Session::flash('message','La preparación ha sido eliminada');
         return redirect('sector/preparacion');
     }
 
