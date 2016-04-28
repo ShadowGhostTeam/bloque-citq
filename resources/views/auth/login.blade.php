@@ -42,7 +42,7 @@
                                 </li>
 
                                 <li>
-                                    <span class="un"><i class="fa fa-lock  fa-lg"></i></span><input type="password" class="text" name="password" placeholder="Contraseña">
+                                    <span class="un"><i class="fa fa-lock  fa-lg"></i></span><input type="password" class="text" name="password" placeholder="Password">
                                 </li>
 
                                 <li>
