@@ -27,7 +27,7 @@ class sectorSeeder extends Seeder
         sector::create(['nombre'=>'Sector 12']);
 
         sector::create(['nombre'=>'Oficina']);
-        sector::create(['nombre'=>'Invernaderos']);
+        sector::create(['nombre'=>'Áreas verdes invernaderos']);
         sector::create(['nombre'=>'Nogales']);
         sector::create(['nombre'=>'Manzanos']);
         sector::create(['nombre'=>'Pistaches']);
