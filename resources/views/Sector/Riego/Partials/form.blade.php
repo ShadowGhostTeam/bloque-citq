@@ -96,7 +96,7 @@
 
 
         <div class="form-group">
-            <label for="distanciaLineas" class="col-lg-2 control-label"><strong>*</strong>Distancia Entre Lineas de Riego (metros)</label>
+            <label for="distanciaLineas" class="col-lg-2 control-label"><strong>*</strong>Distancia Entre Líneas de Riego (metros)</label>
             <div class="col-lg-10">
                 @if( isset($riegoSector))
                     {!!Form::text('distanciaLineas' ,$riegoSector->distanciaLineas,['class'=>'form-control','id'=>'distanciaLineas','placeholder'=>'Distancia entre las líneas de riego (metros).'])!!}

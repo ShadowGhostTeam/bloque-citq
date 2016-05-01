@@ -64,7 +64,8 @@ class riegoPlantulaController extends Controller
     public function pagCrear() {
         $invernadero = invernaderoPlantula::select('id', 'nombre')->first();
         $invernaderos= invernaderoPlantula::select('id','nombre')->orderBy('nombre', 'asc')->get();
-        $siembras= siembraPlantula::select('id','variedad','fecha')->orderBy('variedad', 'asc')->get();
+        $siembras= siembraPlantula::select()->orderBy('variedad', 'asc')->get();
+        $this->adaptaFechas($siembras);
 
 
         return view('Plantula/riego/crear')->with([

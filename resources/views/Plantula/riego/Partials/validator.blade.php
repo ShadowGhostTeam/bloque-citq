@@ -78,7 +78,7 @@
                     validators: {
                         stringLength: {
                             max: 255,
-                            message: 'Debe ser menor de 255 carácteres'
+                            message: 'Debe ser menor de 255 caracteres'
                         }
                     }
                 },

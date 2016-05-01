@@ -250,7 +250,7 @@ class fertilizacionSectorController extends Controller
         $fertilizacion=$this->adaptarRequest($request);
         $fertilizacion->save();
 
-        Session::flash('message', 'La fertilizacion ha sido agregada');
+        Session::flash('message', 'La fertilización ha sido agregada');
         return redirect('sector/fertilizacion/crear');
     }
 
@@ -261,7 +261,7 @@ class fertilizacionSectorController extends Controller
         $fertilizacion=$this->adaptarRequest($request);
         $fertilizacion->save();
         $fertilizacion->push();
-        Session::flash('message', 'La fertilizacion ha sido modificada');
+        Session::flash('message', 'La fertilización ha sido modificada');
         return redirect('sector/fertilizacion/modificar/'.$fertilizacion->id);
     }
 
@@ -316,7 +316,7 @@ class fertilizacionSectorController extends Controller
         $fertilizacion= fertilizacion::findOrFail($request->id);
         $fertilizacion->delete();
 
-        Session::flash('message','La fertilizacion ha sido eliminada');
+        Session::flash('message','La fertilización ha sido eliminada');
         return redirect('sector/fertilizacion');
     }
 

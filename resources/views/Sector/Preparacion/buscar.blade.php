@@ -173,7 +173,7 @@ MAIN SIDEBAR MENU
 
                                                 <td style="width: 5px">
                                                     {!! Form::open(['action'=>['preparacionSectorController@eliminar'],'role'=>'form'] )  !!}
-                                                    <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la preparacion?")'><i class="fa fa-trash-o "></i></button>
+                                                    <button class="btn btn-danger btn-xs tooltips" data-placement="top" data-original-title="Eliminar" onclick='return confirm("¿Seguro que desea eliminar la preparación?")'><i class="fa fa-trash-o "></i></button>
                                                     <input type="hidden" name="id" value={{$preparacion->id}}>
                                                     {!! Form::close() !!}
                                                 </td>

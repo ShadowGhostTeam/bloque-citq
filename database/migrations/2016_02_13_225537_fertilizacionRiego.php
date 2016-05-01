@@ -15,7 +15,7 @@ class FertilizacionRiego extends Migration
         Schema::create('fertilizacion_riego', function (Blueprint $table) {
             $table->increments('id');
             $table->dateTime('fecha');
-            $table->enum('etapaFenologica',['Emergencia','Transplante','Crecimineto vegetativo','Fructificación','Senescencia']);
+            $table->enum('etapaFenologica',['Emergencia','Transplante','Crecimiento vegetativo','Fructificación','Senescencia']);
             $table->double('tiempoRiego')->unsigned();
             $table->double('frecuencia')->unsigned();
             $table->string('formulacion');
