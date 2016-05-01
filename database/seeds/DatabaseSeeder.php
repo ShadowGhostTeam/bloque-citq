@@ -20,32 +20,32 @@ class DatabaseSeeder extends Seeder
         $this->call('maquinariaSeeder');
 
         $this->call('sectorSeeder');
-        $this->call('preparacionSectorSeeder');
-        $this->call('siembraSectorSeeder');
-        $this->call('riegoSeeder');
-        $this->call('fertilizacionSeeder');
-        $this->call('mantenimientoSectorSeeder');
-        $this->call('cosechaSeeder');
+       // $this->call('preparacionSectorSeeder');
+       // $this->call('siembraSectorSeeder');
+        //$this->call('riegoSeeder');
+        //$this->call('fertilizacionSeeder');
+        //$this->call('mantenimientoSectorSeeder');
+        //$this->call('cosechaSeeder');
 
 
         //invernadero
 
 
         $this->call('invernaderoSeeder');
-        $this->call('siembraTransplanteInvernaderoSeeder');
-        $this->call('cosechaInvernaderoSeeder');
-        $this->call('preparacionInvernaderoSeeder');
-        $this->call('laboresSeeder');
-        $this->call('aplicacionesMantenimientoSeeder');
-        $this->call('fertilizacionRiegoInvernaderoSeeder');
+        //$this->call('siembraTransplanteInvernaderoSeeder');
+        //$this->call('cosechaInvernaderoSeeder');
+        //$this->call('preparacionInvernaderoSeeder');
+        //$this->call('laboresSeeder');
+        //$this->call('aplicacionesMantenimientoSeeder');
+        //$this->call('fertilizacionRiegoInvernaderoSeeder');
 
         //invernadero plantula
 
         $this->call('invernaderoPlantulaSeeder');
-        $this->call('siembraPlantulaSeeder');
-        $this->call('aplicacionesPlantulaSeeder');
-        $this->call('riegoPlantulaSeeder');
-        $this->call('salidaPlantaSeeder');
+        //$this->call('siembraPlantulaSeeder');
+        //$this->call('aplicacionesPlantulaSeeder');
+        //$this->call('riegoPlantulaSeeder');
+        //$this->call('salidaPlantaSeeder');
 
         //RBAC
         $this->call('usuariosSeeder');
