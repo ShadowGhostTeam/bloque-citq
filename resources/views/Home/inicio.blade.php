@@ -134,7 +134,9 @@ MAIN SIDEBAR MENU
                         <div class="col-xs-6 col-sm-3 block">
                             @if($siembras_sector4 == "[]")
                                 <div class="brown" id='sector'>
-                                    <h4> Sector 4</h4>
+                                    <div class="brown-darker">
+                                        <h4> Sector 4</h4>
+                                    </div>
                                     <div class="text">
                                         {{ "Sin siembras" }}
                                     </div>
