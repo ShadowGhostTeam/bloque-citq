@@ -31,6 +31,8 @@ class aplicacionesMantenimientoInvernaderoRequest extends Request
             'aplicacion' => 'required|in:Insecticida,Herbicida,Fungicida,Hormonas,Estimulantes',
             'tipoAplicacion' => 'required|in:Sistema de riego,Al suelo,Al follaje,Botellas Españolas',
             'fecha' =>  'required|date_format:d/m/Y',
+            'cantidad' =>  'numeric|min:0',
+
         ];
     }
 }
